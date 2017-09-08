@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 268435456,
+"dataUrl": "DXC GAME.data.unityweb",
+"asmCodeUrl": "DXC GAME.asm.code.unityweb",
+"asmMemoryUrl": "DXC GAME.asm.memory.unityweb",
+"asmFrameworkUrl": "DXC GAME.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#222C36"
+}

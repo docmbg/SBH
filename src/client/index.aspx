@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>CABO Community Page</title>
         <link rel="stylesheet" href="../styles.css">
+        <link rel="stylesheet" href="../react-grid-layout.css">
+        <link rel="stylesheet" href="../react-resizeable.css">
     <link rel="stylesheet" href="../react-bootstrap-table-all.min.css">
 </head>
 

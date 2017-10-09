@@ -34,7 +34,6 @@
     "react-slick": "^0.14.5",
     "react-sortable-hoc": "^0.4.5",
     "slick-carousel": "^1.6.0",
-    "spotify-web-api-node": "^2.3.6",
     "touch-cli": "0.0.1",
     "webpack": "^1.15.0"
   },
@@ -44,5 +43,14 @@
     "react-datatable": "0.0.31",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/docmbg/SBH.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/docmbg/SBH/issues"
+  },
+  "homepage": "https://github.com/docmbg/SBH#readme"
 }

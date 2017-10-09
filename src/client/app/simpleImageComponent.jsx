@@ -5,9 +5,9 @@ class SimpleImageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgSrc: this.props.imgSrc,
-            imgWidth: this.props.imgWidth,
-            imgHeight: this.props.imgHeight
+            imgSrc : this.props.componentProperties.imgSrc,
+            imgHeight : this.props.componentProperties.imgHeight,
+            imgWidth : this.props.componentProperties.imgWidth,
         }
     }
     onValueChange(e, changeCase) {
@@ -16,27 +16,33 @@ class SimpleImageComponent extends React.Component {
                 imgSrc: e.target.value
             })
             this.props.passProps({
-                currentImgSrc: e.target.value,
-                currentImgWidth: this.state.imgWidth,
-                currentImgHeight: this.state.imgHeight
+                componentProperties : {
+                    imgSrc: e.target.value,
+                    imgWidth: this.state.imgWidth,
+                    imgHeight: this.state.imgHeight
+                }
             })
         } else if (changeCase == "imgWidth") {
             this.setState({
                 imgWidth: e.target.value
             })
             this.props.passProps({
-                currentImgSrc: this.state.imgSrc,
-                currentImgWidth: e.target.value,
-                currentImgHeight: this.state.imgHeight
+                componentProperties : {
+                    imgSrc: this.state.imgSrc,
+                    imgWidth: e.target.value,
+                    imgHeight: this.state.imgHeight
+                }
             })
         } else if (changeCase == "imgHeight") {
             this.setState({
                 imgHeight: e.target.value
             })
             this.props.passProps({
-                currentImgSrc: this.state.imgSrc,
-                currentImgWidth: this.state.imgWidth,
-                currentImgHeight: e.target.value
+                componentProperties : {
+                    imgSrc: this.state.imgSrc,
+                    imgWidth: this.state.imgWidth,
+                    imgHeight: e.target.value
+                }
             })
         }
 

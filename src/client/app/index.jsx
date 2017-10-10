@@ -1,95 +1,93 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SimpleImageContainer from './simpleImageComponent.jsx';
-import SimpleHeader from './simpleHeader.jsx';
+// import SimpleImageContainer from './simpleImageComponent.jsx';
+// import SimpleHeader from './simpleHeader.jsx';
 import SimpleTextEditor from './simpleTextEditor.jsx';
-import ContentEditor from './contentEditor.jsx';
-import GridLayout from './gridLayout.jsx';
-import GridLayoutResponsive  from './gridLayoutResponsive.jsx'
+// import ContentEditor from './contentEditor.jsx';
+import ReactGridLayout from 'react-grid-layout';
+import Slider from './slider.jsx';
+import Modal from './modal.jsx';
+import { WidthProvider, Responsive } from 'react-grid-layout';
+
+
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
+const breakpoints={ lg: 1600, md: 1200, sm: 768, xs: 480};
+
 //const currentURL = new URL(window.location.href);
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      site: "main",
-      mode: "edit",
-      siteName: "test-preview",
-      currentItem: "SimpleImageContainer",
-      content: [],
-      contentJSON: [],
-      JSON: localStorage.getItem("SBHJSON")
-    }
+    // const layout = [{ i: '0', x: 0, y: 0, w: 1, h: 2, },
+    // { i: '1', x: 1, y: 0, w: 3, h: 2, },
+    // { i: '2', x: 4, y: 0, w: 1, h: 2 }]
+    const layouts = {} 
+    const currentItems = 0
+    const items = [];
+    const defaultProps = {
+      className: "layout",
+      items: 20,
+      rowHeight: 30
+    };
+    const modalOpened = false;
+    this.state = { layouts, defaultProps, currentItems, items, modalOpened};
   }
-  componentWillMount() {
-    let _this = this;
-    if (window.location.href.indexOf("?") < 0) {
-      this.setState({
-        site: "main"
-      })
-    } else {
-      this.setState({
-        site: getParams("page", window.location.href)
-      })
-    }
+  onLayoutChange(layout,layouts) {
+    this.setState({layouts});
+  }
 
-    if (localStorage.getItem(this.state.siteName) && window.location.href.indexOf("?") > 0) {
-      console.log("site name: ", _this.state.siteName, this.state.site);
-      this.setState({
-        contentJSON: JSON.parse(localStorage.getItem(localStorage.getItem(_this.state.siteName)))
-      })
-    }
-  }
-  saveToList() {
-    let currentItemId = generateRandomKey();
-    if (!localStorage.getItem(this.state.siteName)) {
-      localStorage.setItem(this.state.siteName, currentItemId);
-      localStorage.setItem(currentItemId, JSON.stringify(this.state.contentJSON))
-    } else {
-      localStorage.setItem(localStorage.getItem(this.state.siteName), JSON.stringify(this.state.contentJSON));
-    }
-  }
-  changeCurrentEditableComponent(e) {
-    let currentItem = e.target.value;
+  openModal(){
+   
     this.setState({
-      currentItem
+      modalOpened: true
     })
   }
-  addContent(passed) {
-    let content = this.state.content;
-    content.push(passed)
+
+  addNewContainer(){
+    let _this = this;
+    let currentItems = this.state.currentItems;
+    currentItems++;
+    let items = this.state.items;
+    items.push(
+      <div 
+        className="gridLayout-cell" 
+        key={currentItems.toString()} 
+        data-grid={{w: 2, h: 3, x: 0, y: 0, minW: 2, minH: 3}}
+      >
+         <button onClick={()=> this.openModal()}>+</button>
+      </div>
+    )
     this.setState({
-      content
+      currentItems, items
     })
-  }
-  addContentJSON(passed) {
-    let contentJSON = this.state.contentJSON;
-    contentJSON.push(passed)
-    this.setState({
-      contentJSON
-    })
-  }
-  parseLayoutChange(layout){
-    console.log(layout)
   }
   render() {
-    if (this.state.mode == "edit") {
-      return (
-        <div className="siteContainer">
-          <div className="contentRow">
-          {/* <GridLayout 
-            onLayoutChange={(e) => this.parseLayoutChange(e)} 
-            items={20}
-            rowHeight= {30}
-            cols={12}
-          /> */}
-          <GridLayoutResponsive />
-          </div>
-        </div>
-      )
-    }
+    console.log(this.state.items)
+    let currentEditable;
+    let _this = this;
+    let modal = this.state.modalOpened == false ? <Modal isActive={false}/> : <Modal isActive={true}/>
+    console.log(modal)
+    return (
+      <div className="layoutContainer">
+        <button onClick={() => this.addNewContainer()} className="addButton">Add new container</button>      
+        <ResponsiveReactGridLayout className="layout"
+        onLayoutChange={(layout, layouts) => this.onLayoutChange(layout,layouts)}
+        preventCollision={false}
+        layouts={this.state.layouts}
+        cols={{ lg: 12, md: 10, sm: 6, xs: 4}}
+        breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480}}
+        width={1600}
+        rowHeight={30} >
+        {this.state.items.map(e => e)}
+      </ResponsiveReactGridLayout>
+      {modal}
+      </div>
+
+    )
   }
 }
+
 
 ReactDOM.render(
   <App />
@@ -97,46 +95,12 @@ ReactDOM.render(
 
 export default App;
 
-//util funcs
-function getParams(name, url) {
+/* function getParams(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, "\\$&");
   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-    results = regex.exec(url);
+      results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-function generateRandomKey() {
-  let p = "";
-  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for (let i = 0; i < 7; i++) {
-    p += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return p
-}
-function parseContentJSON(obj) {
-  console.log(obj);
-  if (obj["type"] == "SimpleTextEditor") {
-    return (<SimpleTextEditor
-      value={obj.componentProperties.value}
-      editable={false}
-    />)
-  } else if (obj["type"] == "SimpleImageContainer") {
-    return (<SimpleImageContainer
-      imgSrc={obj.componentProperties.imgSrc}
-      imgWidth={obj.componentProperties.imgWidth}
-      imgHeight={obj.componentProperties.imgHeight}
-      editable={false}
-    />
-    )
-  } else if (obj["type"] == "SimpleHeader") {
-    return (<SimpleHeader
-      value={obj.componentProperties.value}
-      fontSize={obj.componentProperties.fontSize}
-      textBold={obj.componentProperties.textBold}
-      textUnderline={obj.componentProperties.textUnderline}
-      editable={false}
-    />)
-  }
-}
+} */

@@ -6,6 +6,7 @@ import SimpleTextEditor from './simpleTextEditor.jsx';
 // import ContentEditor from './contentEditor.jsx';
 import ReactGridLayout from 'react-grid-layout';
 import Slider from './slider.jsx';
+import Modal from './modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 
 
@@ -15,7 +16,7 @@ const breakpoints={ lg: 1600, md: 1200, sm: 768, xs: 480};
 //const currentURL = new URL(window.location.href);
 
 
-class GridLayoutResponsive extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     // const layout = [{ i: '0', x: 0, y: 0, w: 1, h: 2, },
@@ -29,23 +30,37 @@ class GridLayoutResponsive extends React.Component {
       items: 20,
       rowHeight: 30
     };
-    this.state = { layouts, defaultProps, currentItems, items};
+    const modalOpened = false;
+    this.state = { layouts, defaultProps, currentItems, items, modalOpened};
   }
   onLayoutChange(layout,layouts) {
     console.log(layout);
     this.setState({layouts});
   }
+
+  openModal(){
+    this.setState({
+      modalOpened: true
+    })
+  }
+
   addNewContainer(){
+    console.log(this.state.layouts);
     let currentItems = this.state.currentItems;
     currentItems++;
     let items = this.state.items;
-    items.push(<div 
-      className="gridLayout-cell" 
-      key={currentItems.toString()} 
-      data-grid={{w: 2, h: 3, x: 0, y: 0, minW: 1, minH: 1}}
-    >
-    Empty
-    </div>)
+    items.push(
+      <div 
+        className="gridLayout-cell" 
+        key={currentItems.toString()} 
+        data-grid={{w: 2, h: 3, x: 0, y: 0, minW: 2, minH: 3}}
+      >
+        
+        {
+          this.state.modalOpened == false ?  <button onClick={()=> this.openModal()}>+</button> : <Modal/>
+        }
+      </div>
+    )
     this.setState({
       currentItems, items
     })
@@ -58,7 +73,6 @@ class GridLayoutResponsive extends React.Component {
       <div className="layoutContainer">
         <button onClick={() => this.addNewContainer()} className="addButton">Add new container</button>      
         <ResponsiveReactGridLayout className="layout"
-        compactType="horizontal"
         onLayoutChange={(layout, layouts) => this.onLayoutChange(layout,layouts)}
         preventCollision={false}
         layouts={this.state.layouts}
@@ -66,7 +80,7 @@ class GridLayoutResponsive extends React.Component {
         breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480}}
         width={1600}
         rowHeight={30} >
-        {this.state.items.map(e => e)}
+        {this.state.items}
       </ResponsiveReactGridLayout>
       </div>
 
@@ -74,4 +88,19 @@ class GridLayoutResponsive extends React.Component {
   }
 }
 
-export default GridLayoutResponsive;
+
+ReactDOM.render(
+  <App />
+  , document.getElementById('app'))
+
+export default App;
+
+/* function getParams(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+} */

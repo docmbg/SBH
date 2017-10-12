@@ -44,11 +44,11 @@ class App extends React.Component {
     };
   }
   componentWillMount() {
-    if (getParameterByName("type") == "edit"){
+    if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0){
       this.setState({
         currentMode: "edit",
-        currentPage: getParameterByName("page"),
-        currentStateJSON: localStorage.getItem(getParameterByName("page"))
+        currentPage: getParameterByName("page") || "",
+        currentStateJSON: (localStorage.getItem(getParameterByName("page")) || "[]")
       })
     } else {
       this.setState({

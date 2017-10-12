@@ -21,7 +21,7 @@ class SimpleTextEditor extends React.Component {
     render() {
         if(!this.props.editable){
             return (
-                <div className="simpleTextEditor-disabled">{this.state.value}</div>
+                <div className="simpleTextEditor-textArea">{this.state.value}</div>
             );
         } else {
             return (

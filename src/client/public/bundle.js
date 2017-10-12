@@ -128,11 +128,11 @@
 	  _createClass(App, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      if (getParameterByName("type") == "edit") {
+	      if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
 	        this.setState({
 	          currentMode: "edit",
-	          currentPage: getParameterByName("page"),
-	          currentStateJSON: localStorage.getItem(getParameterByName("page"))
+	          currentPage: getParameterByName("page") || "",
+	          currentStateJSON: localStorage.getItem(getParameterByName("page")) || "[]"
 	        });
 	      } else {
 	        this.setState({
@@ -29469,7 +29469,7 @@
 
 	            if (!this.props.editable) {
 	                return _react2.default.createElement('img', {
-	                    className: 'simpleImageComponent-disabled',
+	                    className: 'simpleImageComponent-image',
 	                    src: this.state.imgSrc,
 	                    width: this.state.imgWidth,
 	                    height: this.state.imgHeight
@@ -29587,7 +29587,7 @@
 	            if (!this.props.editable) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'simpleTextEditor-disabled' },
+	                    { className: 'simpleTextEditor-textArea' },
 	                    this.state.value
 	                );
 	            } else {

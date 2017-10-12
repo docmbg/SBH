@@ -51,7 +51,7 @@ class SimpleImageComponent extends React.Component {
         if (!this.props.editable) {
             return (
                 <img
-                    className="simpleImageComponent-disabled"
+                    className="simpleImageComponent-image"
                     src={this.state.imgSrc}
                     width={this.state.imgWidth}
                     height={this.state.imgHeight}

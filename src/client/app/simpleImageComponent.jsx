@@ -5,50 +5,49 @@ class SimpleImageComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            imgSrc : this.props.componentProperties.imgSrc,
-            imgHeight : this.props.componentProperties.imgHeight,
-            imgWidth : this.props.componentProperties.imgWidth,
+            imgSrc: this.props.componentProperties.imgSrc,
+            imgHeight: this.props.componentProperties.imgHeight,
+            imgWidth: this.props.componentProperties.imgWidth,
+            editable: this.props.editable
         }
     }
-    onValueChange(e, changeCase) {
-        if (changeCase == "imgSrc") {
-            this.setState({
-                imgSrc: e.target.value
-            })
-            this.props.passProps({
-                componentProperties : {
-                    imgSrc: e.target.value,
-                    imgWidth: this.state.imgWidth,
-                    imgHeight: this.state.imgHeight
-                }
-            })
-        } else if (changeCase == "imgWidth") {
-            this.setState({
-                imgWidth: e.target.value
-            })
-            this.props.passProps({
-                componentProperties : {
-                    imgSrc: this.state.imgSrc,
-                    imgWidth: e.target.value,
-                    imgHeight: this.state.imgHeight
-                }
-            })
-        } else if (changeCase == "imgHeight") {
-            this.setState({
-                imgHeight: e.target.value
-            })
-            this.props.passProps({
-                componentProperties : {
-                    imgSrc: this.state.imgSrc,
-                    imgWidth: this.state.imgWidth,
-                    imgHeight: e.target.value
-                }
-            })
+    passProps(e, occ) {
+        let newVal = e.target.value;
+        switch (occ) {
+            case ("imgSrc"):
+                this.setState({
+                    imgSrc: newVal
+                })
+                break;
+            case ("imgHeight"):
+                this.setState({
+                    imgHeight: newVal
+                })
+                break;
+            case ("imgWidth"):
+                this.setState({
+                    imgWidth: newVal
+                })
+                break;
+            default:
+                console.log("Nothing to change")
         }
-
+        
+    }
+    saveEdit() {
+        console.log("Image pass props")
+        console.log({
+            imgSrc: this.state.imgSrc,
+            imgWidth: this.state.imgHeight,
+            imgHeight: this.state.imgWidth
+        })
+        this.props.passProps({
+            imgSrc: this.state.imgSrc,
+            imgWidth: this.state.imgHeight,
+            imgHeight: this.state.imgWidth
+        })
     }
     render() {
-        let editable = {};
         if (!this.props.editable) {
             return (
                 <img
@@ -60,39 +59,19 @@ class SimpleImageComponent extends React.Component {
             );
         } else {
             return (
-                <div className="simpleImageComponent-enabled">
-                    <div className="simpleImageComponent-image_details edit-details">
-                        <p>Image Width</p>
-                        <input className="edit-input-short"
-                            type="number"
-                            onChange={(e) => this.onValueChange(e, "imgWidth")}
-                            value={this.state.imgWidth}
-                        />
-                        <p>Image Height</p>
-                        <input className="edit-input-short"
-                            type="number"
-                            onChange={(e) => this.onValueChange(e, "imgHeight")}
-                            value={this.state.imgHeight}
-                        />
-                        <p>Image Source</p>
-                        <input className="edit-input-long"
-                            onChange={(e) => this.onValueChange(e, "imgSrc")}
-                            value={this.state.imgSrc}
-                        />
-                    </div>
-                    <div className="simpleImageComponent-image_preview edit-preview">
-                        <div className="edit-preview-title">Preview:</div>
-                        <img
-                            className="displayComponent imageComponent"
-                            src={this.state.imgSrc}
-                            width={this.state.imgWidth}
-                            height={this.state.imgHeight}
-                        />
+                <div>
+                    <p>Image Width</p>
+                    <input type="number" value={parseInt((this.state.imgWidth || "0px").replace("px", ""))} onChange={(e) => this.passProps(e, "imgWidth")}></input>
+                    <p>Image Height</p>
+                    <input type="number" value={parseInt((this.state.imgHeight || "0px").replace("px", ""))} onChange={(e) => this.passProps(e, "imgHeight")}></input>
+                    <p>Image Source</p>
+                    <input type="text" value={this.state.imgSrc || ""} onChange={(e) => this.passProps(e, "imgSrc")}></input>
+                    <div>
+                    <button onClick={() => this.saveEdit()}>Save</button>
                     </div>
                 </div>
-            );
+            )
         }
-
     }
 }
 

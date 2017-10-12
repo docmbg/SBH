@@ -5,58 +5,47 @@ class SimpleHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.value,
-            fontSize: this.props.fontSize,
-            textUnderline: this.props.textUnderline,
-            textBold: this.props.textBold,
+            value: this.props.componentProperties.value || "",
+            fontSize: this.props.componentProperties.fontSize || "0",
+            textUnderline: this.props.componentProperties.textUnderline || false,
+            textBold: this.props.componentProperties.textBold || false,
             editable: this.props.editable
         }
     }
-    onValueChange(e, changeCase) {
-        console.log('passing props')
-
-        if (changeCase == "textUnderline") {
-            this.setState({
-                textUnderline: e.target.value
-            })
-            this.props.passProps({
-                currentHeaderValue: this.state.value,
-                currentHeaderBold: this.state.textBold,
-                currentHeaderUnderline: e.target.textUnderline,
-                currentHeaderFontSize: this.state.fontSize,
-            })
-        } else if (changeCase == "textBold") {
-            this.setState({
-                textBold: e.target.value
-            })
-            this.props.passProps({
-                currentHeaderValue: this.state.value,
-                currentHeaderBold: e.target.textBold,
-                currentHeaderUnderline: this.state.textUnderline,
-                currentHeaderFontSize: this.state.fontSize,
-            })
-        } else if (changeCase == "fontSize") {
-            this.setState({
-                fontSize: e.target.value
-            })
-            this.props.passProps({
-                currentHeaderValue: this.state.value,
-                currentHeaderBold: this.state.textBold,
-                currentHeaderUnderline: this.state.textUnderline,
-                currentHeaderFontSize: e.target.value,
-            })
-        } else if (changeCase == "value") {
-            this.setState({
-                value: e.target.value
-            })
-            this.props.passProps({
-                currentHeaderValue: e.target.value,
-                currentHeaderBold: this.state.textBold,
-                currentHeaderUnderline: this.state.textUnderline,
-                currentHeaderFontSize: this.state.fontSize,
-            })
+    passProps(e, occ) {
+        let newVal = e.target.value;
+        switch (occ) {
+            case ("value"):
+                this.setState({
+                    value: newVal
+                })
+                break;
+            case ("fontSize"):
+                this.setState({
+                    fontSize: newVal
+                })
+                break;
+            case ("textUnderline"):
+                this.setState({
+                    textUnderline: newVal
+                })
+                break;
+            case ("textBold"):
+                this.setState({
+                    textBold: newVal
+                })
+                break;
+            default:
+                console.log("Nothing to change")
         }
-
+    }
+    saveEdit(){
+        this.props.passProps({
+            value: this.state.value,
+            fontSize: this.state.fontSize,
+            textUnderline: this.state.textUnderline,
+            textBold: this.state.textBold
+        })
     }
     render() {
         let styleObj = {
@@ -71,37 +60,23 @@ class SimpleHeader extends React.Component {
                 </div>
             )
         }
-        return (
-            <div className="simpleHeader-enabled">
-                <div className="edit-details">
-                    <p className="edit-input-title">Underline</p>
-                    <input
-                        className="edit-input-checkbox"
-                        type="checkbox"
-                        defaultChecked={this.state.textUnderline}
-                        onChange={(e) => this.onValueChange(e, "textUnderline")}
-                    />
-                    <p className="edit-input-title">Bold</p>
-                    <input
-                        className="edit-input-checkbox"
-                        type="checkbox"
-                        checked={this.state.textBold}
-                        onChange={(e) => this.onValueChange(e, "textBold")}
-                    />
-                    <p className="edit-input-title">Font Size</p>
-                    <input
-                        className="edit-input-short"
-                        type="number"
-                        defaultChecked={this.state.fontSize}
-                        onChange={(e) => this.onValueChange(e, "fontSize")}
-                    />
-                </div>
-                <div className="edit-preview">
+        else {
+            return (
+                <div className="editContainer">
+                    <p>Bold</p>
+                    <input type="checkbox" defaultChecked={this.state.textBold || false} onChange={(e) => this.passProps(e, "textBold")}></input>
+                    <p>Underline</p>
+                    <input type="checkbox" defaultChecked={this.state.textUnderline || false} onChange={(e) => this.passProps(e, "textBold")}></input>
+                    <p>Font Size</p>
+                    <input type="number" value={parseInt((this.state.fontSize || "0px").replace("px", ""))} onChange={(e) => this.passProps(e, "fontSize")}></input>
                     <p>Text</p>
-                    <input onChange={(e) => this.onValueChange(e, "value")} value={this.state.value} style={styleObj} />
+                    <input type="text" value={this.state.value || ""} onChange={(e) => this.passProps(e, "value")}></input>
+                    <div>
+                    <button onClick={() => this.saveEdit()}>Save</button>
+                    </div>
                 </div>
-            </div>
-        );
+            )
+        }
     }
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactGridLayout from 'react-grid-layout';
-import Modal from './modal.jsx';
+import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
-import ContentContainer from './contentContainer.jsx';
+import ContentContainer from './components/contentContainer.jsx';
+import TextEditor from './components/textEditor.jsx'; 
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
@@ -153,10 +154,13 @@ class App extends React.Component {
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     console.log(currentStateComponents)
-    if (this.state.currentMode == "edit") {
+    //Testing rich text editor functionality
+    /*if (1 == 1){
+      <RichTextEditor/>
+    } else */if (this.state.currentMode == "edit") {
       return (
         <div className="layoutContainer">
-          <button onClick={() => this.addNewContainer()} className="addButton">Add new container</button>
+          <button onClick={() => this.addNewContainer()} className="addButton">Add a new container</button>
           <button onClick={() => this.savePage()} className="addButton">Save the page</button>
           <ResponsiveReactGridLayout className="layout"
             onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}

@@ -6,6 +6,7 @@ import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
 import TextEditor from './components/textEditor.jsx'; 
 
+
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
 
@@ -29,6 +30,7 @@ class App extends React.Component {
     const currentStateJSON = "[]";
     const currentActiveModal = "0";
     const childNodes = [];
+    const currentComponentProps = {}
     const currentPage = "";
     const currentMode = "";
     const defaultProps = {
@@ -40,7 +42,7 @@ class App extends React.Component {
     this.state = {
       currentPage,
       layouts, defaultProps, currentItems,
-      items, modalOpened, currentModalElement,
+      items, modalOpened, currentModalElement, currentComponentProps,
       currentStateJSON, childNodes
     };
   }
@@ -64,10 +66,19 @@ class App extends React.Component {
   }
 
   openModal(e, i) {
-    this.setState({
-      modalOpened: true,
-      currentActiveModal: i
-    });
+    if(i == this.state.currentActiveModal){
+      this.setState({
+        modalOpened: true,
+        currentActiveModal: i
+      });
+    } else {
+      this.setState({
+        modalOpened: true,
+        currentActiveModal: i,
+        currentComponentProps: {}
+      });
+    }
+    
   }
 
   addNewContainer() {
@@ -108,18 +119,22 @@ class App extends React.Component {
     
   }
   getModalProps(modalProps, modalKey, modalElementType) {
+    console.log("Get props (Index): ", modalProps)
     let currentStateJSON = JSON.parse(this.state.currentStateJSON);
-    console.log("modalElementType: ", modalElementType, " modalElementKey: ", modalKey)
+    // console.log("modalElementType: ", modalElementType, " modalElementKey: ", modalKey)
     currentStateJSON = currentStateJSON.map(function (e) {
       if (e["containerKey"] == modalKey) {
         e["innerElement"]["type"] = modalElementType;
         e["innerElement"]["innerElementProps"] = modalProps;
+        console.log("Get props (Modal Key Match): ", e["innerElement"]["innerElementProps"])
+
       }
       return e
     })
     currentStateJSON = JSON.stringify(currentStateJSON)
     this.setState({
-      currentStateJSON
+      currentStateJSON,
+      currentComponentProps: modalProps
     })
   }
   updateCurrentStateJSON(currentLayout) {
@@ -148,12 +163,12 @@ class App extends React.Component {
     this.setState({
       currentModalElement
     });
-    console.log(currentModalElement);
+    // console.log(currentModalElement);
   }
   render() {
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
-    console.log(currentStateComponents)
+    // console.log(currentStateComponents)
     //Testing rich text editor functionality
     /*if (1 == 1){
       <RichTextEditor/>
@@ -172,7 +187,7 @@ class App extends React.Component {
             rowHeight={15} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
-              console.log("Render Index: ", e["innerElement"]);
+              // console.log("Render Index: ", e["innerElement"]);
               return (
                 <div
                   className="gridLayout-cell"
@@ -188,6 +203,7 @@ class App extends React.Component {
           </ResponsiveReactGridLayout>
           <Modal
             passProps={(modalProps, modalKey, modalElementType) => this.getModalProps(modalProps, modalKey, modalElementType)}
+            currentComponentProps={this.state.currentComponentProps}
             currentComponent={this.state.currentModalElement}
             currentActiveModal={this.state.currentActiveModal}
             isActive={this.state.modalOpened}
@@ -211,7 +227,7 @@ class App extends React.Component {
             rowHeight={10} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
-              console.log("Render Index: ", e["innerElement"]);
+              // console.log("Render Index: ", e["innerElement"]);
               return (
                 <div
                   className="gridLayout-cell"

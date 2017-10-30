@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
 import SimpleTextEditor from './simpleTextEditor.jsx';
 import SimpleHeader from './simpleHeader.jsx';
+import TextEditor from './textEditor.jsx';
+import { convertFromRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -14,21 +17,23 @@ class ContentContainer extends React.Component {
     }
 
     componentsMap(elem) {
-        console.log("Content Container Element Props : ", this.props.innerElementProps)
+        let _this = this;
         switch (elem) {
             case ("ImageContainer"):
                 return (
-                    <SimpleImageComponent componentProperties={this.props.innerElementProps} />
+                    <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false}/>
                 )
                 break;
             case ("TextArea"):
+                // console.log("Before convert from Raw :", _this.props.innerElementProps)
+                // let newProps = convertFromRaw(_this.props.innerElementProps)
                 return (
-                    <SimpleTextEditor componentProperties={this.props.innerElementProps} />
+                    <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null}/>
                 )
                 break;
             case ("TextHeader"):
                 return (
-                    <SimpleHeader componentProperties={this.props.innerElementProps} />
+                    <SimpleHeader componentProperties={this.props.innerElementProps} editable={false}/>
                 )
                 break;
             default:
@@ -40,6 +45,7 @@ class ContentContainer extends React.Component {
     }
 
     render() {
+        console.log(this.props.innerElementProps);
         return (
             this.componentsMap(this.props.innerElementType)
         )

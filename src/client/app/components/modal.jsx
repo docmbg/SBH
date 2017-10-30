@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
 import SimpleTextEditor from './simpleTextEditor.jsx';
 import SimpleHeader from './simpleHeader.jsx';
+import TextEditor from './textEditor.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class Modal extends React.Component {
         this.props.updateCurrentElement(e)
     }
     getProps(e) {
+        console.log("Get props (Modal): ", e)
         this.setState({
             currentComponentProps: e
         })
@@ -28,7 +30,6 @@ class Modal extends React.Component {
         this.closeModal();
     }
     closeModal() {
-        console.log('test')
         this.setState({
             isActive: false
         })
@@ -38,13 +39,13 @@ class Modal extends React.Component {
     drawEditComponent() {
         switch (this.props.currentComponent) {
             case ("ImageContainer"):
-                return <SimpleImageComponent componentProperties={this.state.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <SimpleImageComponent componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TextHeader"):
-                return <SimpleHeader componentProperties={this.state.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <SimpleHeader componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TextArea"):
-                return <SimpleTextEditor componentProperties={this.state.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <TextEditor componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (
@@ -54,12 +55,11 @@ class Modal extends React.Component {
         }
     }
     render() {
-        let editProperties = this.drawEditComponent()
-        console.log("editProperties: ", editProperties);
+        let editProperties = this.drawEditComponent();
         if (this.props.isActive) {
             return (
                 <div className="modal-container">
-                    <div className="modal-background" onClick={() => this.closeModal()}>
+                    <div className="modal-background">
                     </div>
                     <div className="modal-content">
                         <select className="modal-content-select" onChange={(e) => this.handleModalChange(e)}>
@@ -71,6 +71,7 @@ class Modal extends React.Component {
                         <div>
                             {editProperties}
                         </div>
+                        
                     </div>
 
                 </div>

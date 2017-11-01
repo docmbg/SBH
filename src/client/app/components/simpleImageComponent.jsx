@@ -32,7 +32,7 @@ class SimpleImageComponent extends React.Component {
             default:
                 console.log("Nothing to change")
         }
-        
+
     }
     saveEdit() {
         console.log("Image pass props")
@@ -51,23 +51,40 @@ class SimpleImageComponent extends React.Component {
         if (!this.props.editable) {
             return (
                 <img
-                    className="simpleImageComponent-image"
-                    src={this.state.imgSrc}
-                    width={this.state.imgWidth}
-                    height={this.state.imgHeight}
+                    className="content-simpleImage content-disabled"
+                    src={this.props.componentProperties.imgSrc}
+                    width={this.props.componentProperties.imgWidth}
+                    height={this.props.componentProperties.imgHeight}
                 />
             );
         } else {
             return (
                 <div>
-                    <p>Image Width</p>
-                    <input type="number" value={parseInt((this.state.imgWidth || "0px").replace("px", ""))} onChange={(e) => this.passProps(e, "imgWidth")}></input>
-                    <p>Image Height</p>
-                    <input type="number" value={parseInt((this.state.imgHeight || "0px").replace("px", ""))} onChange={(e) => this.passProps(e, "imgHeight")}></input>
-                    <p>Image Source</p>
-                    <input type="text" value={this.state.imgSrc || ""} onChange={(e) => this.passProps(e, "imgSrc")}></input>
+                    <p className="modal-content-edit-header">Image Width</p>
+                    <input
+                        type="number"
+                        value={parseInt((this.state.imgWidth || "0px").replace("px", ""))}
+                        onChange={(e) => this.passProps(e, "imgWidth")}
+                        className="modal-content-edit-input-text"
+                    ></input>
+                    <p className="modal-content-edit-header">Image Height</p>
+                    <input
+                        type="number"
+                        value={parseInt((this.state.imgHeight || "0px").replace("px", ""))}
+                        onChange={(e) => this.passProps(e, "imgHeight")}
+                        className="modal-content-edit-input-text"
+                    ></input>
+                    <p className="modal-content-edit-header">Image Source</p>
+                    <input
+                        type="text" value={this.state.imgSrc || ""}
+                        onChange={(e) => this.passProps(e, "imgSrc")}
+                        className="modal-content-edit-input-text"
+                    ></input>
                     <div>
-                    <button onClick={() => this.saveEdit()}>Save</button>
+                        <button
+                            onClick={() => this.saveEdit()}
+                            className="modal-content-edit-save"
+                        >Save</button>
                     </div>
                 </div>
             )

@@ -1,8 +1,10 @@
+* {
+    font-family: Arial;
+}
 .gridLayout-cell {
      background: rgb(217,217,217);
 
  }
-
  .modal-container{
     position: fixed;
     left: 0;
@@ -13,7 +15,6 @@
     z-index: 1000;
     
 }
-
 .modal-background{
     margin: auto;
     position: fixed;
@@ -25,7 +26,31 @@
     opacity: 0.7;
     z-index: 1001;
 }
-.modal-content{
+.modal-content-select {
+    margin-top: 1em;
+    border: 0.1em solid #0089af;
+    color: #0089af;
+}
+.modal-content-select:hover, .modal-content-select:focus{
+    text-shadow: 0.02em 0.02em #00a9cf;
+    box-shadow: 0.02em 0.02em #00a9cf;
+}
+.modal-content-edit-header {
+    font-weight: 600;
+    color: #00699F;
+}
+.modal-content-edit-input-text {
+    border: 0.1em dotted #00699f;
+    color: #00699f;
+    font-weight: 600;
+    border-radius: 0.5em;
+    box-sizing: border-box;
+}
+input.modal-content-edit-input-text:focus, input.modal-content-edit-input-text:hover{
+    box-shadow: 0.05em 0.05em #0089aF;
+    text-shadow: 0.05em 0.05em #0089af;
+}
+.modal-content {
     position: fixed;
     display: block;
     width: 40%;
@@ -33,18 +58,49 @@
     z-index: 1001;
     margin-top: 5%;
     margin-left: 30%;
+    box-sizing: border-box;
+    border: 0.2em solid #0089af;
+    border-radius: 0.3em;
     background: white;
-
 }
-
 .zIndex {
     z-index:9000
 }
-.simpleImageComponent-image{
-    width: 100%;
-    max-height: 100% !important;
+.page-edit-banner-addButton {
+    height: 4%;
+    width: 10%;
+    margin: 0.5%;
+    font-weight: 600;
+    background-color: #FFAD00;
 }
-.simpleTextEditor-textArea{
+.slides > .active > img {
+	background-size: contain;
+    background-repeat: no-repeat;
+}
+.slides > li {
+	display: none;
+	visibility: hidden;
+	float: left;
+}
+.slides > li.active {
+	margin: 0;
     width: 100%;
     height: 100%;
+    display: block;
+    visibility: visible;
+    left: 0;
+    top: 0;
+}
+.slides > li > img {
+	width: 100%;
+	height: 100%;
+}
+ul.slides {
+    display: block;
+    list-style-type: none;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 1em;
+    -webkit-padding-start: 0px;
 }

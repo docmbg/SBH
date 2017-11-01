@@ -4,7 +4,7 @@ import ReactGridLayout from 'react-grid-layout';
 import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
-import TextEditor from './components/textEditor.jsx'; 
+import TextEditor from './components/textEditor.jsx';
 
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -47,7 +47,7 @@ class App extends React.Component {
     };
   }
   componentWillMount() {
-    if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0){
+    if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
       this.setState({
         currentMode: "edit",
         currentPage: getParameterByName("page") || "",
@@ -66,7 +66,7 @@ class App extends React.Component {
   }
 
   openModal(e, i) {
-    if(i == this.state.currentActiveModal){
+    if (i == this.state.currentActiveModal) {
       this.setState({
         modalOpened: true,
         currentActiveModal: i
@@ -78,7 +78,7 @@ class App extends React.Component {
         currentComponentProps: {}
       });
     }
-    
+
   }
 
   addNewContainer() {
@@ -106,7 +106,7 @@ class App extends React.Component {
     });
   }
   savePage() {
-    if(this.state.currentPage.length < 1){
+    if (this.state.currentPage.length < 1) {
       let prompt = window.prompt("Provide a name for this page");
       if ((prompt.match(/[\!\@\#\$\%\^\&\*\(\) ]/g) || []).length > 0) {
         alert("The name cannot contain special symbols or spaces");
@@ -116,18 +116,14 @@ class App extends React.Component {
     } else {
       localStorage.setItem(this.state.currentPage, this.state.currentStateJSON);
     }
-    
+
   }
   getModalProps(modalProps, modalKey, modalElementType) {
-    console.log("Get props (Index): ", modalProps)
     let currentStateJSON = JSON.parse(this.state.currentStateJSON);
-    // console.log("modalElementType: ", modalElementType, " modalElementKey: ", modalKey)
     currentStateJSON = currentStateJSON.map(function (e) {
       if (e["containerKey"] == modalKey) {
         e["innerElement"]["type"] = modalElementType;
         e["innerElement"]["innerElementProps"] = modalProps;
-        console.log("Get props (Modal Key Match): ", e["innerElement"]["innerElementProps"])
-
       }
       return e
     })
@@ -163,20 +159,17 @@ class App extends React.Component {
     this.setState({
       currentModalElement
     });
-    // console.log(currentModalElement);
   }
   render() {
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
-    // console.log(currentStateComponents)
-    //Testing rich text editor functionality
-    /*if (1 == 1){
-      <RichTextEditor/>
-    } else */if (this.state.currentMode == "edit") {
+    if (this.state.currentMode == "edit") {
       return (
-        <div className="layoutContainer">
-          <button onClick={() => this.addNewContainer()} className="addButton">Add a new container</button>
-          <button onClick={() => this.savePage()} className="addButton">Save the page</button>
+        <div className="page">
+          <div className="page-edit-banner">
+            <button onClick={() => this.addNewContainer()} className="page-edit-banner-addButton">Add a new container</button>
+            <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
+          </div>
           <ResponsiveReactGridLayout className="layout"
             onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
             preventCollision={false}
@@ -187,7 +180,6 @@ class App extends React.Component {
             rowHeight={15} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
-              // console.log("Render Index: ", e["innerElement"]);
               return (
                 <div
                   className="gridLayout-cell"
@@ -214,7 +206,7 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div className="layoutContainer">
+        <div className="page">
           <ResponsiveReactGridLayout className="layout"
             onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
             preventCollision={false}
@@ -227,7 +219,6 @@ class App extends React.Component {
             rowHeight={10} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
-              // console.log("Render Index: ", e["innerElement"]);
               return (
                 <div
                   className="gridLayout-cell"

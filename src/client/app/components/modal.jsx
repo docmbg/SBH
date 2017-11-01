@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
-import SimpleTextEditor from './simpleTextEditor.jsx';
 import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
+import SliderWebPart from './slider.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -15,17 +15,17 @@ class Modal extends React.Component {
             currentActiveModal: ""
         }
     }
-    handleModalChange(e){
+    handleModalChange(e) {
         this.setState({
             currentComponent: e
         })
         this.props.updateCurrentElement(e)
     }
     getProps(e) {
-        console.log("Get props (Modal): ", e)
         this.setState({
             currentComponentProps: e
         })
+        console.log("Modal recieving props: ", e);
         this.props.passProps(e, this.props.currentActiveModal, this.props.currentComponent);
         this.closeModal();
     }
@@ -35,7 +35,7 @@ class Modal extends React.Component {
         })
         this.props.updateStatus(false)
     }
-    
+
     drawEditComponent() {
         switch (this.props.currentComponent) {
             case ("ImageContainer"):
@@ -46,6 +46,9 @@ class Modal extends React.Component {
                 break;
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("Slider"):
+                return <SliderWebPart componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (
@@ -67,13 +70,12 @@ class Modal extends React.Component {
                             <option value="ImageContainer">Image Container</option>
                             <option value="TextHeader">Text Header</option>
                             <option value="TextArea">Text Area</option>
+                            <option value="Slider">Slider</option>
                         </select>
-                        <div>
+                        <div className="modal-content-edit-container">
                             {editProperties}
                         </div>
-                        
                     </div>
-
                 </div>
             )
         } else {

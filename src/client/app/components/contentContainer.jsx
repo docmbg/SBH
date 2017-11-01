@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
-import SimpleTextEditor from './simpleTextEditor.jsx';
 import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
-import { convertFromRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+import SliderWebPart from './slider.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            innerElementType : this.props.innerElementType,
+            innerElementType: this.props.innerElementType,
             innerElementProps: this.props.innerElementProps
         }
     }
@@ -20,21 +18,16 @@ class ContentContainer extends React.Component {
         let _this = this;
         switch (elem) {
             case ("ImageContainer"):
-                return (
-                    <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false}/>
-                )
+                return <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false} />
                 break;
             case ("TextArea"):
-                // console.log("Before convert from Raw :", _this.props.innerElementProps)
-                // let newProps = convertFromRaw(_this.props.innerElementProps)
-                return (
-                    <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null}/>
-                )
+                return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
                 break;
             case ("TextHeader"):
-                return (
-                    <SimpleHeader componentProperties={this.props.innerElementProps} editable={false}/>
-                )
+                return <SimpleHeader componentProperties={this.props.innerElementProps} editable={false} passProps={() => null}/>
+                break;
+                case ("Slider"):
+                return <SliderWebPart componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
                 break;
             default:
                 return (
@@ -43,9 +36,7 @@ class ContentContainer extends React.Component {
                 )
         }
     }
-
     render() {
-        console.log(this.props.innerElementProps);
         return (
             this.componentsMap(this.props.innerElementType)
         )

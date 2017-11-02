@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Slider, Slide } from 'react-materialize';
+// import { Slider, Slide } from 'react-materialize';
+import Slider from './sliderComponent.jsx'
 
 class SliderWebPart extends React.Component {
     constructor(props) {
@@ -93,27 +94,7 @@ class SliderWebPart extends React.Component {
 
         } else {
             return (
-                <Slider
-                    interval={10000}
-                >
-
-                    {
-                        that.props.componentProperties.slides.map((elem, i) =>
-                            <Slide
-                                key={`slide-${i}`}
-                                src={elem["src"]}>
-                                <div className="content-slider-div">
-                                    <p className="content-slider-div-title">{elem["title"]}</p>
-                                    <a href={elem["link"]}>
-                                        <div className="content-slider-div-button">
-                                            Read More
-                                        </div>
-                                    </a>
-                                </div>
-                            </Slide>
-                        )
-                    }
-                </Slider>
+                <Slider slides={that.props.componentProperties.slides} />
             )
         }
 

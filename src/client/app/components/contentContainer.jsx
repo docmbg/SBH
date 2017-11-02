@@ -4,6 +4,7 @@ import SimpleImageComponent from './simpleImageComponent.jsx';
 import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
+import SideNav from './sideNav.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -28,6 +29,9 @@ class ContentContainer extends React.Component {
                 break;
                 case ("Slider"):
                 return <SliderWebPart componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
+                break;
+                case ("SideNav"):
+                return <SideNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (

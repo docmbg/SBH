@@ -4,6 +4,7 @@ import SimpleImageComponent from './simpleImageComponent.jsx';
 import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
+import SideNav from './sideNav.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -50,6 +51,9 @@ class Modal extends React.Component {
             case ("Slider"):
                 return <SliderWebPart componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("SideNav"):
+                return <SideNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
             default:
                 return (
                     <div>
@@ -71,6 +75,7 @@ class Modal extends React.Component {
                             <option value="TextHeader">Text Header</option>
                             <option value="TextArea">Text Area</option>
                             <option value="Slider">Slider</option>
+                            <option value="SideNav">Side Navigation</option>
                         </select>
                         <div className="modal-content-edit-container">
                             {editProperties}

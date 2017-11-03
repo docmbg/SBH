@@ -53,7 +53,7 @@ class SliderWebPart extends React.Component {
                                     <button
                                         onClick={(i) => this.removeSlide(i)}
                                         className="modal-content-edit-button--remove"
-                                    >Remove Slide</button>
+                                    >X</button>
                                     <p className="modal-content-edit-header">Slide Image Source</p>
                                     <input
                                         type="text"
@@ -86,7 +86,7 @@ class SliderWebPart extends React.Component {
                     <div>
                         <button
                             onClick={() => that.saveEdit()}
-                            className="modal-content-edit-save"
+                            className="modal-content-edit--save"
                         >Save</button>
                     </div>
                 </div>

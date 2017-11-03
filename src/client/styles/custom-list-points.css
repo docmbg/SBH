@@ -1,5 +1,22 @@
+ul{
+    display: block;
+    list-style-type: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0;
+}
+li{
+    text-decoration: none;
+}
+li:hover{
+    text-decoration: none;
+}
 .point--arrow-circle{
     clear: both;
+    line-height: 1.5em;
+    font-size: 1.1em;
 }
 .point--arrow-circle::before{
     float: left;
@@ -29,4 +46,36 @@
 .arrow-dxc-white-inverse::before {
     background-color: #000;
     color: #FFF;
+}
+.dxc-yellow, .dxc-yellow > a, .dxc-yellow-hover, .dxc-yellow-hover > a{
+    background-color: #FFED00;
+    color: #000000;
+}
+.dxc-white, .dxc-white > a, .dxc-white-hover, .dxc-white-hover > a{
+    background-color: #FFFFFF;
+    color: #000000;
+}
+.dxc-black-white, .dxc-black-white > a,.dxc-black-white-hover, .dxc-black-white-hover > a{
+    background-color: #000000;
+    color: #ffffff;
+}
+.dxc-black-yellow, .dxc-black-yellow > a, .dxc-black-yellow-hover, .dxc-black-yellow-hover > a{
+    background-color: #000000;
+    color: #FFED00;
+}
+.dxc-yellow-hover:hover, .dxc-yellow-hover > a:hover{
+    background-color: #000000;
+    color: #FFED00;
+}
+.dxc-white-hover:hover, .dxc-white-hover > a:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+.dxc-black-white-hover:hover, .dxc-black-white-hover > a:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
+.dxc-black-yellow-hover:hover, .dxc-black-yellow-hover > a:hover{
+    background-color: #FFED00;
+    color: #000000;
 }

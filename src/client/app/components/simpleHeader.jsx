@@ -96,7 +96,7 @@ class SimpleHeader extends React.Component {
                     ></input>
                     <div>
                         <button
-                            className="modal-content-edit-save"
+                            className="modal-content-edit--save"
                             onClick={() => this.saveEdit()}
                         >Save</button>
                     </div>

@@ -28,7 +28,7 @@ class TextEditor extends Component {
                     <div>
                         <button
                             onClick={() => this.saveEdit()}
-                            className="modal-content-edit-save"
+                            className="modal-content-edit--save"
                         >Save</button>
                     </div>
                     <div className="contentEditor-container">

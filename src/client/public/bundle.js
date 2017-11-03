@@ -68,7 +68,7 @@
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _contentContainer = __webpack_require__(716);
+	var _contentContainer = __webpack_require__(669);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -29263,7 +29263,7 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _sideNav = __webpack_require__(718);
+	var _sideNav = __webpack_require__(668);
 
 	var _sideNav2 = _interopRequireDefault(_sideNav);
 
@@ -29564,7 +29564,7 @@
 	                                onClick: function onClick() {
 	                                    return _this2.saveEdit();
 	                                },
-	                                className: 'modal-content-edit-save'
+	                                className: 'modal-content-edit--save'
 	                            },
 	                            'Save'
 	                        )
@@ -29745,7 +29745,7 @@
 	                        _react2.default.createElement(
 	                            'button',
 	                            {
-	                                className: 'modal-content-edit-save',
+	                                className: 'modal-content-edit--save',
 	                                onClick: function onClick() {
 	                                    return _this2.saveEdit();
 	                                }
@@ -29837,7 +29837,7 @@
 	                                onClick: function onClick() {
 	                                    return _this2.saveEdit();
 	                                },
-	                                className: 'modal-content-edit-save'
+	                                className: 'modal-content-edit--save'
 	                            },
 	                            'Save'
 	                        )
@@ -62039,7 +62039,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _sliderComponent = __webpack_require__(717);
+	var _sliderComponent = __webpack_require__(667);
 
 	var _sliderComponent2 = _interopRequireDefault(_sliderComponent);
 
@@ -62133,7 +62133,7 @@
 	                                        },
 	                                        className: 'modal-content-edit-button--remove'
 	                                    },
-	                                    'Remove Slide'
+	                                    'X'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'p',
@@ -62196,7 +62196,7 @@
 	                                onClick: function onClick() {
 	                                    return that.saveEdit();
 	                                },
-	                                className: 'modal-content-edit-save'
+	                                className: 'modal-content-edit--save'
 	                            },
 	                            'Save'
 	                        )
@@ -62214,165 +62214,7 @@
 	exports.default = SliderWebPart;
 
 /***/ }),
-/* 667 */,
-/* 668 */,
-/* 669 */,
-/* 670 */,
-/* 671 */,
-/* 672 */,
-/* 673 */,
-/* 674 */,
-/* 675 */,
-/* 676 */,
-/* 677 */,
-/* 678 */,
-/* 679 */,
-/* 680 */,
-/* 681 */,
-/* 682 */,
-/* 683 */,
-/* 684 */,
-/* 685 */,
-/* 686 */,
-/* 687 */,
-/* 688 */,
-/* 689 */,
-/* 690 */,
-/* 691 */,
-/* 692 */,
-/* 693 */,
-/* 694 */,
-/* 695 */,
-/* 696 */,
-/* 697 */,
-/* 698 */,
-/* 699 */,
-/* 700 */,
-/* 701 */,
-/* 702 */,
-/* 703 */,
-/* 704 */,
-/* 705 */,
-/* 706 */,
-/* 707 */,
-/* 708 */,
-/* 709 */,
-/* 710 */,
-/* 711 */,
-/* 712 */,
-/* 713 */,
-/* 714 */,
-/* 715 */,
-/* 716 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _simpleImageComponent = __webpack_require__(202);
-
-	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
-
-	var _simpleHeader = __webpack_require__(203);
-
-	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
-
-	var _textEditor = __webpack_require__(204);
-
-	var _textEditor2 = _interopRequireDefault(_textEditor);
-
-	var _slider = __webpack_require__(666);
-
-	var _slider2 = _interopRequireDefault(_slider);
-
-	var _sideNav = __webpack_require__(718);
-
-	var _sideNav2 = _interopRequireDefault(_sideNav);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ContentContainer = function (_React$Component) {
-	    _inherits(ContentContainer, _React$Component);
-
-	    function ContentContainer(props) {
-	        _classCallCheck(this, ContentContainer);
-
-	        var _this2 = _possibleConstructorReturn(this, (ContentContainer.__proto__ || Object.getPrototypeOf(ContentContainer)).call(this, props));
-
-	        _this2.state = {
-	            innerElementType: _this2.props.innerElementType,
-	            innerElementProps: _this2.props.innerElementProps
-	        };
-	        return _this2;
-	    }
-
-	    _createClass(ContentContainer, [{
-	        key: 'componentsMap',
-	        value: function componentsMap(elem) {
-	            var _this3 = this;
-
-	            var _this = this;
-	            switch (elem) {
-	                case "ImageContainer":
-	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false });
-	                    break;
-	                case "TextArea":
-	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "TextHeader":
-	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "Slider":
-	                    return _react2.default.createElement(_slider2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "SideNav":
-	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
-	                            return _this3.getProps(e);
-	                        } });
-	                    break;
-	                default:
-	                    return _react2.default.createElement('div', null);
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return this.componentsMap(this.props.innerElementType);
-	        }
-	    }]);
-
-	    return ContentContainer;
-	}(_react2.default.Component);
-
-	exports.default = ContentContainer;
-
-/***/ }),
-/* 717 */
+/* 667 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62505,7 +62347,7 @@
 	            var slides = this.state.slides;
 	            return _react2.default.createElement(
 	                'div',
-	                { className: '' },
+	                { className: 'content-slider' },
 	                _react2.default.createElement('img', { src: this.state.currentPicture, className: this.state.className + ' content-slider-image' }),
 	                slides.map(function (elem, index) {
 	                    if (index + 1 == _this.state.currentPictureIndex) {
@@ -62558,7 +62400,7 @@
 	exports.default = Slider;
 
 /***/ }),
-/* 718 */
+/* 668 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62579,6 +62421,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -62594,21 +62438,23 @@
 	        var _this = _possibleConstructorReturn(this, (SideNav.__proto__ || Object.getPrototypeOf(SideNav)).call(this, props));
 
 	        _this.state = {
-	            links: _this.props.componentProperties.links || []
+	            links: _this.props.componentProperties.links || [],
+	            linkColor: _this.props.componentProperties.linkColor || "",
+	            linkStyle: _this.props.componentProperties.linkStyle || "",
+	            linkInvert: _this.props.componentProperties.linkInvert || false
 	        };
 	        return _this;
 	    }
-	    // "title": current.attr("ows_Title"),
-	    // "link": current.attr("ows_Item_Link"),
-	    // "order": current.attr("ows_Item_Order")
-
 
 	    _createClass(SideNav, [{
 	        key: 'saveEdit',
 	        value: function saveEdit() {
 	            var links = this.state.links;
+	            var linkColor = this.state.linkColor;
+	            var linkStyle = this.state.linkStyle;
+	            var linkInvert = this.state.linkInvert;
 	            this.props.passProps({
-	                links: links
+	                links: links, linkColor: linkColor, linkStyle: linkStyle, linkInvert: linkInvert
 	            });
 	        }
 	    }, {
@@ -62619,6 +62465,12 @@
 	            this.setState({
 	                links: links
 	            });
+	        }
+	    }, {
+	        key: 'updateStyle',
+	        value: function updateStyle(value, type) {
+	            this.setState(_defineProperty({}, type, value.target.value));
+	            console.log(value);
 	        }
 	    }, {
 	        key: 'updateLink',
@@ -62636,8 +62488,7 @@
 	            links.push({
 	                title: "",
 	                address: "",
-	                target: "_blank",
-	                style: ""
+	                target: "_blank"
 	            });
 	            this.setState({
 	                links: links
@@ -62655,112 +62506,194 @@
 	                    { className: 'modal-content-edit-navigation--side-wrapper' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        null,
+	                        { className: 'w2' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'modal-content-edit-header' },
+	                            'Link Style'
+	                        ),
+	                        _react2.default.createElement(
+	                            'select',
+	                            {
+	                                value: that.state.linkStyle,
+	                                onChange: function onChange(value) {
+	                                    return that.updateStyle(value, "linkStyle");
+	                                },
+	                                className: 'modal-content-edit-select'
+	                            },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: '' },
+	                                'Default'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-yellow point--arrow-circle', value: 'arrow-dxc-yellow point--arrow-circle' },
+	                                'arrow-dxc-yellow'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-yellow-inverse point--arrow-circle', value: 'arrow-dxc-yellow-inverse point--arrow-circle' },
+	                                'arrow-dxc-yellow-inverse'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-white point--arrow-circle', value: 'arrow-dxc-white point--arrow-circle' },
+	                                'arrow-dxc-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-white-inverse point--arrow-circle', value: 'arrow-dxc-white-inverse point--arrow-circle' },
+	                                'arrow-dxc-white-inverse'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w2' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'modal-content-edit-header' },
+	                            'Links Color'
+	                        ),
+	                        _react2.default.createElement(
+	                            'select',
+	                            {
+	                                value: that.state.linkColor,
+	                                onChange: function onChange(value) {
+	                                    return that.updateStyle(value, "linkColor");
+	                                },
+	                                className: 'modal-content-edit-select'
+	                            },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'dxc-white' },
+	                                'Default'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-white', value: 'dxc-white' },
+	                                'dxc-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-yellow', value: 'dxc-yellow' },
+	                                'dxc-yellow'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-black-white', value: 'dxc-black-white' },
+	                                'dxc-black-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-black-yellow', value: 'dxc-black-yellow' },
+	                                'dxc-black-yellow'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            { className: '\n                        ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : "") + ' \n                        ' + that.state.linkStyle + ' \n                        modal-content-edit-preview'
+	                            },
+	                            'Preview'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            { className: 'modal-content-edit-header' },
+	                            'Invert color on hover?'
+	                        ),
+	                        _react2.default.createElement('input', { type: 'checkbox',
+	                            defaultChecked: this.state.linkInvert,
+	                            onChange: function onChange(value) {
+	                                return _this2.updateStyle(value, "linkInvert");
+	                            },
+	                            className: 'modal-content-edit-input-checkbox'
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
 	                        that.state.links.map(function (e, i) {
 	                            return _react2.default.createElement(
 	                                'div',
 	                                { className: 'modal-content-edit-navigation--side-container' },
 	                                _react2.default.createElement(
-	                                    'button',
-	                                    {
-	                                        onClick: function onClick(i) {
-	                                            return that.removeLink(i);
+	                                    'div',
+	                                    { className: 'w2' },
+	                                    _react2.default.createElement(
+	                                        'button',
+	                                        {
+	                                            onClick: function onClick(i) {
+	                                                return that.removeLink(i);
+	                                            },
+	                                            className: 'modal-content-edit-button--remove'
 	                                        },
-	                                        className: 'modal-content-edit-button--remove'
-	                                    },
-	                                    'Remove Slide'
+	                                        'X'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Title'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["title"],
+	                                        onChange: function onChange(event) {
+	                                            return that.updateLink(event, i, "title");
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    })
 	                                ),
 	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Link Title'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.links[i]["title"],
-	                                    onChange: function onChange(event) {
-	                                        return that.updateLink(event, i, "title");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                }),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Link Address'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.links[i]["address"],
-	                                    onChange: function onChange(value) {
-	                                        return that.updateLink(value, i, "address");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                }),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Link Target'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.links[i]["target"],
-	                                    onChange: function onChange(value) {
-	                                        return that.updateLink(value, i, "target");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                }),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Link Style'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-	                                        value: that.state.links[i]["style"],
+	                                    'div',
+	                                    { className: 'w2' },
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Address'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["address"],
 	                                        onChange: function onChange(value) {
-	                                            return that.updateLink(value, i, "style");
+	                                            return that.updateLink(value, i, "address");
 	                                        },
-	                                        className: 'modal-content-edit-select'
-	                                    },
+	                                        className: 'modal-content-edit-input-text'
+	                                    }),
 	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: '' },
-	                                        'Default'
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Target'
 	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { className: 'arrow-dxc-yellow', value: 'arrow-dxc-yellow' },
-	                                        'arrow-dxc-yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { className: 'arrow-dxc-yellow-inverse', value: 'arrow-dxc-yellow-inverse' },
-	                                        'arrow-dxc-yellow-inverse'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { className: 'arrow-dxc-white', value: 'arrow-dxc-white' },
-	                                        'arrow-dxc-white'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { className: 'arrow-dxc-white-inverse', value: 'arrow-dxc-white-inverse' },
-	                                        'arrow-dxc-white-inverse'
-	                                    )
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["target"],
+	                                        onChange: function onChange(value) {
+	                                            return that.updateLink(value, i, "target");
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    })
 	                                )
 	                            );
-	                        }),
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                className: 'modal-content-edit-button--plus',
-	                                onClick: function onClick() {
-	                                    return _this2.addLink();
-	                                }
-	                            },
-	                            '+'
-	                        )
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        {
+	                            className: 'modal-content-edit-button--plus',
+	                            onClick: function onClick() {
+	                                return _this2.addLink();
+	                            }
+	                        },
+	                        '+'
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -62771,7 +62704,7 @@
 	                                onClick: function onClick() {
 	                                    return that.saveEdit();
 	                                },
-	                                className: 'modal-content-edit-save'
+	                                className: 'modal-content-edit--save'
 	                            },
 	                            'Save'
 	                        )
@@ -62784,7 +62717,9 @@
 	                    that.state.links.map(function (e, i) {
 	                        return _react2.default.createElement(
 	                            'li',
-	                            { className: 'content-navigation--side-item point--arrow-circle ' + e["style"], key: 'side-nav-item-' + i },
+	                            {
+	                                className: 'content-navigation--side-item \n                                    ' + that.state.linkStyle + ' \n                                    ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : ""),
+	                                key: 'side-nav-item-' + i },
 	                            _react2.default.createElement(
 	                                'a',
 	                                {
@@ -62809,6 +62744,115 @@
 	}(_react2.default.Component);
 
 	exports.default = SideNav;
+
+/***/ }),
+/* 669 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _simpleImageComponent = __webpack_require__(202);
+
+	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
+
+	var _simpleHeader = __webpack_require__(203);
+
+	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
+
+	var _textEditor = __webpack_require__(204);
+
+	var _textEditor2 = _interopRequireDefault(_textEditor);
+
+	var _slider = __webpack_require__(666);
+
+	var _slider2 = _interopRequireDefault(_slider);
+
+	var _sideNav = __webpack_require__(668);
+
+	var _sideNav2 = _interopRequireDefault(_sideNav);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContentContainer = function (_React$Component) {
+	    _inherits(ContentContainer, _React$Component);
+
+	    function ContentContainer(props) {
+	        _classCallCheck(this, ContentContainer);
+
+	        var _this2 = _possibleConstructorReturn(this, (ContentContainer.__proto__ || Object.getPrototypeOf(ContentContainer)).call(this, props));
+
+	        _this2.state = {
+	            innerElementType: _this2.props.innerElementType,
+	            innerElementProps: _this2.props.innerElementProps
+	        };
+	        return _this2;
+	    }
+
+	    _createClass(ContentContainer, [{
+	        key: 'componentsMap',
+	        value: function componentsMap(elem) {
+	            var _this3 = this;
+
+	            var _this = this;
+	            switch (elem) {
+	                case "ImageContainer":
+	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false });
+	                    break;
+	                case "TextArea":
+	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "TextHeader":
+	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "Slider":
+	                    return _react2.default.createElement(_slider2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "SideNav":
+	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                default:
+	                    return _react2.default.createElement('div', null);
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return this.componentsMap(this.props.innerElementType);
+	        }
+	    }]);
+
+	    return ContentContainer;
+	}(_react2.default.Component);
+
+	exports.default = ContentContainer;
 
 /***/ })
 /******/ ]);

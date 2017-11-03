@@ -94,7 +94,7 @@ class Slider extends React.Component {
         }
         let slides = this.state.slides;
         return (
-            <div className="">
+            <div className="content-slider">
                 <img src={this.state.currentPicture} className={`${this.state.className} content-slider-image`} />
                 {
                     slides.map(function (elem, index) {

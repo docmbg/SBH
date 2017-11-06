@@ -11,6 +11,7 @@ class Modal extends React.Component{
     }
 
     componentWillReceiveProps(){
+        console.log(this.props.isActive)
         this.setState({
             isActive: this.props.isActive
         })

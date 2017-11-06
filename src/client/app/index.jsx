@@ -45,7 +45,6 @@ class App extends React.Component {
   }
 
   addNewContainer(){
-    let _this = this;
     let currentItems = this.state.currentItems;
     currentItems++;
     let items = this.state.items;
@@ -63,11 +62,9 @@ class App extends React.Component {
     })
   }
   render() {
-    console.log(this.state.items)
     let currentEditable;
     let _this = this;
     let modal = this.state.modalOpened == false ? <Modal isActive={false}/> : <Modal isActive={true}/>
-    console.log(modal)
     return (
       <div className="layoutContainer">
         <button onClick={() => this.addNewContainer()} className="addButton">Add new container</button>      

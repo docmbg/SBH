@@ -26,7 +26,6 @@ class Modal extends React.Component {
         this.setState({
             currentComponentProps: e
         })
-        console.log("Modal recieving props: ", e);
         this.props.passProps(e, this.props.currentActiveModal, this.props.currentComponent);
         this.closeModal();
     }
@@ -66,9 +65,13 @@ class Modal extends React.Component {
         if (this.props.isActive) {
             return (
                 <div className="modal-container">
+                    
                     <div className="modal-background">
                     </div>
                     <div className="modal-content">
+                    <button className="modal-content-close modal-content-edit-button--remove" onClick={() => this.closeModal()}>
+                        Close
+                    </button>
                         <select className="modal-content-select" onChange={(e) => this.handleModalChange(e)}>
                             <option value="" default></option>
                             <option value="ImageContainer">Image Container</option>

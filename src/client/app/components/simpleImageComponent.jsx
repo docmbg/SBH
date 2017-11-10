@@ -53,8 +53,6 @@ class SimpleImageComponent extends React.Component {
                 <img
                     className="content-simpleImage content-disabled"
                     src={this.props.componentProperties.imgSrc}
-                    width={this.props.componentProperties.imgWidth}
-                    height={this.props.componentProperties.imgHeight}
                 />
             );
         } else {

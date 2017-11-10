@@ -65,17 +65,22 @@ class App extends React.Component {
     this.setState({ layouts });
   }
 
-  openModal(e, i) {
-    if (i == this.state.currentActiveModal) {
+  openModal(e, modalKey, modalType) {
+    let currentElement = JSON.parse(this.state.currentStateJSON).filter(function(e){
+      return e["containerKey"] == modalKey
+    })[0]
+    if (modalKey == this.state.currentActiveModal) {
       this.setState({
         modalOpened: true,
-        currentActiveModal: i
+        currentActiveModal: modalKey,
+        currentModalElement : modalType
       });
     } else {
       this.setState({
         modalOpened: true,
-        currentActiveModal: i,
-        currentComponentProps: {}
+        currentActiveModal: modalKey,
+        currentModalElement : modalType,
+        currentComponentProps: currentElement ? currentElement["innerElement"]["innerElementProps"] : {}
       });
     }
 
@@ -161,6 +166,7 @@ class App extends React.Component {
     });
   }
   render() {
+    
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
@@ -180,6 +186,7 @@ class App extends React.Component {
             rowHeight={15} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
+              let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
               return (
                 <div
                   className="gridLayout-cell"
@@ -187,7 +194,7 @@ class App extends React.Component {
                   data-grid={e["containerProps"]}
                 >
                   <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
-                  <button onClick={(e) => _this.openModal(e, modalKey)}>+</button>
+                  <button onClick={(e) => _this.openModal(e, modalKey,modalType)}>+</button>
                 </div>
               );
 

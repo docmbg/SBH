@@ -154,17 +154,22 @@
 	    }
 	  }, {
 	    key: 'openModal',
-	    value: function openModal(e, i) {
-	      if (i == this.state.currentActiveModal) {
+	    value: function openModal(e, modalKey, modalType) {
+	      var currentElement = JSON.parse(this.state.currentStateJSON).filter(function (e) {
+	        return e["containerKey"] == modalKey;
+	      })[0];
+	      if (modalKey == this.state.currentActiveModal) {
 	        this.setState({
 	          modalOpened: true,
-	          currentActiveModal: i
+	          currentActiveModal: modalKey,
+	          currentModalElement: modalType
 	        });
 	      } else {
 	        this.setState({
 	          modalOpened: true,
-	          currentActiveModal: i,
-	          currentComponentProps: {}
+	          currentActiveModal: modalKey,
+	          currentModalElement: modalType,
+	          currentComponentProps: currentElement ? currentElement["innerElement"]["innerElementProps"] : {}
 	        });
 	      }
 	    }
@@ -303,6 +308,7 @@
 	              rowHeight: 15 },
 	            currentStateComponents.map(function (e, i) {
 	              var modalKey = e["containerKey"];
+	              var modalType = e["innerElement"] ? e["innerElement"]["type"] || "" : "";
 	              return _react2.default.createElement(
 	                'div',
 	                {
@@ -314,7 +320,7 @@
 	                _react2.default.createElement(
 	                  'button',
 	                  { onClick: function onClick(e) {
-	                      return _this.openModal(e, modalKey);
+	                      return _this.openModal(e, modalKey, modalType);
 	                    } },
 	                  '+'
 	                )
@@ -29306,7 +29312,6 @@
 	            this.setState({
 	                currentComponentProps: e
 	            });
-	            console.log("Modal recieving props: ", e);
 	            this.props.passProps(e, this.props.currentActiveModal, this.props.currentComponent);
 	            this.closeModal();
 	        }
@@ -29367,6 +29372,13 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'modal-content' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'modal-content-close modal-content-edit-button--remove', onClick: function onClick() {
+	                                    return _this3.closeModal();
+	                                } },
+	                            'Close'
+	                        ),
 	                        _react2.default.createElement(
 	                            'select',
 	                            { className: 'modal-content-select', onChange: function onChange(e) {
@@ -29509,9 +29521,7 @@
 	            if (!this.props.editable) {
 	                return _react2.default.createElement('img', {
 	                    className: 'content-simpleImage content-disabled',
-	                    src: this.props.componentProperties.imgSrc,
-	                    width: this.props.componentProperties.imgWidth,
-	                    height: this.props.componentProperties.imgHeight
+	                    src: this.props.componentProperties.imgSrc
 	                });
 	            } else {
 	                return _react2.default.createElement(
@@ -62241,8 +62251,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//import { Router, browserHistory   } from 'react-router';
-
 	var Slider = function (_React$Component) {
 	    _inherits(Slider, _React$Component);
 
@@ -62261,38 +62269,11 @@
 	        };
 	        return _this2;
 	    }
-	    // componentWillMount() {
-	    //     let _this = this;
-	    //     $().SPServices({
-	    //         operation: "GetListItems",
-	    //         async: false,
-	    //         listName: "Slider Leadership",
-	    //         completefunc: function (xData, Status) {
-	    //             let slides = [];
-	    //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-	    //                 slides.push(
-	    //                 {
-	    //                     title: $(this).attr('ows_Title'),
-	    //                     jobTitle: $(this).attr('ows_Job_Title'),
-	    //                     picture: $(this).attr('ows_Picture'),
-	    //                     //readMore: $(this).attr('ows_Read_x0020_More_x0028_Link_x0029')
-	    //                 }
-	    //             )
-	    //             });
-	    //             _this.setState({
-	    //                 slides
-	    //             })
-
-	    //         }
-	    //     });
-
-	    // }
 
 	    _createClass(Slider, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var _this = this;
-
 	            var interval = setInterval(function change() {
 	                var timeTillChange = _this.state.timeTillChange;
 	                if (timeTillChange == 0) {
@@ -62337,10 +62318,8 @@
 	        value: function render() {
 	            var _this = this;
 	            var style = {
-	                // backgroundImage: `url(${this.state.currentPicture})`,
 	                backgroundSize: 'contain',
 	                backgroundRepeat: 'no-repeat',
-	                //transition: 'opacity 0.5s ease-out',
 	                width: '100%',
 	                height: '100%'
 	            };

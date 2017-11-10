@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import { Router, browserHistory   } from 'react-router';
 
 class Slider extends React.Component {
     constructor(props) {
@@ -14,36 +13,8 @@ class Slider extends React.Component {
             className: `sliderPicture`
         }
     }
-    // componentWillMount() {
-    //     let _this = this;
-    //     $().SPServices({
-    //         operation: "GetListItems",
-    //         async: false,
-    //         listName: "Slider Leadership",
-    //         completefunc: function (xData, Status) {
-    //             let slides = [];
-    //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-    //                 slides.push(
-    //                 {
-    //                     title: $(this).attr('ows_Title'),
-    //                     jobTitle: $(this).attr('ows_Job_Title'),
-    //                     picture: $(this).attr('ows_Picture'),
-    //                     //readMore: $(this).attr('ows_Read_x0020_More_x0028_Link_x0029')
-    //                 }
-    //             )
-    //             });
-    //             _this.setState({
-    //                 slides
-    //             })
-
-    //         }
-    //     });
-
-    // }
-
     componentDidMount() {
         let _this = this;
-
         let interval = setInterval(function change() {
             let timeTillChange = _this.state.timeTillChange;
             if (timeTillChange == 0) {
@@ -66,7 +37,6 @@ class Slider extends React.Component {
             return change
         }(), 250)
     }
-
     pickNextPicture(index, slides, timeBetweenSlides) {
         if (index == slides.length) {
             index = 0;
@@ -85,10 +55,8 @@ class Slider extends React.Component {
     render() {
         let _this = this;
         let style = {
-            // backgroundImage: `url(${this.state.currentPicture})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
-            //transition: 'opacity 0.5s ease-out',
             width: '100%',
             height: '100%'
         }

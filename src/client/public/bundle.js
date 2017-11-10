@@ -87,19 +87,19 @@
 	var ResponsiveReactGridLayout = (0, _reactGridLayout.WidthProvider)(_reactGridLayout.Responsive);
 	var breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
 	var components = [{
-	  type: 'Slider Component',
+	  type: 'Slider-Component',
 	  defaultSize: {
 	    w: 5,
 	    h: 12
 	  }
 	}, {
-	  type: 'ImageContainer Component',
+	  type: 'ImageContainer-Component',
 	  defaultSize: {
 	    w: 6,
 	    h: 7
 	  }
 	}, {
-	  type: 'TextArea Component',
+	  type: 'TextArea-Component',
 	  defaultSize: {
 	    w: 4,
 	    h: 10
@@ -377,6 +377,7 @@
 	    key: 'drop',
 	    value: function drop(e) {
 	      if (this.state.draggedComponent.indexOf('Component') > -1) {
+	        console.log('drop');
 	        var xPosition = Math.floor(e.screenX / windowW * 12); //calculation needed
 	        var yPosition = Math.floor(e.screenY / windowW * 30); //calculation needed    
 	        this.setState({
@@ -422,7 +423,7 @@
 	              'button',
 	              { onDragStart: function onDragStart(e) {
 	                  return _this5.drag(e);
-	                }, draggable: 'true', className: 'Slider Component' },
+	                }, draggable: 'true', className: 'Slider-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -433,7 +434,7 @@
 	              'button',
 	              { onDragStart: function onDragStart(e) {
 	                  return _this5.drag(e);
-	                }, draggable: 'true', className: 'TextArea Component' },
+	                }, draggable: 'true', className: 'TextArea-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -444,7 +445,7 @@
 	              'button',
 	              { onDragStart: function onDragStart(e) {
 	                  return _this5.drag(e);
-	                }, draggable: 'true', className: 'ImageContainer Component' },
+	                }, draggable: 'true', className: 'ImageContainer-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -453,37 +454,45 @@
 	            )
 	          ),
 	          _react2.default.createElement(
-	            ResponsiveReactGridLayout,
-	            { className: 'layout',
-	              onLayoutChange: function onLayoutChange(layout, layouts) {
-	                return _this5.onLayoutChange(layout, layouts);
-	              },
-	              preventCollision: false,
-	              layouts: this.state.layouts,
-	              cols: { lg: 60, md: 50, sm: 30, xs: 20 },
-	              breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
-	              width: 1600,
-	              rowHeight: 15 },
-	            currentStateComponents.map(function (e, i) {
-	              var modalKey = e["containerKey"];
-	              var modalType = e["innerElement"] ? e["innerElement"]["type"] || "" : "";
-	              return _react2.default.createElement(
-	                'div',
-	                {
-	                  className: 'gridLayout-cell',
-	                  key: (i + 1).toString(),
-	                  'data-grid': e["containerProps"]
+	            'div',
+	            { className: 'fullGrid', onDrop: function onDrop(e) {
+	                return _this5.drop(e);
+	              }, onDragOver: function onDragOver(e) {
+	                return _this5.allowDrop(e);
+	              } },
+	            _react2.default.createElement(
+	              ResponsiveReactGridLayout,
+	              { className: 'layout',
+	                onLayoutChange: function onLayoutChange(layout, layouts) {
+	                  return _this5.onLayoutChange(layout, layouts);
 	                },
-	                _react2.default.createElement(_contentContainer2.default, { innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] }),
-	                _react2.default.createElement(
-	                  'button',
-	                  { onClick: function onClick(e) {
-	                      return _this.openModal(e, modalKey, modalType);
-	                    } },
-	                  '+'
-	                )
-	              );
-	            })
+	                preventCollision: false,
+	                layouts: this.state.layouts,
+	                cols: { lg: 12, md: 12, sm: 12, xs: 12 },
+	                breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
+	                width: 1600,
+	                rowHeight: 15 },
+	              currentStateComponents.map(function (e, i) {
+	                var modalKey = e["containerKey"];
+	                var modalType = e["innerElement"] ? e["innerElement"]["type"] || "" : "";
+	                return _react2.default.createElement(
+	                  'div',
+	                  {
+	                    className: 'gridLayout-cell',
+	                    key: (i + 1).toString(),
+	                    'data-grid': e["containerProps"]
+	                  },
+	                  _react2.default.createElement(_contentContainer2.default, { innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] }),
+	                  _react2.default.createElement(
+	                    'button',
+	                    { onClick: function onClick(e) {
+	                        return _this.openModal(e, modalKey, modalType);
+	                      } },
+	                    '+'
+	                  )
+	                );
+	              })
+	            )
 	          ),
 	          _react2.default.createElement(_modal2.default, {
 	            passProps: function passProps(modalProps, modalKey, modalElementType) {

@@ -11,21 +11,21 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
 const components = [
   {
-    type: 'Slider Component',
+    type: 'Slider-Component',
     defaultSize: {
       w: 5,
       h: 12
     }
   },
   {
-    type: 'ImageContainer Component',
+    type: 'ImageContainer-Component',
     defaultSize: {
       w: 6,
       h: 7
     }
   },
   {
-    type: 'TextArea Component',
+    type: 'TextArea-Component',
     defaultSize: {
       w: 4,
       h: 10
@@ -226,7 +226,6 @@ class App extends React.Component {
     this.setState({
       draggedComponent: e.target.className
     })
-
   }
 
   currentDragPostion(e) {
@@ -274,6 +273,7 @@ class App extends React.Component {
 
   drop(e) {
     if (this.state.draggedComponent.indexOf('Component') > -1) {
+      console.log('drop')
       let xPosition = Math.floor(e.screenX / windowW * 12);//calculation needed
       let yPosition = Math.floor(e.screenY / windowW * 30);//calculation needed    
       this.setState({
@@ -294,15 +294,16 @@ class App extends React.Component {
           <div className="page-edit-banner">
             <button onClick={() => this.addNewContainer()} className="page-edit-banner-addButton" >Add a new container</button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="Slider Component"><i className="material-icons">&#xE8EB;</i></button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="TextArea Component"><i className="material-icons">&#xE23C;</i></button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="ImageContainer Component"><i className="material-icons">&#xE439;</i></button>
+            <button onDragStart={(e) => this.drag(e)} draggable="true" className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
+            <button onDragStart={(e) => this.drag(e)} draggable="true" className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
+            <button onDragStart={(e) => this.drag(e)} draggable="true" className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
           </div>
+          <div className="fullGrid" onDrop={(e)=>this.drop(e)} onDragOver={(e)=>this.allowDrop(e)} >
           <ResponsiveReactGridLayout className="layout"
             onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
             preventCollision={false}
             layouts={this.state.layouts}
-            cols={{ lg: 60, md: 50, sm: 30, xs: 20 }}
+            cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
             rowHeight={15} >
@@ -322,7 +323,7 @@ class App extends React.Component {
 
               })}
             </ResponsiveReactGridLayout>
-          
+          </div>
           <Modal
             passProps={(modalProps, modalKey, modalElementType) => this.getModalProps(modalProps, modalKey, modalElementType)}
             currentComponentProps={this.state.currentComponentProps}

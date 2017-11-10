@@ -122,7 +122,8 @@ class App extends React.Component {
       this.setState({
         modalOpened: true,
         currentActiveModal: modalKey,
-        currentModalElement : modalType
+        currentModalElement : modalType,
+        
       });
     }  else  {
       this.setState({
@@ -212,7 +213,6 @@ class App extends React.Component {
   }
   updateCurrentModalElement(evt) {
     let currentModalElement = evt.target.value;
-    console.log(currentModalElement)
     this.setState({
       currentModalElement
     });
@@ -229,12 +229,10 @@ class App extends React.Component {
   }
 
   currentDragPostion(e) {
-    console.log(this.state.draggedComponent)
     if (this.state.draggedComponent.indexOf('Component') > -1) {
       let size = components.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
       let width = `${windowW / 12 * size.w}px`;
       let height = `${windowH / 60 * size.h}px`;
-      console.log()
       this.setState({
         shadowComponent: {
           style: {
@@ -252,7 +250,6 @@ class App extends React.Component {
   }
 
   removeShadowComponent(e) {
-    console.log('dragend')
     // let shadowComponent = this.state.shadowComponent
     // shadowComponent.style.display = 'none'
     // console.log(shadowComponent)
@@ -273,7 +270,6 @@ class App extends React.Component {
 
   drop(e) {
     if (this.state.draggedComponent.indexOf('Component') > -1) {
-      console.log('drop')
       let xPosition = Math.floor(e.screenX / windowW * 12);//calculation needed
       let yPosition = Math.floor(e.screenY / windowW * 30);//calculation needed    
       this.setState({

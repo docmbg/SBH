@@ -11,6 +11,16 @@ class SideNav extends React.Component {
             linkInvert: this.props.componentProperties.linkInvert || false,
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            links: nextProps.componentProperties.links || [],
+            linkColor: nextProps.componentProperties.linkColor || "",
+            linkStyle: nextProps.componentProperties.linkStyle || "",
+            linkInvert: nextProps.componentProperties.linkInvert || false,
+        })
+    }
+
     saveEdit() {
         let links = this.state.links;
         let linkColor = this.state.linkColor;

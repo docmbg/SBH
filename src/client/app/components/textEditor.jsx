@@ -15,7 +15,15 @@ class TextEditor extends Component {
             })
         };
     }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            editorState: (nextProps.componentProperties.editorState ? EditorState.createWithContent(convertFromRaw(nextProps.componentProperties.editorState)) : EditorState.createEmpty())
+        })
+    }
+
     saveEdit() {
+        console.log(convertToRaw(this.state.editorState.getCurrentContent()))
         this.props.passProps({
             editorState: convertToRaw(this.state.editorState.getCurrentContent())
         })

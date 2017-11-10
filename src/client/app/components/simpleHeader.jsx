@@ -12,6 +12,17 @@ class SimpleHeader extends React.Component {
             editable: this.props.editable
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            value: nextProps.componentProperties.value || "",
+            fontSize: nextProps.componentProperties.fontSize || "0",
+            textUnderline: nextProps.componentProperties.textUnderline || false,
+            textBold: nextProps.componentProperties.textBold || false,
+            editable: nextProps.editable
+        })
+    }
+
     passProps(e, occ) {
         let newVal = e.target.value;
         switch (occ) {

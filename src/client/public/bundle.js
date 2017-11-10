@@ -204,6 +204,7 @@
 	          modalOpened: true,
 	          currentActiveModal: modalKey,
 	          currentModalElement: modalType
+
 	        });
 	      } else {
 	        this.setState({
@@ -307,7 +308,6 @@
 	    key: 'updateCurrentModalElement',
 	    value: function updateCurrentModalElement(evt) {
 	      var currentModalElement = evt.target.value;
-	      console.log(currentModalElement);
 	      this.setState({
 	        currentModalElement: currentModalElement
 	      });
@@ -329,14 +329,12 @@
 	    value: function currentDragPostion(e) {
 	      var _this4 = this;
 
-	      console.log(this.state.draggedComponent);
 	      if (this.state.draggedComponent.indexOf('Component') > -1) {
 	        var size = components.filter(function (e) {
 	          return e.type == _this4.state.draggedComponent;
 	        })[0].defaultSize;
 	        var width = windowW / 12 * size.w + 'px';
 	        var height = windowH / 60 * size.h + 'px';
-	        console.log();
 	        this.setState({
 	          shadowComponent: {
 	            style: {
@@ -355,7 +353,6 @@
 	  }, {
 	    key: 'removeShadowComponent',
 	    value: function removeShadowComponent(e) {
-	      console.log('dragend');
 	      // let shadowComponent = this.state.shadowComponent
 	      // shadowComponent.style.display = 'none'
 	      // console.log(shadowComponent)
@@ -377,7 +374,6 @@
 	    key: 'drop',
 	    value: function drop(e) {
 	      if (this.state.draggedComponent.indexOf('Component') > -1) {
-	        console.log('drop');
 	        var xPosition = Math.floor(e.screenX / windowW * 12); //calculation needed
 	        var yPosition = Math.floor(e.screenY / windowW * 30); //calculation needed    
 	        this.setState({
@@ -29518,8 +29514,8 @@
 	                return _react2.default.createElement('img', {
 	                    className: 'content-simpleImage content-disabled',
 	                    src: this.props.componentProperties.imgSrc,
-	                    width: this.props.componentProperties.imgWidth,
-	                    height: this.props.componentProperties.imgHeight
+	                    width: '100%',
+	                    height: '100%'
 	                });
 	            } else {
 	                return _react2.default.createElement(
@@ -29634,6 +29630,17 @@
 	    }
 
 	    _createClass(SimpleHeader, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                value: nextProps.componentProperties.value || "",
+	                fontSize: nextProps.componentProperties.fontSize || "0",
+	                textUnderline: nextProps.componentProperties.textUnderline || false,
+	                textBold: nextProps.componentProperties.textBold || false,
+	                editable: nextProps.editable
+	            });
+	        }
+	    }, {
 	        key: 'passProps',
 	        value: function passProps(e, occ) {
 	            var newVal = e.target.value;
@@ -29819,8 +29826,16 @@
 	    }
 
 	    _createClass(TextEditor, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                editorState: nextProps.componentProperties.editorState ? _draftJs.EditorState.createWithContent((0, _draftJs.convertFromRaw)(nextProps.componentProperties.editorState)) : _draftJs.EditorState.createEmpty()
+	            });
+	        }
+	    }, {
 	        key: 'saveEdit',
 	        value: function saveEdit() {
+	            console.log((0, _draftJs.convertToRaw)(this.state.editorState.getCurrentContent()));
 	            this.props.passProps({
 	                editorState: (0, _draftJs.convertToRaw)(this.state.editorState.getCurrentContent())
 	            });
@@ -53630,6 +53645,16 @@
 	    }
 
 	    _createClass(SideNav, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                links: nextProps.componentProperties.links || [],
+	                linkColor: nextProps.componentProperties.linkColor || "",
+	                linkStyle: nextProps.componentProperties.linkStyle || "",
+	                linkInvert: nextProps.componentProperties.linkInvert || false
+	            });
+	        }
+	    }, {
 	        key: 'saveEdit',
 	        value: function saveEdit() {
 	            var links = this.state.links;

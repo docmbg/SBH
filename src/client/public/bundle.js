@@ -497,17 +497,25 @@
 	                  _react2.default.createElement(_contentContainer2.default, { innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] }),
 	                  _react2.default.createElement(
 	                    'button',
-	                    { onClick: function onClick(e) {
+	                    { className: 'grid-controls-button button--settings', onClick: function onClick(e) {
 	                        return _this.openModal(e, modalKey, modalType);
 	                      } },
-	                    '+'
+	                    _react2.default.createElement(
+	                      'i',
+	                      { className: 'material-icons' },
+	                      '\uE869'
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    'button',
-	                    { className: 'remove', onClick: function onClick(e) {
+	                    { className: 'grid-controls-button button--remove', onClick: function onClick(e) {
 	                        return _this.onRemoveItem(modalKey);
 	                      } },
-	                    'x'
+	                    _react2.default.createElement(
+	                      'i',
+	                      { className: 'material-icons' },
+	                      '\uE5CD'
+	                    )
 	                  )
 	                );
 	              })

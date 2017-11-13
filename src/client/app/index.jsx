@@ -331,8 +331,9 @@ class App extends React.Component {
                   data-grid={e["containerProps"]}
                 >
                   <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
-                  <button onClick={(e) => _this.openModal(e, modalKey,modalType)}>+</button>
-                  <button className="remove"  onClick={(e)=> _this.onRemoveItem(modalKey)}>x</button>
+                  <button className="grid-controls-button button--settings" onClick={(e) => _this.openModal(e, modalKey,modalType)}><i className="material-icons">&#xE869;</i> 
+</button>
+                  <button className="grid-controls-button button--remove"  onClick={(e)=> _this.onRemoveItem(modalKey)}><i className="material-icons">&#xE5CD;</i></button>
                 </div>
               );
 

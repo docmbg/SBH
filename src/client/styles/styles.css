@@ -478,3 +478,32 @@ button {
 .material-icons {
     font-size:3em!important;
 }
+.grid-controls-button {
+    position: absolute;
+    left: 90%;
+    top: 0;
+    width: 5%;
+    display: block;
+    border: 1px dashed#000000;
+    cursor: pointer;
+    font-size: 0.5em;
+    font-weight: 800;
+    line-height: 1em;
+    font-stretch: expanded;
+    color: #FFFFFF;
+}
+.grid-controls-button.button--remove{
+    margin-left: 5%;
+    background-color: #CC2311;
+}
+.grid-controls-button.button--remove:hover{
+    background-color: #d33321;
+    text-shadow: 2px 2px #CC2311;
+}
+.grid-controls-button.button--settings{
+    background-color: #0089cc;
+}
+.grid-controls-button.button--settings:hover {
+    background-color: #0099dd;
+    text-shadow: 2px 2px #0089cc;
+}

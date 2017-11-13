@@ -472,18 +472,12 @@ div.w2{
 button {
     background:none;
     border:none;
-    margin-right: 1em;
 }
 
 .material-icons {
     font-size:3em!important;
 }
 .grid-controls-button {
-    position: absolute;
-    left: 90%;
-    top: 0;
-    width: 5%;
-    display: block;
     border: 1px dashed#000000;
     cursor: pointer;
     font-size: 0.5em;
@@ -493,7 +487,6 @@ button {
     color: #FFFFFF;
 }
 .grid-controls-button.button--remove{
-    margin-left: 5%;
     background-color: #CC2311;
 }
 .grid-controls-button.button--remove:hover{
@@ -506,4 +499,13 @@ button {
 .grid-controls-button.button--settings:hover {
     background-color: #0099dd;
     text-shadow: 2px 2px #0089cc;
+}
+
+.buttonWrapper {
+    display:block;
+    position: relative;
+    float: right;
+    width: 5em;
+    top: -100%;
+    margin-right: -0.3em;
 }

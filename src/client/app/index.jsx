@@ -117,21 +117,21 @@ class App extends React.Component {
   }
 
   openModal(e, modalKey, modalType) {
-    let currentElement = JSON.parse(this.state.currentStateJSON).filter(function(e){
+    let currentElement = JSON.parse(this.state.currentStateJSON).filter(function (e) {
       return e["containerKey"] == modalKey
     })[0]
     if (modalKey == this.state.currentActiveModal) {
       this.setState({
         modalOpened: true,
         currentActiveModal: modalKey,
-        currentModalElement : modalType,
-        
+        currentModalElement: modalType,
+
       });
-    }  else  {
+    } else {
       this.setState({
         modalOpened: true,
         currentActiveModal: modalKey,
-        currentModalElement : modalType,
+        currentModalElement: modalType,
         currentComponentProps: currentElement ? currentElement["innerElement"]["innerElementProps"] : {}
       });
     }
@@ -203,17 +203,17 @@ class App extends React.Component {
   }
 
   onRemoveItem(componentKey) {
-   
-    let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
-    let componentIndex = 0;
-    console.log(currentStateJSONArr)    
-    currentStateJSONArr.map(function(e,i){
-    if(e["containerKey"] == componentKey){
-      componentIndex = i;
-    }
+
+    let  currentStateJSONArr  =  JSON.parse(this.state.currentStateJSON);
+    let  componentIndex  =  0;
+    console.log(currentStateJSONArr)
+    currentStateJSONArr.map(function (e, i) {
+      if (e["containerKey"]  ==  componentKey) {
+        componentIndex  =  i;
+      }
     })
-    currentStateJSONArr.splice(componentIndex ,1);
-    let currentStateJSON = JSON.stringify(currentStateJSONArr);
+    currentStateJSONArr.splice(componentIndex , 1);
+    let  currentStateJSON  =  JSON.stringify(currentStateJSONArr);
     this.setState({
       currentStateJSON
     })
@@ -297,7 +297,7 @@ class App extends React.Component {
   }
 
   render() {
-    
+
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
@@ -311,31 +311,36 @@ class App extends React.Component {
             <button onDragStart={(e) => this.drag(e)} draggable="true" className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
             <button onDragStart={(e) => this.drag(e)} draggable="true" className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
           </div>
-          <div className="fullGrid" onDrop={(e)=>this.drop(e)} onDragOver={(e)=>this.allowDrop(e)} >
-          <ResponsiveReactGridLayout className="layout"
-            onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
-            preventCollision={false}
-            layouts={this.state.layouts}
-            cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
-            breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
-            width={1600}
-            verticalCompact = {false}
-            rowHeight={15} >
-            {currentStateComponents.map(function (e, i) {
-              let modalKey = e["containerKey"];
-              let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
-              return (
-                <div
-                  className="gridLayout-cell"
-                  key={e["containerKey"]}
-                  data-grid={e["containerProps"]}
-                >
-                  <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
-                  <button className="grid-controls-button button--settings" onClick={(e) => _this.openModal(e, modalKey,modalType)}><i className="material-icons">&#xE869;</i> 
-</button>
-                  <button className="grid-controls-button button--remove"  onClick={(e)=> _this.onRemoveItem(modalKey)}><i className="material-icons">&#xE5CD;</i></button>
-                </div>
-              );
+          <div className="fullGrid" onDrop={(e) => this.drop(e)} onDragOver={(e) => this.allowDrop(e)} >
+            <ResponsiveReactGridLayout className="layout"
+              onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
+              preventCollision={false}
+              layouts={this.state.layouts}
+              cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
+              breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
+              width={1600}
+              verticalCompact={false}
+              rowHeight={15} >
+              {currentStateComponents.map(function (e, i) {
+                let modalKey = e["containerKey"];
+                let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
+                return (
+                  <div
+                    className="gridLayout-cell"
+                    key={e["containerKey"]}
+                    data-grid={e["containerProps"]}
+                  >
+                    <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
+                    <div className="buttonWrapper">
+                      <button className="grid-controls-button button--settings" onClick={(e) => _this.openModal(e, modalKey, modalType)}>
+                        <i className="material-icons">&#xE869;</i>
+                      </button>
+                      <button className="grid-controls-button button--remove" onClick={(e) => _this.onRemoveItem(modalKey)}>
+                        <i className="material-icons">&#xE5CD;</i>
+                      </button>
+                    </div>
+                  </div>
+                );
 
               })}
             </ResponsiveReactGridLayout>

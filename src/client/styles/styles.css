@@ -2,7 +2,8 @@
     font-family: Arial;
 }
 .gridLayout-cell {
-     background: rgb(217,217,217);
+    /* background: rgb(217,217,217); */
+    border: 2px dotted;
 
  }
  

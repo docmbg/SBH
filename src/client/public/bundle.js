@@ -227,13 +227,14 @@
 	      var elementSize = components.filter(function (e) {
 	        return e.type == _this3.state.draggedComponent;
 	      })[0].defaultSize;
+	      console.log(this.state.draggedComponent);
 	      currentStateJSONArr.push({
 	        containerKey: currentItemKey,
 	        containerProps: {
 	          w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1
 	        },
 	        innerElement: {
-	          type: "",
+	          type: this.state.draggedComponent.split('-')[0],
 	          innerElementProps: {}
 	        }
 	      });
@@ -287,6 +288,24 @@
 	        return e;
 	      });
 	      currentStateJSON = JSON.stringify(currentStateJSONArr);
+	      this.setState({
+	        currentStateJSON: currentStateJSON
+	      });
+	    }
+	  }, {
+	    key: 'onRemoveItem',
+	    value: function onRemoveItem(componentKey) {
+
+	      var currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+	      var componentIndex = 0;
+	      console.log(currentStateJSONArr);
+	      currentStateJSONArr.map(function (e, i) {
+	        if (e["containerKey"] == componentKey) {
+	          componentIndex = i;
+	        }
+	      });
+	      currentStateJSONArr.splice(componentIndex, 1);
+	      var currentStateJSON = JSON.stringify(currentStateJSONArr);
 	      this.setState({
 	        currentStateJSON: currentStateJSON
 	      });
@@ -467,6 +486,7 @@
 	                cols: { lg: 12, md: 12, sm: 12, xs: 12 },
 	                breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
 	                width: 1600,
+	                verticalCompact: false,
 	                rowHeight: 15 },
 	              currentStateComponents.map(function (e, i) {
 	                var modalKey = e["containerKey"];
@@ -475,7 +495,7 @@
 	                  'div',
 	                  {
 	                    className: 'gridLayout-cell',
-	                    key: (i + 1).toString(),
+	                    key: e["containerKey"],
 	                    'data-grid': e["containerProps"]
 	                  },
 	                  _react2.default.createElement(_contentContainer2.default, { innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] }),
@@ -485,6 +505,13 @@
 	                        return _this.openModal(e, modalKey, modalType);
 	                      } },
 	                    '+'
+	                  ),
+	                  _react2.default.createElement(
+	                    'button',
+	                    { className: 'remove', onClick: function onClick(e) {
+	                        return _this.onRemoveItem(modalKey);
+	                      } },
+	                    'x'
 	                  )
 	                );
 	              })
@@ -520,7 +547,7 @@
 	              isDraggable: false,
 	              isResizable: false,
 	              layouts: this.state.layouts,
-	              cols: { lg: 60, md: 50, sm: 30, xs: 20 },
+	              cols: { lg: 12, md: 12, sm: 12, xs: 12 },
 	              breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
 	              width: 1600,
 	              rowHeight: 10 },
@@ -53520,7 +53547,7 @@
 	                index = 0;
 	            }
 	            this.setState({
-	                currentPicture: this.state.slides[index]['src'],
+	                currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
 	                currentPictureIndex: index + 1,
 	                timeTillChange: timeBetweenSlides
 	            });

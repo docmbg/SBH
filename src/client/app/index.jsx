@@ -7,6 +7,8 @@ import ContentContainer from './components/contentContainer.jsx';
 import TextEditor from './components/textEditor.jsx';
 
 
+
+
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
 const components = [
@@ -143,13 +145,14 @@ class App extends React.Component {
     let currentItemKey = currentStateJSON.length + 1;
     let currentStateJSONArr = currentStateJSON;
     let elementSize = components.filter(e => e.type == this.state.draggedComponent)[0].defaultSize;
+    console.log(this.state.draggedComponent)
     currentStateJSONArr.push({
       containerKey: currentItemKey,
       containerProps: {
         w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1
       },
       innerElement: {
-        type: "",
+        type: this.state.draggedComponent.split('-')[0],
         innerElementProps: {}
       }
     });
@@ -202,6 +205,24 @@ class App extends React.Component {
       currentStateJSON
     });
   }
+
+  onRemoveItem(componentKey) {
+   
+    let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+    let componentIndex = 0;
+    console.log(currentStateJSONArr)    
+    currentStateJSONArr.map(function(e,i){
+    if(e["containerKey"] == componentKey){
+      componentIndex = i;
+    }
+    })
+    currentStateJSONArr.splice(componentIndex ,1);
+    let currentStateJSON = JSON.stringify(currentStateJSONArr);
+    this.setState({
+      currentStateJSON
+    })
+  }
+
   onLayoutChange(layout, layouts) {
     this.updateCurrentStateJSON(layout);
   }
@@ -302,6 +323,7 @@ class App extends React.Component {
             cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
+            verticalCompact = {false}
             rowHeight={15} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
@@ -309,11 +331,12 @@ class App extends React.Component {
               return (
                 <div
                   className="gridLayout-cell"
-                  key={(i + 1).toString()}
+                  key={e["containerKey"]}
                   data-grid={e["containerProps"]}
                 >
                   <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
                   <button onClick={(e) => _this.openModal(e, modalKey,modalType)}>+</button>
+                  <button className="remove"  onClick={(e)=> _this.onRemoveItem(modalKey)}>x</button>
                 </div>
               );
 
@@ -340,7 +363,7 @@ class App extends React.Component {
             isDraggable={false}
             isResizable={false}
             layouts={this.state.layouts}
-            cols={{ lg: 60, md: 50, sm: 30, xs: 20 }}
+            cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
             rowHeight={10} >

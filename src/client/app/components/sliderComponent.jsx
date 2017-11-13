@@ -72,7 +72,7 @@ class Slider extends React.Component {
             index = 0;
         }
         this.setState({
-            currentPicture: this.state.slides[index]['src'],
+            currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'] ,
             currentPictureIndex: index + 1,
             timeTillChange: timeBetweenSlides
         })

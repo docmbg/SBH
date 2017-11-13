@@ -11,7 +11,7 @@ import TextEditor from './components/textEditor.jsx';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
-const components = [
+const draggableComponents = [
   {
     type: 'Slider-Component',
     defaultSize: {
@@ -61,11 +61,11 @@ class App extends React.Component {
     const currentModalElement = "";
     const currentStateJSON = "[]";
     const currentActiveModal = "0";
-    const childNodes = [];
     const draggedComponent = '';
     const currentComponentProps = {}
     const currentPage = "";
     const currentMode = "";
+    const allAdded = 0;
     const x = 0;
     const y = 0;
     const dragging = false;
@@ -93,7 +93,7 @@ class App extends React.Component {
       draggedComponent,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
-      currentStateJSON, childNodes
+      currentStateJSON, allAdded
     };
   }
   componentWillMount() {
@@ -140,14 +140,14 @@ class App extends React.Component {
   }
 
   addNewContainer(e, xPosition, yPosition) {
-    let childNodes = this.state.childNodes;
+    let allAdded = this.state.allAdded;
+    allAdded++
     let currentStateJSON = JSON.parse(this.state.currentStateJSON);
-    let currentItemKey = currentStateJSON.length + 1;
     let currentStateJSONArr = currentStateJSON;
-    let elementSize = components.filter(e => e.type == this.state.draggedComponent)[0].defaultSize;
+    let elementSize = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize;
     console.log(this.state.draggedComponent)
     currentStateJSONArr.push({
-      containerKey: currentItemKey,
+      containerKey: allAdded,
       containerProps: {
         w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1
       },
@@ -156,13 +156,9 @@ class App extends React.Component {
         innerElementProps: {}
       }
     });
-    childNodes.push({
-      key: currentStateJSONArr.length,
-      type: ""
-    })
     currentStateJSON = JSON.stringify(currentStateJSONArr);
     this.setState({
-      currentStateJSON, childNodes
+      currentStateJSON, allAdded
     });
   }
   savePage() {
@@ -251,7 +247,7 @@ class App extends React.Component {
 
   currentDragPostion(e) {
     if (this.state.draggedComponent.indexOf('Component') > -1) {
-      let size = components.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
+      let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
       let width = `${windowW / 12 * size.w}px`;
       let height = `${windowH / 60 * size.h}px`;
       this.setState({
@@ -372,7 +368,7 @@ class App extends React.Component {
               return (
                 <div
                   className="gridLayout-cell"
-                  key={(i + 1).toString()}
+                  key={e["containerKey"]}
                   data-grid={e["containerProps"]}
                 >
                   <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />

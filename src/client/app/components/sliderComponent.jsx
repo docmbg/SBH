@@ -43,28 +43,30 @@ class Slider extends React.Component {
 
     componentDidMount() {
         let _this = this;
-
-        let interval = setInterval(function change() {
-            let timeTillChange = _this.state.timeTillChange;
-            if (timeTillChange == 0) {
-                _this.pickNextPicture(_this.state.currentPictureIndex, _this.state.slides, _this.state.timeBetweenSlides);
-            } else {
-                timeTillChange = timeTillChange - 250;
+        if(this.state.slides.length){
+            let interval = setInterval(function change() {
+                let timeTillChange = _this.state.timeTillChange;
                 if (timeTillChange == 0) {
-                    _this.setState({
-                        timeTillChange: timeTillChange,
-                        className: 'slidePicture movingToLeft'
-                    })
+                    _this.pickNextPicture(_this.state.currentPictureIndex, _this.state.slides, _this.state.timeBetweenSlides);
                 } else {
-                    _this.setState({
-                        timeTillChange: timeTillChange,
-                        className: 'sliderPicture'
-
-                    })
+                    timeTillChange = timeTillChange - 250;
+                    if (timeTillChange == 0) {
+                        _this.setState({
+                            timeTillChange: timeTillChange,
+                            className: 'slidePicture movingToLeft'
+                        })
+                    } else {
+                        _this.setState({
+                            timeTillChange: timeTillChange,
+                            className: 'sliderPicture'
+    
+                        })
+                    }
                 }
-            }
-            return change
-        }(), 250)
+                return change
+            }(), 250)
+        }
+        
     }
 
     pickNextPicture(index, slides, timeBetweenSlides) {

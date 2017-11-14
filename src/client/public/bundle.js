@@ -84,6 +84,30 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	function get_browser() {
+	  var ua = navigator.userAgent,
+	      tem,
+	      M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+	  if (/trident/i.test(M[1])) {
+	    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+	    return { name: 'IE', version: tem[1] || '' };
+	  }
+	  if (M[1] === 'Chrome') {
+	    tem = ua.match(/\bOPR|Edge\/(\d+)/);
+	    if (tem != null) {
+	      return { name: 'Opera', version: tem[1] };
+	    }
+	  }
+	  M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+	  if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+	    M.splice(1, 1, tem[1]);
+	  }
+	  return {
+	    name: M[0],
+	    version: M[1]
+	  };
+	}
+
 	var ResponsiveReactGridLayout = (0, _reactGridLayout.WidthProvider)(_reactGridLayout.Responsive);
 	var breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
 	var draggableComponents = [{
@@ -144,6 +168,7 @@
 	    var allAdded = 0;
 	    var x = 0;
 	    var y = 0;
+	    var browser = '';
 	    var dragging = false;
 	    var shadowComponent = {
 	      style: {
@@ -167,6 +192,7 @@
 	      dragging: dragging,
 	      shadowComponent: shadowComponent,
 	      draggedComponent: draggedComponent,
+	      browser: browser,
 	      layouts: layouts, defaultProps: defaultProps, currentItems: currentItems,
 	      items: items, modalOpened: modalOpened, currentModalElement: currentModalElement, currentComponentProps: currentComponentProps,
 	      currentStateJSON: currentStateJSON, allAdded: allAdded
@@ -177,11 +203,11 @@
 	  _createClass(App, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+
 	      if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
 	        var allAdded = 0;
 	        if (localStorage.getItem(getParameterByName("page"))) {
 	          var allItems = JSON.parse(localStorage.getItem(getParameterByName("page")));
-	          console.log(allItems);
 	          allAdded = allItems.sort(function (a, b) {
 	            return b["containerKey"] - a["containerKey"];
 	          })[0]['containerKey'];
@@ -190,14 +216,16 @@
 	          currentMode: "edit",
 	          currentPage: getParameterByName("page") || "",
 	          currentStateJSON: localStorage.getItem(getParameterByName("page")) || "[]",
-	          allAdded: allAdded
+	          allAdded: allAdded,
+	          browser: get_browser()['name']
 
 	        });
 	      } else {
 	        this.setState({
 	          currentMode: "view",
 	          currentPage: getParameterByName("page"),
-	          currentStateJSON: localStorage.getItem(getParameterByName("page"))
+	          currentStateJSON: localStorage.getItem(getParameterByName("page")),
+	          browser: get_browser()['name']
 	        });
 	      }
 	    }
@@ -240,9 +268,7 @@
 	      var currentElement = draggableComponents.filter(function (e) {
 	        return e.type == _this3.state.draggedComponent;
 	      })[0];
-	      console.log(currentElement);
 	      var elementSize = currentElement.defaultSize;
-	      console.log(this.state.draggedComponent);
 	      currentStateJSONArr.push({
 	        containerKey: allAdded,
 	        containerProps: {
@@ -309,7 +335,6 @@
 
 	      var currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
 	      var componentIndex = 0;
-	      console.log(currentStateJSONArr);
 	      currentStateJSONArr.map(function (e, i) {
 	        if (e["containerKey"] == componentKey) {
 	          componentIndex = i;
@@ -343,67 +368,60 @@
 	      });
 	    }
 	  }, {
-	    key: 'allowDrop',
-	    value: function allowDrop(e) {
-	      e.preventDefault();
-	    }
-	  }, {
-	    key: 'drag',
-	    value: function drag(e) {
+	    key: 'mouseDown',
+	    value: function mouseDown(event) {
+	      event.preventDefault();
+	      var draggedComponent = this.state.browser == 'IE' ? event.target.className : event.target.parentElement.className;
 	      this.setState({
-	        draggedComponent: e.target.className
+	        draggedComponent: draggedComponent
 	      });
 	    }
 	  }, {
-	    key: 'currentDragPostion',
-	    value: function currentDragPostion(e) {
-	      // if (this.state.draggedComponent.indexOf('Component') > -1) {
-	      //   let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
-	      //   let width = `${windowW / 12 * size.w}px`;
-	      //   let height = `${windowH / 60 * size.h}px`;
-	      //   this.setState({
-	      //     shadowComponent: {
-	      //       style: {
-	      //         width: width,
-	      //         position: 'absolute',
-	      //         top: e.screenY - 60,
-	      //         left: e.screenX - 40,
-	      //         display: 'block',
-	      //         border: '2px dotted grey',
-	      //         height: height,
-	      //       }
-	      //     }
-	      //   })
-	      // }
-	    }
-	  }, {
-	    key: 'removeShadowComponent',
-	    value: function removeShadowComponent(e) {
-	      // let shadowComponent = this.state.shadowComponent
-	      // shadowComponent.style.display = 'none'
-	      // console.log(shadowComponent)
-	      this.setState({
-	        shadowComponent: {
-	          style: {
-	            width: '200px',
-	            position: 'absolute',
-	            top: e.screenY,
-	            left: e.screenX,
-	            display: 'none',
-	            border: '2px dotted grey',
-	            height: '200px'
-	          }
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'drop',
-	    value: function drop(e) {
+	    key: 'mouseMove',
+	    value: function mouseMove(e) {
+	      var _this4 = this;
+
+	      // console.log(this.state.draggedComponent)
 	      if (this.state.draggedComponent.indexOf('Component') > -1) {
+	        var size = draggableComponents.filter(function (e) {
+	          return e.type == _this4.state.draggedComponent;
+	        })[0].defaultSize;
+	        var width = windowW / 12 * size.w + 'px';
+	        var height = windowH / 60 * size.h + 'px';
+	        this.setState({
+	          shadowComponent: {
+	            style: {
+	              width: width,
+	              position: 'absolute',
+	              top: e.screenY - 60,
+	              left: e.screenX - 40,
+	              display: 'block',
+	              border: '2px dotted grey',
+	              height: height
+	            }
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'mouseUp',
+	    value: function mouseUp(e) {
+	      if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
 	        var xPosition = Math.floor(e.screenX / windowW * 12); //calculation needed
 	        var yPosition = Math.floor(e.screenY / windowW * 30); //calculation needed    
 	        this.setState({
-	          draggedComponent: ''
+	          draggedComponent: '',
+	          shadowComponent: {
+	            style: {
+	              width: '200px',
+	              position: 'absolute',
+	              top: e.screenY,
+	              left: e.screenX,
+	              display: 'none',
+	              border: '2px dotted grey',
+	              height: '200px'
+	            }
+	          }
 	        });
 	        this.addNewContainer(e, xPosition, yPosition);
 	      }
@@ -411,41 +429,42 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      var _this = this;
 	      var currentStateComponents = JSON.parse(this.state.currentStateJSON);
 	      if (this.state.currentMode == "edit") {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'page', onDragOver: function onDragOver(e) {
-	              return _this4.currentDragPostion(e);
-	            }, onDragEnd: function onDragEnd(e) {
-	              return _this4.removeShadowComponent(e);
+	          { className: 'page',
+	            onMouseUp: function onMouseUp(e) {
+	              return _this5.mouseUp(e);
+	            }, onMouseMove: function onMouseMove(e) {
+	              return _this5.mouseMove(e);
 	            } },
 	          _react2.default.createElement('div', { className: 'shadowComponent', style: this.state.shadowComponent.style }),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'page-edit-banner' },
+	            { className: 'page-edit-banner', onMouseDown: function onMouseDown(e) {
+	                return _this5.mouseDown(e);
+	              } },
 	            _react2.default.createElement(
 	              'button',
 	              { onClick: function onClick() {
-	                  return _this4.addNewContainer();
+	                  return _this5.addNewContainer();
 	                }, className: 'page-edit-banner-addButton' },
 	              'Add a new container'
 	            ),
 	            _react2.default.createElement(
 	              'button',
 	              { onClick: function onClick() {
-	                  return _this4.savePage();
+	                  return _this5.savePage();
 	                }, className: 'page-edit-banner-addButton' },
 	              'Save the page'
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onDragStart: function onDragStart(e) {
-	                  return _this4.drag(e);
-	                }, draggable: 'true', className: 'Slider-Component' },
+	              { className: 'Slider-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -454,9 +473,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onDragStart: function onDragStart(e) {
-	                  return _this4.drag(e);
-	                }, draggable: 'true', className: 'TextArea-Component' },
+	              { className: 'TextArea-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -465,9 +482,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { onDragStart: function onDragStart(e) {
-	                  return _this4.drag(e);
-	                }, draggable: 'true', className: 'ImageContainer-Component' },
+	              { className: 'ImageContainer-Component' },
 	              _react2.default.createElement(
 	                'i',
 	                { className: 'material-icons' },
@@ -477,16 +492,12 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'fullGrid', onDrop: function onDrop(e) {
-	                return _this4.drop(e);
-	              }, onDragOver: function onDragOver(e) {
-	                return _this4.allowDrop(e);
-	              } },
+	            { className: 'fullGrid' },
 	            _react2.default.createElement(
 	              ResponsiveReactGridLayout,
 	              { className: 'layout',
 	                onLayoutChange: function onLayoutChange(layout, layouts) {
-	                  return _this4.onLayoutChange(layout, layouts);
+	                  return _this5.onLayoutChange(layout, layouts);
 	                },
 	                preventCollision: false,
 	                layouts: this.state.layouts,
@@ -538,17 +549,17 @@
 	          ),
 	          _react2.default.createElement(_modal2.default, {
 	            passProps: function passProps(modalProps, modalKey, modalElementType) {
-	              return _this4.getModalProps(modalProps, modalKey, modalElementType);
+	              return _this5.getModalProps(modalProps, modalKey, modalElementType);
 	            },
 	            currentComponentProps: this.state.currentComponentProps,
 	            currentComponent: this.state.currentModalElement,
 	            currentActiveModal: this.state.currentActiveModal,
 	            isActive: this.state.modalOpened,
 	            updateStatus: function updateStatus(e) {
-	              return _this4.updateStatus(e);
+	              return _this5.updateStatus(e);
 	            },
 	            updateCurrentElement: function updateCurrentElement(e) {
-	              return _this4.updateCurrentModalElement(e);
+	              return _this5.updateCurrentModalElement(e);
 	            }
 	          })
 	        );
@@ -560,7 +571,7 @@
 	            ResponsiveReactGridLayout,
 	            { className: 'layout',
 	              onLayoutChange: function onLayoutChange(layout, layouts) {
-	                return _this4.onLayoutChange(layout, layouts);
+	                return _this5.onLayoutChange(layout, layouts);
 	              },
 	              preventCollision: false,
 	              isDraggable: false,

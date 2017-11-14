@@ -7,6 +7,23 @@ import ContentContainer from './components/contentContainer.jsx';
 import TextEditor from './components/textEditor.jsx';
 
 
+function get_browser() {
+  var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+  if(/trident/i.test(M[1])){
+      tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+      return {name:'IE',version:(tem[1]||'')};
+      }   
+  if(M[1]==='Chrome'){
+      tem=ua.match(/\bOPR|Edge\/(\d+)/)
+      if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+      }   
+  M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+  if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+  return {
+    name: M[0],
+    version: M[1]
+  };
+}
 
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -19,7 +36,7 @@ const draggableComponents = [
       h: 12
     },
     defaultProps: {
-      
+
     }
   },
   {
@@ -29,7 +46,7 @@ const draggableComponents = [
       h: 7
     },
     defaultProps: {
-      
+
     }
   },
   {
@@ -39,7 +56,7 @@ const draggableComponents = [
       h: 12
     },
     defaultProps: {
-      
+
     }
   }
 ];
@@ -77,6 +94,7 @@ class App extends React.Component {
     const allAdded = 0;
     const x = 0;
     const y = 0;
+    const browser = '';
     const dragging = false;
     const shadowComponent = {
       style: {
@@ -100,18 +118,19 @@ class App extends React.Component {
       dragging,
       shadowComponent,
       draggedComponent,
+      browser,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
       currentStateJSON, allAdded
     };
   }
   componentWillMount() {
+    
     if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
       let allAdded = 0;
-      if(localStorage.getItem(getParameterByName("page"))){
+      if (localStorage.getItem(getParameterByName("page"))) {
         let allItems = JSON.parse(localStorage.getItem(getParameterByName("page")));
-        console.log(allItems)
-        allAdded = allItems.sort(function(a,b){
+        allAdded = allItems.sort(function (a, b) {
           return b["containerKey"] - a["containerKey"]
         })[0]['containerKey']
       }
@@ -119,17 +138,18 @@ class App extends React.Component {
         currentMode: "edit",
         currentPage: getParameterByName("page") || "",
         currentStateJSON: (localStorage.getItem(getParameterByName("page")) || "[]"),
-        allAdded: allAdded
+        allAdded: allAdded,
+        browser: get_browser()['name']
 
       })
     } else {
       this.setState({
         currentMode: "view",
         currentPage: getParameterByName("page"),
-        currentStateJSON: localStorage.getItem(getParameterByName("page"))
+        currentStateJSON: localStorage.getItem(getParameterByName("page")),
+        browser: get_browser()['name']
       })
     }
-
   }
   onLayoutChange(layout, layouts) {
     this.setState({ layouts });
@@ -164,9 +184,7 @@ class App extends React.Component {
     let currentStateJSON = JSON.parse(this.state.currentStateJSON);
     let currentStateJSONArr = currentStateJSON;
     let currentElement = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0];
-    console.log(currentElement);
     let elementSize = currentElement.defaultSize;
-    console.log(this.state.draggedComponent)
     currentStateJSONArr.push({
       containerKey: allAdded,
       containerProps: {
@@ -225,16 +243,15 @@ class App extends React.Component {
 
   onRemoveItem(componentKey) {
 
-    let  currentStateJSONArr  =  JSON.parse(this.state.currentStateJSON);
-    let  componentIndex  =  0;
-    console.log(currentStateJSONArr)
+    let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+    let componentIndex = 0;
     currentStateJSONArr.map(function (e, i) {
-      if (e["containerKey"]  ==  componentKey) {
-        componentIndex  =  i;
+      if (e["containerKey"] == componentKey) {
+        componentIndex = i;
       }
     })
     currentStateJSONArr.splice(componentIndex , 1);
-    let  currentStateJSON  =  JSON.stringify(currentStateJSONArr);
+    let currentStateJSON = JSON.stringify(currentStateJSONArr);
     this.setState({
       currentStateJSON
     })
@@ -256,62 +273,55 @@ class App extends React.Component {
     });
   }
 
-  allowDrop(e) {
-    e.preventDefault();
-  }
-
-  drag(e) {
+  
+  mouseDown(event) {
+    event.preventDefault();
+    let draggedComponent = this.state.browser == 'IE' ? event.target.className : event.target.parentElement.className
     this.setState({
-      draggedComponent: e.target.className
+      draggedComponent    
     })
+    
   }
 
-  currentDragPostion(e) {
-    // if (this.state.draggedComponent.indexOf('Component') > -1) {
-    //   let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
-    //   let width = `${windowW / 12 * size.w}px`;
-    //   let height = `${windowH / 60 * size.h}px`;
-    //   this.setState({
-    //     shadowComponent: {
-    //       style: {
-    //         width: width,
-    //         position: 'absolute',
-    //         top: e.screenY - 60,
-    //         left: e.screenX - 40,
-    //         display: 'block',
-    //         border: '2px dotted grey',
-    //         height: height,
-    //       }
-    //     }
-    //   })
-    // }
-  }
-
-  removeShadowComponent(e) {
-    // let shadowComponent = this.state.shadowComponent
-    // shadowComponent.style.display = 'none'
-    // console.log(shadowComponent)
-    this.setState({
-      shadowComponent: {
-        style: {
-          width: '200px',
-          position: 'absolute',
-          top: e.screenY,
-          left: e.screenX,
-          display: 'none',
-          border: '2px dotted grey',
-          height: '200px',
-        }
-      }
-    })
-  }
-
-  drop(e) {
+  mouseMove(e){
+    // console.log(this.state.draggedComponent)
     if (this.state.draggedComponent.indexOf('Component') > -1) {
+      let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
+      let width = `${windowW / 12 * size.w}px`;
+      let height = `${windowH / 60 * size.h}px`;
+      this.setState({
+        shadowComponent: {
+          style: {
+            width: width,
+            position: 'absolute',
+            top: e.screenY - 60,
+            left: e.screenX - 40,
+            display: 'block',
+            border: '2px dotted grey',
+            height: height,
+          }
+        }
+      })
+    }
+  }
+
+  mouseUp(e){
+    if (this.state.draggedComponent.indexOf('Component') > -1 && ( e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
       let xPosition = Math.floor(e.screenX / windowW * 12);//calculation needed
       let yPosition = Math.floor(e.screenY / windowW * 30);//calculation needed    
       this.setState({
-        draggedComponent: ''
+        draggedComponent: '',
+        shadowComponent: {
+          style: {
+            width: '200px',
+            position: 'absolute',
+            top: e.screenY,
+            left: e.screenX,
+            display: 'none',
+            border: '2px dotted grey',
+            height: '200px',
+          }
+        }
       })
       this.addNewContainer(e, xPosition, yPosition)
     }
@@ -323,16 +333,17 @@ class App extends React.Component {
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
       return (
-        <div className="page" onDragOver={(e) => this.currentDragPostion(e)} onDragEnd={(e) => this.removeShadowComponent(e)}>
+        <div className="page"  
+        onMouseUp={(e)=>this.mouseUp(e)} onMouseMove={(e)=>this.mouseMove(e)}>
           <div className="shadowComponent" style={this.state.shadowComponent.style}></div>
-          <div className="page-edit-banner">
+          <div className="page-edit-banner" onMouseDown={(e) => this.mouseDown(e)} >
             <button onClick={() => this.addNewContainer()} className="page-edit-banner-addButton" >Add a new container</button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
-            <button onDragStart={(e) => this.drag(e)} draggable="true" className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
+            <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
+            <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
+            <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
           </div>
-          <div className="fullGrid" onDrop={(e) => this.drop(e)} onDragOver={(e) => this.allowDrop(e)} >
+          <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
               preventCollision={false}

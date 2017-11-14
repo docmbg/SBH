@@ -31,6 +31,8 @@ class TextEditor extends Component {
         })
     }
 
+ 
+
     render() {
         let editor = <div></div>
         if(this.state.editorState.getCurrentContent().hasText()){

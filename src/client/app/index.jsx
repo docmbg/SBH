@@ -32,7 +32,7 @@ const draggableComponents = [
   {
     type: 'Slider-Component',
     defaultSize: {
-      w: 5,
+      w: 7,
       h: 12
     },
     defaultProps: {
@@ -42,8 +42,8 @@ const draggableComponents = [
   {
     type: 'ImageContainer-Component',
     defaultSize: {
-      w: 6,
-      h: 7
+      w: 2,
+      h: 9
     },
     defaultProps: {
 
@@ -52,7 +52,7 @@ const draggableComponents = [
   {
     type: 'TextArea-Component',
     defaultSize: {
-      w: 5,
+      w: 7,
       h: 12
     },
     defaultProps: {
@@ -275,6 +275,7 @@ class App extends React.Component {
 
   
   mouseDown(event) {
+    console.log(event.screenX, event.screenY, "windowSize: ", windowH,", ", windowW)
     event.preventDefault();
     let draggedComponent = this.state.browser == 'IE' ? event.target.className : event.target.parentElement.className
     this.setState({
@@ -288,14 +289,15 @@ class App extends React.Component {
     if (this.state.draggedComponent.indexOf('Component') > -1) {
       let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
       let width = `${windowW / 12 * size.w}px`;
-      let height = `${windowH / 60 * size.h}px`;
+      let height = `${windowH / 30 * size.h}px`;
       this.setState({
         shadowComponent: {
           style: {
             width: width,
             position: 'absolute',
-            top: e.screenY - 60,
-            left: e.screenX - 40,
+            top: e.clientY - 60,
+            left: e.clientX - 40,
+            lineHeight: height,
             display: 'block',
             border: '2px dotted grey',
             height: height,
@@ -307,16 +309,16 @@ class App extends React.Component {
 
   mouseUp(e){
     if (this.state.draggedComponent.indexOf('Component') > -1 && ( e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
-      let xPosition = Math.floor(e.screenX / windowW * 12);//calculation needed
-      let yPosition = Math.floor(e.screenY / windowW * 30);//calculation needed    
+      let xPosition = Math.floor(e.clientX / windowW * 12);//calculation needed
+      let yPosition = Math.floor(e.clientY / windowH * 8);//calculation needed    
       this.setState({
         draggedComponent: '',
         shadowComponent: {
           style: {
             width: '200px',
             position: 'absolute',
-            top: e.screenY,
-            left: e.screenX,
+            top: e.clientY,
+            left: e.clientX,
             display: 'none',
             border: '2px dotted grey',
             height: '200px',
@@ -335,7 +337,9 @@ class App extends React.Component {
       return (
         <div className="page"  
         onMouseUp={(e)=>this.mouseUp(e)} onMouseMove={(e)=>this.mouseMove(e)}>
-          <div className="shadowComponent" style={this.state.shadowComponent.style}></div>
+          <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
+            {this.state.draggedComponent}
+          </div>
           <div className="page-edit-banner" onMouseDown={(e) => this.mouseDown(e)} >
             <button onClick={() => this.addNewContainer()} className="page-edit-banner-addButton" >Add a new container</button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
@@ -352,7 +356,7 @@ class App extends React.Component {
               breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
               width={1600}
               verticalCompact={false}
-              rowHeight={15} >
+              rowHeight={30} >
               {currentStateComponents.map(function (e, i) {
                 let modalKey = e["containerKey"];
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
@@ -400,7 +404,7 @@ class App extends React.Component {
             cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
-            rowHeight={10} >
+            rowHeight={30} >
             {currentStateComponents.map(function (e, i) {
               let modalKey = e["containerKey"];
               return (

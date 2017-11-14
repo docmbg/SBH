@@ -35,8 +35,8 @@ const draggableComponents = [
   {
     type: 'TextArea-Component',
     defaultSize: {
-      w: 4,
-      h: 10
+      w: 5,
+      h: 12
     },
     defaultProps: {
       
@@ -110,9 +110,10 @@ class App extends React.Component {
       let allAdded = 0;
       if(localStorage.getItem(getParameterByName("page"))){
         let allItems = JSON.parse(localStorage.getItem(getParameterByName("page")));
+        console.log(allItems)
         allAdded = allItems.sort(function(a,b){
           return b["containerKey"] - a["containerKey"]
-        })[0]
+        })[0]['containerKey']
       }
       this.setState({
         currentMode: "edit",
@@ -266,24 +267,24 @@ class App extends React.Component {
   }
 
   currentDragPostion(e) {
-    if (this.state.draggedComponent.indexOf('Component') > -1) {
-      let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
-      let width = `${windowW / 12 * size.w}px`;
-      let height = `${windowH / 60 * size.h}px`;
-      this.setState({
-        shadowComponent: {
-          style: {
-            width: width,
-            position: 'absolute',
-            top: e.screenY - 60,
-            left: e.screenX - 40,
-            display: 'block',
-            border: '2px dotted grey',
-            height: height,
-          }
-        }
-      })
-    }
+    // if (this.state.draggedComponent.indexOf('Component') > -1) {
+    //   let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
+    //   let width = `${windowW / 12 * size.w}px`;
+    //   let height = `${windowH / 60 * size.h}px`;
+    //   this.setState({
+    //     shadowComponent: {
+    //       style: {
+    //         width: width,
+    //         position: 'absolute',
+    //         top: e.screenY - 60,
+    //         left: e.screenX - 40,
+    //         display: 'block',
+    //         border: '2px dotted grey',
+    //         height: height,
+    //       }
+    //     }
+    //   })
+    // }
   }
 
   removeShadowComponent(e) {

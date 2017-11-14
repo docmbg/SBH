@@ -509,3 +509,7 @@ button {
     top: -100%;
     margin-right: -0.3em;
 }
+
+.contentEditor-container {
+    height: 100%;
+}

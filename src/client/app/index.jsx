@@ -17,6 +17,9 @@ const draggableComponents = [
     defaultSize: {
       w: 5,
       h: 12
+    },
+    defaultProps: {
+      
     }
   },
   {
@@ -24,6 +27,9 @@ const draggableComponents = [
     defaultSize: {
       w: 6,
       h: 7
+    },
+    defaultProps: {
+      
     }
   },
   {
@@ -31,6 +37,9 @@ const draggableComponents = [
     defaultSize: {
       w: 4,
       h: 10
+    },
+    defaultProps: {
+      
     }
   }
 ];
@@ -98,10 +107,19 @@ class App extends React.Component {
   }
   componentWillMount() {
     if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
+      let allAdded = 0;
+      if(localStorage.getItem(getParameterByName("page"))){
+        let allItems = JSON.parse(localStorage.getItem(getParameterByName("page")));
+        allAdded = allItems.sort(function(a,b){
+          return b["containerKey"] - a["containerKey"]
+        })[0]
+      }
       this.setState({
         currentMode: "edit",
         currentPage: getParameterByName("page") || "",
-        currentStateJSON: (localStorage.getItem(getParameterByName("page")) || "[]")
+        currentStateJSON: (localStorage.getItem(getParameterByName("page")) || "[]"),
+        allAdded: allAdded
+
       })
     } else {
       this.setState({
@@ -144,7 +162,9 @@ class App extends React.Component {
     allAdded++
     let currentStateJSON = JSON.parse(this.state.currentStateJSON);
     let currentStateJSONArr = currentStateJSON;
-    let elementSize = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize;
+    let currentElement = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0];
+    console.log(currentElement);
+    let elementSize = currentElement.defaultSize;
     console.log(this.state.draggedComponent)
     currentStateJSONArr.push({
       containerKey: allAdded,
@@ -153,7 +173,7 @@ class App extends React.Component {
       },
       innerElement: {
         type: this.state.draggedComponent.split('-')[0],
-        innerElementProps: {}
+        innerElementProps: currentElement.defaultProps || {}
       }
     });
     currentStateJSON = JSON.stringify(currentStateJSONArr);

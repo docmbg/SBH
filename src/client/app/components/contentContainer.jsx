@@ -12,7 +12,8 @@ class ContentContainer extends React.Component {
         super(props);
         this.state = {
             innerElementType: this.props.innerElementType,
-            innerElementProps: this.props.innerElementProps
+            innerElementProps: this.props.innerElementProps,
+            display: 'none'
         }
     }
 
@@ -41,11 +42,21 @@ class ContentContainer extends React.Component {
                 )
         }
     }
+
+    changeButtonsStyle(display){
+        console.log('hello')
+        this.setState({
+            display
+        })
+    }
+
     render() {
         if(this.props.passOpen){
             return (
-                <div>
-                     <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)}/>
+                <div onMouseEnter={()=>this.changeButtonsStyle('buttonsShow')} onMouseLeave={()=>this.changeButtonsStyle('buttonsHide')}>
+                    <div className={this.state.display}>
+                        <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)} />
+                     </div>
                      {this.componentsMap(this.props.innerElementType)}
                 </div>
             )

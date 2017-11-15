@@ -486,39 +486,33 @@ button {
     font-size:3em!important;
 }
 .grid-controls-button {
-    border: 1px dashed#000000;
     cursor: pointer;
     font-size: 0.5em;
     font-weight: 800;
     line-height: 1em;
     font-stretch: expanded;
-    color: #FFFFFF;
+    margin-left: -1em
 }
-.grid-controls-button.button--remove{
-    background-color: #CC2311;
-}
-.grid-controls-button.button--remove:hover{
-    background-color: #d33321;
-    text-shadow: 2px 2px #CC2311;
-}
-.grid-controls-button.button--settings{
-    background-color: #0089cc;
+
+/* .grid-controls-button.button--remove:hover{
+    background-color: rgb(217,217,217);
+    
 }
 .grid-controls-button.button--settings:hover {
-    background-color: #0099dd;
-    text-shadow: 2px 2px #0089cc;
-}
+    background-color: rgb(217,217,217);
+}  */
 
 .buttonWrapper {
     display:block;
     position: relative;
     float: right;
-    width: 5em;
     z-index: 5;
     margin-bottom: -5em;
     top: -100%;
-    margin-right: -0.3em;
+    
 }
+
+
 
 .contentEditor-container {
     height: 100%;
@@ -529,3 +523,27 @@ button {
     vertical-align: middle;
     font-family: 'Trebuchet MS';
 } 
+
+.fa {
+    color: rgb(102,102,102);
+    background:white;
+    padding:0em 0.1em 0em 0.1em;
+    border-radius:0.1em;
+}
+
+.fa:hover {
+    color: black;
+    transition: color 0.5s linear;
+}
+
+.buttonsHide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.buttonsShow {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}

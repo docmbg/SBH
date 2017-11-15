@@ -514,6 +514,8 @@ button {
     position: relative;
     float: right;
     width: 5em;
+    z-index: 5;
+    margin-bottom: -5em;
     top: -100%;
     margin-right: -0.3em;
 }

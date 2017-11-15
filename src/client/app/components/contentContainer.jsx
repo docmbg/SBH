@@ -5,6 +5,7 @@ import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
+import ModalEditButtons from './modalEditButtons.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -41,9 +42,18 @@ class ContentContainer extends React.Component {
         }
     }
     render() {
-        return (
-            this.componentsMap(this.props.innerElementType)
-        )
+        if(this.props.passOpen){
+            return (
+                <div>
+                     <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)}/>
+                     {this.componentsMap(this.props.innerElementType)}
+                </div>
+            )
+        } else {
+            return (
+                this.componentsMap(this.props.innerElementType)
+            )
+        }
     }
 }
 

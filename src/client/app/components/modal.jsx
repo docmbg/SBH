@@ -5,6 +5,7 @@ import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
+import TabMenu from './tabMenu.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -53,6 +54,9 @@ class Modal extends React.Component {
                 break;
             case ("SideNav"):
                 return <SideNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("TabMenu"):
+                return <TabMenu componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (

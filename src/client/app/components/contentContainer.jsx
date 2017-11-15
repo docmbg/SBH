@@ -6,6 +6,7 @@ import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
 import ModalEditButtons from './modalEditButtons.jsx';
+import TabMenu from './tabMenu.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -35,6 +36,9 @@ class ContentContainer extends React.Component {
             case ("SideNav"):
                 return <SideNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("TabMenu"):
+                return <TabMenu componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} passOpen={(e) => this.props.passOpen(e)}/>
+                break;
             default:
                 return (
                     <div>
@@ -44,7 +48,6 @@ class ContentContainer extends React.Component {
     }
 
     changeButtonsStyle(display){
-        console.log('hello')
         this.setState({
             display
         })

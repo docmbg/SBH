@@ -8,17 +8,17 @@ import TextEditor from './components/textEditor.jsx';
 
 
 function get_browser() {
-  var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
-  if(/trident/i.test(M[1])){
-      tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
-      return {name:'IE',version:(tem[1]||'')};
-      }   
-  if(M[1]==='Chrome'){
-      tem=ua.match(/\bOPR|Edge\/(\d+)/)
-      if(tem!=null)   {return {name:'Opera', version:tem[1]};}
-      }   
-  M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-  if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+  var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+  if (/trident/i.test(M[1])) {
+    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+    return { name: 'IE', version: (tem[1] || '') };
+  }
+  if (M[1] === 'Chrome') {
+    tem = ua.match(/\bOPR|Edge\/(\d+)/)
+    if (tem != null) { return { name: 'Opera', version: tem[1] }; }
+  }
+  M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+  if ((tem = ua.match(/version\/(\d+)/i)) != null) { M.splice(1, 1, tem[1]); }
   return {
     name: M[0],
     version: M[1]
@@ -35,8 +35,14 @@ const draggableComponents = [
       w: 7,
       h: 12
     },
-    defaultProps: {
-
+    innerElementProps: {
+      slides: [
+        {
+          src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
+          title: "1",
+          link: "1"
+        }
+      ]
     }
   },
   {
@@ -45,7 +51,7 @@ const draggableComponents = [
       w: 2,
       h: 9
     },
-    defaultProps: {
+    innerElementProps: {
 
     }
   },
@@ -125,7 +131,7 @@ class App extends React.Component {
     };
   }
   componentWillMount() {
-    
+
     if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
       let allAdded = 0;
       if (localStorage.getItem(getParameterByName("page"))) {
@@ -192,7 +198,7 @@ class App extends React.Component {
       },
       innerElement: {
         type: this.state.draggedComponent.split('-')[0],
-        innerElementProps: currentElement.defaultProps || {}
+        innerElementProps: currentElement.innerElementProps || {}
       }
     });
     currentStateJSON = JSON.stringify(currentStateJSONArr);
@@ -273,18 +279,18 @@ class App extends React.Component {
     });
   }
 
-  
+
   mouseDown(event) {
-    console.log(event.screenX, event.screenY, "windowSize: ", windowH,", ", windowW)
+    console.log(event.screenX, event.screenY, "windowSize: ", windowH, ", ", windowW)
     event.preventDefault();
     let draggedComponent = this.state.browser == 'IE' ? event.target.className : event.target.parentElement.className
     this.setState({
-      draggedComponent    
+      draggedComponent
     })
-    
+
   }
 
-  mouseMove(e){
+  mouseMove(e) {
     // console.log(this.state.draggedComponent)
     if (this.state.draggedComponent.indexOf('Component') > -1) {
       let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
@@ -307,8 +313,8 @@ class App extends React.Component {
     }
   }
 
-  mouseUp(e){
-    if (this.state.draggedComponent.indexOf('Component') > -1 && ( e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
+  mouseUp(e) {
+    if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
       let xPosition = Math.floor(e.clientX / windowW * 12);//calculation needed
       let yPosition = Math.floor(e.clientY / windowH * 8);//calculation needed    
       this.setState({
@@ -335,13 +341,13 @@ class App extends React.Component {
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
       return (
-        <div className="page"  
-        onMouseUp={(e)=>this.mouseUp(e)} onMouseMove={(e)=>this.mouseMove(e)}>
+        <div className="page"
+          onMouseUp={(e) => this.mouseUp(e)} onMouseMove={(e) => this.mouseMove(e)}>
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}
           </div>
           <div className="page-edit-banner" onMouseDown={(e) => this.mouseDown(e)} >
-            <button onClick={() => this.addNewContainer()} className="page-edit-banner-addButton" >Add a new container</button>
+            <button onClick={() => console.log(this.state.currentStateJSON)} className="page-edit-banner-addButton" >Add a new container</button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
             <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
             <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
@@ -366,15 +372,15 @@ class App extends React.Component {
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
-                    <ContentContainer 
-                      innerElementType={e["innerElement"]["type"]} 
+                    <ContentContainer
+                      innerElementType={e["innerElement"]["type"]}
                       innerElementProps={e["innerElement"]["innerElementProps"]}
-                        passOpen={(evt) => _this.openModal(evt,modalKey,modalType)}
-                        passClose={(evt) => _this.onRemoveItem(modalKey)}
-                       />
-                   
-                    
-                    
+                      passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
+                      passClose={(evt) => _this.onRemoveItem(modalKey)}
+                    />
+
+
+
                   </div>
                 );
 

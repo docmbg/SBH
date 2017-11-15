@@ -49,9 +49,9 @@ class SliderWebPart extends React.Component {
                     <div>
                         {that.state.slides.map(function (e, i) {
                             return (
-                                <div className="modal-content-edit-slider-container">
+                                <div className="modal-content-edit-slider-container" key={`slider-${i}`}>
                                     <button
-                                        onClick={(i) => this.removeSlide(i)}
+                                        onClick={(i) => that.removeSlide(i)}
                                         className="modal-content-edit-button--remove"
                                     >X</button>
                                     <p className="modal-content-edit-header">Slide Image Source</p>
@@ -80,7 +80,7 @@ class SliderWebPart extends React.Component {
                         })}
                         <button
                             className="modal-content-edit-button--plus"
-                            onClick={() => this.addSlide()}
+                            onClick={() => that.addSlide()}
                         >+</button>
                     </div>
                     <div>
@@ -93,6 +93,7 @@ class SliderWebPart extends React.Component {
             )
 
         } else {
+            console.log("Mounting slider component: ", that.props.componentProperties.slides)
             return (
                 <Slider slides={that.props.componentProperties.slides} />
             )

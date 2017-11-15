@@ -7,7 +7,7 @@ class Slider extends React.Component {
         super(props);
         this.state = {
             slides: (this.props.slides || []),
-            currentPicture: '',
+            currentPicture: 'asdasd',
             currentPictureIndex: 0,
             timeBetweenSlides: 5000,
             timeTillChange: 0,
@@ -40,8 +40,13 @@ class Slider extends React.Component {
     //     });
 
     // }
-
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            slides : nextProps.slides
+        })
+    }
     componentDidMount() {
+        
         let _this = this;
         if(this.state.slides.length){
             let interval = setInterval(function change() {
@@ -63,6 +68,7 @@ class Slider extends React.Component {
                         })
                     }
                 }
+                console.log("slider rotation")
                 return change
             }(), 250)
         }
@@ -94,7 +100,7 @@ class Slider extends React.Component {
             width: '100%',
             height: '100%'
         }
-        let slides = this.state.slides;
+        let slides = (this.state.slides || []);
         return (
             <div className="content-slider">
                 <img src={this.state.currentPicture} className={`${this.state.className} content-slider-image`} />

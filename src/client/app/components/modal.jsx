@@ -84,6 +84,7 @@ class Modal extends React.Component {
                             <option value="TextArea">Text Area</option>
                             <option value="Slider">Slider</option>
                             <option value="SideNav">Side Navigation</option>
+                            <option value="TabMenu">Tab Menu</option>
                         </select>
                         <div className="modal-content-edit-container">
                             {editProperties}

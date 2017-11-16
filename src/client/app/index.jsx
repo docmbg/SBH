@@ -248,7 +248,7 @@ class App extends React.Component {
   }
 
   onRemoveItem(componentKey) {
-
+    console.log('hello')
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
     let componentIndex = 0;
     currentStateJSONArr.map(function (e, i) {

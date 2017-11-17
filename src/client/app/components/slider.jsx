@@ -7,7 +7,8 @@ class SliderWebPart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            slides: (this.props.componentProperties.slides || [])
+            slides: (this.props.componentProperties.slides || []),
+            sliderStyles: (this.props.componentProperties.sliderStyles || {})
         }
     }
     saveEdit() {
@@ -36,16 +37,117 @@ class SliderWebPart extends React.Component {
             src: "",
             title: "",
             link: ""
-        })
+        });
         this.setState({
             slides
-        })
+        });
+    }
+    handleGeneralChange(evt, instance) {
+        let sliderStyles = this.state.sliderStyles;
+        sliderStyles[instance] = evt.target.value;
+        this.setState({
+            sliderStyles
+        });
     }
     render() {
         let that = this;
         if (this.props.editable) {
             return (
-                <div className="modal-content-edit-slider-wrapper">
+                <div>
+                    <div className="modal-content-edit-slider-wrapper">
+                        <div className="modal-content-edit-slider-preview">
+                            <div className="modal-content-edit-slider-preview-container">
+                                <div className="modal-content-edit-slider-preview-background">
+                                </div>
+                                <div className={`modal-conent-edit-slider-preview-textContainer ${this.state.sliderStyles.sliderBackgroundColor || ""} ${this.state.sliderStyles.sliderBackgroundStyle || ""}`}>
+                                    <div className={`modal-content-edit-slider-preview-textTitle ${this.state.sliderStyles.sliderTextColor}`}>
+                                        Slide Title
+                                    </div>
+                                    <div className={`modal-content-edit-slider-preview-textDescription ${this.state.sliderStyles.sliderTextColor}`}>
+                                        Some custom description
+                                    </div>
+                                    <div className={`modal-content-edit-slider-preview-button ${this.state.sliderStyles.sliderButtonColor || ""} ${this.state.sliderStyles.sliderButtonTextColor || ""}`}>
+                                        {this.state.sliderStyles.readMoreText}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-content-edit-seperator">
+                        </div>
+                        <div className="modal-content-edit-slider-general">
+                            <div className="w2">
+                                <p className="modal-content-edit-header">Slider text background color</p>
+                                <select
+                                    value={this.state.sliderStyles.sliderBackgroundColor}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundColor")}
+                                >
+                                    <option value="dxc-background-gray--dark">Dark gray</option>
+                                    <option value="dxc-background-gray--light">Light gray</option>
+                                    <option value="dxc-background-white">White</option>
+                                    <option value="dxc-background-black">Black</option>
+                                    <option value="dxc-background-yellow">Yellow</option>
+                                    <option value="dxc-background-blue">Blue</option>
+                                    <option value="dxc-background-green">Green</option>
+                                </select>
+                                <p className="modal-content-edit-header">Slider text background style</p>
+                                <select
+                                    value={this.state.sliderStyles.sliderBackgroundStyle}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundStyle")}
+                                >
+                                    <option value="slider-shape-square">Default (Square)</option>
+                                    <option value="slider-shape-DXC">DXC</option>
+                                    <option value="slider-shape-hidden">None (hidden)</option>
+                                </select>
+                            </div>
+                            <div className="w2">
+                                <p className="modal-content-edit-header">Slider button color</p>
+                                <select
+                                    value={this.state.sliderStyles.sliderButtonColor}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderButtonColor")}
+                                >
+                                    <option value="dxc-background-yellow">Yellow</option>
+                                    <option value="dxc-background-gray--dark">Dark gray</option>
+                                    <option value="dxc-background-gray--light">Light gray</option>
+                                    <option value="dxc-background-white">White</option>
+                                    <option value="dxc-background-black">Black</option>
+                                    <option value="dxc-background-blue">Blue</option>
+                                    <option value="dxc-background-green">Green</option>
+                                </select>
+                                <p className="modal-content-edit-header">Slider button text</p>
+                                <input type="text"
+                                    value={this.state.sliderStyles.readMoreText}
+                                    onChange={(e) => this.handleGeneralChange(e, "readMoreText")}
+                                ></input>
+                            </div>
+                            <div className="w2">
+                                <p className="modal-content-edit-header">Slider text color</p>
+                                <select onChange={(e) => this.handleGeneralChange(e, "sliderTextColor")}>
+                                    <option value="dxc-font-white">White</option>
+                                    <option value="dxc-font-gray--dark">Dark gray</option>
+                                    <option value="dxc-font-gray--light">Light gray</option>
+                                    <option value="dxc-font-black">Black</option>
+                                    <option value="dxc-font-yellow">Yellow</option>
+                                    <option value="dxc-font-blue">Blue</option>
+                                    <option value="dxc-font-green">Green</option>
+                                </select>
+                                <p className="modal-content-edit-header">Slider indicator style</p>
+                                <select onChange={(e) => this.handleGeneralChange(e, "sliderIndicators")}>
+                                </select>
+                            </div>
+                            <div className="w2">
+                                <p className="modal-content-edit-header">Slider button color</p>
+                                <select onChange={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")}>
+                                    <option value="dxc-font-black">Black</option>
+                                    <option value="dxc-font-gray--dark">Dark gray</option>
+                                    <option value="dxc-font-gray--light">Light gray</option>
+                                    <option value="dxc-font-white">White</option>
+                                    <option value="dxc-font-yellow">Yellow</option>
+                                    <option value="dxc-font-blue">Blue</option>
+                                    <option value="dxc-font-green">Green</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         {that.state.slides.map(function (e, i) {
                             return (
@@ -89,13 +191,13 @@ class SliderWebPart extends React.Component {
                             className="modal-content-edit--save"
                         >Save</button>
                     </div>
-                </div>
+                </div >
             )
 
         } else {
             console.log("Mounting slider component: ", that.props.componentProperties.slides)
             return (
-                <Slider slides={that.props.componentProperties.slides} />
+                <Slider sliderStyles={that.props.componentProperties.sliderStyles} slides={that.props.componentProperties.slides} />
             )
         }
 

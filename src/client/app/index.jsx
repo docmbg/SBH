@@ -14,6 +14,7 @@ function get_browser() {
     return { name: 'IE', version: (tem[1] || '') };
   }
   if (M[1] === 'Chrome') {
+    
     tem = ua.match(/\bOPR|Edge\/(\d+)/)
     if (tem != null) { return { name: 'Opera', version: tem[1] }; }
   }
@@ -42,7 +43,15 @@ const draggableComponents = [
           title: "1",
           link: "1"
         }
-      ]
+      ],
+      sliderStyles:{
+        sliderBackgroundStyle : "slider-shape--square",
+        sliderBackgroundColor : "dxc-background-gray--dark",
+        sliderButtonColor : "dxc-background-yellow",
+        sliderTextColor : "dxc-font-white",
+        sliderButtonTextColor : "dxc-font-black",
+        readMoreText : "Read more"
+      }
     }
   },
   {

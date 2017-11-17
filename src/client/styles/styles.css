@@ -309,13 +309,13 @@ a:hover {
 }
 
 .content-slider-infobox-title {
-    color: rgb(255, 255, 255)!important;
-    /* padding-top: 1em; */
+    color: rgb(255, 255, 255);
+    padding-top: 1em;
     text-align: left;
     font-size: 1.2em;
     font-weight: 800;
-    /* padding: 1em; */
-    /* padding-left: 1em; */
+    padding: 1em;
+    padding-left: 1em;
     line-height: 0em;
 }
 
@@ -546,4 +546,24 @@ button {
     visibility: visible;
     opacity: 1;
     transition: visibility 0.3s, opacity 0.3s linear;
+}
+.modal-content-edit-slider-preview-container{
+    width: 90%;
+    margin: 5%;
+    height: 30%;
+    border: 1px dotted #00699F;
+}
+.modal-content-edit-slider-preview-textDescription, .modal-content-edit-slider-preview-textTitle{
+    text-align: left;
+}
+.modal-content-edit-slider-preview-textTitle {
+    height: 25%;
+}
+.modal-content-edit-slider-preview-textDescription{
+    height: 50%
+}
+.modal-content-edit-slider-preview-button{
+        height: 25%;
+        width: 40%;
+        margin-left: 5%;
 }

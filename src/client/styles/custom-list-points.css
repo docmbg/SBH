@@ -79,3 +79,56 @@ li:hover{
     background-color: #FFED00;
     color: #000000;
 }
+.dxc-background-blue{
+    background-color: #007cFF;
+}
+.dxc-background-green{
+    background-color: #32bb00;
+}
+.dxc-background-yellow{
+    background-color: #FFED00;
+}
+.dxc-background-white{
+    background-color: #FFFFFF;
+}
+.dxc-background-gray--light{
+    background-color: #d9d9d9;
+}
+.dxc-background-gray--dark{
+    background-color: #666666;
+}
+.dxc-background-black{
+    background-color: #000000;
+}
+.dxc-font-blue{
+    color: #007cFF;
+}
+.dxc-font-green{
+    color: #32bb00;
+}
+.dxc-font-yellow{
+    color: #FFED00;
+}
+.dxc-font-white{
+    color: #FFFFFF;
+}
+.dxc-font-gray--light{
+    color: #d9d9d9;
+}
+.dxc-font-gray--dark{
+    color: #666666;
+}
+.dxc-font-black{
+    color: #000000;
+}
+.slider-shape--dxc{
+
+}
+.slider-shape--square{
+    height: 80%;
+    width: 40%;
+    margin-left: 2%;
+}
+.slider-shape--none{
+
+}

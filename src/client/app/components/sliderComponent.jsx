@@ -14,41 +14,16 @@ class Slider extends React.Component {
             className: `sliderPicture`
         }
     }
-    // componentWillMount() {
-    //     let _this = this;
-    //     $().SPServices({
-    //         operation: "GetListItems",
-    //         async: false,
-    //         listName: "Slider Leadership",
-    //         completefunc: function (xData, Status) {
-    //             let slides = [];
-    //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-    //                 slides.push(
-    //                 {
-    //                     title: $(this).attr('ows_Title'),
-    //                     jobTitle: $(this).attr('ows_Job_Title'),
-    //                     picture: $(this).attr('ows_Picture'),
-    //                     //readMore: $(this).attr('ows_Read_x0020_More_x0028_Link_x0029')
-    //                 }
-    //             )
-    //             });
-    //             _this.setState({
-    //                 slides
-    //             })
-
-    //         }
-    //     });
-
-    // }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            slides : nextProps.slides
+            slides: nextProps.slides,
+            sliderStyles: nextProps.sliderStyles
         })
     }
     componentDidMount() {
-        
+
         let _this = this;
-        if(this.state.slides.length){
+        if (this.state.slides.length) {
             let interval = setInterval(function change() {
                 let timeTillChange = _this.state.timeTillChange;
                 if (timeTillChange == 0) {
@@ -64,7 +39,7 @@ class Slider extends React.Component {
                         _this.setState({
                             timeTillChange: timeTillChange,
                             className: 'sliderPicture'
-    
+
                         })
                     }
                 }
@@ -72,7 +47,7 @@ class Slider extends React.Component {
                 return change
             }(), 250)
         }
-        
+
     }
 
     pickNextPicture(index, slides, timeBetweenSlides) {
@@ -80,7 +55,7 @@ class Slider extends React.Component {
             index = 0;
         }
         this.setState({
-            currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'] ,
+            currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
             currentPictureIndex: index + 1,
             timeTillChange: timeBetweenSlides
         })
@@ -107,12 +82,20 @@ class Slider extends React.Component {
                 {
                     slides.map(function (elem, index) {
                         if (index + 1 == _this.state.currentPictureIndex) {
-                            return (<div className="content-slider-infobox">
-                                <p className="content-slider-infobox-title">{elem.title}</p>
-                                <a href={elem.link} className="content-slider-infobox-readMore" target="_blank">
-                                    <p className="">Read More</p>
-                                </a>
-                                <div className="empty"></div>
+                            return (<div className={`content-slider-infobox`}>
+                                <div className={`content-slider-infobox-wrapper ${_this.props.sliderStyles.sliderBackgroundStyle || ""} ${_this.props.sliderStyles.sliderBackgroundColor || ""}`}>
+                                </div>
+                                <div className={`content-slider-infobox-text`}>
+                                    
+                                    <div className={`content-slider-infobox-readMore`}>
+                                        <a href={elem.link} target="_blank">
+                                            <div className={`${_this.props.sliderStyles.sliderButtonColor || ""} ${_this.props.sliderStyles.sliderButtonTextColor || ""}`}>
+                                                {_this.props.sliderStyles.readMoreText || ""}
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <p className={`content-slider-infobox-title ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.title}</p>
+                                </div>
                             </div>)
                         }
                     })

@@ -12,9 +12,10 @@ class SliderWebPart extends React.Component {
         }
     }
     saveEdit() {
-        let slides = this.state.slides
+        let slides = this.state.slides;
+        let sliderStyles = this.state.sliderStyles;
         this.props.passProps({
-            slides
+            slides, sliderStyles
         })
     }
     removeSlide(index) {
@@ -57,19 +58,23 @@ class SliderWebPart extends React.Component {
                     <div className="modal-content-edit-slider-wrapper">
                         <div className="modal-content-edit-slider-preview">
                             <div className="modal-content-edit-slider-preview-container">
-                                <div className="modal-content-edit-slider-preview-background">
+                                <img className="modal-content-edit-slider-preview-background slidePicture content-slider-image">
+                                </img>
+                                <div className={`content-slider-infobox`}>
+                                <div className={`content-slider-infobox-wrapper ${that.state.sliderStyles.sliderBackgroundStyle || ""} ${that.state.sliderStyles.sliderBackgroundColor || ""}`}>
                                 </div>
-                                <div className={`modal-conent-edit-slider-preview-textContainer ${this.state.sliderStyles.sliderBackgroundColor || ""} ${this.state.sliderStyles.sliderBackgroundStyle || ""}`}>
-                                    <div className={`modal-content-edit-slider-preview-textTitle ${this.state.sliderStyles.sliderTextColor}`}>
-                                        Slide Title
+                                <div className={`content-slider-infobox-text`}>
+                                    
+                                    <div className={`content-slider-infobox-readMore`}>
+                                        <a href={`#`} target="_blank">
+                                            <div className={`${that.state.sliderStyles.sliderButtonColor || ""} ${that.state.sliderStyles.sliderButtonTextColor || ""}`}>
+                                                {that.state.sliderStyles.readMoreText || ""}
+                                            </div>
+                                        </a>
                                     </div>
-                                    <div className={`modal-content-edit-slider-preview-textDescription ${this.state.sliderStyles.sliderTextColor}`}>
-                                        Some custom description
-                                    </div>
-                                    <div className={`modal-content-edit-slider-preview-button ${this.state.sliderStyles.sliderButtonColor || ""} ${this.state.sliderStyles.sliderButtonTextColor || ""}`}>
-                                        {this.state.sliderStyles.readMoreText}
-                                    </div>
+                                    <p className={`content-slider-infobox-title ${that.state.sliderStyles.sliderTextColor || ""}`}>{`Slide Title`}</p>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <div className="modal-content-edit-seperator">
@@ -135,7 +140,7 @@ class SliderWebPart extends React.Component {
                                 </select>
                             </div>
                             <div className="w2">
-                                <p className="modal-content-edit-header">Slider button color</p>
+                                <p className="modal-content-edit-header">Slider button text color</p>
                                 <select onChange={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")}>
                                     <option value="dxc-font-black">Black</option>
                                     <option value="dxc-font-gray--dark">Dark gray</option>
@@ -195,7 +200,6 @@ class SliderWebPart extends React.Component {
             )
 
         } else {
-            console.log("Mounting slider component: ", that.props.componentProperties.slides)
             return (
                 <Slider sliderStyles={that.props.componentProperties.sliderStyles} slides={that.props.componentProperties.slides} />
             )

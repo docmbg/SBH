@@ -53531,8 +53531,9 @@
 	        key: 'saveEdit',
 	        value: function saveEdit() {
 	            var slides = this.state.slides;
+	            var sliderStyles = this.state.sliderStyles;
 	            this.props.passProps({
-	                slides: slides
+	                slides: slides, sliderStyles: sliderStyles
 	            });
 	        }
 	    }, {
@@ -53594,24 +53595,32 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'modal-content-edit-slider-preview-container' },
-	                                _react2.default.createElement('div', { className: 'modal-content-edit-slider-preview-background' }),
+	                                _react2.default.createElement('img', { className: 'modal-content-edit-slider-preview-background slidePicture content-slider-image' }),
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'modal-conent-edit-slider-preview-textContainer ' + (this.state.sliderStyles.sliderBackgroundColor || "") + ' ' + (this.state.sliderStyles.sliderBackgroundStyle || "") },
+	                                    { className: 'content-slider-infobox' },
+	                                    _react2.default.createElement('div', { className: 'content-slider-infobox-wrapper ' + (that.state.sliderStyles.sliderBackgroundStyle || "") + ' ' + (that.state.sliderStyles.sliderBackgroundColor || "") }),
 	                                    _react2.default.createElement(
 	                                        'div',
-	                                        { className: 'modal-content-edit-slider-preview-textTitle ' + this.state.sliderStyles.sliderTextColor },
-	                                        'Slide Title'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'modal-content-edit-slider-preview-textDescription ' + this.state.sliderStyles.sliderTextColor },
-	                                        'Some custom description'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'modal-content-edit-slider-preview-button ' + (this.state.sliderStyles.sliderButtonColor || "") + ' ' + (this.state.sliderStyles.sliderButtonTextColor || "") },
-	                                        this.state.sliderStyles.readMoreText
+	                                        { className: 'content-slider-infobox-text' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'content-slider-infobox-readMore' },
+	                                            _react2.default.createElement(
+	                                                'a',
+	                                                { href: '#', target: '_blank' },
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: (that.state.sliderStyles.sliderButtonColor || "") + ' ' + (that.state.sliderStyles.sliderButtonTextColor || "") },
+	                                                    that.state.sliderStyles.readMoreText || ""
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'p',
+	                                            { className: 'content-slider-infobox-title ' + (that.state.sliderStyles.sliderTextColor || "") },
+	                                            'Slide Title'
+	                                        )
 	                                    )
 	                                )
 	                            )
@@ -53830,7 +53839,7 @@
 	                                _react2.default.createElement(
 	                                    'p',
 	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider button color'
+	                                    'Slider button text color'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'select',
@@ -53961,7 +53970,6 @@
 	                    )
 	                );
 	            } else {
-	                console.log("Mounting slider component: ", that.props.componentProperties.slides);
 	                return _react2.default.createElement(_sliderComponent2.default, { sliderStyles: that.props.componentProperties.sliderStyles, slides: that.props.componentProperties.slides });
 	            }
 	        }
@@ -54020,39 +54028,13 @@
 	        };
 	        return _this2;
 	    }
-	    // componentWillMount() {
-	    //     let _this = this;
-	    //     $().SPServices({
-	    //         operation: "GetListItems",
-	    //         async: false,
-	    //         listName: "Slider Leadership",
-	    //         completefunc: function (xData, Status) {
-	    //             let slides = [];
-	    //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-	    //                 slides.push(
-	    //                 {
-	    //                     title: $(this).attr('ows_Title'),
-	    //                     jobTitle: $(this).attr('ows_Job_Title'),
-	    //                     picture: $(this).attr('ows_Picture'),
-	    //                     //readMore: $(this).attr('ows_Read_x0020_More_x0028_Link_x0029')
-	    //                 }
-	    //             )
-	    //             });
-	    //             _this.setState({
-	    //                 slides
-	    //             })
-
-	    //         }
-	    //     });
-
-	    // }
-
 
 	    _createClass(Slider, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
 	            this.setState({
-	                slides: nextProps.slides
+	                slides: nextProps.slides,
+	                sliderStyles: nextProps.sliderStyles
 	            });
 	        }
 	    }, {
@@ -54124,21 +54106,29 @@
 	                        return _react2.default.createElement(
 	                            'div',
 	                            { className: 'content-slider-infobox' },
+	                            _react2.default.createElement('div', { className: 'content-slider-infobox-wrapper ' + (_this.props.sliderStyles.sliderBackgroundStyle || "") + ' ' + (_this.props.sliderStyles.sliderBackgroundColor || "") }),
 	                            _react2.default.createElement(
-	                                'p',
-	                                { className: 'content-slider-infobox-title' },
-	                                elem.title
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: elem.link, className: 'content-slider-infobox-readMore', target: '_blank' },
+	                                'div',
+	                                { className: 'content-slider-infobox-text' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'content-slider-infobox-readMore' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: elem.link, target: '_blank' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: (_this.props.sliderStyles.sliderButtonColor || "") + ' ' + (_this.props.sliderStyles.sliderButtonTextColor || "") },
+	                                            _this.props.sliderStyles.readMoreText || ""
+	                                        )
+	                                    )
+	                                ),
 	                                _react2.default.createElement(
 	                                    'p',
-	                                    { className: '' },
-	                                    'Read More'
+	                                    { className: 'content-slider-infobox-title ' + (_this.props.sliderStyles.sliderTextColor || "") },
+	                                    elem.title
 	                                )
-	                            ),
-	                            _react2.default.createElement('div', { className: 'empty' })
+	                            )
 	                        );
 	                    }
 	                }),

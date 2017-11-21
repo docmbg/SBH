@@ -43,8 +43,13 @@ const draggableComponents = [
       slides: [
         {
           src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
-          title: "1",
+          title: "First Slide",
           link: "1"
+        },
+        {
+          src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
+          title: "Second Slide",
+          link: "2"
         }
       ],
       sliderStyles: {
@@ -53,6 +58,8 @@ const draggableComponents = [
         sliderButtonColor: "dxc-background-yellow",
         sliderTextColor: "dxc-font-white",
         sliderButtonTextColor: "dxc-font-black",
+        sliderBackgroundOpacity: 60,
+        sliderIndicatorsStyle: "content-slider-indicators",
         readMoreText: "Read more"
       }
     }

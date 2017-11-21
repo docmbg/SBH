@@ -61,20 +61,29 @@ class SliderWebPart extends React.Component {
                                 <img className="modal-content-edit-slider-preview-background slidePicture content-slider-image">
                                 </img>
                                 <div className={`content-slider-infobox`}>
-                                <div className={`content-slider-infobox-wrapper ${that.state.sliderStyles.sliderBackgroundStyle || ""} ${that.state.sliderStyles.sliderBackgroundColor || ""}`}>
-                                </div>
-                                <div className={`content-slider-infobox-text`}>
-                                    
-                                    <div className={`content-slider-infobox-readMore`}>
-                                        <a href={`#`} target="_blank">
-                                            <div className={`${that.state.sliderStyles.sliderButtonColor || ""} ${that.state.sliderStyles.sliderButtonTextColor || ""}`}>
-                                                {that.state.sliderStyles.readMoreText || ""}
-                                            </div>
-                                        </a>
+                                    <div
+                                        className={`content-slider-infobox-wrapper ${that.state.sliderStyles.sliderBackgroundStyle || ""} ${that.state.sliderStyles.sliderBackgroundColor || ""}`}
+                                        style={{ opacity: (parseInt(that.state.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2) }}
+                                    >
                                     </div>
-                                    <p className={`content-slider-infobox-title ${that.state.sliderStyles.sliderTextColor || ""}`}>{`Slide Title`}</p>
+                                    <div className={`content-slider-infobox-text`}>
+
+                                        <div className={`content-slider-infobox-readMore`}>
+                                            <a href={`#`} target="_blank">
+                                                <div className={`${that.state.sliderStyles.sliderButtonColor || ""} ${that.state.sliderStyles.sliderButtonTextColor || ""}`}>
+                                                    {that.state.sliderStyles.readMoreText || ""}
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <p className={`content-slider-infobox-title ${that.state.sliderStyles.sliderTextColor || ""}`}>{`Slide Title`}</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div className="content-slider-indicators-wrapper">
+                                <ul className={that.state.sliderStyles.sliderIndicatorsStyle}>
+                                    <li className='active'>1</li>
+                                    <li className=''>2</li>
+                                </ul>
                             </div>
                         </div>
                         <div className="modal-content-edit-seperator">
@@ -84,12 +93,13 @@ class SliderWebPart extends React.Component {
                                 <p className="modal-content-edit-header">Slider text background color</p>
                                 <select
                                     value={this.state.sliderStyles.sliderBackgroundColor}
+                                    defaultValue={this.state.sliderStyles.sliderBackgroundColor}
                                     onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundColor")}
                                 >
+                                    <option value="dxc-background-black">Black</option>
                                     <option value="dxc-background-gray--dark">Dark gray</option>
                                     <option value="dxc-background-gray--light">Light gray</option>
                                     <option value="dxc-background-white">White</option>
-                                    <option value="dxc-background-black">Black</option>
                                     <option value="dxc-background-yellow">Yellow</option>
                                     <option value="dxc-background-blue">Blue</option>
                                     <option value="dxc-background-green">Green</option>
@@ -98,6 +108,7 @@ class SliderWebPart extends React.Component {
                                 <select
                                     value={this.state.sliderStyles.sliderBackgroundStyle}
                                     onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundStyle")}
+                                    defaultValue={this.state.sliderStyles.sliderBackgroundStyle}
                                 >
                                     <option value="slider-shape-square">Default (Square)</option>
                                     <option value="slider-shape-DXC">DXC</option>
@@ -109,12 +120,14 @@ class SliderWebPart extends React.Component {
                                 <select
                                     value={this.state.sliderStyles.sliderButtonColor}
                                     onChange={(e) => this.handleGeneralChange(e, "sliderButtonColor")}
+                                    defaultValue={this.state.sliderStyles.sliderButtonColor}
                                 >
-                                    <option value="dxc-background-yellow">Yellow</option>
+
+                                    <option value="dxc-background-black">Black</option>
                                     <option value="dxc-background-gray--dark">Dark gray</option>
                                     <option value="dxc-background-gray--light">Light gray</option>
                                     <option value="dxc-background-white">White</option>
-                                    <option value="dxc-background-black">Black</option>
+                                    <option value="dxc-background-yellow">Yellow</option>
                                     <option value="dxc-background-blue">Blue</option>
                                     <option value="dxc-background-green">Green</option>
                                 </select>
@@ -126,29 +139,52 @@ class SliderWebPart extends React.Component {
                             </div>
                             <div className="w2">
                                 <p className="modal-content-edit-header">Slider text color</p>
-                                <select onChange={(e) => this.handleGeneralChange(e, "sliderTextColor")}>
-                                    <option value="dxc-font-white">White</option>
+                                <select
+                                    value={this.state.sliderStyles.sliderTextColor}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderTextColor")}
+                                    defaultValue={this.state.sliderStyles.sliderTextColor}
+                                >
+
+                                    <option value="dxc-font-black">Black</option>
                                     <option value="dxc-font-gray--dark">Dark gray</option>
                                     <option value="dxc-font-gray--light">Light gray</option>
+                                    <option value="dxc-font-white">White</option>
+                                    <option value="dxc-font-yellow">Yellow</option>
+                                    <option value="dxc-font-blue">Blue</option>
+                                    <option value="dxc-font-green">Green</option>
+                                </select>
+                                <p className="modal-content-edit-header">Slider background opacity color</p>
+                                <input type="number"
+                                    value={this.state.sliderStyles.sliderBackgroundOpacity}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundOpacity")}
+                                ></input><span>%</span>
+                            </div>
+                            <div className="w2">
+                                <p className="modal-content-edit-header">Slider button text color</p>
+                                <select
+                                    value={this.state.sliderStyles.sliderButtonTextColor}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")}
+                                    defaultValue={this.state.sliderStyles.sliderButtonTextColor}
+                                >
                                     <option value="dxc-font-black">Black</option>
+                                    <option value="dxc-font-gray--dark">Dark gray</option>
+                                    <option value="dxc-font-gray--light">Light gray</option>
+                                    <option value="dxc-font-white">White</option>
                                     <option value="dxc-font-yellow">Yellow</option>
                                     <option value="dxc-font-blue">Blue</option>
                                     <option value="dxc-font-green">Green</option>
                                 </select>
                                 <p className="modal-content-edit-header">Slider indicator style</p>
-                                <select onChange={(e) => this.handleGeneralChange(e, "sliderIndicators")}>
-                                </select>
-                            </div>
-                            <div className="w2">
-                                <p className="modal-content-edit-header">Slider button text color</p>
-                                <select onChange={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")}>
-                                    <option value="dxc-font-black">Black</option>
-                                    <option value="dxc-font-gray--dark">Dark gray</option>
-                                    <option value="dxc-font-gray--light">Light gray</option>
-                                    <option value="dxc-font-white">White</option>
-                                    <option value="dxc-font-yellow">Yellow</option>
-                                    <option value="dxc-font-blue">Blue</option>
-                                    <option value="dxc-font-green">Green</option>
+                                <select
+                                    value={this.state.sliderStyles.sliderIndicatorsStyle}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderIndicatorsStyle")}
+                                    defaultValue={this.state.sliderStyles.sliderIndicatorsStyle}
+                                >
+                                    <option value="content-slider-indicators">Classic</option>
+                                    <option value="content-slider-indicators--yellow_black">Black and Yellow</option>
+                                    <option value="content-slider-indicators--black_white">Black and White</option>
+                                    <option value="content-slider-indicators--blue_gray">Blue and Gray</option>
+                                    <option value="content-slider-indicators--pictures">DXC Logo</option>
                                 </select>
                             </div>
                         </div>

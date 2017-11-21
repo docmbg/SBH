@@ -13,16 +13,6 @@
     margin: 0px;
     padding: 1px
 }
- 
-ul.content-slider-indicators {
-    /* ADD ALL ULs without bullets here */
-    list-style-type: none;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0px;
-}
 
  .modal-container{
     position: fixed  ;
@@ -361,35 +351,74 @@ a:hover {
     padding-right: 1em;
 }
 
-.content-slider-indicators-indicator {
-    background: rgba(217,217,217,1);
-    color:black;
+
+
+.content-slider{
+    width: 100%;
+    height: 100%;
+}
+
+.content-slider-indicators-wrapper{
+    top: 90%;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    position: absolute;
+    text-align: center;
+}
+.content-slider-indicators-wrapper > ul {
+    display: block;
+    cursor: pointer;
+    list-style-type: none;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+.content-slider-indicators-wrapper > ul > li {
     width:1.5em;
     height: 1.5em;
+    line-height: 1.5em;
     float:left;   
     margin-right:0.5em;
     font-weight: 600;
     text-align: center;
 }
-.content-slider{
-    width: 100%;
-    height: 100%;
-}
-.content-slider-indicators-indicator.active {
+/* Classic slider (Yellow Gray) */
+.content-slider-indicators > li.active {
     background:  rgb(255, 237, 000);
 }
-
-.content-slider-indicators {
-    display: block;
-    position: absolute;
-    /* bottom: -12em; */
-    /* right: 0em; */
-    cursor: pointer;
+.content-slider-indicators > li {
+    background: rgba(217,217,217,1);
 }
-.content-slider-indicators-wrapper{
-    float: left;
-    width: 0%;
-    height: 20%;
+/* Black yellow slider */
+.content-slider-indicators--yellow_black > li.active {
+    color: rgb(000,000,000);
+    background:  rgb(255, 237, 000);
+}
+.content-slider-indicators--yellow_black > li {
+    color: rgb(255, 237, 000);
+    background: rgba(000,000,000,1);
+}
+/* Black blue slider */
+.content-slider-indicators--blue_gray > li.active {
+    color: rgb(102,102,102);
+    background:  rgb(000, 201, 255);
+}
+.content-slider-indicators--blue_gray > li {
+    color: rgb(000, 201, 255);
+    background: rgba(102,102,102,1);
+}
+.content-slider-indicators--black_white > li.active {
+    color: rgb(000,000,000);
+    background:  rgb(255, 255, 255);
+}
+.content-slider-indicators--black_white > li {
+    color: rgb(255, 255, 255);
+    background: rgba(000,000,000,1);
 }
 .leaderShipWebpartTitle {
     line-height: 1em;

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import { Router, browserHistory   } from 'react-router';
 
+let interval;
 class Slider extends React.Component {
     constructor(props) {
         super(props);
@@ -17,14 +18,14 @@ class Slider extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             slides: nextProps.slides,
-            sliderStyles: nextProps.sliderStyles
+            sliderStyles: nextProps.sliderStyles,
         })
     }
     componentDidMount() {
 
         let _this = this;
         if (this.state.slides.length) {
-            let interval = setInterval(function change() {
+            interval = setInterval(function change() {
                 let timeTillChange = _this.state.timeTillChange;
                 if (timeTillChange == 0) {
                     _this.pickNextPicture(_this.state.currentPictureIndex, _this.state.slides, _this.state.timeBetweenSlides);
@@ -43,17 +44,22 @@ class Slider extends React.Component {
                         })
                     }
                 }
-                console.log("slider rotation")
                 return change
             }(), 250)
         }
 
     }
+    componentWillUnmount(){
+        clearInterval(interval); 
+    }
 
     pickNextPicture(index, slides, timeBetweenSlides) {
-        if (index == slides.length) {
+        console.log("Slide index (before):", index, ", Slide length: ", slides.length)
+        if (index >= slides.length) {
             index = 0;
         }
+        
+        console.log("Slide index:", index)
         this.setState({
             currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
             currentPictureIndex: index + 1,
@@ -83,7 +89,10 @@ class Slider extends React.Component {
                     slides.map(function (elem, index) {
                         if (index + 1 == _this.state.currentPictureIndex) {
                             return (<div className={`content-slider-infobox`}>
-                                <div className={`content-slider-infobox-wrapper ${_this.props.sliderStyles.sliderBackgroundStyle || ""} ${_this.props.sliderStyles.sliderBackgroundColor || ""}`}>
+                                <div 
+                                    className={`content-slider-infobox-wrapper ${_this.props.sliderStyles.sliderBackgroundStyle || ""} ${_this.props.sliderStyles.sliderBackgroundColor || ""}`}
+                                    style={{opacity: (parseInt(_this.props.sliderStyles.sliderBackgroundOpacity)/100).toFixed(2)}}
+                                >
                                 </div>
                                 <div className={`content-slider-infobox-text`}>
                                     
@@ -101,7 +110,7 @@ class Slider extends React.Component {
                     })
                 }
                 <div className="content-slider-indicators-wrapper">
-                    <ul className="content-slider-indicators">
+                    <ul className={_this.props.sliderStyles.sliderIndicatorsStyle}>
                         {
                             slides.map((elem, index) =>
                                 (

@@ -1,42 +1,569 @@
+* {
+    font-family: Arial;
+}
 .gridLayout-cell {
-     background: rgb(217,217,217);
+    /* background: rgb(217,217,217); */
+    border: 2px dotted;
 
  }
-
- .modal-container{
-    position: fixed;
-    left: 0;
-    top: 0;
+.page{
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 1px
+}
+ 
+ul.content-slider-indicators {
+    /* ADD ALL ULs without bullets here */
+    list-style-type: none;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+ .modal-container{
+    position: fixed  ;
+    left: 0  ;
+    top: 0  ;
+    width: 100%  ;
+    height: 100%  ;
+    text-align: center  ;
+    z-index: 1000  ;
+    
+}
+.modal-background{
+    margin: auto  ;
+    position: fixed  ;
+    left: 0  ;
+    top: 0  ;
+    width: 100%  ;
+    height: 100%  ;
+    background-color: #000000;
+    opacity: 0.7  ;
+    z-index: 1001  ;
+}
+.modal-content-select {
+    margin-top: 1em;
+    border: 0.1em solid #0089af;
+    color: #0089af;
+}
+.modal-content-select:hover, .modal-content-select:focus{
+    text-shadow: 0.02em 0.02em #00a9cf;
+    box-shadow: 0.02em 0.02em #00a9cf;
+}
+.modal-content-edit-header {
+    font-weight: 600;
+    color: #00699F;
+}
+.modal-content-edit-input-text {
+    border: 0.1em dotted #00699f;
+    color: #00699f;
+    font-weight: 600;
+    border-radius: 0.5em;
+    box-sizing: border-box;
+}
+input.modal-content-edit-input-text:focus, input.modal-content-edit-input-text:hover{
+    box-shadow: 0.05em 0.05em #0089aF;
+    text-shadow: 0.05em 0.05em #0089af;
+}
+.modal-content {
+    position: fixed;
+    display: block;
+    width: 40%;
+    height: 80%;
+    z-index: 1001 ;
+    margin-top: 5% ;
+    margin-left: 30% ;
+    box-sizing: border-box ;
+    border: 0.2em solid #0089af ;
+    border-radius: 0.3em ;
+    background: white ;
+    overflow-y: scroll;
+}
+.zIndex {
+    z-index:9000 
+}
+.page-edit-banner-addButton {
+    height: 4% ;
+    margin: 0.5%  ;
+    font-weight: 600  ; 
+    background-color: #FFAD00;
+}
+.transparentDiv {
+    background-color: rgba(0,0,0,1);
+    top: -2.5em;
+    position: relative;
+    left: -4em;
+    /* max-height: 10em; */
+    height: 14em;
+    padding: -1em;
+    border-radius: 0em 6em 6em 0em;
+    width: 13em;
+}
+
+.mainTitle {
+    color: rgb(255, 255, 255);
+    padding-top: 3em;
+    text-align: left;
+    font-size: 1em;
+    padding-left: 0.5em;
+}
+
+.text {
+    color: white;
+    text-align: left;
+    font-size: 0.6em;
+    padding: 1em;
+    font-weight: 700;
+}
+
+.readMoreButton {
+    background: rgb(255, 237, 000);
+    width: 7em;
+    margin: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    /* margin-bottom: 0em; */
+    /* position: relative; */
+    font-size: 0.7em;
+}
+
+a {
+    color:black;
+}
+
+.slider, .slides, .content-slider-image{
+    width: 100%;
+    height: 100%
+}
+
+.slider .indicators .indicator-item {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    margin: 0 12px;
+    background-color: black;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    border-radius:0%!important;
+    border: 2px solid rgb(255, 237, 000)!important
+}
+
+.slider .indicators .indicator-item.active {
+    background-color: rgb(255, 237, 000)
+}
+
+.slider .indicators {
+    position: relative;
     text-align: center;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: 2;
+    margin-top: -2em!important;
+}
+
+.indicator {
+    background:black!important;
+}
+
+.empty {
+    height: 0.6em;
+}
+
+.sideNavItem {
+    padding:1em!important;
+    background: rgb(255, 255, 255);
+    cursor:pointer;
+    float:left;
+}
+
+.sideNavItem:hover {
+    background: black;
+}
+
+.sideNavLink {
+    font-weight: 600!important;
+    color:black!important;
+}
+
+.sideNavItem:hover {
+    font-weight: 600 !important;
+  }
+.sideNavLink:hover {
+    color: white !important;
+  }
+
+
+.headerImage {
+    width: 20%;
+    padding: 2em;
+}
+
+.header {
+    height: 7em;
+    border-bottom: 3px solid black;
+}
+
+.siteTitle {
+    margin-left:15%;
+}
+.leadershipContainer{
+    background-color: #d9d9d9;
+    margin-right: 13%;
+}
+.leaderShipTitle {
+    color: black!important;
+    text-align: left;
+    font-size: 1.5em;
+    /* padding-left: 0.5em; */
+    line-height: 0em;
+}
+
+.leaderShipText {
+    color: black!important;
+    text-align: left;
+    font-size: 1em;
+    /* padding-left: 0.7em; */
+    font-weight: 700;
+    line-height: 1em;
+}
+
+.leaderShipImage {
+    height:38%;
+}
+
+a:hover {
+    text-decoration: underline!important;
+}
+
+.nounderline:hover {
+    text-decoration: none!important;
+}
+
+.bulletList {
+    list-style-type: disc!important;
+}
+
+.showMoreButton {
+    width: 15%;
+    background: rgb(255, 237, 000);
+    font-size: 1.1em;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.3em;
+    margin-left: 42%;
+    cursor: pointer;
+}
+
+.showMoreButton.disabled{
+    background: rgb(217,217,217)!important;
+    cursor: auto!important;
+    pointer-events: none;
+}
+
+.eventCollection-location {
+    clear:both;
+}
+
+.linkCollection{
+    display: inline;
+}
+.linkCollection-container{
+    border-bottom: 0.1em solid black;
+}
+.dropdown-button {
+    display: inline;
+    float: left;
+    background: rgb(255, 255, 255);
+    height: 3.5em;
+    line-height: 3.5em;
+    font-weight: 700;
+    cursor:pointer;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.dropdown-content li>a {
+    color:white!important;
+    background:black!important;
+    width:10%;
+}
+
+.dropdown-content li:hover {
+    background:black!important;
+    color: white;
+}
+
+.dropdown-content li{
+    border-bottom:1px solid white;
+}
+
+.dropdown-content li {
+    background:black;
+}
+
+.content-slider-infobox-title {
+    color: rgb(255, 255, 255);
+    padding-top: 1em;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 800;
+    padding: 1em;
+    padding-left: 1em;
+    line-height: 0em;
+}
+
+.content-slider-infobox-readMore {
+    color: white!important;
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: 700;
+    line-height: 1em;
+}
+
+.content-slider-infobox {
+    background-color: rgba(0,0,0,0.8);
+    width: 50%;
+    max-width: 16em;
+    position: absolute;
+    bottom: 0em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.content-slider-indicators-indicator {
+    background: rgba(217,217,217,1);
+    color:black;
+    width:1.5em;
+    height: 1.5em;
+    float:left;   
+    margin-right:0.5em;
+    font-weight: 600;
+    text-align: center;
+}
+.content-slider{
+    width: 100%;
+    height: 100%;
+}
+.content-slider-indicators-indicator.active {
+    background:  rgb(255, 237, 000);
+}
+
+.content-slider-indicators {
+    display: block;
+    position: absolute;
+    /* bottom: -12em; */
+    /* right: 0em; */
+    cursor: pointer;
+}
+.content-slider-indicators-wrapper{
+    float: left;
+    width: 0%;
+    height: 20%;
+}
+.leaderShipWebpartTitle {
+    line-height: 1em;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.fadeSlider {
+    opacity: 0;
+}
+
+@keyframes moveToLeft {
+    from {opacity: 1;}
+    to {opacity: 0}
+}
+ .movingToLeft {
+     animation: moveToLeft 1s forwards;
+ }
+
+ .sliderContainer {
+    height: 20em;
+    position: relative;
+ }
+ .smallImage{
+     width: 2em;
+     height: 2em;
+     padding: 0.2em;
+ }
+ .newsLink::before {
+    content: '\25B6';
+    background-color: #ffed00;
+    height: 2em;
+    /* margin: 0.1em; */
+    margin-right: 0.5em;
+    width: 2em;
+    border-radius: 1.2em;
+    border: 0.15em solid transparent;
+    border-top: 0.1em solid transparent;
+    border-bottom: 0.05em solid transparent;
+    border-left: 0.25em solid transparent;
+}
+.newsDate{
+    font-weight: 300;
+    font-size: 0.9em;
+}
+.newsTitle {
+    font-weight: 700;
+}
+.referenceRequest-header{
+    line-height: 1em;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+.referenceRequest-container{
+    border-bottom: 0.1em solid #d9d9d9;
+    margin-bottom: 9%;
+}
+.leaderShipJobTitle{
+    color: white;
+    line-height: 1em;
+    font-weight: 700;
+    font-size: 0.5em;
+
+}
+
+div.w1{
+    width: 100%;
+    height: 10%;
+}
+div.w2{
+    width: 50%;
+    box-sizing: border-box;
+    margin: auto;
+    float: left;
+    clear: none;
+}
+.modal-content-edit-preview{
+    line-height: 3em;
+    height: 3em;
+}
+.modal-content-edit-button--plus, .modal-content-edit--save, .modal-content-edit-button--remove {
+    margin: 0.5em;
+    font-size: 1em;
+    font-weight: 800;
+}
+.modal-content-edit-button--plus{
+    border: 2px solid #009cFF;
+    color: #009cFF;
+}
+.modal-content-edit--save{
+    border: 2px solid #32cc00;
+    color: #32cc00;
+}
+.modal-content-edit-button--remove{
+    border: 2px solid #CC2311;
+    color: #CC2311;
+}
+
+.fullGrid {
+    box-sizing:border-box;
+    width:100%!important;
+    height:100%!important;
+    position: relative;
+}
+
+.test {
+    background:black;
+    width:100px;
+    height: 200px;
+}
+
+button {
+    background:none;
+    border:none;
+}
+
+.material-icons {
+    font-size:3em!important;
+}
+.grid-controls-button {
+    cursor: pointer;
+    font-size: 0.5em;
+    font-weight: 800;
+    line-height: 1em;
+    font-stretch: expanded;
+    margin-left: -1em
+}
+
+/* .grid-controls-button.button--remove:hover{
+    background-color: rgb(217,217,217);
+    
+}
+.grid-controls-button.button--settings:hover {
+    background-color: rgb(217,217,217);
+}  */
+
+.buttonWrapper {
+    display:block;
+    position: relative;
+    float: right;
+    z-index: 5;
+    margin-bottom: -5em;
+    top: -100%;
     
 }
 
-.modal-background{
-    margin: auto;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
+
+
+.contentEditor-container {
     height: 100%;
-    background-color: #000000;
-    opacity: 0.7;
-    z-index: 1001;
 }
-.modal-content{
-    position: fixed;
-    display: block;
-    width: 50%;
-    height: 60%;
-    z-index: 1001;
-    background: white;
-    top: 20%;
-    left: 25%;
+.shadowComponentText{
+    text-align:center !important;
+    font-weight: 800;
+    vertical-align: middle;
+    font-family: 'Trebuchet MS';
+} 
 
+.fa {
+    color: rgb(102,102,102);
+    background:white;
+    padding:0em 0.1em 0em 0.1em;
+    border-radius:0.1em;
 }
 
-.zIndex {
-    z-index:9000
+.fa:hover {
+    color: black;
+    transition: color 0.5s linear;
+}
+
+.buttonsHide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.buttonsShow {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+.modal-content-edit-slider-preview-container{
+    width: 90%;
+    margin: 5%;
+    height: 30%;
+    border: 1px dotted #00699F;
+}
+.modal-content-edit-slider-preview-textDescription, .modal-content-edit-slider-preview-textTitle{
+    text-align: left;
+}
+.modal-content-edit-slider-preview-textTitle {
+    height: 25%;
+}
+.modal-content-edit-slider-preview-textDescription{
+    height: 50%
+}
+.modal-content-edit-slider-preview-button{
+        height: 25%;
+        width: 40%;
+        margin-left: 5%;
 }

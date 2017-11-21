@@ -7,6 +7,9 @@ import ContentContainer from './components/contentContainer.jsx';
 import TextEditor from './components/textEditor.jsx';
 
 
+
+
+
 function get_browser() {
   var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
   if (/trident/i.test(M[1])) {
@@ -14,7 +17,7 @@ function get_browser() {
     return { name: 'IE', version: (tem[1] || '') };
   }
   if (M[1] === 'Chrome') {
-    
+
     tem = ua.match(/\bOPR|Edge\/(\d+)/)
     if (tem != null) { return { name: 'Opera', version: tem[1] }; }
   }
@@ -44,13 +47,13 @@ const draggableComponents = [
           link: "1"
         }
       ],
-      sliderStyles:{
-        sliderBackgroundStyle : "slider-shape--square",
-        sliderBackgroundColor : "dxc-background-gray--dark",
-        sliderButtonColor : "dxc-background-yellow",
-        sliderTextColor : "dxc-font-white",
-        sliderButtonTextColor : "dxc-font-black",
-        readMoreText : "Read more"
+      sliderStyles: {
+        sliderBackgroundStyle: "slider-shape-square",
+        sliderBackgroundColor: "dxc-background-gray--dark",
+        sliderButtonColor: "dxc-background-yellow",
+        sliderTextColor: "dxc-font-white",
+        sliderButtonTextColor: "dxc-font-black",
+        readMoreText: "Read more"
       }
     }
   },
@@ -140,32 +143,85 @@ class App extends React.Component {
     };
   }
   componentWillMount() {
-
-    if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
-      let allAdded = 0;
-      if (localStorage.getItem(getParameterByName("page"))) {
-        let allItems = JSON.parse(localStorage.getItem(getParameterByName("page")));
-        allAdded = allItems.sort(function (a, b) {
-          return b["containerKey"] - a["containerKey"]
-        })[0]['containerKey']
-      }
-      this.setState({
+    if(window.location.href == 'localhost:3000'){
+      that.setState({
         currentMode: "edit",
-        currentPage: getParameterByName("page") || "",
-        currentStateJSON: (localStorage.getItem(getParameterByName("page")) || "[]"),
-        allAdded: allAdded,
-        browser: get_browser()['name']
+        currentPage: "",
+        currentStateJSON: "[]",
+        allAdded: 0,
+        browser: get_browser()['name'],
+        id: 0
 
       })
-    } else {
-      this.setState({
-        currentMode: "view",
-        currentPage: getParameterByName("page"),
-        currentStateJSON: localStorage.getItem(getParameterByName("page")),
-        browser: get_browser()['name']
-      })
+      return false;
     }
+    let response;
+    let currentPage = getParameterByName("page") || '';
+    let that = this;
+    $().SPServices({
+      operation: "GetListItems",
+      async: false,
+      listName: "SBH Templates",
+      CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='InnerHTML' /><FieldRef Name='ID' /></ViewFields>",
+      CAMLQuery: "<Query><Where><Eq><FieldRef Name='Title' /><Value Type='Text'>"
+        + currentPage +
+        "</Value></Eq></Where></Query>",
+      completefunc: function (xData, Status) {
+        if($(xData.responseXML).SPFilterNode("z:row").length == 0){
+          that.setState({
+            currentMode: "edit",
+            currentPage: "",
+            currentStateJSON: "[]",
+            allAdded: 0,
+            browser: get_browser()['name'],
+            id: 0
+
+          })
+        }else {
+          $(xData.responseXML).SPFilterNode("z:row").each(function () {
+            let id = $(this).attr('ows_ID');
+            response = $(this).attr('ows_InnerHTML');
+            //console.log($(this).attr('ows_InnerHTML'))
+           // console.log(typeof($(this).attr('ows_InnerHTML')))
+            if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
+              
+              
+              let allAdded = 0;
+
+              allAdded = JSON.parse($(this).attr('ows_InnerHTML')).sort(function (a, b) {
+                return b["containerKey"] - a["containerKey"]
+              })[0]['containerKey']
+
+              that.setState({
+                currentMode: "edit",
+                currentPage: currentPage || "",
+                currentStateJSON: (response || "[]"),
+                allAdded: allAdded,
+                browser: get_browser()['name'],
+                id: id
+
+              })
+              
+            } else {
+              that.setState({
+                currentMode: "view",
+                currentPage: currentPage,
+                currentStateJSON: response,
+                browser: get_browser()['name'],
+                id: id
+              })
+              
+            }
+          })
+        }
+
+
+      }
+
+    })
   }
+
+
   onLayoutChange(layout, layouts) {
     this.setState({ layouts });
   }
@@ -222,8 +278,29 @@ class App extends React.Component {
         alert("The name cannot contain special symbols or spaces");
       } else {
         localStorage.setItem(prompt, this.state.currentStateJSON);
+        $().SPServices({
+          operation: "UpdateListItems",
+          async: false,
+          batchCmd: "New",
+          listName: "SBH Templates",
+          valuepairs: [["Title", prompt], ["InnerHTML", this.state.currentStateJSON]],
+          completefunc: function (xData, Status) {
+            alert("Page Saved!");
+          }
+        });
       }
     } else {
+      $().SPServices({
+        operation: "UpdateListItems",
+        async: false,
+        batchCmd: "Update",
+        ID: this.state.id,
+        listName: "SBH Templates",
+        valuepairs: [["Title", this.state.currentPage], ["InnerHTML", this.state.currentStateJSON]],
+        completefunc: function (xData, Status) {
+          alert("Page Saved");
+        }
+      });
       localStorage.setItem(this.state.currentPage, this.state.currentStateJSON);
     }
 
@@ -424,7 +501,7 @@ class App extends React.Component {
               let modalKey = e["containerKey"];
               return (
                 <div
-                  className="gridLayout-cell"
+                  className=""
                   key={e["containerKey"]}
                   data-grid={e["containerProps"]}
                 >

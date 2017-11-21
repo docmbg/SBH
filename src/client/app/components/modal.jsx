@@ -6,6 +6,7 @@ import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
 import TabMenu from './tabMenu.jsx';
+import Survey from './survey.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -58,6 +59,9 @@ class Modal extends React.Component {
             case ("TabMenu"):
                 return <TabMenu componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("Survey"):
+                return <Survey componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
             default:
                 return (
                     <div>
@@ -72,11 +76,11 @@ class Modal extends React.Component {
                 <div className="modal-container">
                     <div className="modal-background">
                     </div>
-                    
+
                     <div className="modal-content">
-                    <button className="modal-content-close modal-content-edit-button--remove" onClick={() => this.closeModal()}>
-                    Close
-                    </button> 
+                        <button  className="modal-content-close modal-content-edit-button--remove"  onClick={()  =>  this.closeModal()}>
+                            Close
+                    </button>
                         <select className="modal-content-select" onChange={(e) => this.handleModalChange(e)}>
                             <option value="" default></option>
                             <option value="ImageContainer">Image Container</option>
@@ -85,6 +89,7 @@ class Modal extends React.Component {
                             <option value="Slider">Slider</option>
                             <option value="SideNav">Side Navigation</option>
                             <option value="TabMenu">Tab Menu</option>
+                            <option value="Survey">Survey</option>
                         </select>
                         <div className="modal-content-edit-container">
                             {editProperties}

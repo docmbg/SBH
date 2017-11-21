@@ -7,6 +7,8 @@ import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
 import ModalEditButtons from './modalEditButtons.jsx';
 import TabMenu from './tabMenu.jsx';
+import Survey from './survey.jsx';
+
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -37,7 +39,10 @@ class ContentContainer extends React.Component {
                 return <SideNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TabMenu"):
-                return <TabMenu componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} passOpen={(e) => this.props.passOpen(e)}/>
+                return <TabMenu componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} passOpen={(e) => this.props.passOpen(e)} />
+                break;
+            case ("Survey"):
+                return <Survey componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (
@@ -47,20 +52,20 @@ class ContentContainer extends React.Component {
         }
     }
 
-    changeButtonsStyle(display){
+    changeButtonsStyle(display) {
         this.setState({
             display
         })
     }
 
     render() {
-        if(this.props.passOpen){
+        if (this.props.passOpen) {
             return (
-                <div onMouseEnter={()=>this.changeButtonsStyle('buttonsShow')} onMouseLeave={()=>this.changeButtonsStyle('buttonsHide')}>
+                <div onMouseEnter={() => this.changeButtonsStyle('buttonsShow')} onMouseLeave={() => this.changeButtonsStyle('buttonsHide')}>
                     <div className={this.state.display}>
                         <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)} />
-                     </div>
-                     {this.componentsMap(this.props.innerElementType)}
+                    </div>
+                    {this.componentsMap(this.props.innerElementType)}
                 </div>
             )
         } else {

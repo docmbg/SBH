@@ -146,6 +146,16 @@
 	    h: 12
 	  },
 	  defaultProps: {}
+	}, {
+	  type: 'Survey-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  defaultProps: {
+	    iframe: '',
+	    selectorValue: ''
+	  }
 	}];
 	var windowW = window.innerWidth;
 	var windowH = window.innerHeight;
@@ -573,6 +583,15 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE439'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'Survey-Component' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                '\uE801'
 	              )
 	            )
 	          ),
@@ -29394,6 +29413,10 @@
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
+	var _survey = __webpack_require__(396);
+
+	var _survey2 = _interopRequireDefault(_survey);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29481,6 +29504,11 @@
 	                            return _this2.getProps(e);
 	                        } });
 	                    break;
+	                case "Survey":
+	                    return _react2.default.createElement(_survey2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
+	                            return _this2.getProps(e);
+	                        } });
+	                    break;
 	                default:
 	                    return _react2.default.createElement('div', null);
 	            }
@@ -29541,6 +29569,11 @@
 	                                'option',
 	                                { value: 'TabMenu' },
 	                                'Tab Menu'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'Survey' },
+	                                'Survey'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -59868,6 +59901,10 @@
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
+	var _survey = __webpack_require__(396);
+
+	var _survey2 = _interopRequireDefault(_survey);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59927,6 +59964,11 @@
 	                            return _this3.getProps(e);
 	                        }, passOpen: function passOpen(e) {
 	                            return _this3.props.passOpen(e);
+	                        } });
+	                    break;
+	                case "Survey":
+	                    return _react2.default.createElement(_survey2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
 	                        } });
 	                    break;
 	                default:
@@ -60051,6 +60093,204 @@
 	}(_react2.default.Component);
 
 	exports.default = ModalEditButtons;
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _contentContainer = __webpack_require__(394);
+
+	var _contentContainer2 = _interopRequireDefault(_contentContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Survey = function (_React$Component) {
+	    _inherits(Survey, _React$Component);
+
+	    function Survey(props) {
+	        _classCallCheck(this, Survey);
+
+	        var _this = _possibleConstructorReturn(this, (Survey.__proto__ || Object.getPrototypeOf(Survey)).call(this, props));
+
+	        _this.state = {
+	            fullSurveyAddUrl: '',
+	            existingSurveys: [],
+	            surveys: _react2.default.createElement('div', null),
+	            iframe: '',
+	            loaded: 1,
+	            selectorValue: 'default'
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Survey, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                iframe: nextProps.componentProperties.iframe,
+	                selectorValue: nextProps.componentProperties.selectorValue
+	            });
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            var _this2 = this;
+
+	            var mainURL = window.location.href.split('teams')[0] + 'teams/';
+	            var siteName = window.location.href.split(mainURL)[1].split('/')[0];
+	            var fullSurveyAddUrl = '' + mainURL + siteName + '/Surveys/_layouts/15/new.aspx?FeatureId=%7B00bfea71-eb8a-40b1-80c7-506be7590102%7D&ListTemplate=102&';
+	            var existingSurveys = [];
+	            var surveys = this.state.surveys;
+	            if (window.location.href != 'http://localhost:3000/') {
+	                $().SPServices({
+	                    operation: "GetListCollection",
+	                    async: false,
+	                    webURL: 'https://hpe.sharepoint.com/teams/DOCMNewCo/Surveys',
+	                    completefunc: function completefunc(xData, Status) {
+	                        $(xData.responseXML).SPFilterNode("List").each(function () {
+	                            console.log($(this).attr('ServerTemplate'));
+	                            if ($(this).attr('ServerTemplate') == 102) {
+	                                existingSurveys.push($(this).attr('Title'));
+	                            }
+	                        });
+	                    }
+	                });
+	            }
+	            if (existingSurveys.length > 0) {
+	                surveys = _react2.default.createElement(
+	                    'select',
+	                    { onChange: function onChange(e) {
+	                            return _this2.onSurveyChange(e);
+	                        }, defaultValue: this.state.selectorValue },
+	                    _react2.default.createElement(
+	                        'option',
+	                        { disabled: true, value: 'default' },
+	                        ' -- Choose a Survey -- '
+	                    ),
+	                    existingSurveys.map(function (e) {
+	                        return _react2.default.createElement(
+	                            'option',
+	                            { value: e },
+	                            e
+	                        );
+	                    })
+	                );
+	            }
+	            this.setState({
+	                fullSurveyAddUrl: fullSurveyAddUrl,
+	                existingSurveys: existingSurveys,
+	                surveys: surveys
+	            });
+	        }
+	    }, {
+	        key: 'onSurveyChange',
+	        value: function onSurveyChange(e) {
+	            var iframe = this.state.fullSurveyAddUrl.split('_layouts')[0] + '/Lists/' + e.target.value + '/NewForm.aspx?IsDlg=1';
+	            var loaded = this.state.loaded - 1;
+	            this.setState({
+	                iframe: iframe,
+	                selectorValue: e.target.value,
+	                loaded: loaded
+	            });
+	        }
+	    }, {
+	        key: 'saveEdit',
+	        value: function saveEdit() {
+	            this.props.passProps({
+	                iframe: this.state.iframe,
+	                selectorValue: this.state.selectorValue
+	            });
+	        }
+	    }, {
+	        key: 'testOnload',
+	        value: function testOnload() {
+	            var loaded = this.state.loaded;
+	            loaded++;
+	            if (loaded == 2) {
+	                var iframe = this.state.fullSurveyAddUrl.split('_layouts')[0] + 'Lists/' + this.state.selectorValue + '/summary.aspx?IsDlg=1';
+	                this.setState({
+	                    iframe: iframe
+	                });
+	            } else {
+	                this.setState({
+	                    loaded: loaded
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            console.log(this.state.selectorValue);
+	            var that = this;
+	            if (this.props.editable) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: function onClick() {
+	                                    return that.saveEdit();
+	                                },
+	                                className: 'modal-content-edit--save'
+	                            },
+	                            'Save'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: this.state.fullSurveyAddUrl, target: '_blank' },
+	                        ' Add a new Survey '
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'or add from existing '
+	                    ),
+	                    this.state.surveys,
+	                    _react2.default.createElement('iframe', { onLoad: function onLoad(e) {
+	                            return _this3.testOnload();
+	                        }, src: this.state.iframe, width: '100%', height: '100%' })
+	                );
+	            } else {
+	                return _react2.default.createElement('iframe', { onLoad: function onLoad(e) {
+	                        return _this3.testOnload();
+	                    }, src: this.state.iframe, width: '100%', height: '100%' });
+	            }
+	        }
+	    }]);
+
+	    return Survey;
+	}(_react2.default.Component);
+
+	exports.default = Survey;
 
 /***/ })
 /******/ ]);

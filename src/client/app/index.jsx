@@ -76,6 +76,17 @@ const draggableComponents = [
     defaultProps: {
 
     }
+  },
+  {
+    type: 'Survey-Component',
+    defaultSize: {
+      w: 2,
+      h: 9
+    },
+    defaultProps: {
+      iframe: '',
+      selectorValue: '',
+    }
   }
 ];
 const windowW = window.innerWidth;
@@ -438,6 +449,7 @@ class App extends React.Component {
             <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
             <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
             <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
+            <button className="Survey-Component"><i className="material-icons">&#xE801;</i></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"

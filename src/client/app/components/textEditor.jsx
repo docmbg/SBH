@@ -13,7 +13,6 @@ class TextEditor extends Component {
         this.onEditorStateChange = (editorState) => {
             this.setState({
                 editorState,
-                
             })
         };
     }
@@ -30,12 +29,21 @@ class TextEditor extends Component {
             editorState: convertToRaw(this.state.editorState.getCurrentContent()),
         })
     }
-
- 
+    mousePass(){
+        if(this.props.componentProperties.editable){
+            console.log("Mouse Pass")
+            this.saveEdit();
+        }
+    }
 
     render() {
         let editor = <div></div>
-        if(this.state.editorState.getCurrentContent().hasText()){
+        if(this.props.componentProperties.editable){
+            editor =  <Editor
+            editorState={this.state.editorState}
+            onEditorStateChange={this.onEditorStateChange}
+        />
+        } else if(this.state.editorState.getCurrentContent().hasText()){
             editor =  <Editor
             editorState={this.state.editorState}
             toolbarStyle={{ display: "none", visibility: "hidden" }}
@@ -53,7 +61,8 @@ class TextEditor extends Component {
                                 className="modal-content-edit--save"
                             >Save</button>
                         </div>
-                        <div className="contentEditor-container">
+                        <div className="contentEditor-container"
+                        onMouseOut={() => this.mousePass()}>
                             <div className="contentEditor">
                                 <Editor
                                     editorState={this.state.editorState}

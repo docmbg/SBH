@@ -143,8 +143,12 @@ li:hover{
     display: none;
     visibility: hidden;
 }
-.content-slider-indicators-shape--circle> li, .conent-slider-indicators-shape--square> li {
+.content-slider-indicators-shape--circle> li, .content-slider-indicators-shape--square> li {
     color: transparent !important;
+    box-sizing: border-box;
+}
+.content-slider-indicators-shape--square> li{
+    border: 1px;
 }
 .content-slider-indicators-shape--circle> li{
     border-radius: 1em;

@@ -16,7 +16,7 @@ class ContentContainer extends React.Component {
         this.state = {
             innerElementType: this.props.innerElementType,
             innerElementProps: this.props.innerElementProps,
-            display: 'none'
+            display: "none"
         }
     }
 
@@ -30,7 +30,7 @@ class ContentContainer extends React.Component {
                 return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
                 break;
             case ("TextHeader"):
-                return <SimpleHeader componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
+                return <SimpleHeader componentProperties={this.props.innerElementProps} editable={this.props.innerElementProps.editable ? true : false} passProps={() => null} />
                 break;
             case ("Slider"):
                 return <SliderWebPart componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />

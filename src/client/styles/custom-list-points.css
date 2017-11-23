@@ -143,3 +143,10 @@ li:hover{
     display: none;
     visibility: hidden;
 }
+.content-slider-indicators-shape--circle> li, .conent-slider-indicators-shape--square> li {
+    color: transparent !important;
+}
+.content-slider-indicators-shape--circle> li{
+    border-radius: 1em;
+    border: 1px solid transparent;
+}

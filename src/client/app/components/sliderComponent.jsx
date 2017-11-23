@@ -110,7 +110,7 @@ class Slider extends React.Component {
                     })
                 }
                 <div className="content-slider-indicators-wrapper">
-                    <ul className={_this.props.sliderStyles.sliderIndicatorsStyle}>
+                    <ul className={`${_this.props.sliderStyles.sliderIndicatorsStyle} ${_this.props.sliderStyles.sliderIndicatorsShape}`}>
                         {
                             slides.map((elem, index) =>
                                 (

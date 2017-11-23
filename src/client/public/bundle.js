@@ -68,7 +68,7 @@
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(393);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -135,6 +135,7 @@
 	      sliderButtonTextColor: "dxc-font-black",
 	      sliderBackgroundOpacity: 60,
 	      sliderIndicatorsStyle: "content-slider-indicators",
+	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
 	      readMoreText: "Read more"
 	    }
 	  }
@@ -29583,15 +29584,15 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _sideNav = __webpack_require__(343);
+	var _sideNav = __webpack_require__(342);
 
 	var _sideNav2 = _interopRequireDefault(_sideNav);
 
-	var _tabMenu = __webpack_require__(344);
+	var _tabMenu = __webpack_require__(343);
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
-	var _survey = __webpack_require__(396);
+	var _survey = __webpack_require__(395);
 
 	var _survey2 = _interopRequireDefault(_survey);
 
@@ -53602,7 +53603,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _sliderComponent = __webpack_require__(342);
+	var _sliderComponent = __webpack_require__(396);
 
 	var _sliderComponent2 = _interopRequireDefault(_sliderComponent);
 
@@ -53736,7 +53737,7 @@
 	                                { className: 'content-slider-indicators-wrapper' },
 	                                _react2.default.createElement(
 	                                    'ul',
-	                                    { className: that.state.sliderStyles.sliderIndicatorsStyle },
+	                                    { className: that.state.sliderStyles.sliderIndicatorsStyle + ' ' + that.state.sliderStyles.sliderIndicatorsShape },
 	                                    _react2.default.createElement(
 	                                        'li',
 	                                        { className: 'active' },
@@ -53765,7 +53766,7 @@
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderBackgroundColor,
+
 	                                        defaultValue: this.state.sliderStyles.sliderBackgroundColor,
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderBackgroundColor");
@@ -53815,7 +53816,7 @@
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderBackgroundStyle,
+
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderBackgroundStyle");
 	                                        },
@@ -53849,7 +53850,7 @@
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderButtonColor,
+
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderButtonColor");
 	                                        },
@@ -53914,7 +53915,7 @@
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderTextColor,
+
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderTextColor");
 	                                        },
@@ -53984,7 +53985,7 @@
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderButtonTextColor,
+
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderButtonTextColor");
 	                                        },
@@ -54025,16 +54026,20 @@
 	                                        { value: 'dxc-font-green' },
 	                                        'Green'
 	                                    )
-	                                ),
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'w2' },
 	                                _react2.default.createElement(
 	                                    'p',
 	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider indicator style'
+	                                    'Slider indicator color'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'select',
 	                                    {
-	                                        value: this.state.sliderStyles.sliderIndicatorsStyle,
+
 	                                        onChange: function onChange(e) {
 	                                            return _this2.handleGeneralChange(e, "sliderIndicatorsStyle");
 	                                        },
@@ -54064,6 +54069,41 @@
 	                                        'option',
 	                                        { value: 'content-slider-indicators--pictures' },
 	                                        'DXC Logo'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    { className: 'modal-content-edit-header' },
+	                                    'Slider indicator shape'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'select',
+	                                    {
+
+	                                        onChange: function onChange(e) {
+	                                            return _this2.handleGeneralChange(e, "sliderIndicatorsShape");
+	                                        },
+	                                        defaultValue: this.state.sliderStyles.sliderIndicatorsShape
+	                                    },
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: 'content-slider-indicators' },
+	                                        'Classic'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: 'content-slider-indicators-shape--square_number' },
+	                                        'Default'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: 'content-slider-indicators-shape--circle' },
+	                                        'Circle (No numbers)'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: 'content-slider-indicators-shape--square' },
+	                                        'Square(No numbers)'
 	                                    )
 	                                )
 	                            )
@@ -54166,197 +54206,6 @@
 
 /***/ }),
 /* 342 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	//import { Router, browserHistory   } from 'react-router';
-
-	var interval = void 0;
-
-	var Slider = function (_React$Component) {
-	    _inherits(Slider, _React$Component);
-
-	    function Slider(props) {
-	        _classCallCheck(this, Slider);
-
-	        var _this2 = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
-
-	        _this2.state = {
-	            slides: _this2.props.slides || [],
-	            currentPicture: 'asdasd',
-	            currentPictureIndex: 0,
-	            timeBetweenSlides: 5000,
-	            timeTillChange: 0,
-	            className: 'sliderPicture'
-	        };
-	        return _this2;
-	    }
-
-	    _createClass(Slider, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            this.setState({
-	                slides: nextProps.slides,
-	                sliderStyles: nextProps.sliderStyles
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-
-	            var _this = this;
-	            if (this.state.slides.length) {
-	                interval = setInterval(function change() {
-	                    var timeTillChange = _this.state.timeTillChange;
-	                    if (timeTillChange == 0) {
-	                        _this.pickNextPicture(_this.state.currentPictureIndex, _this.state.slides, _this.state.timeBetweenSlides);
-	                    } else {
-	                        timeTillChange = timeTillChange - 250;
-	                        if (timeTillChange == 0) {
-	                            _this.setState({
-	                                timeTillChange: timeTillChange,
-	                                className: 'slidePicture movingToLeft'
-	                            });
-	                        } else {
-	                            _this.setState({
-	                                timeTillChange: timeTillChange,
-	                                className: 'sliderPicture'
-
-	                            });
-	                        }
-	                    }
-	                    return change;
-	                }(), 250);
-	            }
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearInterval(interval);
-	        }
-	    }, {
-	        key: 'pickNextPicture',
-	        value: function pickNextPicture(index, slides, timeBetweenSlides) {
-	            console.log("Slide index (before):", index, ", Slide length: ", slides.length);
-	            if (index >= slides.length) {
-	                index = 0;
-	            }
-
-	            console.log("Slide index:", index);
-	            this.setState({
-	                currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
-	                currentPictureIndex: index + 1,
-	                timeTillChange: timeBetweenSlides
-	            });
-	        }
-	    }, {
-	        key: 'goToSlide',
-	        value: function goToSlide(e) {
-	            this.pickNextPicture(e.target.value - 1, this.state.slides, this.state.timeBetweenSlides);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this = this;
-	            var style = {
-	                // backgroundImage: `url(${this.state.currentPicture})`,
-	                backgroundSize: 'contain',
-	                backgroundRepeat: 'no-repeat',
-	                //transition: 'opacity 0.5s ease-out',
-	                width: '100%',
-	                height: '100%'
-	            };
-	            var slides = this.state.slides || [];
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'content-slider' },
-	                _react2.default.createElement('img', { src: this.state.currentPicture, className: this.state.className + ' content-slider-image' }),
-	                slides.map(function (elem, index) {
-	                    if (index + 1 == _this.state.currentPictureIndex) {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'content-slider-infobox' },
-	                            _react2.default.createElement('div', {
-	                                className: 'content-slider-infobox-wrapper ' + (_this.props.sliderStyles.sliderBackgroundStyle || "") + ' ' + (_this.props.sliderStyles.sliderBackgroundColor || ""),
-	                                style: { opacity: (parseInt(_this.props.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2) }
-	                            }),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'content-slider-infobox-text' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'content-slider-infobox-readMore' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: elem.link, target: '_blank' },
-	                                        _react2.default.createElement(
-	                                            'div',
-	                                            { className: (_this.props.sliderStyles.sliderButtonColor || "") + ' ' + (_this.props.sliderStyles.sliderButtonTextColor || "") },
-	                                            _this.props.sliderStyles.readMoreText || ""
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'content-slider-infobox-title ' + (_this.props.sliderStyles.sliderTextColor || "") },
-	                                    elem.title
-	                                )
-	                            )
-	                        );
-	                    }
-	                }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'content-slider-indicators-wrapper' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: _this.props.sliderStyles.sliderIndicatorsStyle },
-	                        slides.map(function (elem, index) {
-	                            return _react2.default.createElement(
-	                                'li',
-	                                { key: index, value: index + 1, onClick: function onClick(e) {
-	                                        return _this.goToSlide(e);
-	                                    },
-	                                    className: index + 1 == _this.state.currentPictureIndex ? 'content-slider-indicators-indicator active' : 'content-slider-indicators-indicator' },
-	                                index + 1
-	                            );
-	                        })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Slider;
-	}(_react2.default.Component);
-
-	exports.default = Slider;
-
-/***/ }),
-/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54712,7 +54561,7 @@
 	exports.default = SideNav;
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54731,9 +54580,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactMaterialize = __webpack_require__(345);
+	var _reactMaterialize = __webpack_require__(344);
 
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(393);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -54932,7 +54781,7 @@
 	exports.default = TabMenu;
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54942,179 +54791,179 @@
 	});
 	exports.Toast = exports.Tag = exports.Tabs = exports.Table = exports.Tab = exports.Slider = exports.Slide = exports.SideNavItem = exports.SideNav = exports.Section = exports.SearchForm = exports.Row = exports.ProgressBar = exports.Preloader = exports.Parallax = exports.PaginationButton = exports.Pagination = exports.OverlayTrigger = exports.Overlay = exports.Navbar = exports.NavItem = exports.Modal = exports.MenuItem = exports.MediaBox = exports.Input = exports.Icon = exports.Footer = exports.Dropdown = exports.Divider = exports.Container = exports.CollectionItem = exports.Collection = exports.CollapsibleItem = exports.Collapsible = exports.Col = exports.Chip = exports.CardTitle = exports.CardPanel = exports.Card = exports.Carousel = exports.Button = exports.Breadcrumb = exports.Badge = exports.Autocomplete = undefined;
 
-	var _Autocomplete = __webpack_require__(346);
+	var _Autocomplete = __webpack_require__(345);
 
 	var _Autocomplete2 = _interopRequireDefault(_Autocomplete);
 
-	var _Badge = __webpack_require__(349);
+	var _Badge = __webpack_require__(348);
 
 	var _Badge2 = _interopRequireDefault(_Badge);
 
-	var _Breadcrumb = __webpack_require__(350);
+	var _Breadcrumb = __webpack_require__(349);
 
 	var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
-	var _Button = __webpack_require__(352);
+	var _Button = __webpack_require__(351);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Carousel = __webpack_require__(354);
+	var _Carousel = __webpack_require__(353);
 
 	var _Carousel2 = _interopRequireDefault(_Carousel);
 
-	var _Card = __webpack_require__(355);
+	var _Card = __webpack_require__(354);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
-	var _CardPanel = __webpack_require__(356);
+	var _CardPanel = __webpack_require__(355);
 
 	var _CardPanel2 = _interopRequireDefault(_CardPanel);
 
-	var _CardTitle = __webpack_require__(357);
+	var _CardTitle = __webpack_require__(356);
 
 	var _CardTitle2 = _interopRequireDefault(_CardTitle);
 
-	var _Chip = __webpack_require__(358);
+	var _Chip = __webpack_require__(357);
 
 	var _Chip2 = _interopRequireDefault(_Chip);
 
-	var _Col = __webpack_require__(351);
+	var _Col = __webpack_require__(350);
 
 	var _Col2 = _interopRequireDefault(_Col);
 
-	var _Collapsible = __webpack_require__(359);
+	var _Collapsible = __webpack_require__(358);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _CollapsibleItem = __webpack_require__(360);
+	var _CollapsibleItem = __webpack_require__(359);
 
 	var _CollapsibleItem2 = _interopRequireDefault(_CollapsibleItem);
 
-	var _Collection = __webpack_require__(361);
+	var _Collection = __webpack_require__(360);
 
 	var _Collection2 = _interopRequireDefault(_Collection);
 
-	var _CollectionItem = __webpack_require__(362);
+	var _CollectionItem = __webpack_require__(361);
 
 	var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
-	var _Container = __webpack_require__(363);
+	var _Container = __webpack_require__(362);
 
 	var _Container2 = _interopRequireDefault(_Container);
 
-	var _Divider = __webpack_require__(364);
+	var _Divider = __webpack_require__(363);
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
-	var _Dropdown = __webpack_require__(365);
+	var _Dropdown = __webpack_require__(364);
 
 	var _Dropdown2 = _interopRequireDefault(_Dropdown);
 
-	var _Footer = __webpack_require__(366);
+	var _Footer = __webpack_require__(365);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
-	var _Input = __webpack_require__(368);
+	var _Input = __webpack_require__(367);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
-	var _MediaBox = __webpack_require__(369);
+	var _MediaBox = __webpack_require__(368);
 
 	var _MediaBox2 = _interopRequireDefault(_MediaBox);
 
-	var _MenuItem = __webpack_require__(370);
+	var _MenuItem = __webpack_require__(369);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _Modal = __webpack_require__(371);
+	var _Modal = __webpack_require__(370);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _NavItem = __webpack_require__(374);
+	var _NavItem = __webpack_require__(373);
 
 	var _NavItem2 = _interopRequireDefault(_NavItem);
 
-	var _Navbar = __webpack_require__(375);
+	var _Navbar = __webpack_require__(374);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Overlay = __webpack_require__(373);
+	var _Overlay = __webpack_require__(372);
 
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 
-	var _OverlayTrigger = __webpack_require__(372);
+	var _OverlayTrigger = __webpack_require__(371);
 
 	var _OverlayTrigger2 = _interopRequireDefault(_OverlayTrigger);
 
-	var _Pagination = __webpack_require__(376);
+	var _Pagination = __webpack_require__(375);
 
 	var _Pagination2 = _interopRequireDefault(_Pagination);
 
-	var _PaginationButton = __webpack_require__(377);
+	var _PaginationButton = __webpack_require__(376);
 
 	var _PaginationButton2 = _interopRequireDefault(_PaginationButton);
 
-	var _Parallax = __webpack_require__(378);
+	var _Parallax = __webpack_require__(377);
 
 	var _Parallax2 = _interopRequireDefault(_Parallax);
 
-	var _Preloader = __webpack_require__(379);
+	var _Preloader = __webpack_require__(378);
 
 	var _Preloader2 = _interopRequireDefault(_Preloader);
 
-	var _ProgressBar = __webpack_require__(381);
+	var _ProgressBar = __webpack_require__(380);
 
 	var _ProgressBar2 = _interopRequireDefault(_ProgressBar);
 
-	var _Row = __webpack_require__(367);
+	var _Row = __webpack_require__(366);
 
 	var _Row2 = _interopRequireDefault(_Row);
 
-	var _SearchForm = __webpack_require__(382);
+	var _SearchForm = __webpack_require__(381);
 
 	var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
-	var _Section = __webpack_require__(383);
+	var _Section = __webpack_require__(382);
 
 	var _Section2 = _interopRequireDefault(_Section);
 
-	var _SideNav = __webpack_require__(384);
+	var _SideNav = __webpack_require__(383);
 
 	var _SideNav2 = _interopRequireDefault(_SideNav);
 
-	var _SideNavItem = __webpack_require__(385);
+	var _SideNavItem = __webpack_require__(384);
 
 	var _SideNavItem2 = _interopRequireDefault(_SideNavItem);
 
-	var _Slide = __webpack_require__(387);
+	var _Slide = __webpack_require__(386);
 
 	var _Slide2 = _interopRequireDefault(_Slide);
 
-	var _Slider = __webpack_require__(388);
+	var _Slider = __webpack_require__(387);
 
 	var _Slider2 = _interopRequireDefault(_Slider);
 
-	var _Tab = __webpack_require__(389);
+	var _Tab = __webpack_require__(388);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _Table = __webpack_require__(390);
+	var _Table = __webpack_require__(389);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	var _Tabs = __webpack_require__(391);
+	var _Tabs = __webpack_require__(390);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _Tag = __webpack_require__(392);
+	var _Tag = __webpack_require__(391);
 
 	var _Tag2 = _interopRequireDefault(_Tag);
 
-	var _Toast = __webpack_require__(393);
+	var _Toast = __webpack_require__(392);
 
 	var _Toast2 = _interopRequireDefault(_Toast);
 
@@ -55166,7 +55015,7 @@
 	exports.Toast = _Toast2.default;
 
 /***/ }),
-/* 346 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55191,11 +55040,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -55378,7 +55227,7 @@
 	exports.default = Autocomplete;
 
 /***/ }),
-/* 347 */
+/* 346 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -55396,7 +55245,7 @@
 	};
 
 /***/ }),
-/* 348 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55413,7 +55262,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -55469,7 +55318,7 @@
 	exports.default = Icon;
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55526,7 +55375,7 @@
 	exports.default = Badge;
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55543,7 +55392,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _Col = __webpack_require__(351);
+	var _Col = __webpack_require__(350);
 
 	var _Col2 = _interopRequireDefault(_Col);
 
@@ -55581,7 +55430,7 @@
 	exports.default = Breadcrumb;
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55604,7 +55453,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -55673,7 +55522,7 @@
 	exports.default = Col;
 
 /***/ }),
-/* 352 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55694,7 +55543,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -55702,11 +55551,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -55870,7 +55719,7 @@
 	exports.default = Button;
 
 /***/ }),
-/* 353 */
+/* 352 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -55893,7 +55742,7 @@
 	}
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56067,7 +55916,7 @@
 	exports.default = Carousel;
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56090,7 +55939,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -56182,7 +56031,7 @@
 	exports.default = Card;
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56233,7 +56082,7 @@
 	exports.default = CardPanel;
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56258,7 +56107,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -56332,7 +56181,7 @@
 	exports.default = CardTitle;
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56379,7 +56228,7 @@
 	exports.default = Chip;
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56527,7 +56376,7 @@
 	exports.default = Collapsible;
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56550,7 +56399,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -56631,7 +56480,7 @@
 	exports.default = CollapsibleItem;
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56733,7 +56582,7 @@
 	exports.default = Collection;
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56814,7 +56663,7 @@
 	exports.default = CollectionItem;
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56848,7 +56697,7 @@
 	exports.default = Container;
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56869,7 +56718,7 @@
 	exports.default = Divider;
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56890,7 +56739,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -57005,7 +56854,7 @@
 	exports.default = Dropdown;
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57030,11 +56879,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Row = __webpack_require__(367);
+	var _Row = __webpack_require__(366);
 
 	var _Row2 = _interopRequireDefault(_Row);
 
-	var _Col = __webpack_require__(351);
+	var _Col = __webpack_require__(350);
 
 	var _Col2 = _interopRequireDefault(_Col);
 
@@ -57121,7 +56970,7 @@
 	exports.default = Footer;
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57171,7 +57020,7 @@
 	exports.default = Row;
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57196,15 +57045,15 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -57533,7 +57382,7 @@
 	exports.default = Input;
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57613,7 +57462,7 @@
 	exports.default = MediaBox;
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57696,7 +57545,7 @@
 	exports.default = MenuItem;
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57717,7 +57566,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _Button = __webpack_require__(352);
+	var _Button = __webpack_require__(351);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -57725,11 +57574,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _OverlayTrigger = __webpack_require__(372);
+	var _OverlayTrigger = __webpack_require__(371);
 
 	var _OverlayTrigger2 = _interopRequireDefault(_OverlayTrigger);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -57915,7 +57764,7 @@
 	exports.default = Modal;
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57934,11 +57783,11 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _Overlay2 = __webpack_require__(373);
+	var _Overlay2 = __webpack_require__(372);
 
 	var _Overlay3 = _interopRequireDefault(_Overlay2);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -58042,7 +57891,7 @@
 	exports.default = OverlayTrigger;
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58166,7 +58015,7 @@
 	exports.default = Overlay;
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58218,7 +58067,7 @@
 	exports.default = NavItem;
 
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58243,11 +58092,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Col = __webpack_require__(351);
+	var _Col = __webpack_require__(350);
 
 	var _Col2 = _interopRequireDefault(_Col);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -58392,7 +58241,7 @@
 	exports.default = Navbar;
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58415,11 +58264,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
-	var _PaginationButton = __webpack_require__(377);
+	var _PaginationButton = __webpack_require__(376);
 
 	var _PaginationButton2 = _interopRequireDefault(_PaginationButton);
 
@@ -58583,7 +58432,7 @@
 	exports.default = Pagination;
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58647,7 +58496,7 @@
 	exports.default = PaginationButton;
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58724,7 +58573,7 @@
 	exports.default = Parallax;
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58747,7 +58596,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Spinner = __webpack_require__(380);
+	var _Spinner = __webpack_require__(379);
 
 	var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -58835,7 +58684,7 @@
 	exports.default = Preloader;
 
 /***/ }),
-/* 380 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58903,7 +58752,7 @@
 	exports.default = Spinner;
 
 /***/ }),
-/* 381 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58961,7 +58810,7 @@
 	exports.default = ProgressBar;
 
 /***/ }),
-/* 382 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58974,7 +58823,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(348);
+	var _Icon = __webpack_require__(347);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -59009,7 +58858,7 @@
 	exports.default = SearchForm;
 
 /***/ }),
-/* 383 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59043,7 +58892,7 @@
 	exports.default = Section;
 
 /***/ }),
-/* 384 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59064,7 +58913,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -59163,7 +59012,7 @@
 	exports.default = SideNav;
 
 /***/ }),
-/* 385 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59188,7 +59037,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _UserView = __webpack_require__(386);
+	var _UserView = __webpack_require__(385);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59268,7 +59117,7 @@
 	exports.default = SideNavItem;
 
 /***/ }),
-/* 386 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59366,7 +59215,7 @@
 	exports.default = UserView;
 
 /***/ }),
-/* 387 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59391,7 +59240,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _constants = __webpack_require__(347);
+	var _constants = __webpack_require__(346);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
@@ -59492,7 +59341,7 @@
 	exports.default = Slide;
 
 /***/ }),
-/* 388 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59607,7 +59456,7 @@
 	exports.default = Slider;
 
 /***/ }),
-/* 389 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59684,7 +59533,7 @@
 	exports.default = Tab;
 
 /***/ }),
-/* 390 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59793,7 +59642,7 @@
 	exports.default = Table;
 
 /***/ }),
-/* 391 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59814,7 +59663,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _idgen = __webpack_require__(353);
+	var _idgen = __webpack_require__(352);
 
 	var _idgen2 = _interopRequireDefault(_idgen);
 
@@ -59822,11 +59671,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Row = __webpack_require__(367);
+	var _Row = __webpack_require__(366);
 
 	var _Row2 = _interopRequireDefault(_Row);
 
-	var _Col = __webpack_require__(351);
+	var _Col = __webpack_require__(350);
 
 	var _Col2 = _interopRequireDefault(_Col);
 
@@ -59954,7 +59803,7 @@
 	exports.default = Tabs;
 
 /***/ }),
-/* 392 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59971,7 +59820,7 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _Chip = __webpack_require__(358);
+	var _Chip = __webpack_require__(357);
 
 	var _Chip2 = _interopRequireDefault(_Chip);
 
@@ -59993,7 +59842,7 @@
 	exports.default = Tag;
 
 /***/ }),
-/* 393 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60016,7 +59865,7 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _Button = __webpack_require__(352);
+	var _Button = __webpack_require__(351);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -60074,7 +59923,7 @@
 	exports.default = Toast;
 
 /***/ }),
-/* 394 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60109,19 +59958,19 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _sideNav = __webpack_require__(343);
+	var _sideNav = __webpack_require__(342);
 
 	var _sideNav2 = _interopRequireDefault(_sideNav);
 
-	var _modalEditButtons = __webpack_require__(395);
+	var _modalEditButtons = __webpack_require__(394);
 
 	var _modalEditButtons2 = _interopRequireDefault(_modalEditButtons);
 
-	var _tabMenu = __webpack_require__(344);
+	var _tabMenu = __webpack_require__(343);
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
-	var _survey = __webpack_require__(396);
+	var _survey = __webpack_require__(395);
 
 	var _survey2 = _interopRequireDefault(_survey);
 
@@ -60238,7 +60087,7 @@
 	exports.default = ContentContainer;
 
 /***/ }),
-/* 395 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60315,7 +60164,7 @@
 	exports.default = ModalEditButtons;
 
 /***/ }),
-/* 396 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60334,7 +60183,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(393);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -60511,6 +60360,197 @@
 	}(_react2.default.Component);
 
 	exports.default = Survey;
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	//import { Router, browserHistory   } from 'react-router';
+
+	var interval = void 0;
+
+	var Slider = function (_React$Component) {
+	    _inherits(Slider, _React$Component);
+
+	    function Slider(props) {
+	        _classCallCheck(this, Slider);
+
+	        var _this2 = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
+
+	        _this2.state = {
+	            slides: _this2.props.slides || [],
+	            currentPicture: 'asdasd',
+	            currentPictureIndex: 0,
+	            timeBetweenSlides: 5000,
+	            timeTillChange: 0,
+	            className: 'sliderPicture'
+	        };
+	        return _this2;
+	    }
+
+	    _createClass(Slider, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                slides: nextProps.slides,
+	                sliderStyles: nextProps.sliderStyles
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+
+	            var _this = this;
+	            if (this.state.slides.length) {
+	                interval = setInterval(function change() {
+	                    var timeTillChange = _this.state.timeTillChange;
+	                    if (timeTillChange == 0) {
+	                        _this.pickNextPicture(_this.state.currentPictureIndex, _this.state.slides, _this.state.timeBetweenSlides);
+	                    } else {
+	                        timeTillChange = timeTillChange - 250;
+	                        if (timeTillChange == 0) {
+	                            _this.setState({
+	                                timeTillChange: timeTillChange,
+	                                className: 'slidePicture movingToLeft'
+	                            });
+	                        } else {
+	                            _this.setState({
+	                                timeTillChange: timeTillChange,
+	                                className: 'sliderPicture'
+
+	                            });
+	                        }
+	                    }
+	                    return change;
+	                }(), 250);
+	            }
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearInterval(interval);
+	        }
+	    }, {
+	        key: 'pickNextPicture',
+	        value: function pickNextPicture(index, slides, timeBetweenSlides) {
+	            console.log("Slide index (before):", index, ", Slide length: ", slides.length);
+	            if (index >= slides.length) {
+	                index = 0;
+	            }
+
+	            console.log("Slide index:", index);
+	            this.setState({
+	                currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
+	                currentPictureIndex: index + 1,
+	                timeTillChange: timeBetweenSlides
+	            });
+	        }
+	    }, {
+	        key: 'goToSlide',
+	        value: function goToSlide(e) {
+	            this.pickNextPicture(e.target.value - 1, this.state.slides, this.state.timeBetweenSlides);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this = this;
+	            var style = {
+	                // backgroundImage: `url(${this.state.currentPicture})`,
+	                backgroundSize: 'contain',
+	                backgroundRepeat: 'no-repeat',
+	                //transition: 'opacity 0.5s ease-out',
+	                width: '100%',
+	                height: '100%'
+	            };
+	            var slides = this.state.slides || [];
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'content-slider' },
+	                _react2.default.createElement('img', { src: this.state.currentPicture, className: this.state.className + ' content-slider-image' }),
+	                slides.map(function (elem, index) {
+	                    if (index + 1 == _this.state.currentPictureIndex) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'content-slider-infobox' },
+	                            _react2.default.createElement('div', {
+	                                className: 'content-slider-infobox-wrapper ' + (_this.props.sliderStyles.sliderBackgroundStyle || "") + ' ' + (_this.props.sliderStyles.sliderBackgroundColor || ""),
+	                                style: { opacity: (parseInt(_this.props.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2) }
+	                            }),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'content-slider-infobox-text' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'content-slider-infobox-readMore' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: elem.link, target: '_blank' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: (_this.props.sliderStyles.sliderButtonColor || "") + ' ' + (_this.props.sliderStyles.sliderButtonTextColor || "") },
+	                                            _this.props.sliderStyles.readMoreText || ""
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    { className: 'content-slider-infobox-title ' + (_this.props.sliderStyles.sliderTextColor || "") },
+	                                    elem.title
+	                                )
+	                            )
+	                        );
+	                    }
+	                }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'content-slider-indicators-wrapper' },
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: _this.props.sliderStyles.sliderIndicatorsStyle + ' ' + _this.props.sliderStyles.sliderIndicatorsShape },
+	                        slides.map(function (elem, index) {
+	                            return _react2.default.createElement(
+	                                'li',
+	                                { key: index, value: index + 1, onClick: function onClick(e) {
+	                                        return _this.goToSlide(e);
+	                                    },
+	                                    className: index + 1 == _this.state.currentPictureIndex ? 'content-slider-indicators-indicator active' : 'content-slider-indicators-indicator' },
+	                                index + 1
+	                            );
+	                        })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Slider;
+	}(_react2.default.Component);
+
+	exports.default = Slider;
 
 /***/ })
 /******/ ]);

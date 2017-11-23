@@ -80,7 +80,7 @@ class SliderWebPart extends React.Component {
                                 </div>
                             </div>
                             <div className="content-slider-indicators-wrapper">
-                                <ul className={that.state.sliderStyles.sliderIndicatorsStyle}>
+                                <ul className={`${that.state.sliderStyles.sliderIndicatorsStyle} ${that.state.sliderStyles.sliderIndicatorsShape}`}>
                                     <li className='active'>1</li>
                                     <li className=''>2</li>
                                 </ul>
@@ -92,7 +92,7 @@ class SliderWebPart extends React.Component {
                             <div className="w2">
                                 <p className="modal-content-edit-header">Slider text background color</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderBackgroundColor}
+                                    
                                     defaultValue={this.state.sliderStyles.sliderBackgroundColor}
                                     onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundColor")}
                                 >
@@ -106,7 +106,7 @@ class SliderWebPart extends React.Component {
                                 </select>
                                 <p className="modal-content-edit-header">Slider text background style</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderBackgroundStyle}
+                                    
                                     onChange={(e) => this.handleGeneralChange(e, "sliderBackgroundStyle")}
                                     defaultValue={this.state.sliderStyles.sliderBackgroundStyle}
                                 >
@@ -118,7 +118,7 @@ class SliderWebPart extends React.Component {
                             <div className="w2">
                                 <p className="modal-content-edit-header">Slider button color</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderButtonColor}
+                                    
                                     onChange={(e) => this.handleGeneralChange(e, "sliderButtonColor")}
                                     defaultValue={this.state.sliderStyles.sliderButtonColor}
                                 >
@@ -140,7 +140,7 @@ class SliderWebPart extends React.Component {
                             <div className="w2">
                                 <p className="modal-content-edit-header">Slider text color</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderTextColor}
+                                    
                                     onChange={(e) => this.handleGeneralChange(e, "sliderTextColor")}
                                     defaultValue={this.state.sliderStyles.sliderTextColor}
                                 >
@@ -162,7 +162,7 @@ class SliderWebPart extends React.Component {
                             <div className="w2">
                                 <p className="modal-content-edit-header">Slider button text color</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderButtonTextColor}
+                                    
                                     onChange={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")}
                                     defaultValue={this.state.sliderStyles.sliderButtonTextColor}
                                 >
@@ -174,9 +174,12 @@ class SliderWebPart extends React.Component {
                                     <option value="dxc-font-blue">Blue</option>
                                     <option value="dxc-font-green">Green</option>
                                 </select>
-                                <p className="modal-content-edit-header">Slider indicator style</p>
+                                
+                            </div>
+                            <div className="w2">
+                            <p className="modal-content-edit-header">Slider indicator color</p>
                                 <select
-                                    value={this.state.sliderStyles.sliderIndicatorsStyle}
+                                    
                                     onChange={(e) => this.handleGeneralChange(e, "sliderIndicatorsStyle")}
                                     defaultValue={this.state.sliderStyles.sliderIndicatorsStyle}
                                 >
@@ -185,6 +188,18 @@ class SliderWebPart extends React.Component {
                                     <option value="content-slider-indicators--black_white">Black and White</option>
                                     <option value="content-slider-indicators--blue_gray">Blue and Gray</option>
                                     <option value="content-slider-indicators--pictures">DXC Logo</option>
+                                </select>
+                            
+                            <p className="modal-content-edit-header">Slider indicator shape</p>
+                                <select
+                                    
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderIndicatorsShape")}
+                                    defaultValue={this.state.sliderStyles.sliderIndicatorsShape}
+                                >
+                                    <option value="content-slider-indicators">Classic</option>
+                                    <option value="content-slider-indicators-shape--square_number">Default</option>
+                                    <option value="content-slider-indicators-shape--circle">Circle (No numbers)</option>
+                                    <option value="content-slider-indicators-shape--square">Square(No numbers)</option>
                                 </select>
                             </div>
                         </div>

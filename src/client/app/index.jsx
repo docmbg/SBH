@@ -60,6 +60,7 @@ const draggableComponents = [
         sliderButtonTextColor: "dxc-font-black",
         sliderBackgroundOpacity: 60,
         sliderIndicatorsStyle: "content-slider-indicators",
+        sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
         readMoreText: "Read more"
       }
     }

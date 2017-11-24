@@ -7,6 +7,7 @@ import SliderWebPart from './slider.jsx';
 import SideNav from './sideNav.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
+import Calendar from './calendar.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -62,6 +63,9 @@ class Modal extends React.Component {
             case ("Survey"):
                 return <Survey componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("Calendar"):
+                return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
             default:
                 return (
                     <div>
@@ -78,7 +82,7 @@ class Modal extends React.Component {
                     </div>
 
                     <div className="modal-content">
-                        <button  className="modal-content-close modal-content-edit-button--remove"  onClick={()  =>  this.closeModal()}>
+                        <button className="modal-content-close modal-content-edit-button--remove" onClick={() => this.closeModal()}>
                             Close
                     </button>
                         <select className="modal-content-select" onChange={(e) => this.handleModalChange(e)}>
@@ -90,6 +94,7 @@ class Modal extends React.Component {
                             <option value="SideNav">Side Navigation</option>
                             <option value="TabMenu">Tab Menu</option>
                             <option value="Survey">Survey</option>
+                            <option value="Calendar">Calendar</option>
                         </select>
                         <div className="modal-content-edit-container">
                             {editProperties}

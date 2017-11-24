@@ -8,6 +8,7 @@ import SideNav from './sideNav.jsx';
 import ModalEditButtons from './modalEditButtons.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
+import Calendar from './calendar.jsx';
 
 
 class ContentContainer extends React.Component {
@@ -43,6 +44,9 @@ class ContentContainer extends React.Component {
                 break;
             case ("Survey"):
                 return <Survey componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("Calendar"):
+                return <Calendar componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             default:
                 return (

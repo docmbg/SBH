@@ -94,6 +94,17 @@ const draggableComponents = [
     defaultProps: {
       iframe: '',
       selectorValue: '',
+      surveyFilled: '',
+    }
+  },
+  {
+    type: 'Calendar-Component',
+    defaultSize: {
+      w: 2,
+      h: 9
+    },
+    defaultProps: {
+      selectorValue: '',
     }
   }
 ];
@@ -353,7 +364,6 @@ class App extends React.Component {
   }
 
   onRemoveItem(componentKey) {
-    console.log('hello')
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
     let componentIndex = 0;
     currentStateJSONArr.map(function (e, i) {
@@ -458,6 +468,7 @@ class App extends React.Component {
             <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
             <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
             <button className="Survey-Component"><i className="material-icons">&#xE801;</i></button>
+            <button className="Calendar-Component"><i className="material-icons">&#xE916;</i></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"

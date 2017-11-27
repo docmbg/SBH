@@ -2,33 +2,35 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Tabs, Tab } from "react-materialize";
 import TextEditor from "./textEditor.jsx";
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
 class TabMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabs: [],
-      currentActiveTab: 0
+      tabs: this.props.componentProperties.tabs || [],
+      currentActiveTab: this.props.componentProperties.currentActiveTab || 0
     };
   }
-  componentWillReceiveProps(nextProps) {
-    console.log("NextProps: ", nextProps);
-    this.setState({
-      tabs: nextProps.componentProperties.tabs
-    });
-  }
-  getProps(componentProps, componentIndex) {
-    console.log(this.state)
+  onEditorStateChange(editorState, index) {
     let tabs = this.state.tabs;
-    tabs = tabs.map(function (e, i) {
-      if (i == componentIndex) {
-        e["componentProperties"] = componentProps
-      }
+    tabs[index]["editorState"] = editorState;
+    tabs[index]["editorStateRaw"] = convertToRaw(editorState.getCurrentContent())
+    this.setState({
+      tabs,
+    })
+  };
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    let tabs = nextProps.componentProperties.tabs || [];
+    tabs = tabs.map(function(e){
+      e["editorState"] = e.editorStateRaw ? EditorState.createWithContent(convertFromRaw(e.editorStateRaw)) : EditorState.createEmpty()
       return e
     })
     this.setState({
       tabs
-    })
+    });
   }
   saveEdit() {
     let tabs = this.state.tabs;
@@ -90,11 +92,9 @@ class TabMenu extends React.Component {
                 />
                 <p className="modal-content-edit-header">Tab contents</p>
                 <div className="modal-content-edit-textArea">
-                  <TextEditor
-                    componentProperties={e["componentProperties"] || {}}
-                    componentIndex={i}
-                    editable={true}
-                    passProps={(componentProps) => that.getProps(componentProps, i)} 
+                  <Editor
+                    editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
+                    onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
                   />
                 </div>
               </div>
@@ -142,10 +142,11 @@ class TabMenu extends React.Component {
               }
               return (
                 <div>
-                  <TextEditor
-                    componentProperties={e["componentProperties"] || {}}
-                    key={`tab-${i}`}
-                    editable={false}
+                  <Editor
+                    editorState={e["editorState"]}
+                    toolbarStyle={{ display: "none", visibility: "hidden" }}
+                    editorStyle={{ width: "100%", height: "100%" }}
+                    readOnly={true}
                   />
                 </div>
               );

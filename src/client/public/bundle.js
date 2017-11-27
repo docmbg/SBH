@@ -29590,10 +29590,10 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'select',
-	                            { className: 'modal-content-select', onChange: function onChange(e) {
+	                            { className: 'modal-content-select', value: this.props.currentComponent, onChange: function onChange(e) {
 	                                    return _this3.handleModalChange(e);
 	                                } },
-	                            _react2.default.createElement('option', { value: '', 'default': true }),
+	                            _react2.default.createElement('option', { value: '' }),
 	                            _react2.default.createElement(
 	                                'option',
 	                                { value: 'ImageContainer' },
@@ -30051,7 +30051,7 @@
 	            edited: false
 	        };
 	        _this.onEditorStateChange = function (editorState) {
-	            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex);
+	            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex)
 	            _this.setState({
 	                editorState: editorState
 	            });
@@ -30062,6 +30062,7 @@
 	    _createClass(TextEditor, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
+
 	            this.setState({
 	                editorState: nextProps.componentProperties.editorState ? _draftJs.EditorState.createWithContent((0, _draftJs.convertFromRaw)(nextProps.componentProperties.editorState)) : _draftJs.EditorState.createEmpty()
 	            });
@@ -54662,6 +54663,10 @@
 
 	var _textEditor2 = _interopRequireDefault(_textEditor);
 
+	var _draftJs = __webpack_require__(205);
+
+	var _reactDraftWysiwyg = __webpack_require__(339);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54679,29 +54684,29 @@
 	    var _this = _possibleConstructorReturn(this, (TabMenu.__proto__ || Object.getPrototypeOf(TabMenu)).call(this, props));
 
 	    _this.state = {
-	      tabs: [],
-	      currentActiveTab: 0
+	      tabs: _this.props.componentProperties.tabs || [],
+	      currentActiveTab: _this.props.componentProperties.currentActiveTab || 0
 	    };
 	    return _this;
 	  }
 
 	  _createClass(TabMenu, [{
-	    key: "componentWillReceiveProps",
-	    value: function componentWillReceiveProps(nextProps) {
-	      console.log("NextProps: ", nextProps);
+	    key: "onEditorStateChange",
+	    value: function onEditorStateChange(editorState, index) {
+	      var tabs = this.state.tabs;
+	      tabs[index]["editorState"] = editorState;
+	      tabs[index]["editorStateRaw"] = (0, _draftJs.convertToRaw)(editorState.getCurrentContent());
 	      this.setState({
-	        tabs: nextProps.componentProperties.tabs
+	        tabs: tabs
 	      });
 	    }
 	  }, {
-	    key: "getProps",
-	    value: function getProps(componentProps, componentIndex) {
-	      console.log(this.state);
-	      var tabs = this.state.tabs;
-	      tabs = tabs.map(function (e, i) {
-	        if (i == componentIndex) {
-	          e["componentProperties"] = componentProps;
-	        }
+	    key: "componentWillReceiveProps",
+	    value: function componentWillReceiveProps(nextProps) {
+	      console.log(nextProps);
+	      var tabs = nextProps.componentProperties.tabs || [];
+	      tabs = tabs.map(function (e) {
+	        e["editorState"] = e.editorStateRaw ? _draftJs.EditorState.createWithContent((0, _draftJs.convertFromRaw)(e.editorStateRaw)) : _draftJs.EditorState.createEmpty();
 	        return e;
 	      });
 	      this.setState({
@@ -54804,12 +54809,10 @@
 	              _react2.default.createElement(
 	                "div",
 	                { className: "modal-content-edit-textArea" },
-	                _react2.default.createElement(_textEditor2.default, {
-	                  componentProperties: e["componentProperties"] || {},
-	                  componentIndex: i,
-	                  editable: true,
-	                  passProps: function passProps(componentProps) {
-	                    return that.getProps(componentProps, i);
+	                _react2.default.createElement(_reactDraftWysiwyg.Editor, {
+	                  editorState: e["editorState"] ? e["editorState"] : _draftJs.EditorState.createEmpty(),
+	                  onEditorStateChange: function onEditorStateChange(e) {
+	                    return that.onEditorStateChange(e, i);
 	                  }
 	                })
 	              )
@@ -54874,10 +54877,11 @@
 	              return _react2.default.createElement(
 	                "div",
 	                null,
-	                _react2.default.createElement(_textEditor2.default, {
-	                  componentProperties: e["componentProperties"] || {},
-	                  key: "tab-" + i,
-	                  editable: false
+	                _react2.default.createElement(_reactDraftWysiwyg.Editor, {
+	                  editorState: e["editorState"],
+	                  toolbarStyle: { display: "none", visibility: "hidden" },
+	                  editorStyle: { width: "100%", height: "100%" },
+	                  readOnly: true
 	                })
 	              );
 	            })

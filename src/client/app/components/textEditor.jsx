@@ -11,13 +11,14 @@ class TextEditor extends Component {
             edited: false,
         };
         this.onEditorStateChange = (editorState) => {
-            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex);
+            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex)
             this.setState({
                 editorState,
             })
         };
     }
     componentWillReceiveProps(nextProps){
+        
         this.setState({
             editorState: (nextProps.componentProperties.editorState ? EditorState.createWithContent(convertFromRaw(nextProps.componentProperties.editorState)) : EditorState.createEmpty()),
         })

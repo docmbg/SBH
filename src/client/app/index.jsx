@@ -4,10 +4,6 @@ import ReactGridLayout from 'react-grid-layout';
 import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
-import TextEditor from './components/textEditor.jsx';
-
-
-
 
 
 function get_browser() {
@@ -105,6 +101,22 @@ const draggableComponents = [
     },
     defaultProps: {
       selectorValue: '',
+    }
+  },
+  {
+    type: 'TabMenu-Component',
+    defaultSize: {
+      w: 2,
+      h: 9
+    },
+    innerElementProps: {
+      tabs: [{
+        "title" : "Tab 1"
+      },{
+        "title" : "Tab 2"
+      },{
+        "title" : "Tab 3"
+      }],
     }
   }
 ];
@@ -469,6 +481,7 @@ class App extends React.Component {
             <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
             <button className="Survey-Component"><i className="material-icons">&#xE801;</i></button>
             <button className="Calendar-Component"><i className="material-icons">&#xE916;</i></button>
+            <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"

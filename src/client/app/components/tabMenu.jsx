@@ -1,45 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Tabs, Tab } from "react-materialize";
-import ContentContainer from "./contentContainer.jsx";
+import TextEditor from "./textEditor.jsx";
 
 class TabMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabs: this.props.tabs || [],
+      tabs: [],
       currentActiveTab: 0
     };
   }
   componentWillReceiveProps(nextProps) {
     console.log("NextProps: ", nextProps);
     this.setState({
-      tabs: nextProps.tabs
+      tabs: nextProps.componentProperties.tabs
     });
   }
-  // componentWillMount() {
-  //     let _this = this;
-  //     $().SPServices({
-  //         operation: "GetListItems",
-  //         async: false,
-  //         listName: "News",
-  //         CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Content' /></ViewFields>",
-  //         completefunc: function (xData, Status) {
-  //             let tabs = [];
-  //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-  //                 tabs.push({
-  //                     title: $(this).attr('ows_Title'),
-  //                     content:  $(this).attr('ows_Content')
-  //                 })
-
-  //             });
-  //             _this.setState({
-  //                 tabs
-  //             })
-  //         }
-  //     });
-
-  // }
+  getProps(componentProps, componentIndex) {
+    console.log(this.state)
+    let tabs = this.state.tabs;
+    tabs = tabs.map(function (e, i) {
+      if (i == componentIndex) {
+        e["componentProperties"] = componentProps
+      }
+      return e
+    })
+    this.setState({
+      tabs
+    })
+  }
   saveEdit() {
     let tabs = this.state.tabs;
     this.props.passProps({
@@ -81,10 +71,8 @@ class TabMenu extends React.Component {
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
-          <div className="modal-content-edit-count">{`Number of tabs: ${this
-            .state.tabs.length}`}</div>
-
-          {this.state.tabs.map(function(e, i) {
+          <div className="modal-content-edit-count">{`Number of tabs: ${this.state.tabs.length}`}</div>
+          {this.state.tabs.map(function (e, i) {
             return (
               <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
                 <button
@@ -100,6 +88,15 @@ class TabMenu extends React.Component {
                   onChange={event => that.updateTab(event, i, "title")}
                   className="modal-content-edit-input-text"
                 />
+                <p className="modal-content-edit-header">Tab contents</p>
+                <div className="modal-content-edit-textArea">
+                  <TextEditor
+                    componentProperties={e["componentProperties"] || {}}
+                    componentIndex={i}
+                    editable={true}
+                    passProps={(componentProps) => that.getProps(componentProps, i)} 
+                  />
+                </div>
               </div>
             );
           })}
@@ -120,13 +117,12 @@ class TabMenu extends React.Component {
         </div>
       );
     } else {
-      console.log(this.state.tabs, this.props.componentProperties.tabs);
       let tabWidth = this.props.componentProperties.tabs.length || 1;
       tabWidth = Math.floor(100 / tabWidth).toString() + "%";
       return (
         <div className="page-content-tabs">
           <div className="page-content-tabs-indicators">
-            {this.props.componentProperties.tabs.map(function(e, i) {
+            {this.props.componentProperties.tabs.map(function (e, i) {
               return (
                 <div
                   className={`page-content-tabs-indicators-indicator ${i != that.state.currentActiveTab ? "" : "active"}`}
@@ -140,12 +136,18 @@ class TabMenu extends React.Component {
             })}
           </div>
           <div className="page-content-tabs-body">
-            {this.props.componentProperties.tabs.map(function(e, i) {
+            {this.props.componentProperties.tabs.map(function (e, i) {
               if (i != that.state.currentActiveTab) {
                 return null;
               }
               return (
-                <ContentContainer innerElementProps={{editable : true}} innerElementType={`TextArea`}/>
+                <div>
+                  <TextEditor
+                    componentProperties={e["componentProperties"] || {}}
+                    key={`tab-${i}`}
+                    editable={false}
+                  />
+                </div>
               );
             })}
           </div>

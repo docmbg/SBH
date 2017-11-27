@@ -11,31 +11,23 @@ class TextEditor extends Component {
             edited: false,
         };
         this.onEditorStateChange = (editorState) => {
+            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex);
             this.setState({
                 editorState,
             })
         };
     }
-
     componentWillReceiveProps(nextProps){
         this.setState({
             editorState: (nextProps.componentProperties.editorState ? EditorState.createWithContent(convertFromRaw(nextProps.componentProperties.editorState)) : EditorState.createEmpty()),
         })
     }
-
     saveEdit() {
         console.log(convertToRaw(this.state.editorState.getCurrentContent()))
         this.props.passProps({
             editorState: convertToRaw(this.state.editorState.getCurrentContent()),
         })
     }
-    mousePass(){
-        if(this.props.componentProperties.editable){
-            console.log("Mouse Pass")
-            this.saveEdit();
-        }
-    }
-
     render() {
         let editor = <div></div>
         if(this.props.componentProperties.editable){
@@ -61,8 +53,7 @@ class TextEditor extends Component {
                                 className="modal-content-edit--save"
                             >Save</button>
                         </div>
-                        <div className="contentEditor-container"
-                        onMouseOut={() => this.mousePass()}>
+                        <div className="contentEditor-container">
                             <div className="contentEditor">
                                 <Editor
                                     editorState={this.state.editorState}

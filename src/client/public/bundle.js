@@ -72,10 +72,6 @@
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
-	var _textEditor = __webpack_require__(204);
-
-	var _textEditor2 = _interopRequireDefault(_textEditor);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -172,6 +168,21 @@
 	  },
 	  defaultProps: {
 	    selectorValue: ''
+	  }
+	}, {
+	  type: 'TabMenu-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    tabs: [{
+	      "title": "Tab 1"
+	    }, {
+	      "title": "Tab 2"
+	    }, {
+	      "title": "Tab 3"
+	    }]
 	  }
 	}];
 	var windowW = window.innerWidth;
@@ -617,6 +628,15 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE916'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'TabMenu-Component' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                '\uE8D8'
 	              )
 	            )
 	          ),
@@ -30031,6 +30051,7 @@
 	            edited: false
 	        };
 	        _this.onEditorStateChange = function (editorState) {
+	            //console.log("Passing props check: ", this.props.passProps, this.props.componentIndex, this.props.passProps && this.props.componentIndex);
 	            _this.setState({
 	                editorState: editorState
 	            });
@@ -30052,14 +30073,6 @@
 	            this.props.passProps({
 	                editorState: (0, _draftJs.convertToRaw)(this.state.editorState.getCurrentContent())
 	            });
-	        }
-	    }, {
-	        key: 'mousePass',
-	        value: function mousePass() {
-	            if (this.props.componentProperties.editable) {
-	                console.log("Mouse Pass");
-	                this.saveEdit();
-	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -30103,10 +30116,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'contentEditor-container',
-	                                onMouseOut: function onMouseOut() {
-	                                    return _this2.mousePass();
-	                                } },
+	                            { className: 'contentEditor-container' },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'contentEditor' },
@@ -37493,13 +37503,17 @@
 	}
 
 	function lookUpwardForInlineStyle(content, fromKey) {
-	  var lastNonEmpty = content.getBlockMap().reverse().skipUntil(function (_, k) {
-	    return k === fromKey;
-	  }).skip(1).skipUntil(function (block, _) {
-	    return block.getLength();
-	  }).first();
+	  var previousBlock = content.getBlockBefore(fromKey);
+	  var previousLength;
 
-	  if (lastNonEmpty) return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
+	  while (previousBlock) {
+	    previousLength = previousBlock.getLength();
+	    if (previousLength) {
+	      return previousBlock.getInlineStyleAt(previousLength - 1);
+	    }
+	    previousBlock = content.getBlockBefore(previousBlock.getKey());
+	  }
+
 	  return OrderedSet();
 	}
 
@@ -39242,9 +39256,6 @@
 
 	    var contentStyle = {
 	      outline: 'none',
-	      // fix parent-draggable Safari bug. #1326
-	      userSelect: 'text',
-	      WebkitUserSelect: 'text',
 	      whiteSpace: 'pre-wrap',
 	      wordWrap: 'break-word'
 	    };
@@ -39378,12 +39389,6 @@
 
 	    var alreadyHasFocus = editorState.getSelection().getHasFocus();
 	    var editorNode = ReactDOM.findDOMNode(this.refs.editor);
-
-	    if (!editorNode) {
-	      // once in a while people call 'focus' in a setTimeout, and the node has
-	      // been deleted, so it can be null in that case.
-	      return;
-	    }
 
 	    var scrollParent = Style.getScrollParent(editorNode);
 
@@ -43921,24 +43926,11 @@
 	  // reduces re-renders and preserves spellcheck highlighting. If the selection
 	  // is not collapsed, we will re-render.
 	  var selection = editorState.getSelection();
-	  var selectionStart = selection.getStartOffset();
-	  var selectionEnd = selection.getEndOffset();
 	  var anchorKey = selection.getAnchorKey();
 
 	  if (!selection.isCollapsed()) {
 	    e.preventDefault();
-
-	    // If the character that the user is trying to replace with
-	    // is the same as the current selection text the just update the
-	    // `SelectionState`.  Else, update the ContentState with the new text
-	    var currentlySelectedChars = editorState.getCurrentContent().getPlainText().slice(selectionStart, selectionEnd);
-	    if (chars === currentlySelectedChars) {
-	      this.update(EditorState.forceSelection(editorState, selection.merge({
-	        focusOffset: selectionEnd
-	      })));
-	    } else {
-	      editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
-	    }
+	    editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
 	    return;
 	  }
 
@@ -43957,7 +43949,7 @@
 	    // https://chromium.googlesource.com/chromium/src/+/013ac5eaf3%5E%21/
 	    var nativeSelection = global.getSelection();
 	    // Selection is necessarily collapsed at this point due to earlier check.
-	    if (nativeSelection.anchorNode && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
+	    if (nativeSelection.anchorNode !== null && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
 	      // See isTabHTMLSpanElement in chromium EditingUtilities.cpp.
 	      var parentNode = nativeSelection.anchorNode.parentNode;
 	      mustPreventNative = parentNode.nodeName === 'SPAN' && parentNode.firstChild.nodeType === Node.TEXT_NODE && parentNode.firstChild.nodeValue.indexOf('\t') !== -1;
@@ -44842,14 +44834,8 @@
 	    case Keys.UP:
 	      editor.props.onUpArrow && editor.props.onUpArrow(e);
 	      return;
-	    case Keys.RIGHT:
-	      editor.props.onRightArrow && editor.props.onRightArrow(e);
-	      return;
 	    case Keys.DOWN:
 	      editor.props.onDownArrow && editor.props.onDownArrow(e);
-	      return;
-	    case Keys.LEFT:
-	      editor.props.onLeftArrow && editor.props.onLeftArrow(e);
 	      return;
 	    case Keys.SPACE:
 	      // Handling for OSX where option + space scrolls.
@@ -47524,9 +47510,9 @@
 	  },
 
 	  /**
-	   * When a collapsed cursor is at the start of the first styled block, or 
-	   * an empty styled block, changes block to 'unstyled'. Returns null if 
-	   * block or selection does not meet that criteria.
+	   * When a collapsed cursor is at the start of an empty styled block, 
+	   * changes block to 'unstyled'. Returns null if block or selection does not
+	   * meet that criteria.
 	   */
 	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
 	    var selection = editorState.getSelection();
@@ -47535,9 +47521,7 @@
 	      var key = selection.getAnchorKey();
 	      var content = editorState.getCurrentContent();
 	      var block = content.getBlockForKey(key);
-
-	      var firstBlock = content.getFirstBlock();
-	      if (block.getLength() > 0 && block !== firstBlock) {
+	      if (block.getLength() > 0) {
 	        return null;
 	      }
 
@@ -54674,9 +54658,9 @@
 
 	var _reactMaterialize = __webpack_require__(345);
 
-	var _contentContainer = __webpack_require__(394);
+	var _textEditor = __webpack_require__(204);
 
-	var _contentContainer2 = _interopRequireDefault(_contentContainer);
+	var _textEditor2 = _interopRequireDefault(_textEditor);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54695,7 +54679,7 @@
 	    var _this = _possibleConstructorReturn(this, (TabMenu.__proto__ || Object.getPrototypeOf(TabMenu)).call(this, props));
 
 	    _this.state = {
-	      tabs: _this.props.tabs || [],
+	      tabs: [],
 	      currentActiveTab: 0
 	    };
 	    return _this;
@@ -54706,33 +54690,24 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      console.log("NextProps: ", nextProps);
 	      this.setState({
-	        tabs: nextProps.tabs
+	        tabs: nextProps.componentProperties.tabs
 	      });
 	    }
-	    // componentWillMount() {
-	    //     let _this = this;
-	    //     $().SPServices({
-	    //         operation: "GetListItems",
-	    //         async: false,
-	    //         listName: "News",
-	    //         CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Content' /></ViewFields>",
-	    //         completefunc: function (xData, Status) {
-	    //             let tabs = [];
-	    //             $(xData.responseXML).SPFilterNode("z:row").each(function () {
-	    //                 tabs.push({
-	    //                     title: $(this).attr('ows_Title'),
-	    //                     content:  $(this).attr('ows_Content')
-	    //                 })
-
-	    //             });
-	    //             _this.setState({
-	    //                 tabs
-	    //             })
-	    //         }
-	    //     });
-
-	    // }
-
+	  }, {
+	    key: "getProps",
+	    value: function getProps(componentProps, componentIndex) {
+	      console.log(this.state);
+	      var tabs = this.state.tabs;
+	      tabs = tabs.map(function (e, i) {
+	        if (i == componentIndex) {
+	          e["componentProperties"] = componentProps;
+	        }
+	        return e;
+	      });
+	      this.setState({
+	        tabs: tabs
+	      });
+	    }
 	  }, {
 	    key: "saveEdit",
 	    value: function saveEdit() {
@@ -54820,7 +54795,24 @@
 	                  return that.updateTab(event, i, "title");
 	                },
 	                className: "modal-content-edit-input-text"
-	              })
+	              }),
+	              _react2.default.createElement(
+	                "p",
+	                { className: "modal-content-edit-header" },
+	                "Tab contents"
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "modal-content-edit-textArea" },
+	                _react2.default.createElement(_textEditor2.default, {
+	                  componentProperties: e["componentProperties"] || {},
+	                  componentIndex: i,
+	                  editable: true,
+	                  passProps: function passProps(componentProps) {
+	                    return that.getProps(componentProps, i);
+	                  }
+	                })
+	              )
 	            );
 	          }),
 	          _react2.default.createElement(
@@ -54849,7 +54841,6 @@
 	          )
 	        );
 	      } else {
-	        console.log(this.state.tabs, this.props.componentProperties.tabs);
 	        var tabWidth = this.props.componentProperties.tabs.length || 1;
 	        tabWidth = Math.floor(100 / tabWidth).toString() + "%";
 	        return _react2.default.createElement(
@@ -54880,7 +54871,15 @@
 	              if (i != that.state.currentActiveTab) {
 	                return null;
 	              }
-	              return _react2.default.createElement(_contentContainer2.default, { innerElementProps: { editable: true }, innerElementType: "TextArea" });
+	              return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(_textEditor2.default, {
+	                  componentProperties: e["componentProperties"] || {},
+	                  key: "tab-" + i,
+	                  editable: false
+	                })
+	              );
 	            })
 	          )
 	        );
@@ -55169,8 +55168,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55181,7 +55179,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: props.value || ''
+	      value: ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55191,15 +55189,6 @@
 	  }
 
 	  _createClass(Autocomplete, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(_ref) {
-	      var value = _ref.value;
-
-	      if (value !== undefined) {
-	        this.setState({ value: value });
-	      }
-	    }
-	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55236,7 +55225,9 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
+	            { key: key + '_' + idx, onClick: function onClick(evt) {
+	                return _this2.setState({ value: key });
+	              } },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55256,51 +55247,25 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      var onChange = this.props.onChange;
-
-	      var value = evt.target.value;
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
-	    }
-	  }, {
-	    key: '_onAutocomplete',
-	    value: function _onAutocomplete(value, evt) {
-	      var _props = this.props,
-	          onChange = _props.onChange,
-	          onAutocomplete = _props.onAutocomplete;
-
-	      if (onAutocomplete) {
-	        onAutocomplete(value);
-	      }
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
+	      this.setState({ value: evt.target.value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props,
-	          className = _props2.className,
-	          title = _props2.title,
-	          data = _props2.data,
-	          icon = _props2.icon,
-	          iconClassName = _props2.iconClassName,
-	          s = _props2.s,
-	          m = _props2.m,
-	          l = _props2.l,
-	          offset = _props2.offset,
-	          minLength = _props2.minLength,
-	          placeholder = _props2.placeholder,
-	          limit = _props2.limit,
-	          value = _props2.value,
-	          onChange = _props2.onChange,
-	          onAutocomplete = _props2.onAutocomplete,
-	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
+	      var _props = this.props,
+	          className = _props.className,
+	          title = _props.title,
+	          data = _props.data,
+	          icon = _props.icon,
+	          iconClassName = _props.iconClassName,
+	          s = _props.s,
+	          m = _props.m,
+	          l = _props.l,
+	          offset = _props.offset,
+	          minLength = _props.minLength,
+	          placeholder = _props.placeholder,
+	          limit = _props.limit,
+	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55368,21 +55333,7 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string,
-	  /**
-	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
-	   * Function signature: (event, value) => ()
-	   */
-	  onChange: _propTypes2.default.func,
-	  /**
-	   * Called when auto-completed item is selected.
-	   * Function signature: (value) => ()
-	   */
-	  onAutocomplete: _propTypes2.default.func,
-	  /**
-	   * The value of the input
-	   */
-	  value: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57400,7 +57351,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57423,7 +57373,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,

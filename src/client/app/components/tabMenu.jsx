@@ -24,7 +24,7 @@ class TabMenu extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps)
     let tabs = nextProps.componentProperties.tabs || [];
-    tabs = tabs.map(function(e){
+    tabs = tabs.map(function (e) {
       e["editorState"] = e.editorStateRaw ? EditorState.createWithContent(convertFromRaw(e.editorStateRaw)) : EditorState.createEmpty()
       return e
     })
@@ -74,7 +74,22 @@ class TabMenu extends React.Component {
       return (
         <div className="modal-content-edit">
           <div className="modal-content-edit-count">{`Number of tabs: ${this.state.tabs.length}`}</div>
+          <div className>
+            <p className="modal-content-edit-header">Edit Tab</p>
+            <select value={this.state.currentActiveTab} 
+              onChange={(e) => this.setActiveTab(e.target.value)}
+            >
+            {this.state.tabs.map(function(e,i){
+              return (
+                <option value={i}>{e["title"]}</option>
+              )
+            })}
+            </select>
+          </div>
           {this.state.tabs.map(function (e, i) {
+            if(i != that.state.currentActiveTab){
+              return null
+            }
             return (
               <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
                 <button

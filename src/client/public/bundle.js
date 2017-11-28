@@ -54774,7 +54774,34 @@
 	            { className: "modal-content-edit-count" },
 	            "Number of tabs: " + this.state.tabs.length
 	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: true },
+	            _react2.default.createElement(
+	              "p",
+	              { className: "modal-content-edit-header" },
+	              "Edit Tab"
+	            ),
+	            _react2.default.createElement(
+	              "select",
+	              { value: this.state.currentActiveTab,
+	                onChange: function onChange(e) {
+	                  return _this2.setActiveTab(e.target.value);
+	                }
+	              },
+	              this.state.tabs.map(function (e, i) {
+	                return _react2.default.createElement(
+	                  "option",
+	                  { value: i },
+	                  e["title"]
+	                );
+	              })
+	            )
+	          ),
 	          this.state.tabs.map(function (e, i) {
+	            if (i != that.state.currentActiveTab) {
+	              return null;
+	            }
 	            return _react2.default.createElement(
 	              "div",
 	              { className: "modal-content-edit-tabs", key: "tabs-" + i },

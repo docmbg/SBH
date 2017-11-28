@@ -45,19 +45,27 @@ class Calendar extends React.Component {
         super(props);
         this.state = {
             selectorValue: 'default',
-            rangeStart: '',
-            rangeEnd: '',
             existingCalendars: [],
             locations: [],
             categories: [],
             events: [],
-            filteredEvents: [],
+            locationFilter: 'No Filter',
+            categoryFilter: 'No Filter',
+
         }
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
             selectorValue: nextProps.componentProperties.selectorValue,
-            existingCalendars: nextProps.componentProperties.existingCalendars
+            existingCalendars: nextProps.componentProperties.existingCalendars || [],
+            events: nextProps.componentProperties.events || [],
+            filteredEvents: nextProps.componentProperties.filteredEvents || [],
+            locationFilter: nextProps.componentProperties.locationFilter,
+            categoryFilter: nextProps.componentProperties.categoryFilter,
+            locations: nextProps.componentProperties.locations || [],
+            categories: nextProps.componentProperties.categories || [],
+            startDate: nextProps.componentProperties.startDate,
+            endDate: nextProps.componentProperties.endDate,
         })
 
     }
@@ -76,7 +84,6 @@ class Calendar extends React.Component {
                 webURL: `${mainURL}${siteName}/Calendars/`,
                 completefunc: function (xData, Status) {
                     $(xData.responseXML).SPFilterNode("List").each(function () {
-                        console.log($(this).attr('ServerTemplate'))
                         if ($(this).attr('ServerTemplate') == 106) {
                             existingCalendars.push($(this).attr('Title'))
                         }
@@ -85,11 +92,20 @@ class Calendar extends React.Component {
                         existingCalendars,
                         fullCalendarAddUrl,
                         siteName,
-                        mainURL
+                        mainURL,
+                        selectorValue: that.props.componentProperties.selectorValue,
+                        events: that.props.componentProperties.events || [],
+                        filteredEvents: that.props.componentProperties.filteredEvents || [],
+                        locationFilter: that.props.componentProperties.locationFilter,
+                        categoryFilter: that.props.componentProperties.categoryFilter,
+                        locations: that.props.componentProperties.locations || [],
+                        categories: that.props.componentProperties.categories || [],
+                        startDate: that.props.componentProperties.startDate,
+                        endDate: that.props.componentProperties.endDate
                     })
                 }
             })
-            
+
         }
     }
 
@@ -106,23 +122,22 @@ class Calendar extends React.Component {
             listName: e.target.value,
             completefunc: function (xData, Status) {
                 $(xData.responseXML).SPFilterNode("z:row").each(function () {
-                    console.log($(this).attr('ows_Title'))
                     let event = {};
                     event['Title'] = $(this).attr('ows_Title');
                     event['Location'] = $(this).attr('ows_Location');
                     event['EventDate'] = $(this).attr('ows_EventDate');
                     event['EndDate'] = $(this).attr('ows_EndDate');
                     event['Category'] = $(this).attr('ows_Category')
-                    if(locations.indexOf(event['Location']) < 0){
+                    event['Month'] = parseInt($(this).attr('ows_EventDate').split('-')[1])-1;
+                    if (locations.indexOf(event['Location']) < 0) {
                         locations.push(event['Location'])
                     }
-                    if(categories.indexOf(event['Category']) < 0){
+                    if (categories.indexOf(event['Category']) < 0) {
                         categories.push(event['Category'])
                     }
                     events.push(event)
-                    
+
                 });
-                console.log(locations,categories)
                 that.setState({
                     selectorValue: e.target.value,
                     events,
@@ -132,23 +147,45 @@ class Calendar extends React.Component {
                 })
             }
         });
-       
+
     }
 
-    filterEvents(filterBy, event){
-        let filteredEvents = this.state.filteredEvents.filter(e => e[filterBy] == event.target.value);
+    filterEvents(filterBy, event) {
+        let filteredEvents = this.state.events;
+        let locationFilter = this.state.locationFilter;
+        let categoryFilter = this.state.categoryFilter;
+        if (filterBy == 'Location') {
+            locationFilter = event.target.value;
+        } else {
+            categoryFilter = event.target.value;
+        }
+        let filters = [locationFilter, categoryFilter];
+        let filterNames = ['Location', 'Category']
+        for (let i = 0; i < filters.length; i++) {
+            if (filters[i] != 'No Filter') {
+                filteredEvents = filteredEvents.filter(e => e[filterNames[i]] == filters[i]);
+            }
+        }
         this.setState({
-            filteredEvents
+            filteredEvents,
+            locationFilter,
+            categoryFilter
         })
-        
+
     }
 
     saveEdit() {
         this.props.passProps({
-            iframe: this.state.iframe,
             selectorValue: this.state.selectorValue,
-            calendarFilled: this.state.calendarFilled,
-            existingCalendars: this.state.existingCalendars
+            existingCalendars: this.state.existingCalendars,
+            events: this.state.events,
+            filteredEvents: this.state.filteredEvents,
+            locationFilter: this.state.locationFilter,
+            categoryFilter: this.state.categoryFilter,
+            locations: this.state.locations,
+            categories: this.state.categories,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate
         })
     }
 
@@ -160,7 +197,7 @@ class Calendar extends React.Component {
             $().SPServices({
                 operation: "GetListCollection",
                 async: false,
-                webURL: `${mainURL}${siteName}/Calendars/`,
+                webURL: `${that.state.mainURL}${that.state.siteName}/Calendars/`,
                 completefunc: function (xData, Status) {
                     $(xData.responseXML).SPFilterNode("List").each(function () {
                         if ($(this).attr('ServerTemplate') == 106) {
@@ -176,27 +213,26 @@ class Calendar extends React.Component {
     }
 
     handleSelect(range) {
+        console.log(range)
         let startDate = new Date(range.startDate._d);
         let endDate = new Date(range.endDate._d);
         let events = this.state.events;
-        for(var i = 0; i < events.length; i++){
-            console.log(new Date(events[i]['EventDate']).getTime());
-            console.log(startDate.getTime())
-            console.log( endDate.getTime())
-        }
+        console.log(startDate, endDate, this.state.filteredEvents)
         let filteredEvents = this.state.events.filter(
             e => new Date(e['EventDate']).getTime() >= startDate.getTime() &&
-            new Date(e['EventDate']).getTime() <= endDate.getTime())
+                new Date(e['EventDate']).getTime() <= endDate.getTime())
         this.setState({
             rangeStart: `${startDate.getFullYear()}/${startDate.getMonth()}/${startDate.getDate()}`,
             rangeEnd: `${endDate.getFullYear()}/${endDate.getMonth()}/${endDate.getDate()}`,
-            filteredEvents
+            filteredEvents,
+            startDate: range.startDate._i,
+            endDate: range.endDate._i
         })
 
     }
 
     render() {
-        console.log(this.state.rangeStart, this.state.rangeEnd)
+        console.log(this.state)
         let that = this;
         if (this.props.editable) {
             return (
@@ -220,53 +256,70 @@ class Calendar extends React.Component {
                     </button>
                     <div>
                         <div>
-                            <DateRange 
+                            <DateRange
                                 theme={dateRangeTheme}
+                                startDate= {this.state.startDate || '10/05/2017'}
+                                endDate={this.state.endDate ||'10/11/2017'}
                                 onInit={this.handleSelect.bind(this)}
                                 onChange={this.handleSelect.bind(this)}
                             />
                         </div>
-                        <select onChange={(e) => this.filterEvents('Location',e)} defaultValue={this.state.selectorValue}>
+                        <select onChange={(e) => this.filterEvents('Location', e)} defaultValue={this.state.locationFilter}>
                             <option disabled value="default"> -- Location -- </option>
+                            <option value="No Filter">No Filter</option>
                             {this.state.locations.map((e) => <option value={e}>{e}</option>)}
                         </select>
-                        <select onChange={(e) => this.filterEvents('Category',e)} defaultValue={this.state.selectorValue}>
+                        <select onChange={(e) => this.filterEvents('Category', e)} defaultValue={this.state.categoryFilter}>
                             <option disabled value="default"> -- Category -- </option>
+                            <option value="No Filter">No Filter</option>
                             {this.state.categories.map((e) => <option value={e}>{e}</option>)}
                         </select>
                     </div>
-                    <div>
-                        {
-                            this.state.filteredEvents.map(e => <p>{e['Title']}</p>)
-                        }
-                    </div>
+                    {
+
+                        this.state.filteredEvents.map(e =>
+                            <div className="event">
+                                <span className="eventCollection-calendarIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
+                                        <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
+                                    </svg>
+                                    <span className="calendarDate">
+                                        {months[e['Month']]}
+                                    </span>
+                                </span>
+                                <p className="eventTitle">{e['Title']}</p>
+                            </div>)
+                    }
 
                 </div>
             )
         } else {
-            if (this.state.calendarFilled) {
-                return (
-                    <div></div>
-                )
-            } else {
-                return (
-                    <div>{this.state.selectorValue}</div>
-                )
-            }
+            return (
+                <div>
+                    {
+
+                        this.state.filteredEvents.map(e =>
+                            <div className="event">
+                                <span className="eventCollection-calendarIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
+                                        <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
+                                    </svg>
+                                    <span className="calendarDate">
+                                        {months[e['Month']]}
+                                    </span>
+                                </span>
+                                <p className="eventTitle">{e['Title']}</p>
+                            </div>)
+                    }
+                </div>
+            )
         }
 
     }
 
 }
 
-{/* <span className="eventCollection-calendarIcon">
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
-    <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
-</svg>
-<span className="calendarDate">
-    {new Date(e["startDate"]).toString().split(" ")[1]}
-</span>
-</span> */}
+
 
 
 export default Calendar;

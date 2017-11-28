@@ -1,0 +1,19 @@
+.calendarDate{
+    font-size: 0.8em;
+    margin-left: 0.4em;
+    margin-top: -2em;
+    position: relative;
+    display: block;
+}
+
+.eventCollection-calendarIcon {
+    float:left;
+}
+
+.eventTitle {
+    float: left;
+}
+
+.event { 
+    padding: 1em 0em 3em 1em;
+}

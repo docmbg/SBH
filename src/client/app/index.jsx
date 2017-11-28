@@ -87,7 +87,7 @@ const draggableComponents = [
       w: 2,
       h: 9
     },
-    defaultProps: {
+    innerElementProps: {
       iframe: '',
       selectorValue: '',
       surveyFilled: '',
@@ -99,8 +99,13 @@ const draggableComponents = [
       w: 2,
       h: 9
     },
-    defaultProps: {
+    innerElementProps: {
       selectorValue: '',
+      categoryFilter: 'No Filter',
+      locationFilter: 'No Filter',
+      events: [],
+      filteredEvents: [],
+      range: '',
     }
   },
   {

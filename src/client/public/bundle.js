@@ -68,7 +68,7 @@
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(395);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -155,7 +155,7 @@
 	    w: 2,
 	    h: 9
 	  },
-	  defaultProps: {
+	  innerElementProps: {
 	    iframe: '',
 	    selectorValue: '',
 	    surveyFilled: ''
@@ -166,8 +166,13 @@
 	    w: 2,
 	    h: 9
 	  },
-	  defaultProps: {
-	    selectorValue: ''
+	  innerElementProps: {
+	    selectorValue: '',
+	    categoryFilter: 'No Filter',
+	    locationFilter: 'No Filter',
+	    events: [],
+	    filteredEvents: [],
+	    range: ''
 	  }
 	}, {
 	  type: 'TabMenu-Component',
@@ -29458,7 +29463,7 @@
 
 	var _tabMenu2 = _interopRequireDefault(_tabMenu);
 
-	var _survey = __webpack_require__(396);
+	var _survey = __webpack_require__(394);
 
 	var _survey2 = _interopRequireDefault(_survey);
 
@@ -55199,7 +55204,8 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
+
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55210,7 +55216,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: ''
+	      value: props.value || ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55220,6 +55226,15 @@
 	  }
 
 	  _createClass(Autocomplete, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var value = _ref.value;
+
+	      if (value !== undefined) {
+	        this.setState({ value: value });
+	      }
+	    }
+	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55256,9 +55271,7 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: function onClick(evt) {
-	                return _this2.setState({ value: key });
-	              } },
+	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55278,25 +55291,51 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      this.setState({ value: evt.target.value });
+	      var onChange = this.props.onChange;
+
+	      var value = evt.target.value;
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
+	    }
+	  }, {
+	    key: '_onAutocomplete',
+	    value: function _onAutocomplete(value, evt) {
+	      var _props = this.props,
+	          onChange = _props.onChange,
+	          onAutocomplete = _props.onAutocomplete;
+
+	      if (onAutocomplete) {
+	        onAutocomplete(value);
+	      }
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props,
-	          className = _props.className,
-	          title = _props.title,
-	          data = _props.data,
-	          icon = _props.icon,
-	          iconClassName = _props.iconClassName,
-	          s = _props.s,
-	          m = _props.m,
-	          l = _props.l,
-	          offset = _props.offset,
-	          minLength = _props.minLength,
-	          placeholder = _props.placeholder,
-	          limit = _props.limit,
-	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
+	      var _props2 = this.props,
+	          className = _props2.className,
+	          title = _props2.title,
+	          data = _props2.data,
+	          icon = _props2.icon,
+	          iconClassName = _props2.iconClassName,
+	          s = _props2.s,
+	          m = _props2.m,
+	          l = _props2.l,
+	          offset = _props2.offset,
+	          minLength = _props2.minLength,
+	          placeholder = _props2.placeholder,
+	          limit = _props2.limit,
+	          value = _props2.value,
+	          onChange = _props2.onChange,
+	          onAutocomplete = _props2.onAutocomplete,
+	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55364,7 +55403,21 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string,
+	  /**
+	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
+	   * Function signature: (event, value) => ()
+	   */
+	  onChange: _propTypes2.default.func,
+	  /**
+	   * Called when auto-completed item is selected.
+	   * Function signature: (value) => ()
+	   */
+	  onAutocomplete: _propTypes2.default.func,
+	  /**
+	   * The value of the input
+	   */
+	  value: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57382,6 +57435,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57404,6 +57458,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,
@@ -60085,257 +60140,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _simpleImageComponent = __webpack_require__(202);
-
-	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
-
-	var _simpleHeader = __webpack_require__(203);
-
-	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
-
-	var _textEditor = __webpack_require__(204);
-
-	var _textEditor2 = _interopRequireDefault(_textEditor);
-
-	var _slider = __webpack_require__(341);
-
-	var _slider2 = _interopRequireDefault(_slider);
-
-	var _sideNav = __webpack_require__(343);
-
-	var _sideNav2 = _interopRequireDefault(_sideNav);
-
-	var _modalEditButtons = __webpack_require__(395);
-
-	var _modalEditButtons2 = _interopRequireDefault(_modalEditButtons);
-
-	var _tabMenu = __webpack_require__(344);
-
-	var _tabMenu2 = _interopRequireDefault(_tabMenu);
-
-	var _survey = __webpack_require__(396);
-
-	var _survey2 = _interopRequireDefault(_survey);
-
-	var _calendar = __webpack_require__(397);
-
-	var _calendar2 = _interopRequireDefault(_calendar);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ContentContainer = function (_React$Component) {
-	    _inherits(ContentContainer, _React$Component);
-
-	    function ContentContainer(props) {
-	        _classCallCheck(this, ContentContainer);
-
-	        var _this2 = _possibleConstructorReturn(this, (ContentContainer.__proto__ || Object.getPrototypeOf(ContentContainer)).call(this, props));
-
-	        _this2.state = {
-	            innerElementType: _this2.props.innerElementType,
-	            innerElementProps: _this2.props.innerElementProps,
-	            display: "none"
-	        };
-	        return _this2;
-	    }
-
-	    _createClass(ContentContainer, [{
-	        key: 'componentsMap',
-	        value: function componentsMap(elem) {
-	            var _this3 = this;
-
-	            var _this = this;
-	            switch (elem) {
-	                case "ImageContainer":
-	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false });
-	                    break;
-	                case "TextArea":
-	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "TextHeader":
-	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.innerElementProps, editable: this.props.innerElementProps.editable ? true : false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "Slider":
-	                    return _react2.default.createElement(_slider2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
-	                case "SideNav":
-	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
-	                            return _this3.getProps(e);
-	                        } });
-	                    break;
-	                case "TabMenu":
-	                    return _react2.default.createElement(_tabMenu2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
-	                            return _this3.getProps(e);
-	                        }, passOpen: function passOpen(e) {
-	                            return _this3.props.passOpen(e);
-	                        } });
-	                    break;
-	                case "Survey":
-	                    return _react2.default.createElement(_survey2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
-	                            return _this3.getProps(e);
-	                        } });
-	                    break;
-	                case "Calendar":
-	                    return _react2.default.createElement(_calendar2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
-	                            return _this3.getProps(e);
-	                        } });
-	                    break;
-	                default:
-	                    return _react2.default.createElement('div', null);
-	            }
-	        }
-	    }, {
-	        key: 'changeButtonsStyle',
-	        value: function changeButtonsStyle(display) {
-	            this.setState({
-	                display: display
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this4 = this;
-
-	            if (this.props.passOpen) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { onMouseEnter: function onMouseEnter() {
-	                            return _this4.changeButtonsStyle('buttonsShow');
-	                        }, onMouseLeave: function onMouseLeave() {
-	                            return _this4.changeButtonsStyle('buttonsHide');
-	                        } },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: this.state.display },
-	                        _react2.default.createElement(_modalEditButtons2.default, { passOpen: function passOpen(e) {
-	                                return _this4.props.passOpen(e);
-	                            }, passClose: function passClose(e) {
-	                                return _this4.props.passClose(e);
-	                            } })
-	                    ),
-	                    this.componentsMap(this.props.innerElementType)
-	                );
-	            } else {
-	                return this.componentsMap(this.props.innerElementType);
-	            }
-	        }
-	    }]);
-
-	    return ContentContainer;
-	}(_react2.default.Component);
-
-	exports.default = ContentContainer;
-
-/***/ }),
-/* 395 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ModalEditButtons = function (_React$Component) {
-	    _inherits(ModalEditButtons, _React$Component);
-
-	    function ModalEditButtons(props) {
-	        _classCallCheck(this, ModalEditButtons);
-
-	        return _possibleConstructorReturn(this, (ModalEditButtons.__proto__ || Object.getPrototypeOf(ModalEditButtons)).call(this, props));
-	    }
-
-	    _createClass(ModalEditButtons, [{
-	        key: 'confirmRemove',
-	        value: function confirmRemove() {
-	            var confirmResult = confirm('This is will permanently delete the item. Are you sure you want to proceed?');
-	            if (confirmResult) {
-	                this.props.passClose();
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-
-	            var _this = this;
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'buttonWrapper' },
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'grid-controls-button button--settings', onClick: function onClick(evt) {
-	                            return _this.props.passOpen(evt);
-	                        } },
-	                    _react2.default.createElement('i', { className: 'fa fa-cog fa-4x' })
-	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'grid-controls-button button--remove', onClick: function onClick(evt) {
-	                            return _this3.confirmRemove();
-	                        } },
-	                    _react2.default.createElement('i', { className: 'fa fa-trash fa-4x' })
-	                )
-	            );
-	        }
-	    }]);
-
-	    return ModalEditButtons;
-	}(_react2.default.Component);
-
-	exports.default = ModalEditButtons;
-
-/***/ }),
-/* 396 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(395);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -60598,6 +60403,251 @@
 	exports.default = Survey;
 
 /***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _simpleImageComponent = __webpack_require__(202);
+
+	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
+
+	var _simpleHeader = __webpack_require__(203);
+
+	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
+
+	var _textEditor = __webpack_require__(204);
+
+	var _textEditor2 = _interopRequireDefault(_textEditor);
+
+	var _slider = __webpack_require__(341);
+
+	var _slider2 = _interopRequireDefault(_slider);
+
+	var _sideNav = __webpack_require__(343);
+
+	var _sideNav2 = _interopRequireDefault(_sideNav);
+
+	var _modalEditButtons = __webpack_require__(396);
+
+	var _modalEditButtons2 = _interopRequireDefault(_modalEditButtons);
+
+	var _tabMenu = __webpack_require__(344);
+
+	var _tabMenu2 = _interopRequireDefault(_tabMenu);
+
+	var _survey = __webpack_require__(394);
+
+	var _survey2 = _interopRequireDefault(_survey);
+
+	var _calendar = __webpack_require__(397);
+
+	var _calendar2 = _interopRequireDefault(_calendar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ContentContainer = function (_React$Component) {
+	    _inherits(ContentContainer, _React$Component);
+
+	    function ContentContainer(props) {
+	        _classCallCheck(this, ContentContainer);
+
+	        var _this2 = _possibleConstructorReturn(this, (ContentContainer.__proto__ || Object.getPrototypeOf(ContentContainer)).call(this, props));
+
+	        _this2.state = {
+	            innerElementType: _this2.props.innerElementType,
+	            innerElementProps: _this2.props.innerElementProps,
+	            display: "none"
+	        };
+	        return _this2;
+	    }
+
+	    _createClass(ContentContainer, [{
+	        key: 'componentsMap',
+	        value: function componentsMap(elem) {
+	            var _this3 = this;
+
+	            var _this = this;
+	            switch (elem) {
+	                case "ImageContainer":
+	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false });
+	                    break;
+	                case "TextArea":
+	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "TextHeader":
+	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.innerElementProps, editable: this.props.innerElementProps.editable ? true : false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "Slider":
+	                    return _react2.default.createElement(_slider2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
+	                            return null;
+	                        } });
+	                    break;
+	                case "SideNav":
+	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                case "TabMenu":
+	                    return _react2.default.createElement(_tabMenu2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        }, passOpen: function passOpen(e) {
+	                            return _this3.props.passOpen(e);
+	                        } });
+	                    break;
+	                case "Survey":
+	                    return _react2.default.createElement(_survey2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                case "Calendar":
+	                    return _react2.default.createElement(_calendar2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                default:
+	                    return _react2.default.createElement('div', null);
+	            }
+	        }
+	    }, {
+	        key: 'changeButtonsStyle',
+	        value: function changeButtonsStyle(display) {
+	            this.setState({
+	                display: display
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this4 = this;
+
+	            if (this.props.passOpen) {
+	                return (
+	                    // onMouseEnter={() => this.changeButtonsStyle('buttonsShow')} onMouseLeave={() => this.changeButtonsStyle('buttonsHide')}
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(_modalEditButtons2.default, { passOpen: function passOpen(e) {
+	                                return _this4.props.passOpen(e);
+	                            }, passClose: function passClose(e) {
+	                                return _this4.props.passClose(e);
+	                            } }),
+	                        this.componentsMap(this.props.innerElementType)
+	                    )
+	                );
+	            } else {
+	                return this.componentsMap(this.props.innerElementType);
+	            }
+	        }
+	    }]);
+
+	    return ContentContainer;
+	}(_react2.default.Component);
+
+	exports.default = ContentContainer;
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ModalEditButtons = function (_React$Component) {
+	    _inherits(ModalEditButtons, _React$Component);
+
+	    function ModalEditButtons(props) {
+	        _classCallCheck(this, ModalEditButtons);
+
+	        return _possibleConstructorReturn(this, (ModalEditButtons.__proto__ || Object.getPrototypeOf(ModalEditButtons)).call(this, props));
+	    }
+
+	    _createClass(ModalEditButtons, [{
+	        key: 'confirmRemove',
+	        value: function confirmRemove() {
+	            var confirmResult = confirm('This is will permanently delete the item. Are you sure you want to proceed?');
+	            if (confirmResult) {
+	                this.props.passClose();
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            var _this = this;
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'buttonWrapper' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'grid-controls-button button--settings', onClick: function onClick(evt) {
+	                            return _this.props.passOpen(evt);
+	                        } },
+	                    _react2.default.createElement('i', { className: 'fa fa-cog fa-4x' })
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'grid-controls-button button--remove', onClick: function onClick(evt) {
+	                            return _this3.confirmRemove();
+	                        } },
+	                    _react2.default.createElement('i', { className: 'fa fa-trash fa-4x' })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ModalEditButtons;
+	}(_react2.default.Component);
+
+	exports.default = ModalEditButtons;
+
+/***/ }),
 /* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60617,7 +60667,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _contentContainer = __webpack_require__(394);
+	var _contentContainer = __webpack_require__(395);
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
@@ -60677,13 +60727,13 @@
 
 	        _this.state = {
 	            selectorValue: 'default',
-	            rangeStart: '',
-	            rangeEnd: '',
 	            existingCalendars: [],
 	            locations: [],
 	            categories: [],
 	            events: [],
-	            filteredEvents: []
+	            locationFilter: 'No Filter',
+	            categoryFilter: 'No Filter'
+
 	        };
 	        return _this;
 	    }
@@ -60693,7 +60743,15 @@
 	        value: function componentWillReceiveProps(nextProps) {
 	            this.setState({
 	                selectorValue: nextProps.componentProperties.selectorValue,
-	                existingCalendars: nextProps.componentProperties.existingCalendars
+	                existingCalendars: nextProps.componentProperties.existingCalendars || [],
+	                events: nextProps.componentProperties.events || [],
+	                filteredEvents: nextProps.componentProperties.filteredEvents || [],
+	                locationFilter: nextProps.componentProperties.locationFilter,
+	                categoryFilter: nextProps.componentProperties.categoryFilter,
+	                locations: nextProps.componentProperties.locations || [],
+	                categories: nextProps.componentProperties.categories || [],
+	                startDate: nextProps.componentProperties.startDate,
+	                endDate: nextProps.componentProperties.endDate
 	            });
 	        }
 	    }, {
@@ -60701,18 +60759,17 @@
 	        value: function componentWillMount() {
 	            var that = this;
 	            if (window.location.href != 'http://localhost:3000/') {
-	                var _mainURL = window.location.href.split('teams')[0] + 'teams/';
-	                var _siteName = window.location.href.split(_mainURL)[1].split('/')[0];
-	                var fullCalendarAddUrl = '' + _mainURL + _siteName + '/Calendars/_layouts/15/new.aspx?FeatureId=%7B00bfea71-ec85-4903-972d-ebe475780106%7D&ListTemplate=106&';
+	                var mainURL = window.location.href.split('teams')[0] + 'teams/';
+	                var siteName = window.location.href.split(mainURL)[1].split('/')[0];
+	                var fullCalendarAddUrl = '' + mainURL + siteName + '/Calendars/_layouts/15/new.aspx?FeatureId=%7B00bfea71-ec85-4903-972d-ebe475780106%7D&ListTemplate=106&';
 	                var existingCalendars = [];
 	                var calendars = this.state.calendars;
 	                $().SPServices({
 	                    operation: "GetListCollection",
 	                    async: false,
-	                    webURL: '' + _mainURL + _siteName + '/Calendars/',
+	                    webURL: '' + mainURL + siteName + '/Calendars/',
 	                    completefunc: function completefunc(xData, Status) {
 	                        $(xData.responseXML).SPFilterNode("List").each(function () {
-	                            console.log($(this).attr('ServerTemplate'));
 	                            if ($(this).attr('ServerTemplate') == 106) {
 	                                existingCalendars.push($(this).attr('Title'));
 	                            }
@@ -60720,8 +60777,17 @@
 	                        that.setState({
 	                            existingCalendars: existingCalendars,
 	                            fullCalendarAddUrl: fullCalendarAddUrl,
-	                            siteName: _siteName,
-	                            mainURL: _mainURL
+	                            siteName: siteName,
+	                            mainURL: mainURL,
+	                            selectorValue: that.props.componentProperties.selectorValue,
+	                            events: that.props.componentProperties.events || [],
+	                            filteredEvents: that.props.componentProperties.filteredEvents || [],
+	                            locationFilter: that.props.componentProperties.locationFilter,
+	                            categoryFilter: that.props.componentProperties.categoryFilter,
+	                            locations: that.props.componentProperties.locations || [],
+	                            categories: that.props.componentProperties.categories || [],
+	                            startDate: that.props.componentProperties.startDate,
+	                            endDate: that.props.componentProperties.endDate
 	                        });
 	                    }
 	                });
@@ -60742,13 +60808,13 @@
 	                listName: e.target.value,
 	                completefunc: function completefunc(xData, Status) {
 	                    $(xData.responseXML).SPFilterNode("z:row").each(function () {
-	                        console.log($(this).attr('ows_Title'));
 	                        var event = {};
 	                        event['Title'] = $(this).attr('ows_Title');
 	                        event['Location'] = $(this).attr('ows_Location');
 	                        event['EventDate'] = $(this).attr('ows_EventDate');
 	                        event['EndDate'] = $(this).attr('ows_EndDate');
 	                        event['Category'] = $(this).attr('ows_Category');
+	                        event['Month'] = parseInt($(this).attr('ows_EventDate').split('-')[1]) - 1;
 	                        if (locations.indexOf(event['Location']) < 0) {
 	                            locations.push(event['Location']);
 	                        }
@@ -60757,7 +60823,6 @@
 	                        }
 	                        events.push(event);
 	                    });
-	                    console.log(locations, categories);
 	                    that.setState({
 	                        selectorValue: e.target.value,
 	                        events: events,
@@ -60771,21 +60836,48 @@
 	    }, {
 	        key: 'filterEvents',
 	        value: function filterEvents(filterBy, event) {
-	            var filteredEvents = this.state.filteredEvents.filter(function (e) {
-	                return e[filterBy] == event.target.value;
-	            });
+	            var filteredEvents = this.state.events;
+	            var locationFilter = this.state.locationFilter;
+	            var categoryFilter = this.state.categoryFilter;
+	            if (filterBy == 'Location') {
+	                locationFilter = event.target.value;
+	            } else {
+	                categoryFilter = event.target.value;
+	            }
+	            var filters = [locationFilter, categoryFilter];
+	            var filterNames = ['Location', 'Category'];
+
+	            var _loop = function _loop(i) {
+	                if (filters[i] != 'No Filter') {
+	                    filteredEvents = filteredEvents.filter(function (e) {
+	                        return e[filterNames[i]] == filters[i];
+	                    });
+	                }
+	            };
+
+	            for (var i = 0; i < filters.length; i++) {
+	                _loop(i);
+	            }
 	            this.setState({
-	                filteredEvents: filteredEvents
+	                filteredEvents: filteredEvents,
+	                locationFilter: locationFilter,
+	                categoryFilter: categoryFilter
 	            });
 	        }
 	    }, {
 	        key: 'saveEdit',
 	        value: function saveEdit() {
 	            this.props.passProps({
-	                iframe: this.state.iframe,
 	                selectorValue: this.state.selectorValue,
-	                calendarFilled: this.state.calendarFilled,
-	                existingCalendars: this.state.existingCalendars
+	                existingCalendars: this.state.existingCalendars,
+	                events: this.state.events,
+	                filteredEvents: this.state.filteredEvents,
+	                locationFilter: this.state.locationFilter,
+	                categoryFilter: this.state.categoryFilter,
+	                locations: this.state.locations,
+	                categories: this.state.categories,
+	                startDate: this.state.startDate,
+	                endDate: this.state.endDate
 	            });
 	        }
 	    }, {
@@ -60798,7 +60890,7 @@
 	                $().SPServices({
 	                    operation: "GetListCollection",
 	                    async: false,
-	                    webURL: '' + mainURL + siteName + '/Calendars/',
+	                    webURL: '' + that.state.mainURL + that.state.siteName + '/Calendars/',
 	                    completefunc: function completefunc(xData, Status) {
 	                        $(xData.responseXML).SPFilterNode("List").each(function () {
 	                            if ($(this).attr('ServerTemplate') == 106) {
@@ -60815,21 +60907,20 @@
 	    }, {
 	        key: 'handleSelect',
 	        value: function handleSelect(range) {
+	            console.log(range);
 	            var startDate = new Date(range.startDate._d);
 	            var endDate = new Date(range.endDate._d);
 	            var events = this.state.events;
-	            for (var i = 0; i < events.length; i++) {
-	                console.log(new Date(events[i]['EventDate']).getTime());
-	                console.log(startDate.getTime());
-	                console.log(endDate.getTime());
-	            }
+	            console.log(startDate, endDate, this.state.filteredEvents);
 	            var filteredEvents = this.state.events.filter(function (e) {
 	                return new Date(e['EventDate']).getTime() >= startDate.getTime() && new Date(e['EventDate']).getTime() <= endDate.getTime();
 	            });
 	            this.setState({
 	                rangeStart: startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate(),
 	                rangeEnd: endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate(),
-	                filteredEvents: filteredEvents
+	                filteredEvents: filteredEvents,
+	                startDate: range.startDate._i,
+	                endDate: range.endDate._i
 	            });
 	        }
 	    }, {
@@ -60837,7 +60928,7 @@
 	        value: function render() {
 	            var _this2 = this;
 
-	            console.log(this.state.rangeStart, this.state.rangeEnd);
+	            console.log(this.state);
 	            var that = this;
 	            if (this.props.editable) {
 	                return _react2.default.createElement(
@@ -60902,6 +60993,8 @@
 	                            null,
 	                            _react2.default.createElement(_reactDateRange.DateRange, {
 	                                theme: dateRangeTheme,
+	                                startDate: this.state.startDate || '10/05/2017',
+	                                endDate: this.state.endDate || '10/11/2017',
 	                                onInit: this.handleSelect.bind(this),
 	                                onChange: this.handleSelect.bind(this)
 	                            })
@@ -60910,11 +61003,16 @@
 	                            'select',
 	                            { onChange: function onChange(e) {
 	                                    return _this2.filterEvents('Location', e);
-	                                }, defaultValue: this.state.selectorValue },
+	                                }, defaultValue: this.state.locationFilter },
 	                            _react2.default.createElement(
 	                                'option',
 	                                { disabled: true, value: 'default' },
 	                                ' -- Location -- '
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'No Filter' },
+	                                'No Filter'
 	                            ),
 	                            this.state.locations.map(function (e) {
 	                                return _react2.default.createElement(
@@ -60928,11 +61026,16 @@
 	                            'select',
 	                            { onChange: function onChange(e) {
 	                                    return _this2.filterEvents('Category', e);
-	                                }, defaultValue: this.state.selectorValue },
+	                                }, defaultValue: this.state.categoryFilter },
 	                            _react2.default.createElement(
 	                                'option',
 	                                { disabled: true, value: 'default' },
 	                                ' -- Category -- '
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'No Filter' },
+	                                'No Filter'
 	                            ),
 	                            this.state.categories.map(function (e) {
 	                                return _react2.default.createElement(
@@ -60943,43 +61046,68 @@
 	                            })
 	                        )
 	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        this.state.filteredEvents.map(function (e) {
-	                            return _react2.default.createElement(
+	                    this.state.filteredEvents.map(function (e) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'event' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'eventCollection-calendarIcon' },
+	                                _react2.default.createElement(
+	                                    'svg',
+	                                    { xmlns: 'http://www.w3.org/2000/svg', width: '40', height: '40', viewBox: '0 0 40 40', focusable: 'false', role: 'presentation' },
+	                                    _react2.default.createElement('path', { d: 'M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'calendarDate' },
+	                                    months[e['Month']]
+	                                )
+	                            ),
+	                            _react2.default.createElement(
 	                                'p',
-	                                null,
+	                                { className: 'eventTitle' },
 	                                e['Title']
-	                            );
-	                        })
-	                    )
+	                            )
+	                        );
+	                    })
 	                );
 	            } else {
-	                if (this.state.calendarFilled) {
-	                    return _react2.default.createElement('div', null);
-	                } else {
-	                    return _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        this.state.selectorValue
-	                    );
-	                }
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    this.state.filteredEvents.map(function (e) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'event' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'eventCollection-calendarIcon' },
+	                                _react2.default.createElement(
+	                                    'svg',
+	                                    { xmlns: 'http://www.w3.org/2000/svg', width: '40', height: '40', viewBox: '0 0 40 40', focusable: 'false', role: 'presentation' },
+	                                    _react2.default.createElement('path', { d: 'M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'calendarDate' },
+	                                    months[e['Month']]
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'p',
+	                                { className: 'eventTitle' },
+	                                e['Title']
+	                            )
+	                        );
+	                    })
+	                );
 	            }
 	        }
 	    }]);
 
 	    return Calendar;
 	}(_react2.default.Component);
-
-	{/* <span className="eventCollection-calendarIcon">
-	    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
-	       <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
-	    </svg>
-	    <span className="calendarDate">
-	       {new Date(e["startDate"]).toString().split(" ")[1]}
-	    </span>
-	    </span> */}
 
 	exports.default = Calendar;
 

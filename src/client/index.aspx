@@ -3,14 +3,16 @@
     <head>
         <meta charset="utf-8">
         <title>HPI</title>
-        <link rel="stylesheet" href="./styles/styles.css">
-        <link rel="stylesheet" href="./styles/react-resize.css">
-        <link rel="stylesheet" href="./styles/react-resizeable.css">
-        <link rel="stylesheet" href="./styles/editorStyles.css">
-        <link rel="stylesheet" href="./styles/react-draft-wysiwyg.css">
-        <link rel="stylesheet" href="./styles/custom-list-points.css">
+        <link rel="stylesheet" href="../styles.css">
+        <link rel="stylesheet" href="../react-resize.css">
+        <link rel="stylesheet" href="../react-resizeable.css">
+        <link rel="stylesheet" href="../editorStyles.css">
+        <link rel="stylesheet" href="../react-draft-wysiwyg.css">
+        <link rel="stylesheet" href="../custom-list-points.css">
+        <link rel="stylesheet" href="../materialize-tabs.css">
+        <link rel="stylesheet" href="../calendar.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="./styles/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
         
     </head>
     

@@ -9,7 +9,7 @@ import ModalEditButtons from './modalEditButtons.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
 import Calendar from './calendar.jsx';
-
+import ImageGallery from './imageGallery.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class ContentContainer extends React.Component {
         let _this = this;
         switch (elem) {
             case ("ImageContainer"):
-                return <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false} />
+                return <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false} handleImageModal={(src) => this.props.handleImageModal(src)} />
                 break;
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
@@ -48,6 +48,9 @@ class ContentContainer extends React.Component {
             case ("Calendar"):
                 return <Calendar componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("ImageGallery"):
+                return <ImageGallery componentProperties={this.props.innerElementProps} editable={false} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} />
+                break;
             default:
                 return (
                     <div>
@@ -68,7 +71,7 @@ class ContentContainer extends React.Component {
                 // onMouseEnter={() => this.changeButtonsStyle('buttonsShow')} onMouseLeave={() => this.changeButtonsStyle('buttonsHide')}
                 <div>
                     {/* <div className={this.state.display}> */}
-                        <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)} />
+                    <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} passClose={(e) => this.props.passClose(e)} />
                     {/* </div> */}
                     {this.componentsMap(this.props.innerElementType)}
                 </div>

@@ -8,7 +8,7 @@ import SideNav from './sideNav.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
 import Calendar from './calendar.jsx';
-
+import ImageGallery from './imageGallery.jsx';
 class Modal extends React.Component {
     constructor(props) {
         super(props);
@@ -66,6 +66,9 @@ class Modal extends React.Component {
             case ("Calendar"):
                 return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
+            case ("ImageGallery"):
+                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} />
+                break;
             default:
                 return (
                     <div>
@@ -95,6 +98,7 @@ class Modal extends React.Component {
                             <option value="TabMenu">Tab Menu</option>
                             <option value="Survey">Survey</option>
                             <option value="Calendar">Calendar</option>
+                            <option value="ImageGallery">ImageGallery</option>
                         </select>
                         <div className="modal-content-edit-container">
                             {editProperties}

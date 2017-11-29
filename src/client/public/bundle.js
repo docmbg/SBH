@@ -72,6 +72,10 @@
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
+	var _imageModal = __webpack_require__(527);
+
+	var _imageModal2 = _interopRequireDefault(_imageModal);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -191,6 +195,21 @@
 	      "title": "Tab 3"
 	    }]
 	  }
+	}, {
+	  type: 'ImageGallery-Component',
+	  defaultSize: {
+	    w: 6,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    images: [{
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }]
+	  }
 	}];
 	var windowW = window.innerWidth;
 	var windowH = window.innerHeight;
@@ -226,6 +245,7 @@
 	    var currentPage = "";
 	    var currentMode = "";
 	    var allAdded = 0;
+	    var imageModalSrc = "";
 	    var x = 0;
 	    var y = 0;
 	    var browser = '';
@@ -255,7 +275,7 @@
 	      browser: browser,
 	      layouts: layouts, defaultProps: defaultProps, currentItems: currentItems,
 	      items: items, modalOpened: modalOpened, currentModalElement: currentModalElement, currentComponentProps: currentComponentProps,
-	      currentStateJSON: currentStateJSON, allAdded: allAdded
+	      currentStateJSON: currentStateJSON, allAdded: allAdded, imageModalSrc: imageModalSrc
 	    };
 	    return _this2;
 	  }
@@ -337,6 +357,14 @@
 	    key: 'onLayoutChange',
 	    value: function onLayoutChange(layout, layouts) {
 	      this.setState({ layouts: layouts });
+	    }
+	  }, {
+	    key: 'handleImageModal',
+	    value: function handleImageModal(src) {
+	      console.log("handling modal", src);
+	      this.setState({
+	        imageModalSrc: src
+	      });
 	    }
 	  }, {
 	    key: 'openModal',
@@ -645,6 +673,15 @@
 	                { className: 'material-icons' },
 	                '\uE8D8'
 	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'ImageGallery-Component' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                '\uE413'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -681,6 +718,9 @@
 	                    },
 	                    passClose: function passClose(evt) {
 	                      return _this.onRemoveItem(modalKey);
+	                    },
+	                    handleImageModal: function handleImageModal(src) {
+	                      return _this.handleImageModal(src);
 	                    }
 	                  })
 	                );
@@ -701,6 +741,12 @@
 	            updateCurrentElement: function updateCurrentElement(e) {
 	              return _this5.updateCurrentModalElement(e);
 	            }
+	          }),
+	          _react2.default.createElement(_imageModal2.default, {
+	            handleImageClick: function handleImageClick() {
+	              return _this.handleImageModal();
+	            },
+	            src: this.state.imageModalSrc
 	          })
 	        );
 	      } else {
@@ -29473,6 +29519,10 @@
 
 	var _calendar2 = _interopRequireDefault(_calendar);
 
+	var _imageGallery = __webpack_require__(528);
+
+	var _imageGallery2 = _interopRequireDefault(_imageGallery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29570,6 +29620,13 @@
 	                            return _this2.getProps(e);
 	                        } });
 	                    break;
+	                case "ImageGallery":
+	                    return _react2.default.createElement(_imageGallery2.default, { componentProperties: this.props.currentComponentProps, editable: true, handleImageModal: function handleImageModal(src) {
+	                            return _this2.props.handleImageModal(src);
+	                        }, passProps: function passProps(e) {
+	                            return _this2.getProps(e);
+	                        } });
+	                    break;
 	                default:
 	                    return _react2.default.createElement('div', null);
 	            }
@@ -29640,6 +29697,11 @@
 	                                'option',
 	                                { value: 'Calendar' },
 	                                'Calendar'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'ImageGallery' },
+	                                'ImageGallery'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -29753,6 +29815,9 @@
 	                return _react2.default.createElement('img', {
 	                    className: 'content-simpleImage content-disabled',
 	                    src: this.props.componentProperties.imgSrc,
+	                    onClick: function onClick() {
+	                        return _this2.props.handleImageModal(_this2.props.componentProperties.imgSrc);
+	                    },
 	                    width: '100%',
 	                    height: '100%'
 	                });
@@ -55206,8 +55271,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55218,7 +55282,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: props.value || ''
+	      value: ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55228,15 +55292,6 @@
 	  }
 
 	  _createClass(Autocomplete, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(_ref) {
-	      var value = _ref.value;
-
-	      if (value !== undefined) {
-	        this.setState({ value: value });
-	      }
-	    }
-	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55273,7 +55328,9 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
+	            { key: key + '_' + idx, onClick: function onClick(evt) {
+	                return _this2.setState({ value: key });
+	              } },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55293,51 +55350,25 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      var onChange = this.props.onChange;
-
-	      var value = evt.target.value;
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
-	    }
-	  }, {
-	    key: '_onAutocomplete',
-	    value: function _onAutocomplete(value, evt) {
-	      var _props = this.props,
-	          onChange = _props.onChange,
-	          onAutocomplete = _props.onAutocomplete;
-
-	      if (onAutocomplete) {
-	        onAutocomplete(value);
-	      }
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
+	      this.setState({ value: evt.target.value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props,
-	          className = _props2.className,
-	          title = _props2.title,
-	          data = _props2.data,
-	          icon = _props2.icon,
-	          iconClassName = _props2.iconClassName,
-	          s = _props2.s,
-	          m = _props2.m,
-	          l = _props2.l,
-	          offset = _props2.offset,
-	          minLength = _props2.minLength,
-	          placeholder = _props2.placeholder,
-	          limit = _props2.limit,
-	          value = _props2.value,
-	          onChange = _props2.onChange,
-	          onAutocomplete = _props2.onAutocomplete,
-	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
+	      var _props = this.props,
+	          className = _props.className,
+	          title = _props.title,
+	          data = _props.data,
+	          icon = _props.icon,
+	          iconClassName = _props.iconClassName,
+	          s = _props.s,
+	          m = _props.m,
+	          l = _props.l,
+	          offset = _props.offset,
+	          minLength = _props.minLength,
+	          placeholder = _props.placeholder,
+	          limit = _props.limit,
+	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55405,21 +55436,7 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string,
-	  /**
-	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
-	   * Function signature: (event, value) => ()
-	   */
-	  onChange: _propTypes2.default.func,
-	  /**
-	   * Called when auto-completed item is selected.
-	   * Function signature: (value) => ()
-	   */
-	  onAutocomplete: _propTypes2.default.func,
-	  /**
-	   * The value of the input
-	   */
-	  value: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57437,7 +57454,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57460,7 +57476,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,
@@ -60460,6 +60475,10 @@
 
 	var _calendar2 = _interopRequireDefault(_calendar);
 
+	var _imageGallery = __webpack_require__(528);
+
+	var _imageGallery2 = _interopRequireDefault(_imageGallery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60492,7 +60511,9 @@
 	            var _this = this;
 	            switch (elem) {
 	                case "ImageContainer":
-	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false });
+	                    return _react2.default.createElement(_simpleImageComponent2.default, { componentProperties: this.props.innerElementProps, editable: false, handleImageModal: function handleImageModal(src) {
+	                            return _this3.props.handleImageModal(src);
+	                        } });
 	                    break;
 	                case "TextArea":
 	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
@@ -60528,6 +60549,13 @@
 	                    break;
 	                case "Calendar":
 	                    return _react2.default.createElement(_calendar2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                case "ImageGallery":
+	                    return _react2.default.createElement(_imageGallery2.default, { componentProperties: this.props.innerElementProps, editable: false, handleImageModal: function handleImageModal(src) {
+	                            return _this3.props.handleImageModal(src);
+	                        }, passProps: function passProps(e) {
 	                            return _this3.getProps(e);
 	                        } });
 	                    break;
@@ -78847,6 +78875,262 @@
 	  }
 	};
 	module.exports = exports['default'];
+
+/***/ }),
+/* 527 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ImageModal = function (_React$Component) {
+	    _inherits(ImageModal, _React$Component);
+
+	    function ImageModal(props) {
+	        _classCallCheck(this, ImageModal);
+
+	        return _possibleConstructorReturn(this, (ImageModal.__proto__ || Object.getPrototypeOf(ImageModal)).call(this, props));
+	    }
+
+	    _createClass(ImageModal, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            if (!this.props.src) {
+	                return _react2.default.createElement('div', { className: 'hidden' });
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'image-popup-modal' },
+	                _react2.default.createElement('div', {
+	                    className: 'image-popup-modal-shield',
+	                    onClick: function onClick() {
+	                        return _this2.props.handleImageClick("");
+	                    }
+	                }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'image-popup-modal-content' },
+	                    _react2.default.createElement('img', { src: this.props.src, className: 'image-popup-modal-content-image' })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ImageModal;
+	}(_react2.default.Component);
+
+	exports.default = ImageModal;
+
+/***/ }),
+/* 528 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _simpleImageComponent = __webpack_require__(202);
+
+	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ImageGallery = function (_React$Component) {
+	    _inherits(ImageGallery, _React$Component);
+
+	    function ImageGallery(props) {
+	        _classCallCheck(this, ImageGallery);
+
+	        var _this = _possibleConstructorReturn(this, (ImageGallery.__proto__ || Object.getPrototypeOf(ImageGallery)).call(this, props));
+
+	        _this.state = {
+	            images: _this.props.componentProperties.images || []
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ImageGallery, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                images: nextProps.componentProperties.images
+	            });
+	        }
+	    }, {
+	        key: 'addImage',
+	        value: function addImage() {
+	            var images = this.state.images;
+	            images.push({
+	                "imgSrc": ""
+	            });
+	            this.setState({
+	                images: images
+	            });
+	        }
+	    }, {
+	        key: 'removeImage',
+	        value: function removeImage(index) {
+	            var images = this.state.images;
+	            images.splice(index, 1);
+	            this.setState({
+	                images: images
+	            });
+	        }
+	    }, {
+	        key: 'updateSource',
+	        value: function updateSource(value, index) {
+	            var images = this.state.images;
+	            images[index]["imgSrc"] = value.target.value;
+	            this.setState({
+	                images: images
+	            });
+	        }
+	    }, {
+	        key: 'saveEdit',
+	        value: function saveEdit() {
+	            var images = this.state.images;
+	            this.props.passProps({
+	                images: images
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            console.log(this.props);
+	            var that = this;
+	            if (this.props.editable) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        this.state.images.map(function (e, i) {
+	                            return _react2.default.createElement(
+	                                'div',
+	                                { className: 'modal-content-edit-navigation--side-container' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'w2' },
+	                                    _react2.default.createElement(
+	                                        'button',
+	                                        {
+	                                            onClick: function onClick(i) {
+	                                                return that.removeImage(i);
+	                                            },
+	                                            className: 'modal-content-edit-button--remove'
+	                                        },
+	                                        'X'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Image Source'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["imgSrc"],
+	                                        onChange: function onChange(value) {
+	                                            return that.updateSource(value, i);
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    })
+	                                )
+	                            );
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        {
+	                            className: 'modal-content-edit-button--plus',
+	                            onClick: function onClick() {
+	                                return _this2.addImage();
+	                            }
+	                        },
+	                        '+'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: function onClick() {
+	                                    return _this2.saveEdit();
+	                                },
+	                                className: 'modal-content-edit--save'
+	                            },
+	                            'Save'
+	                        )
+	                    )
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'imageCollection-container' },
+	                this.props.componentProperties.images.map(function (e, i) {
+	                    return _react2.default.createElement(
+	                        'div',
+	                        { className: 'imageCollection-imageContainer' },
+	                        _react2.default.createElement(_simpleImageComponent2.default, {
+	                            componentProperties: e,
+	                            handleImageModal: function handleImageModal(src) {
+	                                return that.props.handleImageModal(src);
+	                            }
+	                        })
+	                    );
+	                })
+	            );
+	        }
+	    }]);
+
+	    return ImageGallery;
+	}(_react2.default.Component);
+
+	exports.default = ImageGallery;
 
 /***/ })
 /******/ ]);

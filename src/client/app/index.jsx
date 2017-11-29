@@ -4,6 +4,7 @@ import ReactGridLayout from 'react-grid-layout';
 import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
+import ImageModal from './components/imageModal.jsx';
 
 
 function get_browser() {
@@ -107,7 +108,7 @@ const draggableComponents = [
       filteredEvents: [],
       startDate: '10/11/2017',
       endDate: '10/11/2017'
-    
+
     }
   },
   {
@@ -118,11 +119,27 @@ const draggableComponents = [
     },
     innerElementProps: {
       tabs: [{
-        "title" : "Tab 1"
-      },{
-        "title" : "Tab 2"
-      },{
-        "title" : "Tab 3"
+        "title": "Tab 1"
+      }, {
+        "title": "Tab 2"
+      }, {
+        "title": "Tab 3"
+      }],
+    }
+  },
+  {
+    type: 'ImageGallery-Component',
+    defaultSize: {
+      w: 6,
+      h: 9
+    },
+    innerElementProps: {
+      images: [{
+        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+      }, {
+        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+      }, {
+        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
       }],
     }
   }
@@ -159,6 +176,7 @@ class App extends React.Component {
     const currentPage = "";
     const currentMode = "";
     const allAdded = 0;
+    const imageModalSrc = "";
     const x = 0;
     const y = 0;
     const browser = '';
@@ -188,11 +206,11 @@ class App extends React.Component {
       browser,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
-      currentStateJSON, allAdded
+      currentStateJSON, allAdded, imageModalSrc
     };
   }
   componentWillMount() {
-    if(window.location.href == 'localhost:3000'){
+    if (window.location.href == 'localhost:3000') {
       that.setState({
         currentMode: "edit",
         currentPage: "",
@@ -216,7 +234,7 @@ class App extends React.Component {
         + currentPage +
         "</Value></Eq></Where></Query>",
       completefunc: function (xData, Status) {
-        if($(xData.responseXML).SPFilterNode("z:row").length == 0){
+        if ($(xData.responseXML).SPFilterNode("z:row").length == 0) {
           that.setState({
             currentMode: "edit",
             currentPage: "",
@@ -226,15 +244,15 @@ class App extends React.Component {
             id: 0
 
           })
-        }else {
+        } else {
           $(xData.responseXML).SPFilterNode("z:row").each(function () {
             let id = $(this).attr('ows_ID');
             response = $(this).attr('ows_InnerHTML');
             //console.log($(this).attr('ows_InnerHTML'))
-           // console.log(typeof($(this).attr('ows_InnerHTML')))
+            // console.log(typeof($(this).attr('ows_InnerHTML')))
             if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
-              
-              
+
+
               let allAdded = 0;
 
               allAdded = JSON.parse($(this).attr('ows_InnerHTML')).sort(function (a, b) {
@@ -250,7 +268,7 @@ class App extends React.Component {
                 id: id
 
               })
-              
+
             } else {
               that.setState({
                 currentMode: "view",
@@ -259,7 +277,7 @@ class App extends React.Component {
                 browser: get_browser()['name'],
                 id: id
               })
-              
+
             }
           })
         }
@@ -274,7 +292,12 @@ class App extends React.Component {
   onLayoutChange(layout, layouts) {
     this.setState({ layouts });
   }
-
+  handleImageModal(src) {
+    console.log("handling modal", src)
+    this.setState({
+      imageModalSrc: src
+    })
+  }
   openModal(e, modalKey, modalType) {
     let currentElement = JSON.parse(this.state.currentStateJSON).filter(function (e) {
       return e["containerKey"] == modalKey
@@ -489,6 +512,7 @@ class App extends React.Component {
             <button className="Survey-Component"><i className="material-icons">&#xE801;</i></button>
             <button className="Calendar-Component"><i className="material-icons">&#xE916;</i></button>
             <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i></button>
+            <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"
@@ -514,6 +538,7 @@ class App extends React.Component {
                       innerElementProps={e["innerElement"]["innerElementProps"]}
                       passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
                       passClose={(evt) => _this.onRemoveItem(modalKey)}
+                      handleImageModal={(src) => _this.handleImageModal(src)}
                     />
 
 
@@ -532,6 +557,10 @@ class App extends React.Component {
             isActive={this.state.modalOpened}
             updateStatus={(e) => this.updateStatus(e)}
             updateCurrentElement={(e) => this.updateCurrentModalElement(e)}
+          />
+          <ImageModal
+            handleImageClick={() => _this.handleImageModal()}
+            src={this.state.imageModalSrc}
           />
         </div>
       );

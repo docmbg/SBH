@@ -53,6 +53,7 @@ class SimpleImageComponent extends React.Component {
                 <img
                     className="content-simpleImage content-disabled"
                     src={this.props.componentProperties.imgSrc}
+                    onClick={() => this.props.handleImageModal(this.props.componentProperties.imgSrc)}
                     width='100%'
                     height='100%'
                 />

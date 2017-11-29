@@ -172,7 +172,9 @@
 	    locationFilter: 'No Filter',
 	    events: [],
 	    filteredEvents: [],
-	    range: ''
+	    startDate: '10/11/2017',
+	    endDate: '10/11/2017'
+
 	  }
 	}, {
 	  type: 'TabMenu-Component',
@@ -60732,8 +60734,9 @@
 	            categories: [],
 	            events: [],
 	            locationFilter: 'No Filter',
-	            categoryFilter: 'No Filter'
-
+	            categoryFilter: 'No Filter',
+	            startDate: '10/11/2017',
+	            endDate: '10/11/2017'
 	        };
 	        return _this;
 	    }
@@ -60840,9 +60843,9 @@
 	            var locationFilter = this.state.locationFilter;
 	            var categoryFilter = this.state.categoryFilter;
 	            if (filterBy == 'Location') {
-	                locationFilter = event.target.value;
+	                locationFilter = event;
 	            } else {
-	                categoryFilter = event.target.value;
+	                categoryFilter = event;
 	            }
 	            var filters = [locationFilter, categoryFilter];
 	            var filterNames = ['Location', 'Category'];
@@ -60907,28 +60910,24 @@
 	    }, {
 	        key: 'handleSelect',
 	        value: function handleSelect(range) {
-	            console.log(range);
-	            var startDate = new Date(range.startDate._d);
-	            var endDate = new Date(range.endDate._d);
+	            var sDate = new Date(range.startDate._d);
+	            var eDate = new Date(range.endDate._d);
 	            var events = this.state.events;
-	            console.log(startDate, endDate, this.state.filteredEvents);
-	            var filteredEvents = this.state.events.filter(function (e) {
-	                return new Date(e['EventDate']).getTime() >= startDate.getTime() && new Date(e['EventDate']).getTime() <= endDate.getTime();
+	            var filteredEvents = events.filter(function (e) {
+	                return new Date(e['EventDate']).getTime() >= sDate.getTime() && new Date(e['EventDate']).getTime() <= eDate.getTime();
 	            });
 	            this.setState({
-	                rangeStart: startDate.getFullYear() + '/' + startDate.getMonth() + '/' + startDate.getDate(),
-	                rangeEnd: endDate.getFullYear() + '/' + endDate.getMonth() + '/' + endDate.getDate(),
 	                filteredEvents: filteredEvents,
-	                startDate: range.startDate._i,
-	                endDate: range.endDate._i
+	                startDate: new Date(range.startDate._d).toLocaleDateString(),
+	                endDate: new Date(range.endDate._d).toLocaleDateString()
 	            });
+	            this.filterEvents('Location', this.state.locationFilter);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
-	            console.log(this.state);
 	            var that = this;
 	            if (this.props.editable) {
 	                return _react2.default.createElement(
@@ -60993,16 +60992,17 @@
 	                            null,
 	                            _react2.default.createElement(_reactDateRange.DateRange, {
 	                                theme: dateRangeTheme,
-	                                startDate: this.state.startDate || '10/05/2017',
-	                                endDate: this.state.endDate || '10/11/2017',
+	                                startDate: this.state.startDate,
+	                                endDate: this.state.endDate,
 	                                onInit: this.handleSelect.bind(this),
-	                                onChange: this.handleSelect.bind(this)
+	                                onChange: this.handleSelect.bind(this),
+	                                format: 'MM/DD/YYYY'
 	                            })
 	                        ),
 	                        _react2.default.createElement(
 	                            'select',
 	                            { onChange: function onChange(e) {
-	                                    return _this2.filterEvents('Location', e);
+	                                    return _this2.filterEvents('Location', e.target.value);
 	                                }, defaultValue: this.state.locationFilter },
 	                            _react2.default.createElement(
 	                                'option',
@@ -61025,7 +61025,7 @@
 	                        _react2.default.createElement(
 	                            'select',
 	                            { onChange: function onChange(e) {
-	                                    return _this2.filterEvents('Category', e);
+	                                    return _this2.filterEvents('Category', e.target.value);
 	                                }, defaultValue: this.state.categoryFilter },
 	                            _react2.default.createElement(
 	                                'option',

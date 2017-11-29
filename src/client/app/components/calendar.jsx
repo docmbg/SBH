@@ -51,7 +51,8 @@ class Calendar extends React.Component {
             events: [],
             locationFilter: 'No Filter',
             categoryFilter: 'No Filter',
-
+            startDate: '10/11/2017',
+            endDate: '10/11/2017',
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -155,9 +156,9 @@ class Calendar extends React.Component {
         let locationFilter = this.state.locationFilter;
         let categoryFilter = this.state.categoryFilter;
         if (filterBy == 'Location') {
-            locationFilter = event.target.value;
+            locationFilter = event;
         } else {
-            categoryFilter = event.target.value;
+            categoryFilter = event;
         }
         let filters = [locationFilter, categoryFilter];
         let filterNames = ['Location', 'Category']
@@ -213,26 +214,21 @@ class Calendar extends React.Component {
     }
 
     handleSelect(range) {
-        console.log(range)
-        let startDate = new Date(range.startDate._d);
-        let endDate = new Date(range.endDate._d);
+        let sDate = new Date(range.startDate._d);
+        let eDate = new Date(range.endDate._d);
         let events = this.state.events;
-        console.log(startDate, endDate, this.state.filteredEvents)
-        let filteredEvents = this.state.events.filter(
-            e => new Date(e['EventDate']).getTime() >= startDate.getTime() &&
-                new Date(e['EventDate']).getTime() <= endDate.getTime())
+        let filteredEvents = events.filter(
+            e => new Date(e['EventDate']).getTime() >= sDate.getTime() &&
+                new Date(e['EventDate']).getTime() <= eDate.getTime())
         this.setState({
-            rangeStart: `${startDate.getFullYear()}/${startDate.getMonth()}/${startDate.getDate()}`,
-            rangeEnd: `${endDate.getFullYear()}/${endDate.getMonth()}/${endDate.getDate()}`,
             filteredEvents,
-            startDate: range.startDate._i,
-            endDate: range.endDate._i
+            startDate: new Date(range.startDate._d).toLocaleDateString(),
+            endDate: new Date(range.endDate._d).toLocaleDateString()
         })
-
+        this.filterEvents('Location',this.state.locationFilter)
     }
 
     render() {
-        console.log(this.state)
         let that = this;
         if (this.props.editable) {
             return (
@@ -258,18 +254,20 @@ class Calendar extends React.Component {
                         <div>
                             <DateRange
                                 theme={dateRangeTheme}
-                                startDate= {this.state.startDate || '10/05/2017'}
-                                endDate={this.state.endDate ||'10/11/2017'}
+                                startDate= {this.state.startDate}
+                                endDate={this.state.endDate}
                                 onInit={this.handleSelect.bind(this)}
                                 onChange={this.handleSelect.bind(this)}
+                                format='MM/DD/YYYY'
                             />
+
                         </div>
-                        <select onChange={(e) => this.filterEvents('Location', e)} defaultValue={this.state.locationFilter}>
+                        <select onChange={(e) => this.filterEvents('Location', e.target.value)} defaultValue={this.state.locationFilter}>
                             <option disabled value="default"> -- Location -- </option>
                             <option value="No Filter">No Filter</option>
                             {this.state.locations.map((e) => <option value={e}>{e}</option>)}
                         </select>
-                        <select onChange={(e) => this.filterEvents('Category', e)} defaultValue={this.state.categoryFilter}>
+                        <select onChange={(e) => this.filterEvents('Category', e.target.value)} defaultValue={this.state.categoryFilter}>
                             <option disabled value="default"> -- Category -- </option>
                             <option value="No Filter">No Filter</option>
                             {this.state.categories.map((e) => <option value={e}>{e}</option>)}

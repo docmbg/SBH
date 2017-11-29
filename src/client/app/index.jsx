@@ -105,7 +105,9 @@ const draggableComponents = [
       locationFilter: 'No Filter',
       events: [],
       filteredEvents: [],
-      range: '',
+      startDate: '10/11/2017',
+      endDate: '10/11/2017'
+    
     }
   },
   {

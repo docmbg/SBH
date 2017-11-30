@@ -27,15 +27,48 @@
     z-index: 2;
 }
 .imageCollection-imageContainer {
-    display: inline-flex;
+    display: inline-block;
     width: 33.3333%;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     border: 1px dotted transparent;
     border-radius: 2em;
 }
 .imageCollection-container{
     width: 100%;
     height: 100%;
-    display: flex;
+    display: block;
     flex-flow: row;
+}
+.content-imageGallery-pageIndicator {
+    top: 0;
+    position: absolute;
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+    height: 100%;
+    width: 3.5%;
+}
+.content-imageGallery-pageIndicator.next{
+    right: 0;
+}
+.content-imageGallery-pageIndicator.previous{
+    left:0;
+}
+.content-imageGallery-pageIndicator-arrow {
+    border-radius: 100% 100% 100% 100%;
+    clear: both;
+    position: absolute;
+    height: 8%;
+    width: 100%;
+    max-width: 100%;
+    font-size: 100%;
+    font-weight: 800;
+    /* border: 1px solid transparent; */
+    /* margin-top: 40%; */
+    bottom: 46%;
+    vertical-align: middle;
+    background: white;
+    color: black;
+    box-sizing: border-box;
+    /* line-height: 0em; */
 }

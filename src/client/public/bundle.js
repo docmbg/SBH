@@ -72,7 +72,7 @@
 
 	var _contentContainer2 = _interopRequireDefault(_contentContainer);
 
-	var _imageModal = __webpack_require__(527);
+	var _imageModal = __webpack_require__(528);
 
 	var _imageModal2 = _interopRequireDefault(_imageModal);
 
@@ -203,6 +203,42 @@
 	  },
 	  innerElementProps: {
 	    images: [{
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }, {
 	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
 	    }, {
 	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
@@ -29519,7 +29555,7 @@
 
 	var _calendar2 = _interopRequireDefault(_calendar);
 
-	var _imageGallery = __webpack_require__(528);
+	var _imageGallery = __webpack_require__(527);
 
 	var _imageGallery2 = _interopRequireDefault(_imageGallery);
 
@@ -37576,17 +37612,13 @@
 	}
 
 	function lookUpwardForInlineStyle(content, fromKey) {
-	  var previousBlock = content.getBlockBefore(fromKey);
-	  var previousLength;
+	  var lastNonEmpty = content.getBlockMap().reverse().skipUntil(function (_, k) {
+	    return k === fromKey;
+	  }).skip(1).skipUntil(function (block, _) {
+	    return block.getLength();
+	  }).first();
 
-	  while (previousBlock) {
-	    previousLength = previousBlock.getLength();
-	    if (previousLength) {
-	      return previousBlock.getInlineStyleAt(previousLength - 1);
-	    }
-	    previousBlock = content.getBlockBefore(previousBlock.getKey());
-	  }
-
+	  if (lastNonEmpty) return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
 	  return OrderedSet();
 	}
 
@@ -39329,6 +39361,9 @@
 
 	    var contentStyle = {
 	      outline: 'none',
+	      // fix parent-draggable Safari bug. #1326
+	      userSelect: 'text',
+	      WebkitUserSelect: 'text',
 	      whiteSpace: 'pre-wrap',
 	      wordWrap: 'break-word'
 	    };
@@ -39462,6 +39497,12 @@
 
 	    var alreadyHasFocus = editorState.getSelection().getHasFocus();
 	    var editorNode = ReactDOM.findDOMNode(this.refs.editor);
+
+	    if (!editorNode) {
+	      // once in a while people call 'focus' in a setTimeout, and the node has
+	      // been deleted, so it can be null in that case.
+	      return;
+	    }
 
 	    var scrollParent = Style.getScrollParent(editorNode);
 
@@ -43999,11 +44040,24 @@
 	  // reduces re-renders and preserves spellcheck highlighting. If the selection
 	  // is not collapsed, we will re-render.
 	  var selection = editorState.getSelection();
+	  var selectionStart = selection.getStartOffset();
+	  var selectionEnd = selection.getEndOffset();
 	  var anchorKey = selection.getAnchorKey();
 
 	  if (!selection.isCollapsed()) {
 	    e.preventDefault();
-	    editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
+
+	    // If the character that the user is trying to replace with
+	    // is the same as the current selection text the just update the
+	    // `SelectionState`.  Else, update the ContentState with the new text
+	    var currentlySelectedChars = editorState.getCurrentContent().getPlainText().slice(selectionStart, selectionEnd);
+	    if (chars === currentlySelectedChars) {
+	      this.update(EditorState.forceSelection(editorState, selection.merge({
+	        focusOffset: selectionEnd
+	      })));
+	    } else {
+	      editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
+	    }
 	    return;
 	  }
 
@@ -44022,7 +44076,7 @@
 	    // https://chromium.googlesource.com/chromium/src/+/013ac5eaf3%5E%21/
 	    var nativeSelection = global.getSelection();
 	    // Selection is necessarily collapsed at this point due to earlier check.
-	    if (nativeSelection.anchorNode !== null && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
+	    if (nativeSelection.anchorNode && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
 	      // See isTabHTMLSpanElement in chromium EditingUtilities.cpp.
 	      var parentNode = nativeSelection.anchorNode.parentNode;
 	      mustPreventNative = parentNode.nodeName === 'SPAN' && parentNode.firstChild.nodeType === Node.TEXT_NODE && parentNode.firstChild.nodeValue.indexOf('\t') !== -1;
@@ -44907,8 +44961,14 @@
 	    case Keys.UP:
 	      editor.props.onUpArrow && editor.props.onUpArrow(e);
 	      return;
+	    case Keys.RIGHT:
+	      editor.props.onRightArrow && editor.props.onRightArrow(e);
+	      return;
 	    case Keys.DOWN:
 	      editor.props.onDownArrow && editor.props.onDownArrow(e);
+	      return;
+	    case Keys.LEFT:
+	      editor.props.onLeftArrow && editor.props.onLeftArrow(e);
 	      return;
 	    case Keys.SPACE:
 	      // Handling for OSX where option + space scrolls.
@@ -47583,9 +47643,9 @@
 	  },
 
 	  /**
-	   * When a collapsed cursor is at the start of an empty styled block, 
-	   * changes block to 'unstyled'. Returns null if block or selection does not
-	   * meet that criteria.
+	   * When a collapsed cursor is at the start of the first styled block, or 
+	   * an empty styled block, changes block to 'unstyled'. Returns null if 
+	   * block or selection does not meet that criteria.
 	   */
 	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
 	    var selection = editorState.getSelection();
@@ -47594,7 +47654,9 @@
 	      var key = selection.getAnchorKey();
 	      var content = editorState.getCurrentContent();
 	      var block = content.getBlockForKey(key);
-	      if (block.getLength() > 0) {
+
+	      var firstBlock = content.getFirstBlock();
+	      if (block.getLength() > 0 && block !== firstBlock) {
 	        return null;
 	      }
 
@@ -55271,7 +55333,8 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
+
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55282,7 +55345,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: ''
+	      value: props.value || ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55292,6 +55355,15 @@
 	  }
 
 	  _createClass(Autocomplete, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var value = _ref.value;
+
+	      if (value !== undefined) {
+	        this.setState({ value: value });
+	      }
+	    }
+	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55328,9 +55400,7 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: function onClick(evt) {
-	                return _this2.setState({ value: key });
-	              } },
+	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55350,25 +55420,51 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      this.setState({ value: evt.target.value });
+	      var onChange = this.props.onChange;
+
+	      var value = evt.target.value;
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
+	    }
+	  }, {
+	    key: '_onAutocomplete',
+	    value: function _onAutocomplete(value, evt) {
+	      var _props = this.props,
+	          onChange = _props.onChange,
+	          onAutocomplete = _props.onAutocomplete;
+
+	      if (onAutocomplete) {
+	        onAutocomplete(value);
+	      }
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props,
-	          className = _props.className,
-	          title = _props.title,
-	          data = _props.data,
-	          icon = _props.icon,
-	          iconClassName = _props.iconClassName,
-	          s = _props.s,
-	          m = _props.m,
-	          l = _props.l,
-	          offset = _props.offset,
-	          minLength = _props.minLength,
-	          placeholder = _props.placeholder,
-	          limit = _props.limit,
-	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
+	      var _props2 = this.props,
+	          className = _props2.className,
+	          title = _props2.title,
+	          data = _props2.data,
+	          icon = _props2.icon,
+	          iconClassName = _props2.iconClassName,
+	          s = _props2.s,
+	          m = _props2.m,
+	          l = _props2.l,
+	          offset = _props2.offset,
+	          minLength = _props2.minLength,
+	          placeholder = _props2.placeholder,
+	          limit = _props2.limit,
+	          value = _props2.value,
+	          onChange = _props2.onChange,
+	          onAutocomplete = _props2.onAutocomplete,
+	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55436,7 +55532,21 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string,
+	  /**
+	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
+	   * Function signature: (event, value) => ()
+	   */
+	  onChange: _propTypes2.default.func,
+	  /**
+	   * Called when auto-completed item is selected.
+	   * Function signature: (value) => ()
+	   */
+	  onAutocomplete: _propTypes2.default.func,
+	  /**
+	   * The value of the input
+	   */
+	  value: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57311,6 +57421,10 @@
 	        $(this.dateInput).pickadate(this.props.options);
 	        $(this.dateInput).on('change', this._onChange);
 	      }
+	      if (this.isTimePicker) {
+	        $(this.timeInput).pickatime(this.props.options);
+	        $(this.timeInput).on('change', this._onChange);
+	      }
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -57454,6 +57568,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57476,6 +57591,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,
@@ -57485,6 +57601,25 @@
 	            },
 	            placeholder: placeholder,
 	            type: 'date'
+	          })),
+	          htmlLabel
+	        );
+	      } else if (type === 'time') {
+	        this.isTimePicker = true;
+	        delete other.options;
+
+	        return _react2.default.createElement(
+	          'div',
+	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
+	          _react2.default.createElement(C, _extends({}, other, {
+	            className: (0, _classnames2.default)(className, inputClasses),
+	            defaultValue: defaultValue,
+	            id: this._id,
+	            ref: function ref(_ref4) {
+	              return _this3.timeInput = _ref4;
+	            },
+	            placeholder: placeholder
 	          })),
 	          htmlLabel
 	        );
@@ -57513,6 +57648,9 @@
 	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
+	            ref: function ref(_ref5) {
+	              return _this3.input = _ref5;
+	            },
 	            defaultValue: _defaultValue,
 	            id: this._id,
 	            onChange: this._onChange,
@@ -60475,7 +60613,7 @@
 
 	var _calendar2 = _interopRequireDefault(_calendar);
 
-	var _imageGallery = __webpack_require__(528);
+	var _imageGallery = __webpack_require__(527);
 
 	var _imageGallery2 = _interopRequireDefault(_imageGallery);
 
@@ -61460,7 +61598,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var require;/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
-	//! version : 2.19.2
+	//! version : 2.19.3
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 	//! license : MIT
 	//! momentjs.com
@@ -62120,7 +62258,7 @@
 
 	// any word (or two) characters or numbers including two/three word month in arabic.
 	// includes scottish gaelic two word and hyphenated months
-	var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+	var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
 
 
 	var regexes = {};
@@ -65939,7 +66077,7 @@
 	// Side effect imports
 
 
-	hooks.version = '2.19.2';
+	hooks.version = '2.19.3';
 
 	setHookCallback(createLocal);
 
@@ -69454,7 +69592,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
-	//! locale : Spanish(United State) [es-us]
+	//! locale : Spanish (United States) [es-us]
 	//! author : bustta : https://github.com/bustta
 
 	;(function (global, factory) {
@@ -71131,8 +71269,7 @@
 
 	var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
 	function translate(number, withoutSuffix, key, isFuture) {
-	    var num = number,
-	        suffix;
+	    var num = number;
 	    switch (key) {
 	        case 's':
 	            return (isFuture || withoutSuffix) ? 'néhány másodperc' : 'néhány másodperce';
@@ -78880,6 +79017,247 @@
 /* 527 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _simpleImageComponent = __webpack_require__(202);
+
+	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var itemsPerRow = 3;
+	var rowsPerPage = 3;
+
+	var ImageGallery = function (_React$Component) {
+	  _inherits(ImageGallery, _React$Component);
+
+	  function ImageGallery(props) {
+	    _classCallCheck(this, ImageGallery);
+
+	    var _this = _possibleConstructorReturn(this, (ImageGallery.__proto__ || Object.getPrototypeOf(ImageGallery)).call(this, props));
+
+	    _this.state = {
+	      images: _this.props.componentProperties.images || [],
+	      currentPage: _this.props.componentProperties.currentPage || 0
+	    };
+	    return _this;
+	  }
+
+	  _createClass(ImageGallery, [{
+	    key: "componentWillReceiveProps",
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({
+	        images: nextProps.componentProperties.images
+	      });
+	    }
+	  }, {
+	    key: "addImage",
+	    value: function addImage() {
+	      var images = this.state.images;
+	      images.push({
+	        imgSrc: ""
+	      });
+	      this.setState({
+	        images: images
+	      });
+	    }
+	  }, {
+	    key: "removeImage",
+	    value: function removeImage(index) {
+	      var images = this.state.images;
+	      images.splice(index, 1);
+	      this.setState({
+	        images: images
+	      });
+	    }
+	  }, {
+	    key: "updateSource",
+	    value: function updateSource(value, index) {
+	      var images = this.state.images;
+	      images[index]["imgSrc"] = value.target.value;
+	      this.setState({
+	        images: images
+	      });
+	    }
+	  }, {
+	    key: "handlePageChange",
+	    value: function handlePageChange(dir) {
+	      console.log("Changing page ", dir);
+	      var currentPage = this.state.currentPage;
+	      currentPage += dir;
+	      this.setState({
+	        currentPage: currentPage
+	      });
+	    }
+	  }, {
+	    key: "saveEdit",
+	    value: function saveEdit() {
+	      var images = this.state.images;
+	      this.props.passProps({
+	        images: images
+	      });
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this2 = this;
+
+	      console.log(this.state.currentPage);
+	      var that = this;
+	      var currentPage = this.state.currentPage;
+	      var filteredImages = this.state.images.filter(function (e, i) {
+	        return i >= currentPage * itemsPerRow * rowsPerPage && i < (currentPage + 1) * itemsPerRow * rowsPerPage;
+	      });
+	      console.log(filteredImages);
+	      var rowHeight = Math.ceil(this.state.images.length / itemsPerRow) > itemsPerRow ? "33.333%" : 100 / Math.ceil(this.state.images.length / itemsPerRow) + "%";
+	      console.log(this.state.currentPage);
+	      if (this.props.editable) {
+	        return _react2.default.createElement(
+	          "div",
+	          null,
+	          _react2.default.createElement(
+	            "div",
+	            { className: "w1" },
+	            this.state.images.map(function (e, i) {
+	              return _react2.default.createElement(
+	                "div",
+	                { className: "modal-content-edit-navigation--side-container" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "w2" },
+	                  _react2.default.createElement(
+	                    "button",
+	                    {
+	                      onClick: function onClick(i) {
+	                        return that.removeImage(i);
+	                      },
+	                      className: "modal-content-edit-button--remove"
+	                    },
+	                    "X"
+	                  ),
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "modal-content-edit-header" },
+	                    "Image Source"
+	                  ),
+	                  _react2.default.createElement("input", {
+	                    type: "text",
+	                    value: e["imgSrc"],
+	                    onChange: function onChange(value) {
+	                      return that.updateSource(value, i);
+	                    },
+	                    className: "modal-content-edit-input-text"
+	                  })
+	                )
+	              );
+	            })
+	          ),
+	          _react2.default.createElement(
+	            "button",
+	            {
+	              className: "modal-content-edit-button--plus",
+	              onClick: function onClick() {
+	                return _this2.addImage();
+	              }
+	            },
+	            "+"
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                onClick: function onClick() {
+	                  return _this2.saveEdit();
+	                },
+	                className: "modal-content-edit--save"
+	              },
+	              "Save"
+	            )
+	          )
+	        );
+	      }
+	      console.log(Math.floor(this.state.images.length / (itemsPerRow * rowsPerPage)));
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "imageCollection-container" },
+	        _react2.default.createElement(
+	          "div",
+	          {
+	            onClick: function onClick() {
+	              return _this2.handlePageChange(-1);
+	            },
+	            className: "content-imageGallery-pageIndicator previous " + (this.state.currentPage == 0 ? "hidden" : "")
+	          },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "content-imageGallery-pageIndicator-arrow" },
+	            "\u25C4"
+	          )
+	        ),
+	        filteredImages.map(function (e, i) {
+	          return _react2.default.createElement(
+	            "div",
+	            {
+	              className: "imageCollection-imageContainer",
+	              style: { height: rowHeight }
+	            },
+	            _react2.default.createElement(_simpleImageComponent2.default, {
+	              componentProperties: e,
+	              handleImageModal: function handleImageModal(src) {
+	                return that.props.handleImageModal(src);
+	              }
+	            })
+	          );
+	        }),
+	        _react2.default.createElement(
+	          "div",
+	          {
+	            onClick: function onClick() {
+	              return _this2.handlePageChange(1);
+	            },
+	            className: "content-imageGallery-pageIndicator next " + (this.state.currentPage == Math.floor(this.state.images.length / (itemsPerRow * rowsPerPage)) && filteredImages.length < 9 ? "hidden" : "")
+	          },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "content-imageGallery-pageIndicator-arrow" },
+	            " \u25BA"
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ImageGallery;
+	}(_react2.default.Component);
+
+	exports.default = ImageGallery;
+
+/***/ }),
+/* 528 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -78943,194 +79321,6 @@
 	}(_react2.default.Component);
 
 	exports.default = ImageModal;
-
-/***/ }),
-/* 528 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _simpleImageComponent = __webpack_require__(202);
-
-	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ImageGallery = function (_React$Component) {
-	    _inherits(ImageGallery, _React$Component);
-
-	    function ImageGallery(props) {
-	        _classCallCheck(this, ImageGallery);
-
-	        var _this = _possibleConstructorReturn(this, (ImageGallery.__proto__ || Object.getPrototypeOf(ImageGallery)).call(this, props));
-
-	        _this.state = {
-	            images: _this.props.componentProperties.images || []
-	        };
-	        return _this;
-	    }
-
-	    _createClass(ImageGallery, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            this.setState({
-	                images: nextProps.componentProperties.images
-	            });
-	        }
-	    }, {
-	        key: 'addImage',
-	        value: function addImage() {
-	            var images = this.state.images;
-	            images.push({
-	                "imgSrc": ""
-	            });
-	            this.setState({
-	                images: images
-	            });
-	        }
-	    }, {
-	        key: 'removeImage',
-	        value: function removeImage(index) {
-	            var images = this.state.images;
-	            images.splice(index, 1);
-	            this.setState({
-	                images: images
-	            });
-	        }
-	    }, {
-	        key: 'updateSource',
-	        value: function updateSource(value, index) {
-	            var images = this.state.images;
-	            images[index]["imgSrc"] = value.target.value;
-	            this.setState({
-	                images: images
-	            });
-	        }
-	    }, {
-	        key: 'saveEdit',
-	        value: function saveEdit() {
-	            var images = this.state.images;
-	            this.props.passProps({
-	                images: images
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            console.log(this.props);
-	            var that = this;
-	            if (this.props.editable) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w1' },
-	                        this.state.images.map(function (e, i) {
-	                            return _react2.default.createElement(
-	                                'div',
-	                                { className: 'modal-content-edit-navigation--side-container' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'w2' },
-	                                    _react2.default.createElement(
-	                                        'button',
-	                                        {
-	                                            onClick: function onClick(i) {
-	                                                return that.removeImage(i);
-	                                            },
-	                                            className: 'modal-content-edit-button--remove'
-	                                        },
-	                                        'X'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'modal-content-edit-header' },
-	                                        'Image Source'
-	                                    ),
-	                                    _react2.default.createElement('input', {
-	                                        type: 'text',
-	                                        value: e["imgSrc"],
-	                                        onChange: function onChange(value) {
-	                                            return that.updateSource(value, i);
-	                                        },
-	                                        className: 'modal-content-edit-input-text'
-	                                    })
-	                                )
-	                            );
-	                        })
-	                    ),
-	                    _react2.default.createElement(
-	                        'button',
-	                        {
-	                            className: 'modal-content-edit-button--plus',
-	                            onClick: function onClick() {
-	                                return _this2.addImage();
-	                            }
-	                        },
-	                        '+'
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                onClick: function onClick() {
-	                                    return _this2.saveEdit();
-	                                },
-	                                className: 'modal-content-edit--save'
-	                            },
-	                            'Save'
-	                        )
-	                    )
-	                );
-	            }
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'imageCollection-container' },
-	                this.props.componentProperties.images.map(function (e, i) {
-	                    return _react2.default.createElement(
-	                        'div',
-	                        { className: 'imageCollection-imageContainer' },
-	                        _react2.default.createElement(_simpleImageComponent2.default, {
-	                            componentProperties: e,
-	                            handleImageModal: function handleImageModal(src) {
-	                                return that.props.handleImageModal(src);
-	                            }
-	                        })
-	                    );
-	                })
-	            );
-	        }
-	    }]);
-
-	    return ImageGallery;
-	}(_react2.default.Component);
-
-	exports.default = ImageGallery;
 
 /***/ })
 /******/ ]);

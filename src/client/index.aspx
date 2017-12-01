@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="../custom-list-points.css">
         <link rel="stylesheet" href="../materialize-tabs.css">
         <link rel="stylesheet" href="../calendar.css">
+        <link rel="stylesheet" href="../horizontalNav.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
         

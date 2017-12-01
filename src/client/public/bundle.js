@@ -76,6 +76,8 @@
 
 	var _imageModal2 = _interopRequireDefault(_imageModal);
 
+	var _draggableComponents = __webpack_require__(530);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -111,142 +113,6 @@
 
 	var ResponsiveReactGridLayout = (0, _reactGridLayout.WidthProvider)(_reactGridLayout.Responsive);
 	var breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
-	var draggableComponents = [{
-	  type: 'Slider-Component',
-	  defaultSize: {
-	    w: 7,
-	    h: 12
-	  },
-	  innerElementProps: {
-	    slides: [{
-	      src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
-	      title: "First Slide",
-	      link: "1"
-	    }, {
-	      src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
-	      title: "Second Slide",
-	      link: "2"
-	    }],
-	    sliderStyles: {
-	      sliderBackgroundStyle: "slider-shape-square",
-	      sliderBackgroundColor: "dxc-background-gray--dark",
-	      sliderButtonColor: "dxc-background-yellow",
-	      sliderTextColor: "dxc-font-white",
-	      sliderButtonTextColor: "dxc-font-black",
-	      sliderBackgroundOpacity: 60,
-	      sliderIndicatorsStyle: "content-slider-indicators",
-	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
-	      readMoreText: "Read more"
-	    }
-	  }
-	}, {
-	  type: 'ImageContainer-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {}
-	}, {
-	  type: 'TextArea-Component',
-	  defaultSize: {
-	    w: 7,
-	    h: 12
-	  },
-	  defaultProps: {}
-	}, {
-	  type: 'Survey-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    iframe: '',
-	    selectorValue: '',
-	    surveyFilled: ''
-	  }
-	}, {
-	  type: 'Calendar-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    selectorValue: '',
-	    categoryFilter: 'No Filter',
-	    locationFilter: 'No Filter',
-	    events: [],
-	    filteredEvents: [],
-	    startDate: '10/11/2017',
-	    endDate: '10/11/2017'
-
-	  }
-	}, {
-	  type: 'TabMenu-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    tabs: [{
-	      "title": "Tab 1"
-	    }, {
-	      "title": "Tab 2"
-	    }, {
-	      "title": "Tab 3"
-	    }]
-	  }
-	}, {
-	  type: 'ImageGallery-Component',
-	  defaultSize: {
-	    w: 6,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    images: [{
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }, {
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }]
-	  }
-	}];
 	var windowW = window.innerWidth;
 	var windowH = window.innerHeight;
 
@@ -259,8 +125,6 @@
 	  if (!results[2]) return '';
 	  return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
-
-	function handleDragStart(e) {}
 
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -433,7 +297,7 @@
 	      allAdded++;
 	      var currentStateJSON = JSON.parse(this.state.currentStateJSON);
 	      var currentStateJSONArr = currentStateJSON;
-	      var currentElement = draggableComponents.filter(function (e) {
+	      var currentElement = _draggableComponents.draggableComponents.filter(function (e) {
 	        return e.type == _this3.state.draggedComponent;
 	      })[0];
 	      var elementSize = currentElement.defaultSize;
@@ -572,7 +436,7 @@
 
 	      // console.log(this.state.draggedComponent)
 	      if (this.state.draggedComponent.indexOf('Component') > -1) {
-	        var size = draggableComponents.filter(function (e) {
+	        var size = _draggableComponents.draggableComponents.filter(function (e) {
 	          return e.type == _this4.state.draggedComponent;
 	        })[0].defaultSize;
 	        var width = windowW / 12 * size.w + 'px';
@@ -717,6 +581,24 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE413'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'VerticalNav-Component' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                '\uE5D4'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'HorizontalNav-Component' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                '\uE5D3'
 	              )
 	            )
 	          ),
@@ -29527,10 +29409,6 @@
 
 	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
 
-	var _simpleHeader = __webpack_require__(203);
-
-	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
-
 	var _textEditor = __webpack_require__(204);
 
 	var _textEditor2 = _interopRequireDefault(_textEditor);
@@ -29539,9 +29417,9 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _sideNav = __webpack_require__(343);
+	var _verticalNav = __webpack_require__(531);
 
-	var _sideNav2 = _interopRequireDefault(_sideNav);
+	var _verticalNav2 = _interopRequireDefault(_verticalNav);
 
 	var _tabMenu = __webpack_require__(344);
 
@@ -29558,6 +29436,10 @@
 	var _imageGallery = __webpack_require__(527);
 
 	var _imageGallery2 = _interopRequireDefault(_imageGallery);
+
+	var _horizontalNav = __webpack_require__(532);
+
+	var _horizontalNav2 = _interopRequireDefault(_horizontalNav);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29621,11 +29503,6 @@
 	                            return _this2.getProps(e);
 	                        } });
 	                    break;
-	                case "TextHeader":
-	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
-	                            return _this2.getProps(e);
-	                        } });
-	                    break;
 	                case "TextArea":
 	                    return _react2.default.createElement(_textEditor2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
 	                            return _this2.getProps(e);
@@ -29636,8 +29513,13 @@
 	                            return _this2.getProps(e);
 	                        } });
 	                    break;
-	                case "SideNav":
-	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
+	                case "VerticalNav":
+	                    return _react2.default.createElement(_verticalNav2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
+	                            return _this2.getProps(e);
+	                        } });
+	                    break;
+	                case "HorizontalNav":
+	                    return _react2.default.createElement(_horizontalNav2.default, { componentProperties: this.props.currentComponentProps, editable: true, passProps: function passProps(e) {
 	                            return _this2.getProps(e);
 	                        } });
 	                    break;
@@ -29701,11 +29583,6 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'option',
-	                                { value: 'TextHeader' },
-	                                'Text Header'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
 	                                { value: 'TextArea' },
 	                                'Text Area'
 	                            ),
@@ -29716,8 +29593,13 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'option',
-	                                { value: 'SideNav' },
-	                                'Side Navigation'
+	                                { value: 'VerticalNav' },
+	                                'Vertical Navigation'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'HorizontalNav' },
+	                                'Horizontal Navigation'
 	                            ),
 	                            _react2.default.createElement(
 	                                'option',
@@ -29924,201 +29806,7 @@
 	exports.default = SimpleImageComponent;
 
 /***/ }),
-/* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SimpleHeader = function (_React$Component) {
-	    _inherits(SimpleHeader, _React$Component);
-
-	    function SimpleHeader(props) {
-	        _classCallCheck(this, SimpleHeader);
-
-	        var _this = _possibleConstructorReturn(this, (SimpleHeader.__proto__ || Object.getPrototypeOf(SimpleHeader)).call(this, props));
-
-	        _this.state = {
-	            value: _this.props.componentProperties.value || "",
-	            fontSize: _this.props.componentProperties.fontSize || "0",
-	            textUnderline: _this.props.componentProperties.textUnderline || false,
-	            textBold: _this.props.componentProperties.textBold || false,
-	            editable: _this.props.editable
-	        };
-	        return _this;
-	    }
-
-	    _createClass(SimpleHeader, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            this.setState({
-	                value: nextProps.componentProperties.value || "",
-	                fontSize: nextProps.componentProperties.fontSize || "0",
-	                textUnderline: nextProps.componentProperties.textUnderline || false,
-	                textBold: nextProps.componentProperties.textBold || false,
-	                editable: nextProps.editable
-	            });
-	        }
-	    }, {
-	        key: 'passProps',
-	        value: function passProps(e, occ) {
-	            var newVal = e.target.value;
-	            switch (occ) {
-	                case "value":
-	                    this.setState({
-	                        value: newVal
-	                    });
-	                    break;
-	                case "fontSize":
-	                    this.setState({
-	                        fontSize: newVal
-	                    });
-	                    break;
-	                case "textUnderline":
-	                    this.setState({
-	                        textUnderline: newVal
-	                    });
-	                    break;
-	                case "textBold":
-	                    this.setState({
-	                        textBold: newVal
-	                    });
-	                    break;
-	                default:
-	                    console.log("Nothing to change");
-	            }
-	        }
-	    }, {
-	        key: 'saveEdit',
-	        value: function saveEdit() {
-	            this.props.passProps({
-	                value: this.state.value,
-	                fontSize: this.state.fontSize,
-	                textUnderline: this.state.textUnderline,
-	                textBold: this.state.textBold
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            var styleObj = {
-	                fontSize: this.state.fontSize.toString() + "px",
-	                textDecoration: this.state.textUnderline ? "underline" : "none",
-	                fontWeight: this.state.textBold ? 700 : 450
-	            };
-	            if (!this.props.editable) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    {
-	                        className: 'content-simpleHeader content-disabled',
-	                        style: styleObj
-	                    },
-	                    this.state.value
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'modal-content-edit-container' },
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Bold'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'checkbox',
-	                        defaultChecked: this.state.textBold || false,
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "textBold");
-	                        },
-	                        className: 'modal-content-edit-input-checkbox'
-	                    }),
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Underline'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'checkbox',
-	                        defaultChecked: this.state.textUnderline || false,
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "textBold");
-	                        },
-	                        className: 'modal-content-edit-input-checkbox'
-	                    }),
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Font Size'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'number',
-	                        value: parseInt((this.state.fontSize || "0px").replace("px", "")),
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "fontSize");
-	                        },
-	                        className: 'modal-content-edit-input-text'
-	                    }),
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Text'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'text',
-	                        value: this.state.value || "",
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "value");
-	                        },
-	                        className: 'modal-content-edit-input-text'
-	                    }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                className: 'modal-content-edit--save',
-	                                onClick: function onClick() {
-	                                    return _this2.saveEdit();
-	                                }
-	                            },
-	                            'Save'
-	                        )
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-
-	    return SimpleHeader;
-	}(_react2.default.Component);
-
-	exports.default = SimpleHeader;
-
-/***/ }),
+/* 203 */,
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37612,13 +37300,17 @@
 	}
 
 	function lookUpwardForInlineStyle(content, fromKey) {
-	  var lastNonEmpty = content.getBlockMap().reverse().skipUntil(function (_, k) {
-	    return k === fromKey;
-	  }).skip(1).skipUntil(function (block, _) {
-	    return block.getLength();
-	  }).first();
+	  var previousBlock = content.getBlockBefore(fromKey);
+	  var previousLength;
 
-	  if (lastNonEmpty) return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
+	  while (previousBlock) {
+	    previousLength = previousBlock.getLength();
+	    if (previousLength) {
+	      return previousBlock.getInlineStyleAt(previousLength - 1);
+	    }
+	    previousBlock = content.getBlockBefore(previousBlock.getKey());
+	  }
+
 	  return OrderedSet();
 	}
 
@@ -39361,9 +39053,6 @@
 
 	    var contentStyle = {
 	      outline: 'none',
-	      // fix parent-draggable Safari bug. #1326
-	      userSelect: 'text',
-	      WebkitUserSelect: 'text',
 	      whiteSpace: 'pre-wrap',
 	      wordWrap: 'break-word'
 	    };
@@ -39497,12 +39186,6 @@
 
 	    var alreadyHasFocus = editorState.getSelection().getHasFocus();
 	    var editorNode = ReactDOM.findDOMNode(this.refs.editor);
-
-	    if (!editorNode) {
-	      // once in a while people call 'focus' in a setTimeout, and the node has
-	      // been deleted, so it can be null in that case.
-	      return;
-	    }
 
 	    var scrollParent = Style.getScrollParent(editorNode);
 
@@ -44040,24 +43723,11 @@
 	  // reduces re-renders and preserves spellcheck highlighting. If the selection
 	  // is not collapsed, we will re-render.
 	  var selection = editorState.getSelection();
-	  var selectionStart = selection.getStartOffset();
-	  var selectionEnd = selection.getEndOffset();
 	  var anchorKey = selection.getAnchorKey();
 
 	  if (!selection.isCollapsed()) {
 	    e.preventDefault();
-
-	    // If the character that the user is trying to replace with
-	    // is the same as the current selection text the just update the
-	    // `SelectionState`.  Else, update the ContentState with the new text
-	    var currentlySelectedChars = editorState.getCurrentContent().getPlainText().slice(selectionStart, selectionEnd);
-	    if (chars === currentlySelectedChars) {
-	      this.update(EditorState.forceSelection(editorState, selection.merge({
-	        focusOffset: selectionEnd
-	      })));
-	    } else {
-	      editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
-	    }
+	    editor.update(replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection())));
 	    return;
 	  }
 
@@ -44076,7 +43746,7 @@
 	    // https://chromium.googlesource.com/chromium/src/+/013ac5eaf3%5E%21/
 	    var nativeSelection = global.getSelection();
 	    // Selection is necessarily collapsed at this point due to earlier check.
-	    if (nativeSelection.anchorNode && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
+	    if (nativeSelection.anchorNode !== null && nativeSelection.anchorNode.nodeType === Node.TEXT_NODE) {
 	      // See isTabHTMLSpanElement in chromium EditingUtilities.cpp.
 	      var parentNode = nativeSelection.anchorNode.parentNode;
 	      mustPreventNative = parentNode.nodeName === 'SPAN' && parentNode.firstChild.nodeType === Node.TEXT_NODE && parentNode.firstChild.nodeValue.indexOf('\t') !== -1;
@@ -44961,14 +44631,8 @@
 	    case Keys.UP:
 	      editor.props.onUpArrow && editor.props.onUpArrow(e);
 	      return;
-	    case Keys.RIGHT:
-	      editor.props.onRightArrow && editor.props.onRightArrow(e);
-	      return;
 	    case Keys.DOWN:
 	      editor.props.onDownArrow && editor.props.onDownArrow(e);
-	      return;
-	    case Keys.LEFT:
-	      editor.props.onLeftArrow && editor.props.onLeftArrow(e);
 	      return;
 	    case Keys.SPACE:
 	      // Handling for OSX where option + space scrolls.
@@ -47643,9 +47307,9 @@
 	  },
 
 	  /**
-	   * When a collapsed cursor is at the start of the first styled block, or 
-	   * an empty styled block, changes block to 'unstyled'. Returns null if 
-	   * block or selection does not meet that criteria.
+	   * When a collapsed cursor is at the start of an empty styled block, 
+	   * changes block to 'unstyled'. Returns null if block or selection does not
+	   * meet that criteria.
 	   */
 	  tryToRemoveBlockStyle: function tryToRemoveBlockStyle(editorState) {
 	    var selection = editorState.getSelection();
@@ -47654,9 +47318,7 @@
 	      var key = selection.getAnchorKey();
 	      var content = editorState.getCurrentContent();
 	      var block = content.getBlockForKey(key);
-
-	      var firstBlock = content.getFirstBlock();
-	      if (block.getLength() > 0 && block !== firstBlock) {
+	      if (block.getLength() > 0) {
 	        return null;
 	      }
 
@@ -54416,362 +54078,7 @@
 	exports.default = Slider;
 
 /***/ }),
-/* 343 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(37);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SideNav = function (_React$Component) {
-	    _inherits(SideNav, _React$Component);
-
-	    function SideNav(props) {
-	        _classCallCheck(this, SideNav);
-
-	        var _this = _possibleConstructorReturn(this, (SideNav.__proto__ || Object.getPrototypeOf(SideNav)).call(this, props));
-
-	        _this.state = {
-	            links: _this.props.componentProperties.links || [],
-	            linkColor: _this.props.componentProperties.linkColor || "",
-	            linkStyle: _this.props.componentProperties.linkStyle || "",
-	            linkInvert: _this.props.componentProperties.linkInvert || false
-	        };
-	        return _this;
-	    }
-
-	    _createClass(SideNav, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            this.setState({
-	                links: nextProps.componentProperties.links || [],
-	                linkColor: nextProps.componentProperties.linkColor || "",
-	                linkStyle: nextProps.componentProperties.linkStyle || "",
-	                linkInvert: nextProps.componentProperties.linkInvert || false
-	            });
-	        }
-	    }, {
-	        key: 'saveEdit',
-	        value: function saveEdit() {
-	            var links = this.state.links;
-	            var linkColor = this.state.linkColor;
-	            var linkStyle = this.state.linkStyle;
-	            var linkInvert = this.state.linkInvert;
-	            this.props.passProps({
-	                links: links, linkColor: linkColor, linkStyle: linkStyle, linkInvert: linkInvert
-	            });
-	        }
-	    }, {
-	        key: 'removeLink',
-	        value: function removeLink(index) {
-	            var links = this.state.links;
-	            links.splice(index, 1);
-	            this.setState({
-	                links: links
-	            });
-	        }
-	    }, {
-	        key: 'updateStyle',
-	        value: function updateStyle(value, type) {
-	            this.setState(_defineProperty({}, type, value.target.value));
-	            console.log(value);
-	        }
-	    }, {
-	        key: 'updateLink',
-	        value: function updateLink(event, index, type) {
-	            var links = this.state.links;
-	            links[index][type] = event.target.value;
-	            this.setState({
-	                links: links
-	            });
-	        }
-	    }, {
-	        key: 'addLink',
-	        value: function addLink() {
-	            var links = this.state.links;
-	            links.push({
-	                title: "",
-	                address: "",
-	                target: "_blank"
-	            });
-	            this.setState({
-	                links: links
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            var that = this;
-	            if (this.props.editable) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'modal-content-edit-navigation--side-wrapper' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w2' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'modal-content-edit-header' },
-	                            'Link Style'
-	                        ),
-	                        _react2.default.createElement(
-	                            'select',
-	                            {
-	                                value: that.state.linkStyle,
-	                                onChange: function onChange(value) {
-	                                    return that.updateStyle(value, "linkStyle");
-	                                },
-	                                className: 'modal-content-edit-select'
-	                            },
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: '' },
-	                                'Default'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'arrow-dxc-yellow point--arrow-circle', value: 'arrow-dxc-yellow point--arrow-circle' },
-	                                'arrow-dxc-yellow'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'arrow-dxc-yellow-inverse point--arrow-circle', value: 'arrow-dxc-yellow-inverse point--arrow-circle' },
-	                                'arrow-dxc-yellow-inverse'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'arrow-dxc-white point--arrow-circle', value: 'arrow-dxc-white point--arrow-circle' },
-	                                'arrow-dxc-white'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'arrow-dxc-white-inverse point--arrow-circle', value: 'arrow-dxc-white-inverse point--arrow-circle' },
-	                                'arrow-dxc-white-inverse'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w2' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'modal-content-edit-header' },
-	                            'Links Color'
-	                        ),
-	                        _react2.default.createElement(
-	                            'select',
-	                            {
-	                                value: that.state.linkColor,
-	                                onChange: function onChange(value) {
-	                                    return that.updateStyle(value, "linkColor");
-	                                },
-	                                className: 'modal-content-edit-select'
-	                            },
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'dxc-white' },
-	                                'Default'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'dxc-white', value: 'dxc-white' },
-	                                'dxc-white'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'dxc-yellow', value: 'dxc-yellow' },
-	                                'dxc-yellow'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'dxc-black-white', value: 'dxc-black-white' },
-	                                'dxc-black-white'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { className: 'dxc-black-yellow', value: 'dxc-black-yellow' },
-	                                'dxc-black-yellow'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w1' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            { className: '\n                        ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : "") + ' \n                        ' + that.state.linkStyle + ' \n                        modal-content-edit-preview'
-	                            },
-	                            'Preview'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w1' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            { className: 'modal-content-edit-header' },
-	                            'Invert color on hover?'
-	                        ),
-	                        _react2.default.createElement('input', { type: 'checkbox',
-	                            defaultChecked: this.state.linkInvert,
-	                            onChange: function onChange(value) {
-	                                return _this2.updateStyle(value, "linkInvert");
-	                            },
-	                            className: 'modal-content-edit-input-checkbox'
-	                        })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'w1' },
-	                        that.state.links.map(function (e, i) {
-	                            return _react2.default.createElement(
-	                                'div',
-	                                { className: 'modal-content-edit-navigation--side-container' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'w2' },
-	                                    _react2.default.createElement(
-	                                        'button',
-	                                        {
-	                                            onClick: function onClick(i) {
-	                                                return that.removeLink(i);
-	                                            },
-	                                            className: 'modal-content-edit-button--remove'
-	                                        },
-	                                        'X'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'modal-content-edit-header' },
-	                                        'Link Title'
-	                                    ),
-	                                    _react2.default.createElement('input', {
-	                                        type: 'text',
-	                                        value: e["title"],
-	                                        onChange: function onChange(event) {
-	                                            return that.updateLink(event, i, "title");
-	                                        },
-	                                        className: 'modal-content-edit-input-text'
-	                                    })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'w2' },
-	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'modal-content-edit-header' },
-	                                        'Link Address'
-	                                    ),
-	                                    _react2.default.createElement('input', {
-	                                        type: 'text',
-	                                        value: e["address"],
-	                                        onChange: function onChange(value) {
-	                                            return that.updateLink(value, i, "address");
-	                                        },
-	                                        className: 'modal-content-edit-input-text'
-	                                    }),
-	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'modal-content-edit-header' },
-	                                        'Link Target'
-	                                    ),
-	                                    _react2.default.createElement('input', {
-	                                        type: 'text',
-	                                        value: e["target"],
-	                                        onChange: function onChange(value) {
-	                                            return that.updateLink(value, i, "target");
-	                                        },
-	                                        className: 'modal-content-edit-input-text'
-	                                    })
-	                                )
-	                            );
-	                        })
-	                    ),
-	                    _react2.default.createElement(
-	                        'button',
-	                        {
-	                            className: 'modal-content-edit-button--plus',
-	                            onClick: function onClick() {
-	                                return _this2.addLink();
-	                            }
-	                        },
-	                        '+'
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                onClick: function onClick() {
-	                                    return that.saveEdit();
-	                                },
-	                                className: 'modal-content-edit--save'
-	                            },
-	                            'Save'
-	                        )
-	                    )
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'ul',
-	                    { className: 'content-navigation--side-container' },
-	                    that.state.links.map(function (e, i) {
-	                        return _react2.default.createElement(
-	                            'li',
-	                            {
-	                                className: 'content-navigation--side-item \n                                    ' + that.state.linkStyle + ' \n                                    ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : ""),
-	                                key: 'side-nav-item-' + i },
-	                            _react2.default.createElement(
-	                                'a',
-	                                {
-	                                    className: 'content-navigation--side-link',
-	                                    target: e["target"] || "_blank",
-	                                    href: e["address"]
-	                                },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    null,
-	                                    e["title"]
-	                                )
-	                            )
-	                        );
-	                    })
-	                );
-	            }
-	        }
-	    }]);
-
-	    return SideNav;
-	}(_react2.default.Component);
-
-	exports.default = SideNav;
-
-/***/ }),
+/* 343 */,
 /* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -57421,10 +56728,6 @@
 	        $(this.dateInput).pickadate(this.props.options);
 	        $(this.dateInput).on('change', this._onChange);
 	      }
-	      if (this.isTimePicker) {
-	        $(this.timeInput).pickatime(this.props.options);
-	        $(this.timeInput).on('change', this._onChange);
-	      }
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -57604,25 +56907,6 @@
 	          })),
 	          htmlLabel
 	        );
-	      } else if (type === 'time') {
-	        this.isTimePicker = true;
-	        delete other.options;
-
-	        return _react2.default.createElement(
-	          'div',
-	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
-	          _react2.default.createElement(C, _extends({}, other, {
-	            className: (0, _classnames2.default)(className, inputClasses),
-	            defaultValue: defaultValue,
-	            id: this._id,
-	            ref: function ref(_ref4) {
-	              return _this3.timeInput = _ref4;
-	            },
-	            placeholder: placeholder
-	          })),
-	          htmlLabel
-	        );
 	      } else if (type === 'switch') {
 	        return _react2.default.createElement(
 	          'div',
@@ -57648,9 +56932,6 @@
 	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
-	            ref: function ref(_ref5) {
-	              return _this3.input = _ref5;
-	            },
 	            defaultValue: _defaultValue,
 	            id: this._id,
 	            onChange: this._onChange,
@@ -60581,10 +59862,6 @@
 
 	var _simpleImageComponent2 = _interopRequireDefault(_simpleImageComponent);
 
-	var _simpleHeader = __webpack_require__(203);
-
-	var _simpleHeader2 = _interopRequireDefault(_simpleHeader);
-
 	var _textEditor = __webpack_require__(204);
 
 	var _textEditor2 = _interopRequireDefault(_textEditor);
@@ -60593,9 +59870,13 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _sideNav = __webpack_require__(343);
+	var _verticalNav = __webpack_require__(531);
 
-	var _sideNav2 = _interopRequireDefault(_sideNav);
+	var _verticalNav2 = _interopRequireDefault(_verticalNav);
+
+	var _horizontalNav = __webpack_require__(532);
+
+	var _horizontalNav2 = _interopRequireDefault(_horizontalNav);
 
 	var _modalEditButtons = __webpack_require__(396);
 
@@ -60658,18 +59939,18 @@
 	                            return null;
 	                        } });
 	                    break;
-	                case "TextHeader":
-	                    return _react2.default.createElement(_simpleHeader2.default, { componentProperties: this.props.innerElementProps, editable: this.props.innerElementProps.editable ? true : false, passProps: function passProps() {
-	                            return null;
-	                        } });
-	                    break;
 	                case "Slider":
 	                    return _react2.default.createElement(_slider2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps() {
 	                            return null;
 	                        } });
 	                    break;
-	                case "SideNav":
-	                    return _react2.default.createElement(_sideNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                case "VerticalNav":
+	                    return _react2.default.createElement(_verticalNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
+	                            return _this3.getProps(e);
+	                        } });
+	                    break;
+	                case "HorizontalNav":
+	                    return _react2.default.createElement(_horizontalNav2.default, { componentProperties: this.props.innerElementProps, editable: false, passProps: function passProps(e) {
 	                            return _this3.getProps(e);
 	                        } });
 	                    break;
@@ -61598,7 +60879,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var require;/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
-	//! version : 2.19.3
+	//! version : 2.19.2
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 	//! license : MIT
 	//! momentjs.com
@@ -62258,7 +61539,7 @@
 
 	// any word (or two) characters or numbers including two/three word month in arabic.
 	// includes scottish gaelic two word and hyphenated months
-	var matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
+	var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
 
 
 	var regexes = {};
@@ -66077,7 +65358,7 @@
 	// Side effect imports
 
 
-	hooks.version = '2.19.3';
+	hooks.version = '2.19.2';
 
 	setHookCallback(createLocal);
 
@@ -69592,7 +68873,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
-	//! locale : Spanish (United States) [es-us]
+	//! locale : Spanish(United State) [es-us]
 	//! author : bustta : https://github.com/bustta
 
 	;(function (global, factory) {
@@ -71269,7 +70550,8 @@
 
 	var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
 	function translate(number, withoutSuffix, key, isFuture) {
-	    var num = number;
+	    var num = number,
+	        suffix;
 	    switch (key) {
 	        case 's':
 	            return (isFuture || withoutSuffix) ? 'néhány másodperc' : 'néhány másodperce';
@@ -79321,6 +78603,806 @@
 	}(_react2.default.Component);
 
 	exports.default = ImageModal;
+
+/***/ }),
+/* 529 */,
+/* 530 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var draggableComponents = exports.draggableComponents = [{
+	  type: 'Slider-Component',
+	  defaultSize: {
+	    w: 7,
+	    h: 12
+	  },
+	  innerElementProps: {
+	    slides: [{
+	      src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
+	      title: "First Slide",
+	      link: "1"
+	    }, {
+	      src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
+	      title: "Second Slide",
+	      link: "2"
+	    }],
+	    sliderStyles: {
+	      sliderBackgroundStyle: "slider-shape-square",
+	      sliderBackgroundColor: "dxc-background-gray--dark",
+	      sliderButtonColor: "dxc-background-yellow",
+	      sliderTextColor: "dxc-font-white",
+	      sliderButtonTextColor: "dxc-font-black",
+	      sliderBackgroundOpacity: 60,
+	      sliderIndicatorsStyle: "content-slider-indicators",
+	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
+	      readMoreText: "Read more"
+	    }
+	  }
+	}, {
+	  type: 'ImageContainer-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {}
+	}, {
+	  type: 'TextArea-Component',
+	  defaultSize: {
+	    w: 7,
+	    h: 12
+	  },
+	  defaultProps: {}
+	}, {
+	  type: 'Survey-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    iframe: '',
+	    selectorValue: '',
+	    surveyFilled: ''
+	  }
+	}, {
+	  type: 'Calendar-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    selectorValue: '',
+	    categoryFilter: 'No Filter',
+	    locationFilter: 'No Filter',
+	    events: [],
+	    filteredEvents: [],
+	    startDate: '10/11/2017',
+	    endDate: '10/11/2017'
+
+	  }
+	}, {
+	  type: 'TabMenu-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    tabs: [{
+	      "title": "Tab 1"
+	    }, {
+	      "title": "Tab 2"
+	    }, {
+	      "title": "Tab 3"
+	    }]
+	  }
+	}, {
+	  type: 'ImageGallery-Component',
+	  defaultSize: {
+	    w: 6,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    images: [{
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }]
+	  }
+	}, {
+	  type: 'VerticalNav-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    links: [],
+	    linkColor: "",
+	    linkStyle: "",
+	    linkInvert: false
+	  }
+	}, {
+	  type: 'HorizontalNav-Component',
+	  defaultSize: {
+	    w: 10,
+	    h: 4
+	  },
+	  innerElementProps: {
+	    tabs: []
+	  }
+	}];
+
+/***/ }),
+/* 531 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VerticalNav = function (_React$Component) {
+	    _inherits(VerticalNav, _React$Component);
+
+	    function VerticalNav(props) {
+	        _classCallCheck(this, VerticalNav);
+
+	        var _this = _possibleConstructorReturn(this, (VerticalNav.__proto__ || Object.getPrototypeOf(VerticalNav)).call(this, props));
+
+	        _this.state = {
+	            links: _this.props.componentProperties.links || [],
+	            linkColor: _this.props.componentProperties.linkColor || "",
+	            linkStyle: _this.props.componentProperties.linkStyle || "",
+	            linkInvert: _this.props.componentProperties.linkInvert || false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(VerticalNav, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                links: nextProps.componentProperties.links || [],
+	                linkColor: nextProps.componentProperties.linkColor || "",
+	                linkStyle: nextProps.componentProperties.linkStyle || "",
+	                linkInvert: nextProps.componentProperties.linkInvert || false
+	            });
+	        }
+	    }, {
+	        key: 'saveEdit',
+	        value: function saveEdit() {
+	            var links = this.state.links;
+	            var linkColor = this.state.linkColor;
+	            var linkStyle = this.state.linkStyle;
+	            var linkInvert = this.state.linkInvert;
+	            this.props.passProps({
+	                links: links, linkColor: linkColor, linkStyle: linkStyle, linkInvert: linkInvert
+	            });
+	        }
+	    }, {
+	        key: 'removeLink',
+	        value: function removeLink(index) {
+	            var links = this.state.links;
+	            links.splice(index, 1);
+	            this.setState({
+	                links: links
+	            });
+	        }
+	    }, {
+	        key: 'updateStyle',
+	        value: function updateStyle(value, type) {
+	            this.setState(_defineProperty({}, type, value.target.value));
+	            console.log(value);
+	        }
+	    }, {
+	        key: 'updateLink',
+	        value: function updateLink(event, index, type) {
+	            var links = this.state.links;
+	            links[index][type] = event.target.value;
+	            this.setState({
+	                links: links
+	            });
+	        }
+	    }, {
+	        key: 'addLink',
+	        value: function addLink() {
+	            var links = this.state.links;
+	            links.push({
+	                title: "",
+	                address: "",
+	                target: "_blank"
+	            });
+	            this.setState({
+	                links: links
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var that = this;
+	            if (this.props.editable) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'modal-content-edit-navigation--side-wrapper' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w2' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'modal-content-edit-header' },
+	                            'Link Style'
+	                        ),
+	                        _react2.default.createElement(
+	                            'select',
+	                            {
+	                                value: that.state.linkStyle,
+	                                onChange: function onChange(value) {
+	                                    return that.updateStyle(value, "linkStyle");
+	                                },
+	                                className: 'modal-content-edit-select'
+	                            },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: '' },
+	                                'Default'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-yellow point--arrow-circle', value: 'arrow-dxc-yellow point--arrow-circle' },
+	                                'arrow-dxc-yellow'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-yellow-inverse point--arrow-circle', value: 'arrow-dxc-yellow-inverse point--arrow-circle' },
+	                                'arrow-dxc-yellow-inverse'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-white point--arrow-circle', value: 'arrow-dxc-white point--arrow-circle' },
+	                                'arrow-dxc-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'arrow-dxc-white-inverse point--arrow-circle', value: 'arrow-dxc-white-inverse point--arrow-circle' },
+	                                'arrow-dxc-white-inverse'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w2' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'modal-content-edit-header' },
+	                            'Links Color'
+	                        ),
+	                        _react2.default.createElement(
+	                            'select',
+	                            {
+	                                value: that.state.linkColor,
+	                                onChange: function onChange(value) {
+	                                    return that.updateStyle(value, "linkColor");
+	                                },
+	                                className: 'modal-content-edit-select'
+	                            },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'dxc-white' },
+	                                'Default'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-white', value: 'dxc-white' },
+	                                'dxc-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-yellow', value: 'dxc-yellow' },
+	                                'dxc-yellow'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-black-white', value: 'dxc-black-white' },
+	                                'dxc-black-white'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { className: 'dxc-black-yellow', value: 'dxc-black-yellow' },
+	                                'dxc-black-yellow'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            { className: '\n                        ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : "") + ' \n                        ' + that.state.linkStyle + ' \n                        modal-content-edit-preview'
+	                            },
+	                            'Preview'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            { className: 'modal-content-edit-header' },
+	                            'Invert color on hover?'
+	                        ),
+	                        _react2.default.createElement('input', { type: 'checkbox',
+	                            defaultChecked: this.state.linkInvert,
+	                            onChange: function onChange(value) {
+	                                return _this2.updateStyle(value, "linkInvert");
+	                            },
+	                            className: 'modal-content-edit-input-checkbox'
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'w1' },
+	                        that.state.links.map(function (e, i) {
+	                            return _react2.default.createElement(
+	                                'div',
+	                                { className: 'modal-content-edit-navigation--side-container' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'w2' },
+	                                    _react2.default.createElement(
+	                                        'button',
+	                                        {
+	                                            onClick: function onClick(i) {
+	                                                return that.removeLink(i);
+	                                            },
+	                                            className: 'modal-content-edit-button--remove'
+	                                        },
+	                                        'X'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Title'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["title"],
+	                                        onChange: function onChange(event) {
+	                                            return that.updateLink(event, i, "title");
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'w2' },
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Address'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["address"],
+	                                        onChange: function onChange(value) {
+	                                            return that.updateLink(value, i, "address");
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    }),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'modal-content-edit-header' },
+	                                        'Link Target'
+	                                    ),
+	                                    _react2.default.createElement('input', {
+	                                        type: 'text',
+	                                        value: e["target"],
+	                                        onChange: function onChange(value) {
+	                                            return that.updateLink(value, i, "target");
+	                                        },
+	                                        className: 'modal-content-edit-input-text'
+	                                    })
+	                                )
+	                            );
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        {
+	                            className: 'modal-content-edit-button--plus',
+	                            onClick: function onClick() {
+	                                return _this2.addLink();
+	                            }
+	                        },
+	                        '+'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: function onClick() {
+	                                    return that.saveEdit();
+	                                },
+	                                className: 'modal-content-edit--save'
+	                            },
+	                            'Save'
+	                        )
+	                    )
+	                );
+	            } else {
+	                return _react2.default.createElement(
+	                    'ul',
+	                    { className: 'content-navigation--side-container' },
+	                    that.state.links.map(function (e, i) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            {
+	                                className: 'content-navigation--side-item \n                                    ' + that.state.linkStyle + ' \n                                    ' + that.state.linkColor + (that.state.linkInvert ? "-hover" : ""),
+	                                key: 'side-nav-item-' + i },
+	                            _react2.default.createElement(
+	                                'a',
+	                                {
+	                                    className: 'content-navigation--side-link',
+	                                    target: e["target"] || "_blank",
+	                                    href: e["address"]
+	                                },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    null,
+	                                    e["title"]
+	                                )
+	                            )
+	                        );
+	                    })
+	                );
+	            }
+	        }
+	    }]);
+
+	    return VerticalNav;
+	}(_react2.default.Component);
+
+	exports.default = VerticalNav;
+
+/***/ }),
+/* 532 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _dropDown = __webpack_require__(533);
+
+	var _dropDown2 = _interopRequireDefault(_dropDown);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var HorizontalNav = function (_React$Component) {
+	    _inherits(HorizontalNav, _React$Component);
+
+	    function HorizontalNav(props) {
+	        _classCallCheck(this, HorizontalNav);
+
+	        var _this = _possibleConstructorReturn(this, (HorizontalNav.__proto__ || Object.getPrototypeOf(HorizontalNav)).call(this, props));
+
+	        _this.state = {
+	            tabs: _this.props.componentProperties.tabs || []
+	        };
+	        return _this;
+	    }
+
+	    _createClass(HorizontalNav, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.setState({
+	                tabs: nextProps.componentProperties.tabs
+	            });
+	        }
+	    }, {
+	        key: 'addChildTab',
+	        value: function addChildTab(i) {
+	            var tabs = this.state.tabs;
+	            tabs[i]['children'].push({
+	                name: '',
+	                link: ''
+	            });
+	            this.setState({ tabs: tabs });
+	        }
+	    }, {
+	        key: 'addTab',
+	        value: function addTab() {
+	            var tabs = this.state.tabs;
+	            tabs.push({
+	                name: '',
+	                link: '',
+	                children: []
+	            });
+	            this.setState({ tabs: tabs });
+	        }
+	    }, {
+	        key: 'removeTab',
+	        value: function removeTab(i) {
+	            var tabs = this.state.tabs;
+	            tabs.splice(i, 1);
+	            this.setState({ tabs: tabs });
+	        }
+	    }, {
+	        key: 'handlePropChange',
+	        value: function handlePropChange(parentIndex, prop, value, childIndex) {
+	            var tabs = this.state.tabs;
+	            if (childIndex == undefined) {
+	                tabs[parentIndex][prop] = value;
+	            } else {
+	                tabs[parentIndex]['children'][childIndex][prop] = value;
+	            }
+	            this.setState({ tabs: tabs });
+	        }
+	    }, {
+	        key: 'saveEdit',
+	        value: function saveEdit() {
+	            var tabs = this.state.tabs;
+	            this.props.passProps({ tabs: tabs });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var that = this;
+	            if (!this.props.editable) {
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'horizontalNav' },
+	                    this.state.tabs.map(function (e, i) {
+	                        return _react2.default.createElement(_dropDown2.default, { info: e });
+	                    })
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(
+	                        'button',
+	                        {
+	                            onClick: function onClick() {
+	                                return that.saveEdit();
+	                            },
+	                            className: 'modal-content-edit--save'
+	                        },
+	                        'Save'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'tabCreation' },
+	                    this.state.tabs.map(function (e, i) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            'Name of Tab:',
+	                            _react2.default.createElement('input', { value: e.name, onChange: function onChange(event) {
+	                                    return that.handlePropChange(i, 'name', event.target.value);
+	                                } }),
+	                            'Link address:',
+	                            _react2.default.createElement('input', { value: e.link, onChange: function onChange(event) {
+	                                    return that.handlePropChange(i, 'link', event.target.value);
+	                                } }),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { onClick: function onClick() {
+	                                        return that.addChildTab(i);
+	                                    } },
+	                                '+'
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { onClick: function onClick() {
+	                                        return that.removeTab(i);
+	                                    } },
+	                                'X'
+	                            ),
+	                            e['children'].map(function (e, j) {
+	                                return _react2.default.createElement(
+	                                    'div',
+	                                    null,
+	                                    'Name of Tab:',
+	                                    _react2.default.createElement('input', { onChange: function onChange(event) {
+	                                            return that.handlePropChange(i, 'name', event.target.value, j);
+	                                        } }),
+	                                    'Link address:',
+	                                    _react2.default.createElement('input', { onChange: function onChange(event) {
+	                                            return that.handlePropChange(i, 'name', event.target.value, j);
+	                                        } })
+	                                );
+	                            })
+	                        );
+	                    })
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: function onClick() {
+	                            return _this2.addTab();
+	                        } },
+	                    'Add Tab'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return HorizontalNav;
+	}(_react2.default.Component);
+
+	exports.default = HorizontalNav;
+
+/***/ }),
+/* 533 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var DropDown = function (_React$Component) {
+	    _inherits(DropDown, _React$Component);
+
+	    function DropDown(props) {
+	        _classCallCheck(this, DropDown);
+
+	        var _this = _possibleConstructorReturn(this, (DropDown.__proto__ || Object.getPrototypeOf(DropDown)).call(this, props));
+
+	        _this.state = {
+	            info: _this.props.info,
+	            tabsStyle: {
+	                display: 'none'
+	            }
+	        };
+	        return _this;
+	    }
+
+	    _createClass(DropDown, [{
+	        key: 'showTabs',
+	        value: function showTabs() {
+	            this.setState({
+	                tabsStyle: {
+	                    display: 'block'
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'hideTabs',
+	        value: function hideTabs() {
+	            this.setState({
+	                tabsStyle: {
+	                    display: 'none'
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var topLink = _react2.default.createElement('a', null);
+	            var info = this.state.info;
+	            console.log(info);
+	            if (info.children.length > 0) {
+	                topLink = _react2.default.createElement(
+	                    'a',
+	                    null,
+	                    ' ',
+	                    info['name']
+	                );
+	            } else {
+	                topLink = _react2.default.createElement(
+	                    'a',
+	                    { href: info['link'] },
+	                    info['name']
+	                );
+	            }
+	            var that = this;
+	            return _react2.default.createElement(
+	                'div',
+	                { onMouseEnter: function onMouseEnter() {
+	                        return _this2.showTabs();
+	                    }, onMouseLeave: function onMouseLeave() {
+	                        return _this2.hideTabs();
+	                    }, className: 'horizontalNav' },
+	                topLink,
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: this.state.tabsStyle, className: 'dropDown' },
+	                    info['children'].map(function (e) {
+	                        return _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: e['url'], target: '_blank' },
+	                                ' ',
+	                                e['name'],
+	                                ' '
+	                            )
+	                        );
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return DropDown;
+	}(_react2.default.Component);
+
+	exports.default = DropDown;
 
 /***/ })
 /******/ ]);

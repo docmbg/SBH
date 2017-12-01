@@ -5,7 +5,7 @@ import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
 import ImageModal from './components/imageModal.jsx';
-
+import {draggableComponents} from './components/draggableComponents.js';
 
 function get_browser() {
   var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -29,161 +29,6 @@ function get_browser() {
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const breakpoints = { lg: 1600, md: 1200, sm: 768, xs: 480 };
-const draggableComponents = [
-  {
-    type: 'Slider-Component',
-    defaultSize: {
-      w: 7,
-      h: 12
-    },
-    innerElementProps: {
-      slides: [
-        {
-          src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
-          title: "First Slide",
-          link: "1"
-        },
-        {
-          src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
-          title: "Second Slide",
-          link: "2"
-        }
-      ],
-      sliderStyles: {
-        sliderBackgroundStyle: "slider-shape-square",
-        sliderBackgroundColor: "dxc-background-gray--dark",
-        sliderButtonColor: "dxc-background-yellow",
-        sliderTextColor: "dxc-font-white",
-        sliderButtonTextColor: "dxc-font-black",
-        sliderBackgroundOpacity: 60,
-        sliderIndicatorsStyle: "content-slider-indicators",
-        sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
-        readMoreText: "Read more"
-      }
-    }
-  },
-  {
-    type: 'ImageContainer-Component',
-    defaultSize: {
-      w: 2,
-      h: 9
-    },
-    innerElementProps: {
-
-    }
-  },
-  {
-    type: 'TextArea-Component',
-    defaultSize: {
-      w: 7,
-      h: 12
-    },
-    defaultProps: {
-
-    }
-  },
-  {
-    type: 'Survey-Component',
-    defaultSize: {
-      w: 2,
-      h: 9
-    },
-    innerElementProps: {
-      iframe: '',
-      selectorValue: '',
-      surveyFilled: '',
-    }
-  },
-  {
-    type: 'Calendar-Component',
-    defaultSize: {
-      w: 2,
-      h: 9
-    },
-    innerElementProps: {
-      selectorValue: '',
-      categoryFilter: 'No Filter',
-      locationFilter: 'No Filter',
-      events: [],
-      filteredEvents: [],
-      startDate: '10/11/2017',
-      endDate: '10/11/2017'
-
-    }
-  },
-  {
-    type: 'TabMenu-Component',
-    defaultSize: {
-      w: 2,
-      h: 9
-    },
-    innerElementProps: {
-      tabs: [{
-        "title": "Tab 1"
-      }, {
-        "title": "Tab 2"
-      }, {
-        "title": "Tab 3"
-      }],
-    }
-  },
-  {
-    type: 'ImageGallery-Component',
-    defaultSize: {
-      w: 6,
-      h: 9
-    },
-    innerElementProps: {
-      images: [{
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },{
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },{
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },
-      {
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },
-      {
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },
-      {
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      },
-      {
-        "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-      }, {
-        "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-      }, {
-        "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-      }],
-    }
-  }
-];
 const windowW = window.innerWidth;
 const windowH = window.innerHeight;
 
@@ -197,10 +42,6 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-
-function handleDragStart(e) {
-
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -553,6 +394,8 @@ class App extends React.Component {
             <button className="Calendar-Component"><i className="material-icons">&#xE916;</i></button>
             <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i></button>
             <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i></button>
+            <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i></button>
+            <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"

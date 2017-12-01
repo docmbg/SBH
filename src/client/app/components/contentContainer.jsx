@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
-import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
-import SideNav from './sideNav.jsx';
+import VerticalNav from './verticalNav.jsx';
+import HorizontalNav from './horizontalNav.jsx';
 import ModalEditButtons from './modalEditButtons.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
@@ -30,14 +30,14 @@ class ContentContainer extends React.Component {
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
                 break;
-            case ("TextHeader"):
-                return <SimpleHeader componentProperties={this.props.innerElementProps} editable={this.props.innerElementProps.editable ? true : false} passProps={() => null} />
-                break;
             case ("Slider"):
                 return <SliderWebPart componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
                 break;
-            case ("SideNav"):
-                return <SideNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
+            case ("VerticalNav"):
+                return <VerticalNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("HorizontalNav"):
+                return <HorizontalNav componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TabMenu"):
                 return <TabMenu componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} passOpen={(e) => this.props.passOpen(e)} />

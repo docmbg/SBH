@@ -1,0 +1,35 @@
+.dropDown {
+    position: absolute;
+}
+
+.dropDown > p {
+    margin: 0em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    background:black;
+}
+
+.dropDown > p > a{
+    color: yellow!important;
+    
+}
+
+.dropDown > p:hover >a {
+    color: white!important;
+}
+
+.horizontalNav {
+    float: left;
+    background: black;
+    padding: 0.5em;
+    margin: 0;
+    color:white;
+}
+
+.horizontalNav > a:hover{
+    color:white;
+}
+
+.tabCreation {
+    clear: both;
+    padding-top: 10em;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class SideNav extends React.Component {
+class VerticalNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -205,4 +205,4 @@ class SideNav extends React.Component {
     }
 }
 
-export default SideNav;
+export default VerticalNav;

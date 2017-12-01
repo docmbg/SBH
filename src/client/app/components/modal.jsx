@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleImageComponent from './simpleImageComponent.jsx';
-import SimpleHeader from './simpleHeader.jsx';
 import TextEditor from './textEditor.jsx';
 import SliderWebPart from './slider.jsx';
-import SideNav from './sideNav.jsx';
+import VerticalNav from './verticalNav.jsx';
 import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
 import Calendar from './calendar.jsx';
 import ImageGallery from './imageGallery.jsx';
+import HorizontalNav from './horizontalNav.jsx';
+
 class Modal extends React.Component {
     constructor(props) {
         super(props);
@@ -45,17 +46,17 @@ class Modal extends React.Component {
             case ("ImageContainer"):
                 return <SimpleImageComponent componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
-            case ("TextHeader"):
-                return <SimpleHeader componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
-                break;
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             case ("Slider"):
                 return <SliderWebPart componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
-            case ("SideNav"):
-                return <SideNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+            case ("VerticalNav"):
+                return <VerticalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("HorizontalNav"):
+                return <HorizontalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TabMenu"):
                 return <TabMenu componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
@@ -91,10 +92,10 @@ class Modal extends React.Component {
                         <select className="modal-content-select" value={this.props.currentComponent} onChange={(e) => this.handleModalChange(e)}>
                             <option value=""></option>
                             <option value="ImageContainer">Image Container</option>
-                            <option value="TextHeader">Text Header</option>
                             <option value="TextArea">Text Area</option>
                             <option value="Slider">Slider</option>
-                            <option value="SideNav">Side Navigation</option>
+                            <option value="VerticalNav">Vertical Navigation</option>
+                            <option value="HorizontalNav">Horizontal Navigation</option>
                             <option value="TabMenu">Tab Menu</option>
                             <option value="Survey">Survey</option>
                             <option value="Calendar">Calendar</option>

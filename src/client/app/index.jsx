@@ -385,7 +385,7 @@ class App extends React.Component {
             {this.state.draggedComponent}
           </div>
           <div className="page-edit-banner" onMouseDown={(e) => this.mouseDown(e)} >
-            <button onClick={() => console.log(this.state.currentStateJSON)} className="page-edit-banner-addButton" >Add a new container</button>
+            <button onClick={() => console.log(this.state.currentStateJSON)} className="page-edit-banner-addButton" >JSON Stateham</button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
             <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
             <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>

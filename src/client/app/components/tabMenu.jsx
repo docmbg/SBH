@@ -70,6 +70,7 @@ class TabMenu extends React.Component {
   render() {
     let that = this;
     let tabs = this.state.tabs;
+    console.log(this.state.currentActiveTab);
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
@@ -160,7 +161,7 @@ class TabMenu extends React.Component {
                   <Editor
                     editorState={e["editorState"]}
                     toolbarStyle={{ display: "none", visibility: "hidden" }}
-                    editorStyle={{ width: "100%", height: "100%" }}
+                    editorStyle={{ width: "100%", height: "90%" }}
                     readOnly={true}
                   />
                 </div>

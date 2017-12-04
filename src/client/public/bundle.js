@@ -76,7 +76,7 @@
 
 	var _imageModal2 = _interopRequireDefault(_imageModal);
 
-	var _draggableComponents = __webpack_require__(530);
+	var _draggableComponents = __webpack_require__(532);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -511,7 +511,7 @@
 	              { onClick: function onClick() {
 	                  return console.log(_this5.state.currentStateJSON);
 	                }, className: 'page-edit-banner-addButton' },
-	              'Add a new container'
+	              'JSON Stateham'
 	            ),
 	            _react2.default.createElement(
 	              'button',
@@ -29417,7 +29417,7 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _verticalNav = __webpack_require__(531);
+	var _verticalNav = __webpack_require__(529);
 
 	var _verticalNav2 = _interopRequireDefault(_verticalNav);
 
@@ -29437,7 +29437,7 @@
 
 	var _imageGallery2 = _interopRequireDefault(_imageGallery);
 
-	var _horizontalNav = __webpack_require__(532);
+	var _horizontalNav = __webpack_require__(530);
 
 	var _horizontalNav2 = _interopRequireDefault(_horizontalNav);
 
@@ -54206,6 +54206,7 @@
 
 	      var that = this;
 	      var tabs = this.state.tabs;
+	      console.log(this.state.currentActiveTab);
 	      if (this.props.editable) {
 	        return _react2.default.createElement(
 	          "div",
@@ -54348,7 +54349,7 @@
 	                _react2.default.createElement(_reactDraftWysiwyg.Editor, {
 	                  editorState: e["editorState"],
 	                  toolbarStyle: { display: "none", visibility: "hidden" },
-	                  editorStyle: { width: "100%", height: "100%" },
+	                  editorStyle: { width: "100%", height: "90%" },
 	                  readOnly: true
 	                })
 	              );
@@ -54640,8 +54641,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -54652,7 +54652,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: props.value || ''
+	      value: ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -54662,15 +54662,6 @@
 	  }
 
 	  _createClass(Autocomplete, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(_ref) {
-	      var value = _ref.value;
-
-	      if (value !== undefined) {
-	        this.setState({ value: value });
-	      }
-	    }
-	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -54707,7 +54698,9 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
+	            { key: key + '_' + idx, onClick: function onClick(evt) {
+	                return _this2.setState({ value: key });
+	              } },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -54727,51 +54720,25 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      var onChange = this.props.onChange;
-
-	      var value = evt.target.value;
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
-	    }
-	  }, {
-	    key: '_onAutocomplete',
-	    value: function _onAutocomplete(value, evt) {
-	      var _props = this.props,
-	          onChange = _props.onChange,
-	          onAutocomplete = _props.onAutocomplete;
-
-	      if (onAutocomplete) {
-	        onAutocomplete(value);
-	      }
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
+	      this.setState({ value: evt.target.value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props,
-	          className = _props2.className,
-	          title = _props2.title,
-	          data = _props2.data,
-	          icon = _props2.icon,
-	          iconClassName = _props2.iconClassName,
-	          s = _props2.s,
-	          m = _props2.m,
-	          l = _props2.l,
-	          offset = _props2.offset,
-	          minLength = _props2.minLength,
-	          placeholder = _props2.placeholder,
-	          limit = _props2.limit,
-	          value = _props2.value,
-	          onChange = _props2.onChange,
-	          onAutocomplete = _props2.onAutocomplete,
-	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
+	      var _props = this.props,
+	          className = _props.className,
+	          title = _props.title,
+	          data = _props.data,
+	          icon = _props.icon,
+	          iconClassName = _props.iconClassName,
+	          s = _props.s,
+	          m = _props.m,
+	          l = _props.l,
+	          offset = _props.offset,
+	          minLength = _props.minLength,
+	          placeholder = _props.placeholder,
+	          limit = _props.limit,
+	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -54839,21 +54806,7 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string,
-	  /**
-	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
-	   * Function signature: (event, value) => ()
-	   */
-	  onChange: _propTypes2.default.func,
-	  /**
-	   * Called when auto-completed item is selected.
-	   * Function signature: (value) => ()
-	   */
-	  onAutocomplete: _propTypes2.default.func,
-	  /**
-	   * The value of the input
-	   */
-	  value: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -56871,7 +56824,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -56894,7 +56846,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,
@@ -59870,11 +59821,11 @@
 
 	var _slider2 = _interopRequireDefault(_slider);
 
-	var _verticalNav = __webpack_require__(531);
+	var _verticalNav = __webpack_require__(529);
 
 	var _verticalNav2 = _interopRequireDefault(_verticalNav);
 
-	var _horizontalNav = __webpack_require__(532);
+	var _horizontalNav = __webpack_require__(530);
 
 	var _horizontalNav2 = _interopRequireDefault(_horizontalNav);
 
@@ -78605,139 +78556,7 @@
 	exports.default = ImageModal;
 
 /***/ }),
-/* 529 */,
-/* 530 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var draggableComponents = exports.draggableComponents = [{
-	  type: 'Slider-Component',
-	  defaultSize: {
-	    w: 7,
-	    h: 12
-	  },
-	  innerElementProps: {
-	    slides: [{
-	      src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
-	      title: "First Slide",
-	      link: "1"
-	    }, {
-	      src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
-	      title: "Second Slide",
-	      link: "2"
-	    }],
-	    sliderStyles: {
-	      sliderBackgroundStyle: "slider-shape-square",
-	      sliderBackgroundColor: "dxc-background-gray--dark",
-	      sliderButtonColor: "dxc-background-yellow",
-	      sliderTextColor: "dxc-font-white",
-	      sliderButtonTextColor: "dxc-font-black",
-	      sliderBackgroundOpacity: 60,
-	      sliderIndicatorsStyle: "content-slider-indicators",
-	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
-	      readMoreText: "Read more"
-	    }
-	  }
-	}, {
-	  type: 'ImageContainer-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {}
-	}, {
-	  type: 'TextArea-Component',
-	  defaultSize: {
-	    w: 7,
-	    h: 12
-	  },
-	  defaultProps: {}
-	}, {
-	  type: 'Survey-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    iframe: '',
-	    selectorValue: '',
-	    surveyFilled: ''
-	  }
-	}, {
-	  type: 'Calendar-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    selectorValue: '',
-	    categoryFilter: 'No Filter',
-	    locationFilter: 'No Filter',
-	    events: [],
-	    filteredEvents: [],
-	    startDate: '10/11/2017',
-	    endDate: '10/11/2017'
-
-	  }
-	}, {
-	  type: 'TabMenu-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    tabs: [{
-	      "title": "Tab 1"
-	    }, {
-	      "title": "Tab 2"
-	    }, {
-	      "title": "Tab 3"
-	    }]
-	  }
-	}, {
-	  type: 'ImageGallery-Component',
-	  defaultSize: {
-	    w: 6,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    images: [{
-	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-	    }, {
-	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-	    }, {
-	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-	    }]
-	  }
-	}, {
-	  type: 'VerticalNav-Component',
-	  defaultSize: {
-	    w: 2,
-	    h: 9
-	  },
-	  innerElementProps: {
-	    links: [],
-	    linkColor: "",
-	    linkStyle: "",
-	    linkInvert: false
-	  }
-	}, {
-	  type: 'HorizontalNav-Component',
-	  defaultSize: {
-	    w: 10,
-	    h: 4
-	  },
-	  innerElementProps: {
-	    tabs: []
-	  }
-	}];
-
-/***/ }),
-/* 531 */
+/* 529 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79093,7 +78912,7 @@
 	exports.default = VerticalNav;
 
 /***/ }),
-/* 532 */
+/* 530 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79112,7 +78931,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _dropDown = __webpack_require__(533);
+	var _dropDown = __webpack_require__(531);
 
 	var _dropDown2 = _interopRequireDefault(_dropDown);
 
@@ -79256,12 +79075,12 @@
 	                                    'div',
 	                                    null,
 	                                    'Name of Tab:',
-	                                    _react2.default.createElement('input', { onChange: function onChange(event) {
+	                                    _react2.default.createElement('input', { value: e["name"], onChange: function onChange(event) {
 	                                            return that.handlePropChange(i, 'name', event.target.value, j);
 	                                        } }),
 	                                    'Link address:',
-	                                    _react2.default.createElement('input', { onChange: function onChange(event) {
-	                                            return that.handlePropChange(i, 'name', event.target.value, j);
+	                                    _react2.default.createElement('input', { value: e["link"], onChange: function onChange(event) {
+	                                            return that.handlePropChange(i, 'link', event.target.value, j);
 	                                        } })
 	                                );
 	                            })
@@ -79285,7 +79104,7 @@
 	exports.default = HorizontalNav;
 
 /***/ }),
-/* 533 */
+/* 531 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79403,6 +79222,147 @@
 	}(_react2.default.Component);
 
 	exports.default = DropDown;
+
+/***/ }),
+/* 532 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var draggableComponents = exports.draggableComponents = [{
+	  type: 'Slider-Component',
+	  defaultSize: {
+	    w: 7,
+	    h: 12
+	  },
+	  innerElementProps: {
+	    slides: [{
+	      src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
+	      title: "Second Slide",
+	      link: "2"
+	    }],
+	    sliderStyles: {
+	      sliderBackgroundStyle: "slider-shape-square",
+	      sliderBackgroundColor: "dxc-background-gray--dark",
+	      sliderButtonColor: "dxc-background-yellow",
+	      sliderTextColor: "dxc-font-white",
+	      sliderButtonTextColor: "dxc-font-black",
+	      sliderBackgroundOpacity: 60,
+	      sliderIndicatorsStyle: "content-slider-indicators",
+	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
+	      readMoreText: "Read more"
+	    }
+	  }
+	}, {
+	  type: 'ImageContainer-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {}
+	}, {
+	  type: 'TextArea-Component',
+	  defaultSize: {
+	    w: 7,
+	    h: 12
+	  },
+	  defaultProps: {}
+	}, {
+	  type: 'Survey-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    iframe: '',
+	    selectorValue: '',
+	    surveyFilled: ''
+	  }
+	}, {
+	  type: 'Calendar-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    selectorValue: '',
+	    categoryFilter: 'No Filter',
+	    locationFilter: 'No Filter',
+	    events: [],
+	    filteredEvents: [],
+	    startDate: '10/11/2017',
+	    endDate: '10/11/2017'
+
+	  }
+	}, {
+	  type: 'TabMenu-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    tabs: [{
+	      "title": "Tab 1"
+	    }, {
+	      "title": "Tab 2"
+	    }, {
+	      "title": "Tab 3"
+	    }]
+	  }
+	}, {
+	  type: 'ImageGallery-Component',
+	  defaultSize: {
+	    w: 6,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    images: [{
+	      "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
+	    }, {
+	      "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
+	    }, {
+	      "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
+	    }]
+	  }
+	}, {
+	  type: 'VerticalNav-Component',
+	  defaultSize: {
+	    w: 2,
+	    h: 9
+	  },
+	  innerElementProps: {
+	    links: [],
+	    linkColor: "",
+	    linkStyle: "",
+	    linkInvert: false
+	  }
+	}, {
+	  type: 'HorizontalNav-Component',
+	  defaultSize: {
+	    w: 10,
+	    h: 4
+	  },
+	  innerElementProps: {
+	    tabs: [{
+	      "name": "Header 1",
+	      "link": "#",
+	      "children": []
+	    }, {
+	      "name": "Header 2",
+	      "link": "#",
+	      "children": [{
+	        "name": "Sub-header 1",
+	        "link": "#1"
+	      }, {
+	        "name": "Sub-header 2",
+	        "link": "#2"
+	      }]
+	    }]
+	  }
+	}];
 
 /***/ })
 /******/ ]);

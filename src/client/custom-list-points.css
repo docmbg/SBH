@@ -121,14 +121,34 @@ li:hover{
 .dxc-font-black{
     color: #000000;
 }
-.slider-shape--dxc{
-
+.slider-shape-DXC {
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 0.5em 60% 60% 0.5em;
+    opacity: 0.8;
 }
-.slider-shape--square{
-    height: 80%;
-    width: 40%;
-    margin-left: 2%;
+.slider-shape-DXC::after {
+    margin-bottom: -10%;
 }
-.slider-shape--none{
-
+.slider-shape-square {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0.8;
+}
+.slider-shape-hidden{
+    display: none;
+    visibility: hidden;
+}
+.content-slider-indicators-shape--circle> li, .content-slider-indicators-shape--square> li {
+    color: transparent !important;
+    box-sizing: border-box;
+}
+.content-slider-indicators-shape--square> li{
+    border: 1px;
+}
+.content-slider-indicators-shape--circle> li{
+    border-radius: 1em;
+    border: 1px solid transparent;
 }

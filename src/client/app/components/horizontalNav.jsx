@@ -9,14 +9,11 @@ class HorizontalNav extends React.Component {
             tabs: this.props.componentProperties.tabs || [],
         }
     }
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             tabs: nextProps.componentProperties.tabs
         })
     }
-
-
     addChildTab(i) {
         let tabs = this.state.tabs;
         tabs[i]['children'].push({
@@ -25,7 +22,6 @@ class HorizontalNav extends React.Component {
         })
         this.setState({ tabs });
     }
-
     addTab() {
         let tabs = this.state.tabs;
         tabs.push({
@@ -35,13 +31,11 @@ class HorizontalNav extends React.Component {
         })
         this.setState({ tabs })
     }
-
     removeTab(i) {
         let tabs = this.state.tabs;
         tabs.splice(i, 1);
         this.setState({ tabs });
     }
-
     handlePropChange(parentIndex, prop, value, childIndex) {
         let tabs = this.state.tabs;
         if (childIndex == undefined) {
@@ -57,8 +51,6 @@ class HorizontalNav extends React.Component {
         let tabs = this.state.tabs;
         this.props.passProps({ tabs });
     }
-
-
     render() {
         let that = this;
         if (!this.props.editable) {
@@ -94,8 +86,8 @@ class HorizontalNav extends React.Component {
                                     {
                                         e['children'].map((e, j) =>
                                             <div>
-                                                Name of Tab:<input onChange={(event) => that.handlePropChange(i, 'name', event.target.value, j)} />
-                                                Link address:<input onChange={(event) => that.handlePropChange(i, 'name', event.target.value, j)} />
+                                                Name of Tab:<input value={e["name"]} onChange={(event) => that.handlePropChange(i, 'name', event.target.value, j)} />
+                                                Link address:<input value={e["link"]} onChange={(event) => that.handlePropChange(i, 'link', event.target.value, j)} />
                                             </div>
                                         )
                                     }

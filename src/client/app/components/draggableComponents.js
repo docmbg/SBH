@@ -8,11 +8,6 @@ export const draggableComponents = [
       innerElementProps: {
         slides: [
           {
-            src: "https://7windsva.com/wp-content/uploads/2012/12/one.png",
-            title: "First Slide",
-            link: "1"
-          },
-          {
             src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
             title: "Second Slide",
             link: "2"
@@ -133,7 +128,21 @@ export const draggableComponents = [
         h: 4
       },
       innerElementProps: {
-        tabs: [],
+        tabs: [{
+          "name" : "Header 1",
+          "link" : "#",
+          "children" : []
+        },{
+          "name" : "Header 2",
+          "link" : "#",
+          "children" : [{
+            "name" : "Sub-header 1",
+            "link" : "#1"
+          },{
+            "name" : "Sub-header 2",
+            "link" : "#2"
+          }]
+        }],
       },
     }
   ];

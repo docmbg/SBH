@@ -125,7 +125,7 @@ class TabMenu extends React.Component {
           <div>
             <button
               onClick={() => that.saveEdit()}
-              className="modal-content-edit--save"
+              className="dxc-button"
             >
               Save
             </button>

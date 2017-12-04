@@ -86,7 +86,7 @@ class Modal extends React.Component {
                     </div>
 
                     <div className="modal-content">
-                        <button className="modal-content-close modal-content-edit-button--remove" onClick={() => this.closeModal()}>
+                        <button className="dxc-button" onClick={() => this.closeModal()}>
                             Close
                     </button>
                         <select className="modal-content-select" value={this.props.currentComponent} onChange={(e) => this.handleModalChange(e)}>

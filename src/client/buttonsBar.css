@@ -1,0 +1,41 @@
+.page-edit-banner {
+	background-color: #444444;
+}
+.page-edit-banner > button {
+	color: #e3e3e3;
+}
+.page-edit-banner > button:hover {
+	color: white;
+}
+
+.Slider-Component{
+    line-height: 1.5em;
+    font-size: 0.95em;
+    vertical-align: top;
+}
+
+.ImageContainer-Component{
+    line-height: 1.5em;
+    font-size: 0.90em;
+    vertical-align: top;
+}
+.Survey-Component{
+    line-height: 1.5em;
+    font-size: 0.93em;
+    vertical-align: top;
+}
+.Calendar-Component{
+    line-height: 1.5em;
+    font-size: 0.90em;
+    vertical-align: top;
+}
+.TabMenu-Component{
+    line-height: 1.5em;
+    font-size: 0.94em;
+    vertical-align: top;
+}
+.ImageGallery-Component{
+    line-height: 1.5em;
+    font-size: 0.88em;
+    vertical-align: top;
+}

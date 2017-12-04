@@ -105,7 +105,7 @@ class ImageGallery extends React.Component {
           <div>
             <button
               onClick={() => this.saveEdit()}
-              className="modal-content-edit--save"
+              className="dxc-button"
             >
               Save
             </button>

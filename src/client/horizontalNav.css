@@ -33,3 +33,11 @@
     clear: both;
     padding-top: 10em;
 }
+
+.tabEdit {
+    border: 1px solid black;
+    margin-top: 1em;
+    width: 80%;
+    margin-left: 10%;
+    padding: 1em;
+}

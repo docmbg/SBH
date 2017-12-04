@@ -7,6 +7,7 @@ class HorizontalNav extends React.Component {
         super(props);
         this.state = {
             tabs: this.props.componentProperties.tabs || [],
+
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -51,6 +52,12 @@ class HorizontalNav extends React.Component {
         let tabs = this.state.tabs;
         this.props.passProps({ tabs });
     }
+
+    changeLook(e){
+        this.setState({
+            look: e.target.value
+        })
+    }
     render() {
         let that = this;
         if (!this.props.editable) {
@@ -71,14 +78,30 @@ class HorizontalNav extends React.Component {
                 <div>
                     <button
                         onClick={() => that.saveEdit()}
-                        className="modal-content-edit--save"
+                        className="dxc-button"
                     >Save</button>
+                </div>
+                <div>
+                    <p>Choose the look</p>
+                    <select value={this.state.look} onChange={()=>this.changeLook()}>
+                        <option value="dxc-black">DXC-Black</option>
+                        <option value="dxc-white">DXC-White</option>
+                    </select>
+                </div>
+                <div className='horizontalNav'>
+                    {
+                        this.state.tabs.map(function (e, i) {
+                            return (
+                                <DropDown info={e} />
+                            )
+                        })
+                    }
                 </div>
                 <div className='tabCreation'>
                     {
                         this.state.tabs.map(function (e, i) {
                             return (
-                                <div>
+                                <div className='tabEdit'>
                                     Name of Tab:<input value={e.name} onChange={(event) => that.handlePropChange(i, 'name', event.target.value)} />
                                     Link address:<input value={e.link} onChange={(event) => that.handlePropChange(i, 'link', event.target.value)} />
                                     <button onClick={() => that.addChildTab(i)}>+</button>

@@ -1,40 +1,59 @@
-.page-edit-banner {
-	background-color: #444444;
+.page-edit-banner, .page-edit-banner-main {
+    background-color: #444444;
+}
+.page-edit-banner{
+    width: 100%;
 }
 .page-edit-banner > button {
-	color: #e3e3e3;
+    color: #e3e3e3;
+    width: 10%;
 }
 .page-edit-banner > button:hover {
-	color: white;
+    color: white;
 }
 
-.Slider-Component{
+.HorizontalNav-Component > i{
+    line-height: 1.5em;
+    font-size: 0.95em;
+    vertical-align: top;
+}
+.TextArea-Component > i{
+    line-height: 1.5em;
+    font-size: 0.95em;
+    vertical-align: top;
+}
+.VerticalNav-Component > i{
+    line-height: 1.5em;
+    font-size: 0.95em;
+    vertical-align: top;
+}
+.Slider-Component > i{
     line-height: 1.5em;
     font-size: 0.95em;
     vertical-align: top;
 }
 
-.ImageContainer-Component{
+.ImageContainer-Component > i{
     line-height: 1.5em;
     font-size: 0.90em;
     vertical-align: top;
 }
-.Survey-Component{
-    line-height: 1.5em;
-    font-size: 0.93em;
-    vertical-align: top;
-}
-.Calendar-Component{
-    line-height: 1.5em;
-    font-size: 0.90em;
-    vertical-align: top;
-}
-.TabMenu-Component{
+.Survey-Component > i{
     line-height: 1.5em;
     font-size: 0.94em;
     vertical-align: top;
 }
-.ImageGallery-Component{
+.Calendar-Component > i{
+    line-height: 1.5em;
+    font-size: 0.90em;
+    vertical-align: top;
+}
+.TabMenu-Component > i{
+    line-height: 1.5em;
+    font-size: 0.94em;
+    vertical-align: top;
+}
+.ImageGallery-Component > i{
     line-height: 1.5em;
     font-size: 0.88em;
     vertical-align: top;

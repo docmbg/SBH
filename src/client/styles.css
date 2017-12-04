@@ -158,7 +158,10 @@ a {
     z-index: 2;
     margin-top: -2em!important;
 }
-
+.hidden{
+    display: none;
+    visibility: hidden;
+}
 .indicator {
     background:black!important;
 }
@@ -343,7 +346,6 @@ a:hover {
 .content-slider-infobox {
     width: 40%;
     height: 60%;
-    /* max-width: 16em; */
     position: absolute;
     top: 10%;
     left: 5%;
@@ -638,4 +640,9 @@ button {
     color:white;
     padding: 0.6em 1.3em 0.6em 1.3em;
     box-sizing: border-box
+}
+.disabled{
+    background-color: #d9d9d9;
+    color: #444444;
+    font-weight: 700;
 }

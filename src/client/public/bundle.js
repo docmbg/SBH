@@ -150,6 +150,7 @@
 	    var y = 0;
 	    var browser = '';
 	    var dragging = false;
+	    var componentMenuVisible = false;
 	    var shadowComponent = {
 	      style: {
 	        width: '200px',
@@ -175,7 +176,7 @@
 	      browser: browser,
 	      layouts: layouts, defaultProps: defaultProps, currentItems: currentItems,
 	      items: items, modalOpened: modalOpened, currentModalElement: currentModalElement, currentComponentProps: currentComponentProps,
-	      currentStateJSON: currentStateJSON, allAdded: allAdded, imageModalSrc: imageModalSrc
+	      currentStateJSON: currentStateJSON, allAdded: allAdded, imageModalSrc: imageModalSrc, componentMenuVisible: componentMenuVisible
 	    };
 	    return _this2;
 	  }
@@ -481,6 +482,14 @@
 	      }
 	    }
 	  }, {
+	    key: 'toggleAddMenu',
+	    value: function toggleAddMenu() {
+	      var componentMenuVisible = !this.state.componentMenuVisible || false;
+	      this.setState({
+	        componentMenuVisible: componentMenuVisible
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this5 = this;
@@ -503,15 +512,14 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'page-edit-banner', onMouseDown: function onMouseDown(e) {
-	                return _this5.mouseDown(e);
-	              } },
+	            { className: 'page-edit-banner-main' },
 	            _react2.default.createElement(
 	              'button',
 	              { onClick: function onClick() {
-	                  return console.log(_this5.state.currentStateJSON);
-	                }, className: 'page-edit-banner-addButton' },
-	              'JSON Stateham'
+	                  return _this5.toggleAddMenu();
+	                }, className: 'page-edit-banner-addButton ' + (this.state.componentMenuVisible ? "disabled" : "") },
+	              this.state.componentMenuVisible ? "Hide" : "Show",
+	              ' Components'
 	            ),
 	            _react2.default.createElement(
 	              'button',
@@ -519,7 +527,13 @@
 	                  return _this5.savePage();
 	                }, className: 'page-edit-banner-addButton' },
 	              'Save the page'
-	            ),
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-edit-banner ' + (this.state.componentMenuVisible ? "" : "hidden"), onMouseDown: function onMouseDown(e) {
+	                return _this5.mouseDown(e);
+	              } },
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'Slider-Component' },
@@ -527,6 +541,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE8EB'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Slider'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -536,6 +555,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE23C'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Rich Text'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -545,6 +569,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE439'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Image'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -554,6 +583,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE801'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Survey'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -563,6 +597,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE916'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Calendar'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -572,6 +611,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE8D8'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Tab Menu'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -581,6 +625,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE413'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Gallery'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -590,6 +639,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE5D4'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Vertical Navigation'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -599,6 +653,11 @@
 	                'i',
 	                { className: 'material-icons' },
 	                '\uE5D3'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'component-text' },
+	                'Horizontal Navigation'
 	              )
 	            )
 	          ),
@@ -54537,6 +54596,19 @@
 	      });
 	    }
 	  }, {
+	    key: "toggleTabContents",
+	    value: function toggleTabContents(i) {
+	      var tabs = this.state.tabs;
+	      if (tabs[i]["active"]) {
+	        tabs[i]["active"] = !tabs[i]["active"];
+	      } else {
+	        tabs[i]["active"] = true;
+	      }
+	      this.setState({
+	        tabs: tabs
+	      });
+	    }
+	  }, {
 	    key: "setActiveTab",
 	    value: function setActiveTab(i) {
 	      var currentActiveTab = i;
@@ -54560,7 +54632,6 @@
 
 	      var that = this;
 	      var tabs = this.state.tabs;
-	      console.log(this.state.currentActiveTab);
 	      if (this.props.editable) {
 	        return _react2.default.createElement(
 	          "div",
@@ -54571,76 +54642,98 @@
 	            "Number of tabs: " + this.state.tabs.length
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { className: true },
-	            _react2.default.createElement(
-	              "p",
-	              { className: "modal-content-edit-header" },
-	              "Edit Tab"
-	            ),
-	            _react2.default.createElement(
-	              "select",
-	              { value: this.state.currentActiveTab,
-	                onChange: function onChange(e) {
-	                  return _this2.setActiveTab(e.target.value);
-	                }
-	              },
-	              this.state.tabs.map(function (e, i) {
-	                return _react2.default.createElement(
-	                  "option",
-	                  { value: i },
-	                  e["title"]
-	                );
-	              })
-	            )
-	          ),
-	          this.state.tabs.map(function (e, i) {
-	            if (i != that.state.currentActiveTab) {
-	              return null;
-	            }
-	            return _react2.default.createElement(
-	              "div",
-	              { className: "modal-content-edit-tabs", key: "tabs-" + i },
-	              _react2.default.createElement(
-	                "button",
-	                {
-	                  onClick: function onClick(i) {
-	                    return that.removeTab(i);
-	                  },
-	                  className: "modal-content-edit-button--remove"
-	                },
-	                "X"
-	              ),
-	              _react2.default.createElement(
-	                "p",
-	                { className: "modal-content-edit-header" },
-	                "Tab Name"
-	              ),
-	              _react2.default.createElement("input", {
-	                type: "text",
-	                value: that.state.tabs[i]["title"],
-	                onChange: function onChange(event) {
-	                  return that.updateTab(event, i, "title");
-	                },
-	                className: "modal-content-edit-input-text"
-	              }),
-	              _react2.default.createElement(
-	                "p",
-	                { className: "modal-content-edit-header" },
-	                "Tab contents"
-	              ),
-	              _react2.default.createElement(
-	                "div",
-	                { className: "modal-content-edit-textArea" },
-	                _react2.default.createElement(_reactDraftWysiwyg.Editor, {
-	                  editorState: e["editorState"] ? e["editorState"] : _draftJs.EditorState.createEmpty(),
-	                  onEditorStateChange: function onEditorStateChange(e) {
-	                    return that.onEditorStateChange(e, i);
+	            "ul",
+	            { className: "modal-content-edit-tabs-container" },
+	            this.state.tabs.map(function (e, i) {
+	              // if(i != that.state.currentActiveTab){
+	              //   return null
+	              // }
+	              return _react2.default.createElement(
+	                "li",
+	                { className: "modal-content-edit-tabs", key: "tabs-" + i },
+	                _react2.default.createElement("input", { className: "modal-content-edit-tabs-name",
+	                  type: "text",
+	                  value: that.state.tabs[i]["title"],
+	                  onChange: function onChange(event) {
+	                    return that.updateTab(event, i, "title");
 	                  }
-	                })
+	                }),
+	                _react2.default.createElement(
+	                  "button",
+	                  {
+	                    onClick: function onClick() {
+	                      return that.toggleTabContents(i);
+	                    },
+	                    className: "modal-content-edit-button--toggle"
+	                  },
+	                  e["active"] ? _react2.default.createElement(
+	                    "i",
+	                    { className: "material-icons" },
+	                    "\uE316"
+	                  ) : _react2.default.createElement(
+	                    "i",
+	                    { className: "material-icons" },
+	                    "\uE313"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "button",
+	                  { onClick: function onClick() {
+	                      return that.removeTab(i);
+	                    }
+	                    // className="modal-content-edit-button--remove"
+	                  },
+	                  _react2.default.createElement(
+	                    "i",
+	                    { className: "material-icons" },
+	                    "\uE5CD"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "modal-content-edit-tabs-editor " + (e["active"] ? "transition-down" : "transition-up") },
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "modal-content-edit-header" },
+	                    "Tab contents"
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "modal-content-edit-textArea" },
+	                    _react2.default.createElement(_reactDraftWysiwyg.Editor, {
+	                      editorState: e["editorState"] ? e["editorState"] : _draftJs.EditorState.createEmpty(),
+	                      onEditorStateChange: function onEditorStateChange(e) {
+	                        return that.onEditorStateChange(e, i);
+	                      }
+	                    })
+	                  )
+	                )
 	              )
-	            );
-	          }),
+	              // <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
+	              //   <button
+	              //     onClick={i => that.removeTab(i)}
+	              //     className="modal-content-edit-button--remove"
+	              //   >
+	              //     X
+	              //   </button>
+	              //   <p className="modal-content-edit-header">Tab Name</p>
+	              //   <input
+	              //     type="text"
+	              //     value={that.state.tabs[i]["title"]}
+	              //     onChange={event => that.updateTab(event, i, "title")}
+	              //     className="modal-content-edit-input-text"
+	              //   />
+	              //   <p className="modal-content-edit-header">Tab contents</p>
+	              //   <div className="modal-content-edit-textArea">
+	              //     <Editor
+	              //       editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
+	              //       onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
+	              //     />
+	              //   </div>
+	              // </div>
+	              ;
+	            })
+	          ),
 	          _react2.default.createElement(
 	            "button",
 	            {
@@ -54995,8 +55088,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55007,7 +55099,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: props.value || ''
+	      value: ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55017,15 +55109,6 @@
 	  }
 
 	  _createClass(Autocomplete, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(_ref) {
-	      var value = _ref.value;
-
-	      if (value !== undefined) {
-	        this.setState({ value: value });
-	      }
-	    }
-	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55062,7 +55145,9 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
+	            { key: key + '_' + idx, onClick: function onClick(evt) {
+	                return _this2.setState({ value: key });
+	              } },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55082,51 +55167,25 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      var onChange = this.props.onChange;
-
-	      var value = evt.target.value;
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
-	    }
-	  }, {
-	    key: '_onAutocomplete',
-	    value: function _onAutocomplete(value, evt) {
-	      var _props = this.props,
-	          onChange = _props.onChange,
-	          onAutocomplete = _props.onAutocomplete;
-
-	      if (onAutocomplete) {
-	        onAutocomplete(value);
-	      }
-	      if (onChange) {
-	        onChange(evt, value);
-	      }
-
-	      this.setState({ value: value });
+	      this.setState({ value: evt.target.value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props,
-	          className = _props2.className,
-	          title = _props2.title,
-	          data = _props2.data,
-	          icon = _props2.icon,
-	          iconClassName = _props2.iconClassName,
-	          s = _props2.s,
-	          m = _props2.m,
-	          l = _props2.l,
-	          offset = _props2.offset,
-	          minLength = _props2.minLength,
-	          placeholder = _props2.placeholder,
-	          limit = _props2.limit,
-	          value = _props2.value,
-	          onChange = _props2.onChange,
-	          onAutocomplete = _props2.onAutocomplete,
-	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
+	      var _props = this.props,
+	          className = _props.className,
+	          title = _props.title,
+	          data = _props.data,
+	          icon = _props.icon,
+	          iconClassName = _props.iconClassName,
+	          s = _props.s,
+	          m = _props.m,
+	          l = _props.l,
+	          offset = _props.offset,
+	          minLength = _props.minLength,
+	          placeholder = _props.placeholder,
+	          limit = _props.limit,
+	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55194,21 +55253,7 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string,
-	  /**
-	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
-	   * Function signature: (event, value) => ()
-	   */
-	  onChange: _propTypes2.default.func,
-	  /**
-	   * Called when auto-completed item is selected.
-	   * Function signature: (value) => ()
-	   */
-	  onAutocomplete: _propTypes2.default.func,
-	  /**
-	   * The value of the input
-	   */
-	  value: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57226,7 +57271,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57249,7 +57293,6 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
-	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,

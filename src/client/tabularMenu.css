@@ -1,0 +1,59 @@
+.modal-content-edit-tabs-container > li {
+    /* text-align: left; */
+    border-bottom: 1px solid #666666;
+    box-sizing: border-box;
+    width: 80%;
+    margin: auto;
+    text-align: left;
+}
+input.modal-content-edit-tabs-name {
+    width: 85%;
+    border: none;
+    vertical-align: bottom;
+    
+}
+input.modal-content-edit-tabs-name:focus{
+    border: none!important;
+    outline: none;
+    font-weight: 800;
+    border-bottom: 1px solid #666666 !important;
+}
+button.modal-content-edit-button--toggle {
+    width: 5%;
+    box-sizing: border-box;
+    margin: 0em;
+    vertical-align: bottom;
+}
+button:focus{
+    outline: none;
+}
+.transition-down{
+    
+    animation: transition-down 0.66s forwards;
+}
+.transition-up{
+    display: none;
+    animation: transition-up 0.66s forwards;
+}
+@keyframes transition-down{
+    0% {
+        visibility: hidden;
+        height: 0%;
+        
+    }
+    100% {
+        visibility: visible;
+        height: 100%;
+    }
+
+}
+@keyframes transition-up{
+    0% {
+        visibility: visible;
+        height: 100%;
+    };
+    100% {
+        visibility: hidden;
+        height: 0%;};
+
+}

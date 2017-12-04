@@ -54,6 +54,17 @@ class TabMenu extends React.Component {
       tabs
     });
   }
+  toggleTabContents(i) {
+    let tabs = this.state.tabs;
+    if(tabs[i]["active"]){
+      tabs[i]["active"] = !tabs[i]["active"];
+    } else {
+      tabs[i]["active"] = true;
+    }
+    this.setState({
+      tabs
+    })
+  }
   setActiveTab(i) {
     let currentActiveTab = i;
     this.setState({
@@ -70,12 +81,11 @@ class TabMenu extends React.Component {
   render() {
     let that = this;
     let tabs = this.state.tabs;
-    console.log(this.state.currentActiveTab);
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
           <div className="modal-content-edit-count">{`Number of tabs: ${this.state.tabs.length}`}</div>
-          <div className>
+          {/* <div className>
             <p className="modal-content-edit-header">Edit Tab</p>
             <select value={this.state.currentActiveTab} 
               onChange={(e) => this.setActiveTab(e.target.value)}
@@ -86,36 +96,66 @@ class TabMenu extends React.Component {
               )
             })}
             </select>
-          </div>
-          {this.state.tabs.map(function (e, i) {
-            if(i != that.state.currentActiveTab){
-              return null
-            }
-            return (
-              <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
-                <button
-                  onClick={i => that.removeTab(i)}
-                  className="modal-content-edit-button--remove"
-                >
-                  X
-                </button>
-                <p className="modal-content-edit-header">Tab Name</p>
-                <input
-                  type="text"
-                  value={that.state.tabs[i]["title"]}
-                  onChange={event => that.updateTab(event, i, "title")}
-                  className="modal-content-edit-input-text"
-                />
-                <p className="modal-content-edit-header">Tab contents</p>
-                <div className="modal-content-edit-textArea">
-                  <Editor
-                    editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
-                    onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
+          </div> */}
+          <ul className="modal-content-edit-tabs-container">
+            {this.state.tabs.map(function (e, i) {
+              // if(i != that.state.currentActiveTab){
+              //   return null
+              // }
+              return (
+                <li className="modal-content-edit-tabs" key={`tabs-${i}`}>
+                  <input className="modal-content-edit-tabs-name"
+                    type="text"
+                    value={that.state.tabs[i]["title"]}
+                    onChange={event => that.updateTab(event, i, "title")}
                   />
-                </div>
-              </div>
-            );
-          })}
+                  <button
+                    onClick={() => that.toggleTabContents(i)}
+                    className="modal-content-edit-button--toggle"
+                  >
+                    {e["active"] ? <i className="material-icons">&#xE316;</i> : <i className="material-icons">&#xE313;</i>}
+                  </button>
+                  <button onClick={() => that.removeTab(i)}
+                    // className="modal-content-edit-button--remove"
+                  >
+                    <i className="material-icons">&#xE5CD;</i>
+                  </button>
+
+                  <div className={`modal-content-edit-tabs-editor ${e["active"] ? "transition-down" : "transition-up"}`}>
+                    <p className="modal-content-edit-header">Tab contents</p>
+                    <div className="modal-content-edit-textArea">
+                      <Editor
+                        editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
+                        onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
+                      />
+                    </div>
+                  </div>
+                </li>
+                // <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
+                //   <button
+                //     onClick={i => that.removeTab(i)}
+                //     className="modal-content-edit-button--remove"
+                //   >
+                //     X
+                //   </button>
+                //   <p className="modal-content-edit-header">Tab Name</p>
+                //   <input
+                //     type="text"
+                //     value={that.state.tabs[i]["title"]}
+                //     onChange={event => that.updateTab(event, i, "title")}
+                //     className="modal-content-edit-input-text"
+                //   />
+                //   <p className="modal-content-edit-header">Tab contents</p>
+                //   <div className="modal-content-edit-textArea">
+                //     <Editor
+                //       editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
+                //       onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
+                //     />
+                //   </div>
+                // </div>
+              );
+            })}
+          </ul>
           <button
             className="modal-content-edit-button--plus"
             onClick={() => this.addTab()}

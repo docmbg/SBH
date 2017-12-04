@@ -5,7 +5,7 @@ import Modal from './components/modal.jsx';
 import { WidthProvider, Responsive } from 'react-grid-layout';
 import ContentContainer from './components/contentContainer.jsx';
 import ImageModal from './components/imageModal.jsx';
-import {draggableComponents} from './components/draggableComponents.js';
+import { draggableComponents } from './components/draggableComponents.js';
 
 function get_browser() {
   var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -62,6 +62,7 @@ class App extends React.Component {
     const y = 0;
     const browser = '';
     const dragging = false;
+    const componentMenuVisible = false;
     const shadowComponent = {
       style: {
         width: '200px',
@@ -87,7 +88,7 @@ class App extends React.Component {
       browser,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
-      currentStateJSON, allAdded, imageModalSrc
+      currentStateJSON, allAdded, imageModalSrc, componentMenuVisible
     };
   }
   componentWillMount() {
@@ -372,7 +373,12 @@ class App extends React.Component {
       this.addNewContainer(e, xPosition, yPosition)
     }
   }
-
+  toggleAddMenu(){
+    let componentMenuVisible = !this.state.componentMenuVisible || false;
+    this.setState({
+      componentMenuVisible
+    })
+  }
   render() {
 
     let _this = this;
@@ -384,18 +390,23 @@ class App extends React.Component {
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}
           </div>
-          <div className="page-edit-banner" onMouseDown={(e) => this.mouseDown(e)} >
-            <button onClick={() => console.log(this.state.currentStateJSON)} className="page-edit-banner-addButton" >JSON Stateham</button>
+          <div className="page-edit-banner-main">
+            <button onClick={() => this.toggleAddMenu()} className={`page-edit-banner-addButton ${this.state.componentMenuVisible ? "disabled" : ""}`} >
+            {this.state.componentMenuVisible ? "Hide" : "Show"} Components
+            </button>
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
-            <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i></button>
-            <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i></button>
-            <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i></button>
-            <button className="Survey-Component"><i className="material-icons">&#xE801;</i></button>
-            <button className="Calendar-Component"><i className="material-icons">&#xE916;</i></button>
-            <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i></button>
-            <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i></button>
-            <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i></button>
-            <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i></button>
+          </div>
+          <div className={`page-edit-banner ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
+
+            <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
+            <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i><p className="component-text">Rich Text</p></button>
+            <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
+            <button className="Survey-Component"><i className="material-icons">&#xE801;</i><p className="component-text">Survey</p></button>
+            <button className="Calendar-Component"><i className="material-icons">&#xE916;</i><p className="component-text">Calendar</p></button>
+            <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i><p className="component-text">Tab Menu</p></button>
+            <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i><p className="component-text">Gallery</p></button>
+            <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i><p className="component-text">Vertical Navigation</p></button>
+            <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"

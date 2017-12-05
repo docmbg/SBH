@@ -86,10 +86,10 @@ class Modal extends React.Component {
                     </div>
 
                     <div className="modal-content">
-                        <button className="dxc-button" onClick={() => this.closeModal()}>
-                            Close
+                        <button className='dxc-close' onClick={() => this.closeModal()}>
+                            <i className="material-icons">&#xE5CD;</i>
                     </button>
-                        <select className="modal-content-select" value={this.props.currentComponent} onChange={(e) => this.handleModalChange(e)}>
+                        {/* <select className="modal-content-select" value={this.props.currentComponent} onChange={(e) => this.handleModalChange(e)}>
                             <option value=""></option>
                             <option value="ImageContainer">Image Container</option>
                             <option value="TextArea">Text Area</option>
@@ -100,7 +100,7 @@ class Modal extends React.Component {
                             <option value="Survey">Survey</option>
                             <option value="Calendar">Calendar</option>
                             <option value="ImageGallery">ImageGallery</option>
-                        </select>
+                        </select> */}
                         <div className="modal-content-edit-container">
                             {editProperties}
                         </div>

@@ -131,16 +131,22 @@ export const draggableComponents = [
         tabs: [{
           "name" : "Header 1",
           "link" : "#",
+          "active": false,
+          "position": 0,
           "children" : []
         },{
           "name" : "Header 2",
           "link" : "#",
+          "active": false,  
+          "position": 1,        
           "children" : [{
             "name" : "Sub-header 1",
-            "link" : "#1"
+            "link" : "#1",
+            "position": 0,
           },{
             "name" : "Sub-header 2",
-            "link" : "#2"
+            "link" : "#2",
+            "position": 1,
           }]
         }],
       },

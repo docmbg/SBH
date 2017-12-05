@@ -1,43 +1,128 @@
 .dropDown {
     position: absolute;
-}
-
-.dropDown > p {
-    margin: 0em;
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    background:black;
-}
-
-.dropDown > p > a{
-    color: yellow!important;
-    
-}
-
-.dropDown > p:hover >a {
-    color: white!important;
-}
-
-.horizontalNav {
-    float: left;
-    background: black;
-    padding: 0.5em;
-    margin: 0;
-    color:white;
-}
-
-.horizontalNav > a:hover{
-    color:white;
+    width:100%;
 }
 
 .tabCreation {
     clear: both;
     padding-top: 10em;
+    height: 80%;
 }
 
 .tabEdit {
-    border: 1px solid black;
     margin-top: 1em;
     width: 80%;
     margin-left: 10%;
     padding: 1em;
+    clear:both;
+}
+
+.tabEditBox {
+    width: 35%;
+    text-align: left;
+}
+
+.tabEditBox > p> input {
+    float:right;
+}
+
+.hide {
+    display: none;
+    
+}
+
+.show {
+    display: block;    
+}
+
+.material-icons.mini {
+    font-size:1.5em!important;
+    float:right;
+    cursor: pointer;
+}
+
+.divider {
+    border-bottom: 1px solid rgb(217,217,217);
+    clear:both
+}
+
+.tabTitle {
+    float:left;
+}
+
+.tabTitle {
+    font-weight: 600;
+}
+
+.preview {
+    height: 20%;
+}
+
+.anchorDiv {
+    width:100%;
+    float:right;
+}
+
+.nav-dropDown-header {
+    position: relative;
+    float:left;
+}
+
+.dxc-white-nav{
+    float: left;
+    background: white;
+    padding: 0.5em;
+    margin: 0;
+    color:black;
+    width:100%;
+}
+
+.dxc-white-nav > .nav-dropDown-header> a:hover {
+    text-decoration: underline;
+}
+
+.dxc-black-nav {
+    float: left;
+    background: black;
+    padding: 0.5em 0em;
+    margin: 0;
+    color:white;
+    width:100%;
+}
+
+.dxc-black-nav > .nav-dropDown-header >a {
+    color:white;
+}
+
+.dxc-black-nav > .nav-dropDown-header >a:hover {
+    color: rgb(255,237,000);
+}
+
+.dxc-white-nav >.dropDown {
+    background: white;
+}
+
+
+.dxc-black-nav > .nav-dropDown-header> .dropDown > p {
+    margin: 0em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    background:black;
+    cursor: pointer;
+}
+
+.dxc-black-nav > .nav-dropDown-header > .dropDown > p> a {
+    color: white;
+}
+
+.dxc-black-nav >.nav-dropDown-header>.dropDown >p> a:hover {
+    color: rgb(255,237,000);
+}
+
+.nav-dropDown-header {
+    position: relative;
+    float:left;
+}
+
+.left {
+    float:left!important
 }

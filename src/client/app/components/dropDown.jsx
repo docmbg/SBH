@@ -8,8 +8,21 @@ class DropDown extends React.Component {
             info: this.props.info,
             tabsStyle: {
                 display: 'none'
+            },
+            style: {
+                width: '0%'
             }
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        let width = 100/nextProps.info;
+        this.setState({
+            info: nextProps.info,
+            style: {
+                width: `${nextProps.styleWidth}%`
+            }
+        })
     }
 
     showTabs() {
@@ -29,9 +42,9 @@ class DropDown extends React.Component {
     }
 
     render() {
+        console.log(this.props.look);
         let topLink = <a></a>;
         let info = this.state.info;
-        console.log(info)
         if(info.children.length > 0){
             topLink = <a> {info['name']}</a>
         }
@@ -40,14 +53,16 @@ class DropDown extends React.Component {
         }
         let that = this;
         return (
-            <div onMouseEnter={() => this.showTabs()} onMouseLeave={() => this.hideTabs()} className='horizontalNav'>
-                {topLink}
-                <div style={this.state.tabsStyle} className="dropDown"> 
-                    {
-                        info['children'].map(e => <p><a href={e['url']} target="_blank"> {e['name']} </a></p>)
-                    }
+           
+                <div className="nav-dropDown-header" style={{width: this.props.styleWidth+'%'}} onMouseEnter={() => this.showTabs()} onMouseLeave={() => this.hideTabs()}>
+                    {topLink}
+                    <div style={this.state.tabsStyle} className="dropDown" > 
+                        {
+                            info['children'].map(e => <p><a  href={e['url']} target="_blank"> {e['name']} </a></p>)
+                        }
+                    </div>
                 </div>
-            </div>
+            
         )
     }
 }

@@ -51,7 +51,7 @@ class SimpleImageComponent extends React.Component {
         if (!this.props.editable) {
             return (
                 <img
-                    className="content-simpleImage content-disabled"
+                    className="content-simpleImage image-zoom content-disabled"
                     src={this.props.componentProperties.imgSrc}
                     onClick={() => this.props.handleImageModal(this.props.componentProperties.imgSrc)}
                     width='100%'
@@ -61,20 +61,6 @@ class SimpleImageComponent extends React.Component {
         } else {
             return (
                 <div>
-                    <p className="modal-content-edit-header">Image Width</p>
-                    <input
-                        type="number"
-                        value={parseInt((this.state.imgWidth || "0px").replace("px", ""))}
-                        onChange={(e) => this.passProps(e, "imgWidth")}
-                        className="modal-content-edit-input-text"
-                    ></input>
-                    <p className="modal-content-edit-header">Image Height</p>
-                    <input
-                        type="number"
-                        value={parseInt((this.state.imgHeight || "0px").replace("px", ""))}
-                        onChange={(e) => this.passProps(e, "imgHeight")}
-                        className="modal-content-edit-input-text"
-                    ></input>
                     <p className="modal-content-edit-header">Image Source</p>
                     <input
                         type="text" value={this.state.imgSrc || ""}

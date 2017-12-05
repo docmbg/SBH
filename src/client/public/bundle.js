@@ -29790,7 +29790,7 @@
 
 	            if (!this.props.editable) {
 	                return _react2.default.createElement('img', {
-	                    className: 'content-simpleImage content-disabled',
+	                    className: 'content-simpleImage image-zoom content-disabled',
 	                    src: this.props.componentProperties.imgSrc,
 	                    onClick: function onClick() {
 	                        return _this2.props.handleImageModal(_this2.props.componentProperties.imgSrc);
@@ -29802,32 +29802,6 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Image Width'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'number',
-	                        value: parseInt((this.state.imgWidth || "0px").replace("px", "")),
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "imgWidth");
-	                        },
-	                        className: 'modal-content-edit-input-text'
-	                    }),
-	                    _react2.default.createElement(
-	                        'p',
-	                        { className: 'modal-content-edit-header' },
-	                        'Image Height'
-	                    ),
-	                    _react2.default.createElement('input', {
-	                        type: 'number',
-	                        value: parseInt((this.state.imgHeight || "0px").replace("px", "")),
-	                        onChange: function onChange(e) {
-	                            return _this2.passProps(e, "imgHeight");
-	                        },
-	                        className: 'modal-content-edit-input-text'
-	                    }),
 	                    _react2.default.createElement(
 	                        'p',
 	                        { className: 'modal-content-edit-header' },
@@ -54609,6 +54583,21 @@
 	      });
 	    }
 	  }, {
+	    key: "handleMove",
+	    value: function handleMove(dir, index) {
+	      var tabs = this.state.tabs;
+	      if (index + dir >= tabs.length || index + dir < 0) {
+	        return false;
+	      }
+	      var item1 = tabs[index];
+	      var item2 = tabs[index + dir];
+	      tabs[index] = item2;
+	      tabs[index + dir] = item1;
+	      this.setState({
+	        tabs: tabs
+	      });
+	    }
+	  }, {
 	    key: "setActiveTab",
 	    value: function setActiveTab(i) {
 	      var currentActiveTab = i;
@@ -54645,19 +54634,9 @@
 	            "ul",
 	            { className: "modal-content-edit-tabs-container" },
 	            this.state.tabs.map(function (e, i) {
-	              // if(i != that.state.currentActiveTab){
-	              //   return null
-	              // }
 	              return _react2.default.createElement(
 	                "li",
 	                { className: "modal-content-edit-tabs", key: "tabs-" + i },
-	                _react2.default.createElement("input", { className: "modal-content-edit-tabs-name",
-	                  type: "text",
-	                  value: that.state.tabs[i]["title"],
-	                  onChange: function onChange(event) {
-	                    return that.updateTab(event, i, "title");
-	                  }
-	                }),
 	                _react2.default.createElement(
 	                  "button",
 	                  {
@@ -54669,11 +54648,40 @@
 	                  e["active"] ? _react2.default.createElement(
 	                    "i",
 	                    { className: "material-icons" },
-	                    "\uE316"
+	                    "\uE22B"
 	                  ) : _react2.default.createElement(
 	                    "i",
 	                    { className: "material-icons" },
-	                    "\uE313"
+	                    "\uE254"
+	                  )
+	                ),
+	                _react2.default.createElement("input", { className: "modal-content-edit-tabs-name",
+	                  type: "text",
+	                  value: that.state.tabs[i]["title"],
+	                  onChange: function onChange(event) {
+	                    return that.updateTab(event, i, "title");
+	                  }
+	                }),
+	                _react2.default.createElement(
+	                  "button",
+	                  { onClick: function onClick() {
+	                      return that.handleMove(-1, i);
+	                    } },
+	                  _react2.default.createElement(
+	                    "i",
+	                    { className: "material-icons" },
+	                    "\uE5D8"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "button",
+	                  { onClick: function onClick() {
+	                      return that.handleMove(1, i);
+	                    } },
+	                  _react2.default.createElement(
+	                    "i",
+	                    { className: "material-icons" },
+	                    "\uE5DB"
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -54681,7 +54689,6 @@
 	                  { onClick: function onClick() {
 	                      return that.removeTab(i);
 	                    }
-	                    // className="modal-content-edit-button--remove"
 	                  },
 	                  _react2.default.createElement(
 	                    "i",
@@ -54708,30 +54715,7 @@
 	                    })
 	                  )
 	                )
-	              )
-	              // <div className="modal-content-edit-tabs" key={`tabs-${i}`}>
-	              //   <button
-	              //     onClick={i => that.removeTab(i)}
-	              //     className="modal-content-edit-button--remove"
-	              //   >
-	              //     X
-	              //   </button>
-	              //   <p className="modal-content-edit-header">Tab Name</p>
-	              //   <input
-	              //     type="text"
-	              //     value={that.state.tabs[i]["title"]}
-	              //     onChange={event => that.updateTab(event, i, "title")}
-	              //     className="modal-content-edit-input-text"
-	              //   />
-	              //   <p className="modal-content-edit-header">Tab contents</p>
-	              //   <div className="modal-content-edit-textArea">
-	              //     <Editor
-	              //       editorState={e["editorState"] ? e["editorState"] : EditorState.createEmpty()}
-	              //       onEditorStateChange={(e) => that.onEditorStateChange(e, i)}
-	              //     />
-	              //   </div>
-	              // </div>
-	              ;
+	              );
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -79343,7 +79327,10 @@
 	                }),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'image-popup-modal-content' },
+	                    { className: 'image-popup-modal-content',
+	                        onClick: function onClick() {
+	                            return _this2.props.handleImageClick("");
+	                        } },
 	                    _react2.default.createElement('img', { src: this.props.src, className: 'image-popup-modal-content-image' })
 	                )
 	            );

@@ -646,3 +646,9 @@ button {
     color: #444444;
     font-weight: 700;
 }
+.image-popup-modal > div{
+    cursor: zoom-out;
+}
+.image-zoom{
+    cursor: zoom-in;
+}

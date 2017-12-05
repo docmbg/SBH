@@ -19,7 +19,8 @@ export default class ImageModal extends React.Component {
                     onClick={() => this.props.handleImageClick("")}
                 >
                 </div>
-                <div className="image-popup-modal-content">
+                <div className="image-popup-modal-content"
+                onClick={() => this.props.handleImageClick("")}>
                     <img src={this.props.src} className="image-popup-modal-content-image" />
                 </div>
             </div>

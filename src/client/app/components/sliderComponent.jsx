@@ -84,7 +84,10 @@ class Slider extends React.Component {
         let slides = (this.state.slides || []);
         return (
             <div className="content-slider">
-                <img src={this.state.currentPicture} className={`${this.state.className} content-slider-image`} />
+                <img 
+                src={this.state.currentPicture} 
+                className={`${this.state.className} content-slider-image`} 
+                style={{opacity: (parseInt(_this.props.sliderStyles.sliderImageOpacity)/100).toFixed(2)}}/>
                 {
                     slides.map(function (elem, index) {
                         if (index + 1 == _this.state.currentPictureIndex) {

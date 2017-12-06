@@ -160,6 +160,16 @@ class SliderWebPart extends React.Component {
                                 ></input><span>%</span>
                             </div>
                             <div className="w2">
+                                <p className="modal-content-edit-header">Slider image opacity</p>
+                                <input
+                                    type={`number`}
+                                    onChange={(e) => this.handleGeneralChange(e, "sliderImageOpacity")}
+                                    defaultValue={this.state.sliderStyles.sliderImageOpacity}
+                                >
+                                </input><span>%</span>
+                                
+                            </div>
+                            <div className="w2">
                                 <p className="modal-content-edit-header">Slider button text color</p>
                                 <select
                                     

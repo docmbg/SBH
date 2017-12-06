@@ -2,8 +2,10 @@ export const draggableComponents = [
     {
       type: 'Slider-Component',
       defaultSize: {
-        w: 7,
-        h: 12
+        w: 14,
+        h: 12,
+        minW: 3,
+        minH: 3
       },
       innerElementProps: {
         slides: [
@@ -29,7 +31,7 @@ export const draggableComponents = [
     {
       type: 'ImageContainer-Component',
       defaultSize: {
-        w: 2,
+        w: 4,
         h: 9
       },
       innerElementProps: {
@@ -39,7 +41,7 @@ export const draggableComponents = [
     {
       type: 'TextArea-Component',
       defaultSize: {
-        w: 7,
+        w: 14,
         h: 12
       },
       defaultProps: {
@@ -49,7 +51,7 @@ export const draggableComponents = [
     {
       type: 'Survey-Component',
       defaultSize: {
-        w: 2,
+        w: 4,
         h: 9
       },
       innerElementProps: {
@@ -61,7 +63,7 @@ export const draggableComponents = [
     {
       type: 'Calendar-Component',
       defaultSize: {
-        w: 2,
+        w: 4,
         h: 9
       },
       innerElementProps: {
@@ -78,7 +80,7 @@ export const draggableComponents = [
     {
       type: 'TabMenu-Component',
       defaultSize: {
-        w: 2,
+        w: 4,
         h: 9
       },
       innerElementProps: {
@@ -94,7 +96,7 @@ export const draggableComponents = [
     {
       type: 'ImageGallery-Component',
       defaultSize: {
-        w: 6,
+        w: 12,
         h: 9
       },
       innerElementProps: {
@@ -111,7 +113,7 @@ export const draggableComponents = [
     {
       type: 'VerticalNav-Component',
       defaultSize: {
-        w: 2,
+        w: 4,
         h: 9
       },
       innerElementProps: {
@@ -124,7 +126,7 @@ export const draggableComponents = [
     {
       type: 'HorizontalNav-Component',
       defaultSize: {
-        w: 10,
+        w: 20,
         h: 4
       },
       innerElementProps: {

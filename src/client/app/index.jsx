@@ -333,7 +333,7 @@ class App extends React.Component {
     // console.log(this.state.draggedComponent)
     if (this.state.draggedComponent.indexOf('Component') > -1) {
       let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
-      let width = `${windowW / 12 * size.w}px`;
+      let width = `${windowW / 24 * size.w}px`;
       let height = `${windowH / 30 * size.h}px`;
       this.setState({
         shadowComponent: {
@@ -354,7 +354,7 @@ class App extends React.Component {
 
   mouseUp(e) {
     if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
-      let xPosition = Math.floor(e.clientX / windowW * 12);//calculation needed
+      let xPosition = Math.floor(e.clientX / windowW * 24);//calculation needed
       let yPosition = Math.floor(e.clientY / windowH * 8);//calculation needed    
       this.setState({
         draggedComponent: '',
@@ -413,7 +413,7 @@ class App extends React.Component {
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
               preventCollision={false}
               layouts={this.state.layouts}
-              cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
+              cols={{ lg: 24, md: 24, sm: 24, xs: 24 }}
               breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
               width={1600}
               verticalCompact={false}
@@ -467,7 +467,7 @@ class App extends React.Component {
             isDraggable={false}
             isResizable={false}
             layouts={this.state.layouts}
-            cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
+            cols={{ lg: 24, md: 24, sm: 24, xs: 24 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
             rowHeight={30} >
@@ -479,12 +479,16 @@ class App extends React.Component {
                   key={e["containerKey"]}
                   data-grid={e["containerProps"]}
                 >
-                  <ContentContainer innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
+                  <ContentContainer handleImageModal={(src) => _this.handleImageModal(src)} innerElementType={e["innerElement"]["type"]} innerElementProps={e["innerElement"]["innerElementProps"]} />
                 </div>
               );
 
             })}
           </ResponsiveReactGridLayout>
+          <ImageModal
+            handleImageClick={() => _this.handleImageModal()}
+            src={this.state.imageModalSrc}
+          />
         </div>
       )
     }

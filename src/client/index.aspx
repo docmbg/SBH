@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>HPI</title>
+    <title>Site Builder</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../react-resize.css">
     <link rel="stylesheet" href="../react-resizeable.css">
@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="../custom-list-points.css">
     <link rel="stylesheet" href="../materialize-tabs.css">
     <link rel="stylesheet" href="../calendar.css">
+    <link rel="stylesheet" href="../image-modal-popup.css">
     <link rel="stylesheet" href="../horizontalNav.css">
     <link rel="stylesheet" href="../buttonsBar.css">
+    <link rel="stylesheet" href="../tabularMenu.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
 

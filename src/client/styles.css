@@ -502,6 +502,18 @@ div.w2{
     float: left;
     clear: none;
 }
+div.w3{
+    width: 33.3333%;
+    height: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    float: left;
+    clear: none;
+}
+.modal-content-edit-slider-general{
+    width: 100%;
+    height: 50%;
+}
 .modal-content-edit-preview{
     line-height: 3em;
     height: 3em;
@@ -610,6 +622,11 @@ button {
     width: 100%;
     height: 80%;
     position: relative;
+}
+.modal-content-edit-seperator{
+    height: 1px;
+    border-bottom: 1px solid black;
+    margin-bottom: 2%;
 }
 .modal-content-edit-slider-preview-container{
     position: absolute;

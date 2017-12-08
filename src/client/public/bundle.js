@@ -440,7 +440,7 @@
 	        var size = _draggableComponents.draggableComponents.filter(function (e) {
 	          return e.type == _this4.state.draggedComponent;
 	        })[0].defaultSize;
-	        var width = windowW / 12 * size.w + 'px';
+	        var width = windowW / 24 * size.w + 'px';
 	        var height = windowH / 30 * size.h + 'px';
 	        this.setState({
 	          shadowComponent: {
@@ -462,7 +462,7 @@
 	    key: 'mouseUp',
 	    value: function mouseUp(e) {
 	      if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
-	        var xPosition = Math.floor(e.clientX / windowW * 12); //calculation needed
+	        var xPosition = Math.floor(e.clientX / windowW * 24); //calculation needed
 	        var yPosition = Math.floor(e.clientY / windowH * 8); //calculation needed    
 	        this.setState({
 	          draggedComponent: '',
@@ -672,7 +672,7 @@
 	                },
 	                preventCollision: false,
 	                layouts: this.state.layouts,
-	                cols: { lg: 12, md: 12, sm: 12, xs: 12 },
+	                cols: { lg: 24, md: 24, sm: 24, xs: 24 },
 	                breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
 	                width: 1600,
 	                verticalCompact: false,
@@ -740,7 +740,7 @@
 	              isDraggable: false,
 	              isResizable: false,
 	              layouts: this.state.layouts,
-	              cols: { lg: 12, md: 12, sm: 12, xs: 12 },
+	              cols: { lg: 24, md: 24, sm: 24, xs: 24 },
 	              breakpoints: { lg: 1600, md: 1200, sm: 768, xs: 480 },
 	              width: 1600,
 	              rowHeight: 30 },
@@ -753,10 +753,18 @@
 	                  key: e["containerKey"],
 	                  'data-grid': e["containerProps"]
 	                },
-	                _react2.default.createElement(_contentContainer2.default, { innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] })
+	                _react2.default.createElement(_contentContainer2.default, { handleImageModal: function handleImageModal(src) {
+	                    return _this.handleImageModal(src);
+	                  }, innerElementType: e["innerElement"]["type"], innerElementProps: e["innerElement"]["innerElementProps"] })
 	              );
 	            })
-	          )
+	          ),
+	          _react2.default.createElement(_imageModal2.default, {
+	            handleImageClick: function handleImageClick() {
+	              return _this.handleImageModal();
+	            },
+	            src: this.state.imageModalSrc
+	          })
 	        );
 	      }
 	    }
@@ -29624,61 +29632,13 @@
 	                        { className: 'modal-content' },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { className: 'dxc-button', onClick: function onClick() {
+	                            { className: 'dxc-close', onClick: function onClick() {
 	                                    return _this3.closeModal();
 	                                } },
-	                            'Close'
-	                        ),
-	                        _react2.default.createElement(
-	                            'select',
-	                            { className: 'modal-content-select', value: this.props.currentComponent, onChange: function onChange(e) {
-	                                    return _this3.handleModalChange(e);
-	                                } },
-	                            _react2.default.createElement('option', { value: '' }),
 	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'ImageContainer' },
-	                                'Image Container'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'TextArea' },
-	                                'Text Area'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'Slider' },
-	                                'Slider'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'VerticalNav' },
-	                                'Vertical Navigation'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'HorizontalNav' },
-	                                'Horizontal Navigation'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'TabMenu' },
-	                                'Tab Menu'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'Survey' },
-	                                'Survey'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'Calendar' },
-	                                'Calendar'
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'ImageGallery' },
-	                                'ImageGallery'
+	                                'i',
+	                                { className: 'material-icons' },
+	                                '\uE5CD'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -53301,10 +53261,10 @@
 /* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -53332,588 +53292,746 @@
 
 
 	var SliderWebPart = function (_React$Component) {
-	    _inherits(SliderWebPart, _React$Component);
+	  _inherits(SliderWebPart, _React$Component);
 
-	    function SliderWebPart(props) {
-	        _classCallCheck(this, SliderWebPart);
+	  function SliderWebPart(props) {
+	    _classCallCheck(this, SliderWebPart);
 
-	        var _this = _possibleConstructorReturn(this, (SliderWebPart.__proto__ || Object.getPrototypeOf(SliderWebPart)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SliderWebPart.__proto__ || Object.getPrototypeOf(SliderWebPart)).call(this, props));
 
-	        _this.state = {
-	            slides: _this.props.componentProperties.slides || [],
-	            sliderStyles: _this.props.componentProperties.sliderStyles || {}
-	        };
-	        return _this;
+	    _this.state = {
+	      slides: _this.props.componentProperties.slides || [],
+	      sliderStyles: _this.props.componentProperties.sliderStyles || {}
+	    };
+	    return _this;
+	  }
+
+	  _createClass(SliderWebPart, [{
+	    key: "saveEdit",
+	    value: function saveEdit() {
+	      var slides = this.state.slides;
+	      var sliderStyles = this.state.sliderStyles;
+	      this.props.passProps({
+	        slides: slides,
+	        sliderStyles: sliderStyles
+	      });
 	    }
+	  }, {
+	    key: "removeSlide",
+	    value: function removeSlide(index) {
+	      var slides = this.state.slides;
+	      slides.splice(index, 1);
+	      this.setState({
+	        slides: slides
+	      });
+	    }
+	  }, {
+	    key: "updateSlide",
+	    value: function updateSlide(event, index, type) {
+	      var slides = this.state.slides;
+	      slides[index][type] = event.target.value;
+	      this.setState({
+	        slides: slides
+	      });
+	    }
+	  }, {
+	    key: "addSlide",
+	    value: function addSlide() {
+	      var slides = this.state.slides;
+	      slides.push({
+	        src: "",
+	        title: "",
+	        link: "",
+	        description: "",
+	        active: false
+	      });
+	      this.setState({
+	        slides: slides
+	      });
+	    }
+	  }, {
+	    key: "handleMove",
+	    value: function handleMove(dir, index) {
+	      var slides = this.state.slides;
+	      if (index + dir >= slides.length || index + dir < 0) {
+	        return false;
+	      }
+	      var item1 = slides[index];
+	      var item2 = slides[index + dir];
+	      slides[index] = item2;
+	      slides[index + dir] = item1;
+	      this.setState({
+	        slides: slides
+	      });
+	    }
+	  }, {
+	    key: "toggleTabContents",
+	    value: function toggleTabContents(i) {
+	      var slides = this.state.slides;
+	      if (slides[i]["active"]) {
+	        slides[i]["active"] = false;
+	      } else {
+	        slides[i]["active"] = true;
+	      }
+	      this.setState({
+	        slides: slides
+	      });
+	    }
+	  }, {
+	    key: "handleGeneralChange",
+	    value: function handleGeneralChange(evt, instance) {
+	      var sliderStyles = this.state.sliderStyles;
+	      sliderStyles[instance] = evt.target.value;
+	      this.setState({
+	        sliderStyles: sliderStyles
+	      });
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this2 = this;
 
-	    _createClass(SliderWebPart, [{
-	        key: 'saveEdit',
-	        value: function saveEdit() {
-	            var slides = this.state.slides;
-	            var sliderStyles = this.state.sliderStyles;
-	            this.props.passProps({
-	                slides: slides, sliderStyles: sliderStyles
-	            });
-	        }
-	    }, {
-	        key: 'removeSlide',
-	        value: function removeSlide(index) {
-	            var slides = this.state.slides;
-	            slides.splice(index, 1);
-	            this.setState({
-	                slides: slides
-	            });
-	        }
-	    }, {
-	        key: 'updateSlide',
-	        value: function updateSlide(event, index, type) {
-	            var slides = this.state.slides;
-	            slides[index][type] = event.target.value;
-	            this.setState({
-	                slides: slides
-	            });
-	        }
-	    }, {
-	        key: 'addSlide',
-	        value: function addSlide() {
-	            var slides = this.state.slides;
-	            slides.push({
-	                src: "",
-	                title: "",
-	                link: ""
-	            });
-	            this.setState({
-	                slides: slides
-	            });
-	        }
-	    }, {
-	        key: 'handleGeneralChange',
-	        value: function handleGeneralChange(evt, instance) {
-	            var sliderStyles = this.state.sliderStyles;
-	            sliderStyles[instance] = evt.target.value;
-	            this.setState({
-	                sliderStyles: sliderStyles
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            var that = this;
-	            if (this.props.editable) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
+	      var that = this;
+	      if (this.props.editable) {
+	        return _react2.default.createElement(
+	          "div",
+	          null,
+	          _react2.default.createElement(
+	            "div",
+	            { className: "modal-content-edit-slider-wrapper" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "modal-content-edit-slider-preview" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "modal-content-edit-slider-preview-container" },
+	                _react2.default.createElement("img", { className: "modal-content-edit-slider-preview-background slidePicture content-slider-image" }),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "content-slider-infobox" },
+	                  _react2.default.createElement("div", {
+	                    className: "content-slider-infobox-wrapper " + (that.state.sliderStyles.sliderBackgroundStyle || "") + " " + (that.state.sliderStyles.sliderBackgroundColor || ""),
+	                    style: {
+	                      opacity: (parseInt(that.state.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2)
+	                    }
+	                  }),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "content-slider-infobox-text" },
 	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'modal-content-edit-slider-wrapper' },
+	                      "div",
+	                      { className: "content-slider-infobox-readMore" },
+	                      _react2.default.createElement(
+	                        "a",
+	                        { href: "#", target: "_blank" },
 	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-content-edit-slider-preview' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'modal-content-edit-slider-preview-container' },
-	                                _react2.default.createElement('img', { className: 'modal-content-edit-slider-preview-background slidePicture content-slider-image' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'content-slider-infobox' },
-	                                    _react2.default.createElement('div', {
-	                                        className: 'content-slider-infobox-wrapper ' + (that.state.sliderStyles.sliderBackgroundStyle || "") + ' ' + (that.state.sliderStyles.sliderBackgroundColor || ""),
-	                                        style: { opacity: (parseInt(that.state.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2) }
-	                                    }),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'content-slider-infobox-text' },
-	                                        _react2.default.createElement(
-	                                            'div',
-	                                            { className: 'content-slider-infobox-readMore' },
-	                                            _react2.default.createElement(
-	                                                'a',
-	                                                { href: '#', target: '_blank' },
-	                                                _react2.default.createElement(
-	                                                    'div',
-	                                                    { className: (that.state.sliderStyles.sliderButtonColor || "") + ' ' + (that.state.sliderStyles.sliderButtonTextColor || "") },
-	                                                    that.state.sliderStyles.readMoreText || ""
-	                                                )
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'p',
-	                                            { className: 'content-slider-infobox-title ' + (that.state.sliderStyles.sliderTextColor || "") },
-	                                            'Slide Title'
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'content-slider-indicators-wrapper' },
-	                                _react2.default.createElement(
-	                                    'ul',
-	                                    { className: that.state.sliderStyles.sliderIndicatorsStyle + ' ' + that.state.sliderStyles.sliderIndicatorsShape },
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        { className: 'active' },
-	                                        '1'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        { className: '' },
-	                                        '2'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement('div', { className: 'modal-content-edit-seperator' }),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-content-edit-slider-general' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'w2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider text background color'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        defaultValue: this.state.sliderStyles.sliderBackgroundColor,
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderBackgroundColor");
-	                                        }
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-black' },
-	                                        'Black'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-gray--dark' },
-	                                        'Dark gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-gray--light' },
-	                                        'Light gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-white' },
-	                                        'White'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-yellow' },
-	                                        'Yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-blue' },
-	                                        'Blue'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-green' },
-	                                        'Green'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider text background style'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderBackgroundStyle");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderBackgroundStyle
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'slider-shape-square' },
-	                                        'Default (Square)'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'slider-shape-DXC' },
-	                                        'DXC'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'slider-shape-hidden' },
-	                                        'None (hidden)'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'w2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider button color'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderButtonColor");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderButtonColor
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-black' },
-	                                        'Black'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-gray--dark' },
-	                                        'Dark gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-gray--light' },
-	                                        'Light gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-white' },
-	                                        'White'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-yellow' },
-	                                        'Yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-blue' },
-	                                        'Blue'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-background-green' },
-	                                        'Green'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider button text'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text',
-	                                    value: this.state.sliderStyles.readMoreText,
-	                                    onChange: function onChange(e) {
-	                                        return _this2.handleGeneralChange(e, "readMoreText");
-	                                    }
-	                                })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'w2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider text color'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderTextColor");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderTextColor
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-black' },
-	                                        'Black'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-gray--dark' },
-	                                        'Dark gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-gray--light' },
-	                                        'Light gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-white' },
-	                                        'White'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-yellow' },
-	                                        'Yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-blue' },
-	                                        'Blue'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-green' },
-	                                        'Green'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider background opacity color'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'number',
-	                                    value: this.state.sliderStyles.sliderBackgroundOpacity,
-	                                    onChange: function onChange(e) {
-	                                        return _this2.handleGeneralChange(e, "sliderBackgroundOpacity");
-	                                    }
-	                                }),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '%'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'w2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider button text color'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderButtonTextColor");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderButtonTextColor
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-black' },
-	                                        'Black'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-gray--dark' },
-	                                        'Dark gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-gray--light' },
-	                                        'Light gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-white' },
-	                                        'White'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-yellow' },
-	                                        'Yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-blue' },
-	                                        'Blue'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'dxc-font-green' },
-	                                        'Green'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'w2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider indicator color'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderIndicatorsStyle");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderIndicatorsStyle
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators' },
-	                                        'Classic'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators--yellow_black' },
-	                                        'Black and Yellow'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators--black_white' },
-	                                        'Black and White'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators--blue_gray' },
-	                                        'Blue and Gray'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators--pictures' },
-	                                        'DXC Logo'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slider indicator shape'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'select',
-	                                    {
-
-	                                        onChange: function onChange(e) {
-	                                            return _this2.handleGeneralChange(e, "sliderIndicatorsShape");
-	                                        },
-	                                        defaultValue: this.state.sliderStyles.sliderIndicatorsShape
-	                                    },
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators' },
-	                                        'Classic'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators-shape--square_number' },
-	                                        'Default'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators-shape--circle' },
-	                                        'Circle (No numbers)'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'option',
-	                                        { value: 'content-slider-indicators-shape--square' },
-	                                        'Square(No numbers)'
-	                                    )
-	                                )
-	                            )
+	                          "div",
+	                          {
+	                            className: (that.state.sliderStyles.sliderButtonColor || "") + " " + (that.state.sliderStyles.sliderButtonTextColor || "")
+	                          },
+	                          that.state.sliderStyles.readMoreText || ""
 	                        )
+	                      )
 	                    ),
 	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        that.state.slides.map(function (e, i) {
-	                            return _react2.default.createElement(
-	                                'div',
-	                                { className: 'modal-content-edit-slider-container', key: 'slider-' + i },
-	                                _react2.default.createElement(
-	                                    'button',
-	                                    {
-	                                        onClick: function onClick(i) {
-	                                            return that.removeSlide(i);
-	                                        },
-	                                        className: 'modal-content-edit-button--remove'
-	                                    },
-	                                    'X'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slide Image Source'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.slides[i]["src"],
-	                                    onChange: function onChange(event) {
-	                                        return that.updateSlide(event, i, "src");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                }),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slide Title'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.slides[i]["title"],
-	                                    onChange: function onChange(value) {
-	                                        return that.updateSlide(value, i, "title");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                }),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'modal-content-edit-header' },
-	                                    'Slide Link'
-	                                ),
-	                                _react2.default.createElement('input', {
-	                                    type: 'text',
-	                                    value: that.state.slides[i]["link"],
-	                                    onChange: function onChange(value) {
-	                                        return that.updateSlide(value, i, "link");
-	                                    },
-	                                    className: 'modal-content-edit-input-text'
-	                                })
-	                            );
-	                        }),
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                className: 'modal-content-edit-button--plus',
-	                                onClick: function onClick() {
-	                                    return that.addSlide();
-	                                }
-	                            },
-	                            '+'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            {
-	                                onClick: function onClick() {
-	                                    return that.saveEdit();
-	                                },
-	                                className: 'dxc-button'
-	                            },
-	                            'Save'
-	                        )
+	                      "p",
+	                      {
+	                        className: "content-slider-infobox-title " + (that.state.sliderStyles.sliderTextColor || "")
+	                      },
+	                      "Slide Title"
 	                    )
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "content-slider-indicators-wrapper" },
+	                _react2.default.createElement(
+	                  "ul",
+	                  {
+	                    className: that.state.sliderStyles.sliderIndicatorsStyle + " " + that.state.sliderStyles.sliderIndicatorsShape
+	                  },
+	                  _react2.default.createElement(
+	                    "li",
+	                    { className: "active" },
+	                    "1"
+	                  ),
+	                  _react2.default.createElement(
+	                    "li",
+	                    { className: "" },
+	                    "2"
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement("div", { className: "modal-content-edit-seperator" }),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "modal-content-edit-slider-general" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "w3" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "modal-content-edit-slider-header" },
+	                  "Text Styling"
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider text background color"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    defaultValue: this.state.sliderStyles.sliderBackgroundColor,
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderBackgroundColor");
+	                    }
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-black" },
+	                    "Black"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-gray--dark" },
+	                    "Dark gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-gray--light" },
+	                    "Light gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-white" },
+	                    "White"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-yellow" },
+	                    "Yellow"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-blue" },
+	                    "Blue"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-green" },
+	                    "Green"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider text color"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderTextColor");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderTextColor
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-black" },
+	                    "Black"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-gray--dark" },
+	                    "Dark gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-gray--light" },
+	                    "Light gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-white" },
+	                    "White"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-yellow" },
+	                    "Yellow"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-blue" },
+	                    "Blue"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-green" },
+	                    "Green"
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "w3" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "modal-content-edit-slider-header" },
+	                  "Button Styling"
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider button text color"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderButtonTextColor");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderButtonTextColor
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-black" },
+	                    "Black"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-gray--dark" },
+	                    "Dark gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-gray--light" },
+	                    "Light gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-white" },
+	                    "White"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-yellow" },
+	                    "Yellow"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-blue" },
+	                    "Blue"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-font-green" },
+	                    "Green"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider button color"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderButtonColor");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderButtonColor
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-black" },
+	                    "Black"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-gray--dark" },
+	                    "Dark gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-gray--light" },
+	                    "Light gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-white" },
+	                    "White"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-yellow" },
+	                    "Yellow"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-blue" },
+	                    "Blue"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "dxc-background-green" },
+	                    "Green"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider button text"
+	                ),
+	                _react2.default.createElement("input", {
+	                  type: "text",
+	                  value: this.state.sliderStyles.readMoreText,
+	                  onChange: function onChange(e) {
+	                    return _this2.handleGeneralChange(e, "readMoreText");
+	                  }
+	                }),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider indicator color"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderIndicatorsStyle");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderIndicatorsStyle
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators" },
+	                    "Classic"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators--yellow_black" },
+	                    "Black and Yellow"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators--black_white" },
+	                    "Black and White"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators--blue_gray" },
+	                    "Blue and Gray"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators--pictures" },
+	                    "DXC Logo"
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "w3" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "modal-content-edit-slider-header" },
+	                  "Appearance Styling"
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider indicator shape"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderIndicatorsShape");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderIndicatorsShape
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators" },
+	                    "Classic"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators-shape--square_number" },
+	                    "Default"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators-shape--circle" },
+	                    "Circle (No numbers)"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "content-slider-indicators-shape--square" },
+	                    "Square(No numbers)"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider text background style"
+	                ),
+	                _react2.default.createElement(
+	                  "select",
+	                  {
+	                    onChange: function onChange(e) {
+	                      return _this2.handleGeneralChange(e, "sliderBackgroundStyle");
+	                    },
+	                    defaultValue: this.state.sliderStyles.sliderBackgroundStyle
+	                  },
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "slider-shape-square" },
+	                    "Default (Square)"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "slider-shape-DXC" },
+	                    "DXC"
+	                  ),
+	                  _react2.default.createElement(
+	                    "option",
+	                    { value: "slider-shape-hidden" },
+	                    "None (hidden)"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider background opacity"
+	                ),
+	                _react2.default.createElement("input", {
+	                  type: "number",
+	                  value: this.state.sliderStyles.sliderBackgroundOpacity,
+	                  onChange: function onChange(e) {
+	                    return _this2.handleGeneralChange(e, "sliderBackgroundOpacity");
+	                  }
+	                }),
+	                _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "%"
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "modal-content-edit-header" },
+	                  "Slider image opacity"
+	                ),
+	                _react2.default.createElement("input", {
+	                  type: "number",
+	                  onChange: function onChange(e) {
+	                    return _this2.handleGeneralChange(e, "sliderImageOpacity");
+	                  },
+	                  defaultValue: this.state.sliderStyles.sliderImageOpacity
+	                }),
+	                _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "%"
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement("div", { className: "modal-content-edit-seperator" }),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "modal-content-edit-slider-slides-wrapper" },
+	            _react2.default.createElement(
+	              "ul",
+	              null,
+	              that.state.slides.map(function (e, i) {
+	                return _react2.default.createElement(
+	                  "li",
+	                  { className: "modal-content-edit-tabs", key: "sliders-" + i },
+	                  _react2.default.createElement(
+	                    "div",
+	                    {
+	                      className: "modal-content-edit-tabs-name"
+	                    },
+	                    that.state.slides[i]["title"]
+	                  ),
+	                  _react2.default.createElement(
+	                    "button",
+	                    {
+	                      onClick: function onClick() {
+	                        return that.toggleTabContents(i);
+	                      },
+	                      className: "modal-content-edit-button--toggle"
+	                    },
+	                    e["active"] ? _react2.default.createElement(
+	                      "i",
+	                      { className: "material-icons" },
+	                      "\uE22B"
+	                    ) : _react2.default.createElement(
+	                      "i",
+	                      { className: "material-icons" },
+	                      "\uE254"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "button",
+	                    { onClick: function onClick() {
+	                        return that.handleMove(-1, i);
+	                      } },
+	                    _react2.default.createElement(
+	                      "i",
+	                      { className: "material-icons" },
+	                      "\uE5D8"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "button",
+	                    { onClick: function onClick() {
+	                        return that.handleMove(1, i);
+	                      } },
+	                    _react2.default.createElement(
+	                      "i",
+	                      { className: "material-icons" },
+	                      "\uE5DB"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "button",
+	                    { onClick: function onClick() {
+	                        return that.removeSlide(i);
+	                      } },
+	                    _react2.default.createElement(
+	                      "i",
+	                      { className: "material-icons" },
+	                      "\uE5CD"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    {
+	                      className: "modal-content-edit-slider-editor " + (e["active"] ? "transition-down" : "transition-up")
+	                    },
+	                    _react2.default.createElement(
+	                      "div",
+	                      null,
+	                      _react2.default.createElement(
+	                        "p",
+	                        { className: "modal-content-edit-header" },
+	                        "Slide Title"
+	                      ),
+	                      _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-content-edit-slides-title" },
+	                        _react2.default.createElement("input", {
+	                          type: "text",
+	                          value: that.state.slides[i]["title"],
+	                          onChange: function onChange(event) {
+	                            return that.updateSlide(event, i, "title");
+	                          }
+	                        })
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      "div",
+	                      null,
+	                      _react2.default.createElement(
+	                        "p",
+	                        { className: "modal-content-edit-header" },
+	                        "Slide Image"
+	                      ),
+	                      _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-content-edit-slides-image" },
+	                        _react2.default.createElement("input", {
+	                          type: "text",
+	                          value: that.state.slides[i]["src"],
+	                          onChange: function onChange(event) {
+	                            return that.updateSlide(event, i, "src");
+	                          }
+	                        })
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      "div",
+	                      null,
+	                      _react2.default.createElement(
+	                        "p",
+	                        { className: "modal-content-edit-header" },
+	                        "Slide Description"
+	                      ),
+	                      _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-content-edit-slides-image" },
+	                        _react2.default.createElement("textarea", {
+	                          type: "text",
+	                          value: that.state.slides[i]["description"],
+	                          onChange: function onChange(event) {
+	                            return that.updateSlide(event, i, "description");
+	                          }
+	                        })
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      "div",
+	                      null,
+	                      _react2.default.createElement(
+	                        "p",
+	                        { className: "modal-content-edit-header" },
+	                        "Slide Link"
+	                      ),
+	                      _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-content-edit-slides-image" },
+	                        _react2.default.createElement("input", {
+	                          type: "text",
+	                          value: that.state.slides[i]["link"],
+	                          onChange: function onChange(event) {
+	                            return that.updateSlide(event, i, "link");
+	                          }
+	                        })
+	                      )
+	                    )
+	                  )
 	                );
-	            } else {
-	                return _react2.default.createElement(_sliderComponent2.default, { sliderStyles: that.props.componentProperties.sliderStyles, slides: that.props.componentProperties.slides });
-	            }
-	        }
-	    }]);
+	              })
+	            ),
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                className: "modal-content-edit-button--plus",
+	                onClick: function onClick() {
+	                  return that.addSlide();
+	                }
+	              },
+	              "+"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	              "button",
+	              { onClick: function onClick() {
+	                  return that.saveEdit();
+	                }, className: "dxc-button" },
+	              "Save"
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(_sliderComponent2.default, {
+	          sliderStyles: that.props.componentProperties.sliderStyles,
+	          slides: that.props.componentProperties.slides
+	        });
+	      }
+	    }
+	  }]);
 
-	    return SliderWebPart;
+	  return SliderWebPart;
 	}(_react2.default.Component);
 
 	exports.default = SliderWebPart;
@@ -54047,7 +54165,10 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'content-slider' },
-	                _react2.default.createElement('img', { src: this.state.currentPicture, className: this.state.className + ' content-slider-image' }),
+	                _react2.default.createElement('img', {
+	                    src: this.state.currentPicture,
+	                    className: this.state.className + ' content-slider-image',
+	                    style: { opacity: (parseInt(_this.props.sliderStyles.sliderImageOpacity) / 100).toFixed(2) } }),
 	                slides.map(function (elem, index) {
 	                    if (index + 1 == _this.state.currentPictureIndex) {
 	                        return _react2.default.createElement(
@@ -54061,6 +54182,16 @@
 	                                'div',
 	                                { className: 'content-slider-infobox-text' },
 	                                _react2.default.createElement(
+	                                    'p',
+	                                    { className: 'content-slider-infobox-title ' + (_this.props.sliderStyles.sliderTextColor || "") },
+	                                    elem.title
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'content-slider-infobox-description ' + (_this.props.sliderStyles.sliderTextColor || "") },
+	                                    elem.description
+	                                ),
+	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'content-slider-infobox-readMore' },
 	                                    _react2.default.createElement(
@@ -54072,11 +54203,6 @@
 	                                            _this.props.sliderStyles.readMoreText || ""
 	                                        )
 	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'content-slider-infobox-title ' + (_this.props.sliderStyles.sliderTextColor || "") },
-	                                    elem.title
 	                                )
 	                            )
 	                        );
@@ -54513,7 +54639,8 @@
 
 	    _this.state = {
 	      tabs: _this.props.componentProperties.tabs || [],
-	      currentActiveTab: _this.props.componentProperties.currentActiveTab || 0
+	      currentActiveTab: _this.props.componentProperties.currentActiveTab || 0,
+	      tabStyle: _this.props.componentProperties.tabStyle || ""
 	    };
 	    return _this;
 	  }
@@ -54533,20 +54660,22 @@
 	    value: function componentWillReceiveProps(nextProps) {
 	      console.log(nextProps);
 	      var tabs = nextProps.componentProperties.tabs || [];
+	      var tabStyle = nextProps.componentProperties.tabStyle || "";
 	      tabs = tabs.map(function (e) {
 	        e["editorState"] = e.editorStateRaw ? _draftJs.EditorState.createWithContent((0, _draftJs.convertFromRaw)(e.editorStateRaw)) : _draftJs.EditorState.createEmpty();
 	        return e;
 	      });
 	      this.setState({
-	        tabs: tabs
+	        tabs: tabs, tabStyle: tabStyle
 	      });
 	    }
 	  }, {
 	    key: "saveEdit",
 	    value: function saveEdit() {
 	      var tabs = this.state.tabs;
+	      var tabStyle = this.state.tabStyle;
 	      this.props.passProps({
-	        tabs: tabs
+	        tabs: tabs, tabStyle: tabStyle
 	      });
 	    }
 	  }, {
@@ -54567,6 +54696,15 @@
 	      });
 	      this.setState({
 	        tabs: tabs
+	      });
+	    }
+	  }, {
+	    key: "handleStyleChange",
+	    value: function handleStyleChange(e) {
+	      var tabStyle = this.state.tabStyle || "";
+	      tabStyle = e.target.value;
+	      this.setState({
+	        tabStyle: tabStyle
 	      });
 	    }
 	  }, {
@@ -54629,6 +54767,30 @@
 	            "div",
 	            { className: "modal-content-edit-count" },
 	            "Number of tabs: " + this.state.tabs.length
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "modal-content-edit-general" },
+	            _react2.default.createElement(
+	              "select",
+	              {
+	                className: "modal-content-edit-select",
+	                value: this.state.tabStyle,
+	                onChange: function onChange(e) {
+	                  return _this2.handleStyleChange(e);
+	                }
+	              },
+	              _react2.default.createElement(
+	                "option",
+	                { value: "horizontal" },
+	                "Horizontal"
+	              ),
+	              _react2.default.createElement(
+	                "option",
+	                { value: "vertical" },
+	                "Vertical"
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
 	            "ul",
@@ -54744,11 +54906,13 @@
 	          )
 	        );
 	      } else {
+	        console.log(this.state, "\n", this.props.componentProperties);
 	        var tabWidth = this.props.componentProperties.tabs.length || 1;
 	        tabWidth = Math.floor(100 / tabWidth).toString() + "%";
+	        var styleObj = this.state.tabStyle == "horizontal" ? { width: tabWidth } : { height: tabWidth };
 	        return _react2.default.createElement(
 	          "div",
-	          { className: "page-content-tabs" },
+	          { className: "page-content-tabs " + this.state.tabStyle },
 	          _react2.default.createElement(
 	            "div",
 	            { className: "page-content-tabs-indicators" },
@@ -54757,7 +54921,7 @@
 	                "div",
 	                {
 	                  className: "page-content-tabs-indicators-indicator " + (i != that.state.currentActiveTab ? "" : "active"),
-	                  style: { width: tabWidth },
+	                  style: styleObj,
 	                  key: "tab-" + i,
 	                  onClick: function onClick() {
 	                    return that.setActiveTab(i);
@@ -54780,7 +54944,7 @@
 	                _react2.default.createElement(_reactDraftWysiwyg.Editor, {
 	                  editorState: e["editorState"],
 	                  toolbarStyle: { display: "none", visibility: "hidden" },
-	                  editorStyle: { width: "100%", height: "90%" },
+	                  editorStyle: { width: "100%", height: "100%" },
 	                  readOnly: true
 	                })
 	              );
@@ -55072,7 +55236,8 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }] */
+
 
 	var Autocomplete = function (_Component) {
 	  _inherits(Autocomplete, _Component);
@@ -55083,7 +55248,7 @@
 	    var _this = _possibleConstructorReturn(this, (Autocomplete.__proto__ || Object.getPrototypeOf(Autocomplete)).call(this, props));
 
 	    _this.state = {
-	      value: ''
+	      value: props.value || ''
 	    };
 
 	    _this.renderIcon = _this.renderIcon.bind(_this);
@@ -55093,6 +55258,15 @@
 	  }
 
 	  _createClass(Autocomplete, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var value = _ref.value;
+
+	      if (value !== undefined) {
+	        this.setState({ value: value });
+	      }
+	    }
+	  }, {
 	    key: 'renderIcon',
 	    value: function renderIcon(icon, iconClassName) {
 	      return _react2.default.createElement(
@@ -55129,9 +55303,7 @@
 	          var index = key.toUpperCase().indexOf(value.toUpperCase());
 	          return _react2.default.createElement(
 	            'li',
-	            { key: key + '_' + idx, onClick: function onClick(evt) {
-	                return _this2.setState({ value: key });
-	              } },
+	            { key: key + '_' + idx, onClick: _this2._onAutocomplete.bind(_this2, key) },
 	            data[key] ? _react2.default.createElement('img', { src: data[key], className: 'right circle' }) : null,
 	            _react2.default.createElement(
 	              'span',
@@ -55151,25 +55323,51 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange(evt) {
-	      this.setState({ value: evt.target.value });
+	      var onChange = this.props.onChange;
+
+	      var value = evt.target.value;
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
+	    }
+	  }, {
+	    key: '_onAutocomplete',
+	    value: function _onAutocomplete(value, evt) {
+	      var _props = this.props,
+	          onChange = _props.onChange,
+	          onAutocomplete = _props.onAutocomplete;
+
+	      if (onAutocomplete) {
+	        onAutocomplete(value);
+	      }
+	      if (onChange) {
+	        onChange(evt, value);
+	      }
+
+	      this.setState({ value: value });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props,
-	          className = _props.className,
-	          title = _props.title,
-	          data = _props.data,
-	          icon = _props.icon,
-	          iconClassName = _props.iconClassName,
-	          s = _props.s,
-	          m = _props.m,
-	          l = _props.l,
-	          offset = _props.offset,
-	          minLength = _props.minLength,
-	          placeholder = _props.placeholder,
-	          limit = _props.limit,
-	          props = _objectWithoutProperties(_props, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit']);
+	      var _props2 = this.props,
+	          className = _props2.className,
+	          title = _props2.title,
+	          data = _props2.data,
+	          icon = _props2.icon,
+	          iconClassName = _props2.iconClassName,
+	          s = _props2.s,
+	          m = _props2.m,
+	          l = _props2.l,
+	          offset = _props2.offset,
+	          minLength = _props2.minLength,
+	          placeholder = _props2.placeholder,
+	          limit = _props2.limit,
+	          value = _props2.value,
+	          onChange = _props2.onChange,
+	          onAutocomplete = _props2.onAutocomplete,
+	          props = _objectWithoutProperties(_props2, ['className', 'title', 'data', 'icon', 'iconClassName', 's', 'm', 'l', 'offset', 'minLength', 'placeholder', 'limit', 'value', 'onChange', 'onAutocomplete']);
 
 	      var _id = 'autocomplete-input';
 	      var sizes = { s: s, m: m, l: l };
@@ -55237,7 +55435,21 @@
 	  /**
 	   * Placeholder for input element
 	   * */
-	  placeholder: _propTypes2.default.string
+	  placeholder: _propTypes2.default.string,
+	  /**
+	   * Called when the value of the input gets changed - by user typing or clicking on an auto-complete item.
+	   * Function signature: (event, value) => ()
+	   */
+	  onChange: _propTypes2.default.func,
+	  /**
+	   * Called when auto-completed item is selected.
+	   * Function signature: (value) => ()
+	   */
+	  onAutocomplete: _propTypes2.default.func,
+	  /**
+	   * The value of the input
+	   */
+	  value: _propTypes2.default.string
 	};
 
 	exports.default = Autocomplete;
@@ -57255,6 +57467,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          htmlLabel,
 	          _react2.default.createElement(
 	            'select',
@@ -57277,6 +57490,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(classes) },
+	          this.renderIcon(),
 	          _react2.default.createElement(C, _extends({}, other, {
 	            className: (0, _classnames2.default)(className, inputClasses),
 	            defaultValue: defaultValue,
@@ -60442,8 +60656,8 @@
 	        var _this = _possibleConstructorReturn(this, (HorizontalNav.__proto__ || Object.getPrototypeOf(HorizontalNav)).call(this, props));
 
 	        _this.state = {
-	            tabs: _this.props.componentProperties.tabs || []
-
+	            tabs: _this.props.componentProperties.tabs || [],
+	            look: _this.props.componentProperties.look || 'dxc-white-nav'
 	        };
 	        return _this;
 	    }
@@ -60452,7 +60666,8 @@
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
 	            this.setState({
-	                tabs: nextProps.componentProperties.tabs
+	                tabs: nextProps.componentProperties.tabs,
+	                look: nextProps.componentProperties.look
 	            });
 	        }
 	    }, {
@@ -60460,8 +60675,9 @@
 	        value: function addChildTab(i) {
 	            var tabs = this.state.tabs;
 	            tabs[i]['children'].push({
-	                name: '',
-	                link: ''
+	                name: 'Link name',
+	                link: '',
+	                active: false
 	            });
 	            this.setState({ tabs: tabs });
 	        }
@@ -60470,18 +60686,14 @@
 	        value: function addTab() {
 	            var tabs = this.state.tabs;
 	            tabs.push({
-	                name: '',
+	                name: 'Link name',
 	                link: '',
+	                active: false,
 	                children: []
 	            });
-	            this.setState({ tabs: tabs });
-	        }
-	    }, {
-	        key: 'removeTab',
-	        value: function removeTab(i) {
-	            var tabs = this.state.tabs;
-	            tabs.splice(i, 1);
-	            this.setState({ tabs: tabs });
+	            this.setState({
+	                tabs: tabs
+	            });
 	        }
 	    }, {
 	        key: 'handlePropChange',
@@ -60498,13 +60710,64 @@
 	        key: 'saveEdit',
 	        value: function saveEdit() {
 	            var tabs = this.state.tabs;
-	            this.props.passProps({ tabs: tabs });
+	            var look = this.state.look;
+	            this.props.passProps({ tabs: tabs, look: look });
 	        }
 	    }, {
 	        key: 'changeLook',
 	        value: function changeLook(e) {
 	            this.setState({
 	                look: e.target.value
+	            });
+	        }
+	    }, {
+	        key: 'changeTabsStatus',
+	        value: function changeTabsStatus(i) {
+	            var tabs = this.state.tabs;
+	            tabs[i]['active'] = !tabs[i]['active'];
+	            this.setState({
+	                tabs: tabs
+	            });
+	        }
+	    }, {
+	        key: 'removeTab',
+	        value: function removeTab(index, childIndex) {
+	            var tabs = this.state.tabs;
+	            var confirmResult = confirm('This is will permanently delete the item. Are you sure you want to proceed?');
+	            if (confirmResult) {
+	                if (childIndex == undefined) {
+	                    tabs.splice(index, 1);
+	                } else {
+	                    tabs[index]['children'].splice(childIndex, 1);
+	                }
+	            }
+	            this.setState({
+	                tabs: tabs
+	            });
+	        }
+	    }, {
+	        key: 'handleMove',
+	        value: function handleMove(dir, parentIndex, childIndex) {
+	            var tabs = this.state.tabs;
+	            if (childIndex == undefined) {
+	                if (parentIndex + dir >= tabs.length || parentIndex + dir < 0) {
+	                    return false;
+	                }
+	                var item1 = tabs[parentIndex];
+	                var item2 = tabs[parentIndex + dir];
+	                tabs[parentIndex] = item2;
+	                tabs[parentIndex + dir] = item1;
+	            } else {
+	                if (childIndex + dir >= tabs[parentIndex]['children'].length || childIndex + dir < 0) {
+	                    return false;
+	                }
+	                var _item = tabs[parentIndex]['children'][childIndex];
+	                var _item2 = tabs[parentIndex]['children'][childIndex + dir];
+	                tabs[parentIndex]['children'][childIndex] = _item2;
+	                tabs[parentIndex]['children'][childIndex + dir] = _item;
+	            }
+	            this.setState({
+	                tabs: tabs
 	            });
 	        }
 	    }, {
@@ -60516,113 +60779,246 @@
 	            if (!this.props.editable) {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'horizontalNav' },
+	                    { className: this.state.look },
 	                    this.state.tabs.map(function (e, i) {
-	                        return _react2.default.createElement(_dropDown2.default, { info: e });
+	                        return _react2.default.createElement(_dropDown2.default, { info: e, styleWidth: Math.floor(100 / (that.state.tabs.length || 1)), look: that.state.look });
 	                    })
 	                );
 	            }
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    null,
+	                    { className: 'preview' },
 	                    _react2.default.createElement(
-	                        'button',
-	                        {
-	                            onClick: function onClick() {
-	                                return that.saveEdit();
-	                            },
-	                            className: 'dxc-button'
-	                        },
-	                        'Save'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(
-	                        'p',
+	                        'div',
 	                        null,
-	                        'Choose the look'
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                onClick: function onClick() {
+	                                    return that.saveEdit();
+	                                },
+	                                className: 'dxc-button'
+	                            },
+	                            'Save'
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'select',
-	                        { value: this.state.look, onChange: function onChange() {
-	                                return _this2.changeLook();
-	                            } },
+	                        'div',
+	                        null,
 	                        _react2.default.createElement(
-	                            'option',
-	                            { value: 'dxc-black' },
-	                            'DXC-Black'
+	                            'p',
+	                            null,
+	                            'Choose the look'
 	                        ),
 	                        _react2.default.createElement(
-	                            'option',
-	                            { value: 'dxc-white' },
-	                            'DXC-White'
+	                            'select',
+	                            { value: this.state.look, onChange: function onChange(e) {
+	                                    return _this2.changeLook(e);
+	                                } },
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'dxc-black-nav' },
+	                                'DXC-Black'
+	                            ),
+	                            _react2.default.createElement(
+	                                'option',
+	                                { value: 'dxc-white-nav' },
+	                                'DXC-White'
+	                            )
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: this.state.look },
+	                        this.state.tabs.map(function (e, i) {
+	                            return _react2.default.createElement(_dropDown2.default, { look: that.state.look, info: e, styleWidth: Math.floor(100 / (that.state.tabs.length || 1)) });
+	                        })
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'horizontalNav' },
-	                    this.state.tabs.map(function (e, i) {
-	                        return _react2.default.createElement(_dropDown2.default, { info: e });
-	                    })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'tabCreation' },
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Tabs'
+	                    ),
 	                    this.state.tabs.map(function (e, i) {
 	                        return _react2.default.createElement(
 	                            'div',
 	                            { className: 'tabEdit' },
-	                            'Name of Tab:',
-	                            _react2.default.createElement('input', { value: e.name, onChange: function onChange(event) {
-	                                    return that.handlePropChange(i, 'name', event.target.value);
-	                                } }),
-	                            'Link address:',
-	                            _react2.default.createElement('input', { value: e.link, onChange: function onChange(event) {
-	                                    return that.handlePropChange(i, 'link', event.target.value);
-	                                } }),
 	                            _react2.default.createElement(
-	                                'button',
-	                                { onClick: function onClick() {
-	                                        return that.addChildTab(i);
-	                                    } },
-	                                '+'
+	                                'div',
+	                                null,
+	                                e['active'] == false ? _react2.default.createElement(
+	                                    'i',
+	                                    { onClick: function onClick(e) {
+	                                            return that.changeTabsStatus(i);
+	                                        },
+	                                        className: 'material-icons mini left' },
+	                                    '\uE254'
+	                                ) : _react2.default.createElement(
+	                                    'i',
+	                                    { onClick: function onClick(e) {
+	                                            return that.changeTabsStatus(i);
+	                                        }, className: 'material-icons mini left' },
+	                                    '\uE22B'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'tabTitle' },
+	                                    e['name'] || 'Link Name'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { onClick: function onClick(e) {
+	                                            return that.handleMove(1, i);
+	                                        }, className: 'material-icons mini' },
+	                                    '\uE5DB'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { onClick: function onClick(e) {
+	                                            return that.handleMove(-1, i);
+	                                        }, className: 'material-icons mini' },
+	                                    '\uE5D8'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { onClick: function onClick(e) {
+	                                            return that.removeTab(i);
+	                                        }, className: 'material-icons mini' },
+	                                    '\uE5CD'
+	                                )
 	                            ),
+	                            _react2.default.createElement('div', { className: 'divider' }),
 	                            _react2.default.createElement(
-	                                'button',
-	                                { onClick: function onClick() {
-	                                        return that.removeTab(i);
-	                                    } },
-	                                'X'
-	                            ),
-	                            e['children'].map(function (e, j) {
-	                                return _react2.default.createElement(
+	                                'div',
+	                                { className: ' ' + (e['active'] == true ? 'show' : 'hide') },
+	                                _react2.default.createElement(
 	                                    'div',
+	                                    { className: 'tabEditBox' },
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        null,
+	                                        'Title',
+	                                        _react2.default.createElement('input', { value: e.name, onChange: function onChange(event) {
+	                                                return that.handlePropChange(i, 'name', event.target.value);
+	                                            } })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        null,
+	                                        'Link',
+	                                        _react2.default.createElement('input', { value: e.link, onChange: function onChange(event) {
+	                                                return that.handlePropChange(i, 'link', event.target.value);
+	                                            } })
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'table',
 	                                    null,
-	                                    'Name of Tab:',
-	                                    _react2.default.createElement('input', { value: e["name"], onChange: function onChange(event) {
-	                                            return that.handlePropChange(i, 'name', event.target.value, j);
-	                                        } }),
-	                                    'Link address:',
-	                                    _react2.default.createElement('input', { value: e["link"], onChange: function onChange(event) {
-	                                            return that.handlePropChange(i, 'link', event.target.value, j);
-	                                        } })
-	                                );
-	                            })
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                'Title'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                'Link'
+	                                            )
+	                                        ),
+	                                        e['children'].map(function (e, j) {
+	                                            return _react2.default.createElement(
+	                                                'tr',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    _react2.default.createElement('input', { value: e["name"], onChange: function onChange(event) {
+	                                                            return that.handlePropChange(i, 'name', event.target.value, j);
+	                                                        } })
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    _react2.default.createElement('input', { value: e["link"], onChange: function onChange(event) {
+	                                                            return that.handlePropChange(i, 'link', event.target.value, j);
+	                                                        } })
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'i',
+	                                                        { onClick: function onClick(e) {
+	                                                                return that.handleMove(1, i, j);
+	                                                            }, className: 'material-icons mini' },
+	                                                        '\uE5DB'
+	                                                    )
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'i',
+	                                                        { onClick: function onClick(e) {
+	                                                                return that.handleMove(-1, i, j);
+	                                                            }, className: 'material-icons mini' },
+	                                                        '\uE5D8'
+	                                                    )
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    _react2.default.createElement(
+	                                                        'i',
+	                                                        { onClick: function onClick(e) {
+	                                                                return that.removeTab(i, j);
+	                                                            }, className: 'material-icons mini' },
+	                                                        '\uE5CD'
+	                                                    )
+	                                                )
+	                                            );
+	                                        })
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'anchorDiv' },
+	                                    _react2.default.createElement(
+	                                        'i',
+	                                        { onClick: function onClick() {
+	                                                return that.addChildTab(i);
+	                                            }, className: 'material-icons mini' },
+	                                        '\uE146'
+	                                    )
+	                                )
+	                            )
 	                        );
-	                    })
-	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { onClick: function onClick() {
-	                            return _this2.addTab();
-	                        } },
-	                    'Add Tab'
+	                    }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'anchorDiv' },
+	                        _react2.default.createElement(
+	                            'i',
+	                            { onClick: function onClick() {
+	                                    return that.addTab();
+	                                }, className: 'material-icons' },
+	                            '\uE146'
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -60673,12 +61069,26 @@
 	            info: _this.props.info,
 	            tabsStyle: {
 	                display: 'none'
+	            },
+	            style: {
+	                width: '0%'
 	            }
 	        };
 	        return _this;
 	    }
 
 	    _createClass(DropDown, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            var width = 100 / nextProps.info;
+	            this.setState({
+	                info: nextProps.info,
+	                style: {
+	                    width: nextProps.styleWidth + '%'
+	                }
+	            });
+	        }
+	    }, {
 	        key: 'showTabs',
 	        value: function showTabs() {
 	            this.setState({
@@ -60701,9 +61111,9 @@
 	        value: function render() {
 	            var _this2 = this;
 
+	            console.log(this.props.look);
 	            var topLink = _react2.default.createElement('a', null);
 	            var info = this.state.info;
-	            console.log(info);
 	            if (info.children.length > 0) {
 	                topLink = _react2.default.createElement(
 	                    'a',
@@ -60721,11 +61131,11 @@
 	            var that = this;
 	            return _react2.default.createElement(
 	                'div',
-	                { onMouseEnter: function onMouseEnter() {
+	                { className: 'nav-dropDown-header', style: { width: this.props.styleWidth + '%' }, onMouseEnter: function onMouseEnter() {
 	                        return _this2.showTabs();
 	                    }, onMouseLeave: function onMouseLeave() {
 	                        return _this2.hideTabs();
-	                    }, className: 'horizontalNav' },
+	                    } },
 	                topLink,
 	                _react2.default.createElement(
 	                    'div',
@@ -60915,10 +61325,10 @@
 	            locations: [],
 	            categories: [],
 	            events: [],
-	            locationFilter: 'No Filter',
-	            categoryFilter: 'No Filter',
-	            startDate: '10/11/2017',
-	            endDate: '10/11/2017'
+	            locationFilter: 'Location',
+	            categoryFilter: 'Category',
+	            startDate: new Date().toLocaleDateString(),
+	            endDate: new Date().toLocaleDateString()
 	        };
 	        return _this;
 	    }
@@ -60936,7 +61346,8 @@
 	                locations: nextProps.componentProperties.locations || [],
 	                categories: nextProps.componentProperties.categories || [],
 	                startDate: nextProps.componentProperties.startDate,
-	                endDate: nextProps.componentProperties.endDate
+	                endDate: nextProps.componentProperties.endDate,
+	                displayedEvents: nextProps.componentProperties.displayedEvents || []
 	            });
 	        }
 	    }, {
@@ -60972,7 +61383,8 @@
 	                            locations: that.props.componentProperties.locations || [],
 	                            categories: that.props.componentProperties.categories || [],
 	                            startDate: that.props.componentProperties.startDate,
-	                            endDate: that.props.componentProperties.endDate
+	                            endDate: that.props.componentProperties.endDate,
+	                            displayedEvents: that.props.componentProperties.displayedEvents || []
 	                        });
 	                    }
 	                });
@@ -60995,6 +61407,7 @@
 	                    $(xData.responseXML).SPFilterNode("z:row").each(function () {
 	                        var event = {};
 	                        event['Title'] = $(this).attr('ows_Title');
+	                        event['ID'] = $(this).attr('ows_ID');
 	                        event['Location'] = $(this).attr('ows_Location');
 	                        event['EventDate'] = $(this).attr('ows_EventDate');
 	                        event['EndDate'] = $(this).attr('ows_EndDate');
@@ -61013,15 +61426,22 @@
 	                        events: events,
 	                        filteredEvents: events,
 	                        locations: locations,
-	                        categories: categories
+	                        categories: categories,
+	                        displayedEvents: []
 	                    });
 	                }
 	            });
 	        }
 	    }, {
 	        key: 'filterEvents',
-	        value: function filterEvents(filterBy, event) {
-	            var filteredEvents = this.state.events;
+	        value: function filterEvents(filterBy, event, filteredByDates) {
+
+	            var events = void 0;
+	            if (filteredByDates == undefined) {
+	                events = this.state.filteredEvents;
+	            } else {
+	                events = filteredByDates;
+	            }
 	            var locationFilter = this.state.locationFilter;
 	            var categoryFilter = this.state.categoryFilter;
 	            if (filterBy == 'Location') {
@@ -61033,8 +61453,9 @@
 	            var filterNames = ['Location', 'Category'];
 
 	            var _loop = function _loop(i) {
-	                if (filters[i] != 'No Filter') {
-	                    filteredEvents = filteredEvents.filter(function (e) {
+	                if (filters[i] != 'No Filter' && filterNames.indexOf(filters[i]) == -1) {
+	                    console.log('vlizam');
+	                    events = events.filter(function (e) {
 	                        return e[filterNames[i]] == filters[i];
 	                    });
 	                }
@@ -61044,7 +61465,7 @@
 	                _loop(i);
 	            }
 	            this.setState({
-	                filteredEvents: filteredEvents,
+	                displayedEvents: events,
 	                locationFilter: locationFilter,
 	                categoryFilter: categoryFilter
 	            });
@@ -61062,7 +61483,8 @@
 	                locations: this.state.locations,
 	                categories: this.state.categories,
 	                startDate: this.state.startDate,
-	                endDate: this.state.endDate
+	                endDate: this.state.endDate,
+	                displayedEvents: this.state.displayedEvents
 	            });
 	        }
 	    }, {
@@ -61098,18 +61520,21 @@
 	            var filteredEvents = events.filter(function (e) {
 	                return new Date(e['EventDate']).getTime() >= sDate.getTime() && new Date(e['EventDate']).getTime() <= eDate.getTime();
 	            });
+
 	            this.setState({
+	                displayedEvents: filteredEvents,
 	                filteredEvents: filteredEvents,
 	                startDate: new Date(range.startDate._d).toLocaleDateString(),
 	                endDate: new Date(range.endDate._d).toLocaleDateString()
 	            });
-	            this.filterEvents('Location', this.state.locationFilter);
+	            this.filterEvents('Location', this.state.locationFilter, filteredEvents);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
+	            var currentCalendarURL = this.state.selectorValue.replace(/ /g, '%20');
 	            var that = this;
 	            if (this.props.editable) {
 	                return _react2.default.createElement(
@@ -61129,49 +61554,134 @@
 	                            'Save'
 	                        )
 	                    ),
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: this.state.fullCalendarAddUrl, target: '_blank' },
-	                        ' Add a new Calendar '
-	                    ),
-	                    _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        'or add from existing '
-	                    ),
-	                    _react2.default.createElement(
-	                        'select',
-	                        { onChange: function onChange(e) {
-	                                return _this2.onCalendarChange(e);
-	                            }, defaultValue: this.state.selectorValue },
-	                        _react2.default.createElement(
-	                            'option',
-	                            { disabled: true, value: 'default' },
-	                            ' -- Choose a Calendar -- '
-	                        ),
-	                        this.state.existingCalendars.map(function (e) {
-	                            return _react2.default.createElement(
-	                                'option',
-	                                { value: e },
-	                                e
-	                            );
-	                        })
-	                    ),
-	                    _react2.default.createElement(
-	                        'button',
-	                        {
-	                            onClick: function onClick() {
-	                                return _this2.refreshList();
-	                            }
-	                        },
-	                        _react2.default.createElement('i', { className: 'fa fa-refresh', 'aria-hidden': 'true' })
-	                    ),
+	                    this.state.displayedEvents.map(function (e) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'event preview' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'eventCollection-calendarIcon' },
+	                                _react2.default.createElement(
+	                                    'svg',
+	                                    { xmlns: 'http://www.w3.org/2000/svg', width: '40', height: '40', viewBox: '0 0 40 40', focusable: 'false', role: 'presentation' },
+	                                    _react2.default.createElement('path', { d: 'M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'calendarDate preview' },
+	                                    months[e['Month']]
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'p',
+	                                { className: 'eventTitle' },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    {
+	                                        href: '' + that.state.mainURL + that.state.siteName + '/Calendars/Lists/' + currentCalendarURL + '/DispForm.aspx?ID=' + e['ID'] + '&IsDlg=1',
+	                                        target: '_blank' },
+	                                    e['Title']
+	                                )
+	                            )
+	                        );
+	                    }),
+	                    _react2.default.createElement('div', { className: 'divider' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        null,
+	                        { className: 'calendarEdit' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'calendarFunctions' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { className: 'dxc-link', href: this.state.fullCalendarAddUrl, target: '_blank' },
+	                                ' Add Calendar '
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { className: 'dxc-link', href: '' + that.state.mainURL + that.state.siteName + '/Calendars/Lists/' + currentCalendarURL + '/NewForm.aspx?IsDlg=1', target: '_blank' },
+	                                'Add Event'
+	                            ),
+	                            _react2.default.createElement(
+	                                'select',
+	                                { onChange: function onChange(e) {
+	                                        return _this2.onCalendarChange(e);
+	                                    }, defaultValue: this.state.selectorValue },
+	                                _react2.default.createElement(
+	                                    'option',
+	                                    { disabled: true, value: 'default' },
+	                                    ' -- Choose a Calendar -- '
+	                                ),
+	                                this.state.existingCalendars.map(function (e) {
+	                                    return _react2.default.createElement(
+	                                        'option',
+	                                        { value: e },
+	                                        e
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { onClick: function onClick() {
+	                                        return _this2.refreshList();
+	                                    } },
+	                                _react2.default.createElement('i', { className: 'fa fa-refresh', 'aria-hidden': 'true' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'select',
+	                                { onChange: function onChange(e) {
+	                                        return _this2.filterEvents('Location', e.target.value);
+	                                    }, defaultValue: this.state.locationFilter },
+	                                _react2.default.createElement(
+	                                    'option',
+	                                    { disabled: true, value: 'Location' },
+	                                    '-- Location --'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'option',
+	                                    { value: 'No Filter' },
+	                                    'No Filter'
+	                                ),
+	                                this.state.locations.map(function (e) {
+	                                    return _react2.default.createElement(
+	                                        'option',
+	                                        { value: e },
+	                                        e
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                'select',
+	                                { onChange: function onChange(e) {
+	                                        return _this2.filterEvents('Category', e.target.value);
+	                                    }, defaultValue: this.state.categoryFilter },
+	                                _react2.default.createElement(
+	                                    'option',
+	                                    { disabled: true, value: 'Category' },
+	                                    '-- Category --'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'option',
+	                                    { value: 'No Filter' },
+	                                    'No Filter'
+	                                ),
+	                                this.state.categories.map(function (e) {
+	                                    return _react2.default.createElement(
+	                                        'option',
+	                                        { value: e },
+	                                        e
+	                                    );
+	                                })
+	                            )
+	                        ),
 	                        _react2.default.createElement(
 	                            'div',
 	                            null,
+	                            _react2.default.createElement(
+	                                'p',
+	                                null,
+	                                'Event Date Range'
+	                            ),
 	                            _react2.default.createElement(_reactDateRange.DateRange, {
 	                                theme: dateRangeTheme,
 	                                startDate: this.state.startDate,
@@ -61180,85 +61690,14 @@
 	                                onChange: this.handleSelect.bind(this),
 	                                format: 'MM/DD/YYYY'
 	                            })
-	                        ),
-	                        _react2.default.createElement(
-	                            'select',
-	                            { onChange: function onChange(e) {
-	                                    return _this2.filterEvents('Location', e.target.value);
-	                                }, defaultValue: this.state.locationFilter },
-	                            _react2.default.createElement(
-	                                'option',
-	                                { disabled: true, value: 'default' },
-	                                ' -- Location -- '
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'No Filter' },
-	                                'No Filter'
-	                            ),
-	                            this.state.locations.map(function (e) {
-	                                return _react2.default.createElement(
-	                                    'option',
-	                                    { value: e },
-	                                    e
-	                                );
-	                            })
-	                        ),
-	                        _react2.default.createElement(
-	                            'select',
-	                            { onChange: function onChange(e) {
-	                                    return _this2.filterEvents('Category', e.target.value);
-	                                }, defaultValue: this.state.categoryFilter },
-	                            _react2.default.createElement(
-	                                'option',
-	                                { disabled: true, value: 'default' },
-	                                ' -- Category -- '
-	                            ),
-	                            _react2.default.createElement(
-	                                'option',
-	                                { value: 'No Filter' },
-	                                'No Filter'
-	                            ),
-	                            this.state.categories.map(function (e) {
-	                                return _react2.default.createElement(
-	                                    'option',
-	                                    { value: e },
-	                                    e
-	                                );
-	                            })
 	                        )
-	                    ),
-	                    this.state.filteredEvents.map(function (e) {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'event' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'eventCollection-calendarIcon' },
-	                                _react2.default.createElement(
-	                                    'svg',
-	                                    { xmlns: 'http://www.w3.org/2000/svg', width: '40', height: '40', viewBox: '0 0 40 40', focusable: 'false', role: 'presentation' },
-	                                    _react2.default.createElement('path', { d: 'M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'calendarDate' },
-	                                    months[e['Month']]
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'p',
-	                                { className: 'eventTitle' },
-	                                e['Title']
-	                            )
-	                        );
-	                    })
+	                    )
 	                );
 	            } else {
 	                return _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    this.state.filteredEvents.map(function (e) {
+	                    this.state.displayedEvents.map(function (e) {
 	                        return _react2.default.createElement(
 	                            'div',
 	                            { className: 'event' },
@@ -61279,7 +61718,13 @@
 	                            _react2.default.createElement(
 	                                'p',
 	                                { className: 'eventTitle' },
-	                                e['Title']
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    {
+	                                        href: '' + that.state.mainURL + that.state.siteName + '/Calendars/Lists/' + currentCalendarURL + '/DispForm.aspx?ID=' + e['ID'] + '&IsDlg=1',
+	                                        target: '_blank' },
+	                                    e['Title']
+	                                )
 	                            )
 	                        );
 	                    })
@@ -79354,14 +79799,17 @@
 	var draggableComponents = exports.draggableComponents = [{
 	  type: 'Slider-Component',
 	  defaultSize: {
-	    w: 7,
-	    h: 12
+	    w: 14,
+	    h: 12,
+	    minW: 3,
+	    minH: 3
 	  },
 	  innerElementProps: {
 	    slides: [{
 	      src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
 	      title: "Second Slide",
-	      link: "2"
+	      link: "2",
+	      description: "This is a placeholder description."
 	    }],
 	    sliderStyles: {
 	      sliderBackgroundStyle: "slider-shape-square",
@@ -79370,6 +79818,7 @@
 	      sliderTextColor: "dxc-font-white",
 	      sliderButtonTextColor: "dxc-font-black",
 	      sliderBackgroundOpacity: 60,
+	      sliderImageOpacity: 80,
 	      sliderIndicatorsStyle: "content-slider-indicators",
 	      sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
 	      readMoreText: "Read more"
@@ -79378,21 +79827,21 @@
 	}, {
 	  type: 'ImageContainer-Component',
 	  defaultSize: {
-	    w: 2,
+	    w: 4,
 	    h: 9
 	  },
 	  innerElementProps: {}
 	}, {
 	  type: 'TextArea-Component',
 	  defaultSize: {
-	    w: 7,
+	    w: 14,
 	    h: 12
 	  },
 	  defaultProps: {}
 	}, {
 	  type: 'Survey-Component',
 	  defaultSize: {
-	    w: 2,
+	    w: 4,
 	    h: 9
 	  },
 	  innerElementProps: {
@@ -79403,23 +79852,23 @@
 	}, {
 	  type: 'Calendar-Component',
 	  defaultSize: {
-	    w: 2,
+	    w: 4,
 	    h: 9
 	  },
 	  innerElementProps: {
-	    selectorValue: '',
-	    categoryFilter: 'No Filter',
-	    locationFilter: 'No Filter',
+	    selectorValue: 'default',
+	    locationFilter: 'Location',
+	    categoryFilter: 'Category',
 	    events: [],
 	    filteredEvents: [],
-	    startDate: '10/11/2017',
-	    endDate: '10/11/2017'
+	    startDate: new Date().toLocaleDateString(),
+	    endDate: new Date().toLocaleDateString()
 
 	  }
 	}, {
 	  type: 'TabMenu-Component',
 	  defaultSize: {
-	    w: 2,
+	    w: 4,
 	    h: 9
 	  },
 	  innerElementProps: {
@@ -79429,12 +79878,14 @@
 	      "title": "Tab 2"
 	    }, {
 	      "title": "Tab 3"
-	    }]
+	    }],
+	    tabStyle: "horizontal",
+	    currentActiveTab: 0
 	  }
 	}, {
 	  type: 'ImageGallery-Component',
 	  defaultSize: {
-	    w: 6,
+	    w: 12,
 	    h: 9
 	  },
 	  innerElementProps: {
@@ -79449,7 +79900,7 @@
 	}, {
 	  type: 'VerticalNav-Component',
 	  defaultSize: {
-	    w: 2,
+	    w: 4,
 	    h: 9
 	  },
 	  innerElementProps: {
@@ -79461,23 +79912,29 @@
 	}, {
 	  type: 'HorizontalNav-Component',
 	  defaultSize: {
-	    w: 10,
+	    w: 20,
 	    h: 4
 	  },
 	  innerElementProps: {
 	    tabs: [{
 	      "name": "Header 1",
 	      "link": "#",
+	      "active": false,
+	      "position": 0,
 	      "children": []
 	    }, {
 	      "name": "Header 2",
 	      "link": "#",
+	      "active": false,
+	      "position": 1,
 	      "children": [{
 	        "name": "Sub-header 1",
-	        "link": "#1"
+	        "link": "#1",
+	        "position": 0
 	      }, {
 	        "name": "Sub-header 2",
-	        "link": "#2"
+	        "link": "#2",
+	        "position": 1
 	      }]
 	    }]
 	  }

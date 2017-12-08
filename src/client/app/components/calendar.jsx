@@ -49,10 +49,10 @@ class Calendar extends React.Component {
             locations: [],
             categories: [],
             events: [],
-            locationFilter: 'No Filter',
-            categoryFilter: 'No Filter',
-            startDate: '10/11/2017',
-            endDate: '10/11/2017',
+            locationFilter: 'Location',
+            categoryFilter: 'Category',
+            startDate: new Date().toLocaleDateString(),
+            endDate: new Date().toLocaleDateString(),
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -67,6 +67,7 @@ class Calendar extends React.Component {
             categories: nextProps.componentProperties.categories || [],
             startDate: nextProps.componentProperties.startDate,
             endDate: nextProps.componentProperties.endDate,
+            displayedEvents: nextProps.componentProperties.displayedEvents || [],
         })
 
     }
@@ -102,8 +103,10 @@ class Calendar extends React.Component {
                         locations: that.props.componentProperties.locations || [],
                         categories: that.props.componentProperties.categories || [],
                         startDate: that.props.componentProperties.startDate,
-                        endDate: that.props.componentProperties.endDate
+                        endDate: that.props.componentProperties.endDate,
+                        displayedEvents: that.props.componentProperties.displayedEvents || []
                     })
+
                 }
             })
 
@@ -125,11 +128,12 @@ class Calendar extends React.Component {
                 $(xData.responseXML).SPFilterNode("z:row").each(function () {
                     let event = {};
                     event['Title'] = $(this).attr('ows_Title');
+                    event['ID'] = $(this).attr('ows_ID');
                     event['Location'] = $(this).attr('ows_Location');
                     event['EventDate'] = $(this).attr('ows_EventDate');
                     event['EndDate'] = $(this).attr('ows_EndDate');
                     event['Category'] = $(this).attr('ows_Category')
-                    event['Month'] = parseInt($(this).attr('ows_EventDate').split('-')[1])-1;
+                    event['Month'] = parseInt($(this).attr('ows_EventDate').split('-')[1]) - 1;
                     if (locations.indexOf(event['Location']) < 0) {
                         locations.push(event['Location'])
                     }
@@ -144,15 +148,22 @@ class Calendar extends React.Component {
                     events,
                     filteredEvents: events,
                     locations,
-                    categories
+                    categories,
+                    displayedEvents: [],
                 })
             }
         });
 
     }
 
-    filterEvents(filterBy, event) {
-        let filteredEvents = this.state.events;
+    filterEvents(filterBy, event, filteredByDates) {
+
+        let events;
+        if (filteredByDates == undefined) {
+            events = this.state.filteredEvents;
+        } else {
+            events = filteredByDates
+        }
         let locationFilter = this.state.locationFilter;
         let categoryFilter = this.state.categoryFilter;
         if (filterBy == 'Location') {
@@ -163,12 +174,13 @@ class Calendar extends React.Component {
         let filters = [locationFilter, categoryFilter];
         let filterNames = ['Location', 'Category']
         for (let i = 0; i < filters.length; i++) {
-            if (filters[i] != 'No Filter') {
-                filteredEvents = filteredEvents.filter(e => e[filterNames[i]] == filters[i]);
+            if (filters[i] != 'No Filter' && filterNames.indexOf(filters[i]) == -1) {
+                console.log('vlizam')
+                events = events.filter(e => e[filterNames[i]] == filters[i]);
             }
         }
         this.setState({
-            filteredEvents,
+            displayedEvents: events,
             locationFilter,
             categoryFilter
         })
@@ -186,7 +198,8 @@ class Calendar extends React.Component {
             locations: this.state.locations,
             categories: this.state.categories,
             startDate: this.state.startDate,
-            endDate: this.state.endDate
+            endDate: this.state.endDate,
+            displayedEvents: this.state.displayedEvents
         })
     }
 
@@ -220,15 +233,18 @@ class Calendar extends React.Component {
         let filteredEvents = events.filter(
             e => new Date(e['EventDate']).getTime() >= sDate.getTime() &&
                 new Date(e['EventDate']).getTime() <= eDate.getTime())
+
         this.setState({
+            displayedEvents: filteredEvents,
             filteredEvents,
             startDate: new Date(range.startDate._d).toLocaleDateString(),
             endDate: new Date(range.endDate._d).toLocaleDateString()
         })
-        this.filterEvents('Location',this.state.locationFilter)
+        this.filterEvents('Location', this.state.locationFilter, filteredEvents)
     }
 
     render() {
+        let currentCalendarURL = this.state.selectorValue.replace(/ /g, '%20');
         let that = this;
         if (this.props.editable) {
             return (
@@ -239,22 +255,54 @@ class Calendar extends React.Component {
                             className="dxc-button"
                         >Save</button>
                     </div>
-                    <a href={this.state.fullCalendarAddUrl} target="_blank" > Add a new Calendar </a>
-                    <p>or add from existing </p>
-                    <select onChange={(e) => this.onCalendarChange(e)} defaultValue={this.state.selectorValue}>
-                        <option disabled value="default"> -- Choose a Calendar -- </option>
-                        {this.state.existingCalendars.map((e) => <option value={e}>{e}</option>)}
-                    </select>
-                    <button
-                        onClick={() => this.refreshList()}
-                    >
-                        <i className="fa fa-refresh" aria-hidden="true"></i>
-                    </button>
-                    <div>
+
+                    {
+
+                        this.state.displayedEvents.map(e =>
+                            <div className="event preview">
+                                <span className="eventCollection-calendarIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
+                                        <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
+                                    </svg>
+                                    <span className="calendarDate preview">
+                                        {months[e['Month']]}
+                                    </span>
+                                </span>
+                                <p className="eventTitle"><a
+                                    href={`${that.state.mainURL}${that.state.siteName}/Calendars/Lists/${currentCalendarURL}/DispForm.aspx?ID=${e['ID']}&IsDlg=1`}
+                                    target="_blank">{e['Title']}</a></p>
+                            </div>)
+                    }
+                    <div className="divider"></div>
+                    <div className="calendarEdit">
+                        <div className="calendarFunctions">
+                            <a className="dxc-link" href={this.state.fullCalendarAddUrl} target="_blank" > Add Calendar </a>
+                            <a className="dxc-link" href={`${that.state.mainURL}${that.state.siteName}/Calendars/Lists/${currentCalendarURL}/NewForm.aspx?IsDlg=1`} target="_blank" >Add Event</a>
+                            <select onChange={(e) => this.onCalendarChange(e)} defaultValue={this.state.selectorValue}>
+                                <option disabled value="default"> -- Choose a Calendar -- </option>
+                                {this.state.existingCalendars.map((e) => <option value={e}>{e}</option>)}
+                            </select>
+                            <button onClick={() => this.refreshList()}>
+                                <i className="fa fa-refresh" aria-hidden="true"></i>
+                            </button>
+                            <select onChange={(e) => this.filterEvents('Location', e.target.value)} defaultValue={this.state.locationFilter}>
+                                <option disabled value="Location">-- Location --</option>
+                                <option value="No Filter">No Filter</option>
+                                {this.state.locations.map((e) => <option value={e}>{e}</option>)}
+                            </select>
+
+                            <select onChange={(e) => this.filterEvents('Category', e.target.value)} defaultValue={this.state.categoryFilter}>
+                                <option disabled value="Category">-- Category --</option>
+                                <option value="No Filter">No Filter</option>
+                                {this.state.categories.map((e) => <option value={e}>{e}</option>)}
+                            </select>
+                        </div>
+
                         <div>
+                            <p>Event Date Range</p>
                             <DateRange
                                 theme={dateRangeTheme}
-                                startDate= {this.state.startDate}
+                                startDate={this.state.startDate}
                                 endDate={this.state.endDate}
                                 onInit={this.handleSelect.bind(this)}
                                 onChange={this.handleSelect.bind(this)}
@@ -262,32 +310,9 @@ class Calendar extends React.Component {
                             />
 
                         </div>
-                        <select onChange={(e) => this.filterEvents('Location', e.target.value)} defaultValue={this.state.locationFilter}>
-                            <option disabled value="default"> -- Location -- </option>
-                            <option value="No Filter">No Filter</option>
-                            {this.state.locations.map((e) => <option value={e}>{e}</option>)}
-                        </select>
-                        <select onChange={(e) => this.filterEvents('Category', e.target.value)} defaultValue={this.state.categoryFilter}>
-                            <option disabled value="default"> -- Category -- </option>
-                            <option value="No Filter">No Filter</option>
-                            {this.state.categories.map((e) => <option value={e}>{e}</option>)}
-                        </select>
-                    </div>
-                    {
 
-                        this.state.filteredEvents.map(e =>
-                            <div className="event">
-                                <span className="eventCollection-calendarIcon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
-                                        <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
-                                    </svg>
-                                    <span className="calendarDate">
-                                        {months[e['Month']]}
-                                    </span>
-                                </span>
-                                <p className="eventTitle">{e['Title']}</p>
-                            </div>)
-                    }
+
+                    </div>
 
                 </div>
             )
@@ -296,7 +321,7 @@ class Calendar extends React.Component {
                 <div>
                     {
 
-                        this.state.filteredEvents.map(e =>
+                        this.state.displayedEvents.map(e =>
                             <div className="event">
                                 <span className="eventCollection-calendarIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
@@ -306,7 +331,9 @@ class Calendar extends React.Component {
                                         {months[e['Month']]}
                                     </span>
                                 </span>
-                                <p className="eventTitle">{e['Title']}</p>
+                                <p className="eventTitle"><a
+                                    href={`${that.state.mainURL}${that.state.siteName}/Calendars/Lists/${currentCalendarURL}/DispForm.aspx?ID=${e['ID']}&IsDlg=1`}
+                                    target="_blank">{e['Title']}</a></p>
                             </div>)
                     }
                 </div>

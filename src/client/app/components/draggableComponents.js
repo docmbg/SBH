@@ -69,13 +69,13 @@ export const draggableComponents = [
         h: 9
       },
       innerElementProps: {
-        selectorValue: '',
-        categoryFilter: 'No Filter',
-        locationFilter: 'No Filter',
+        selectorValue: 'default',
+        locationFilter: 'Location',
+        categoryFilter: 'Category',
         events: [],
         filteredEvents: [],
-        startDate: '10/11/2017',
-        endDate: '10/11/2017'
+        startDate: new Date().toLocaleDateString(),
+        endDate: new Date().toLocaleDateString(),
   
       }
     },

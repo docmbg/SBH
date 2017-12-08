@@ -12,7 +12,8 @@ export const draggableComponents = [
           {
             src: "https://7windsva.com/wp-content/uploads/2012/12/two.png",
             title: "Second Slide",
-            link: "2"
+            link: "2",
+            description: "This is a placeholder description."
           }
         ],
         sliderStyles: {
@@ -22,6 +23,7 @@ export const draggableComponents = [
           sliderTextColor: "dxc-font-white",
           sliderButtonTextColor: "dxc-font-black",
           sliderBackgroundOpacity: 60,
+          sliderImageOpacity: 80,
           sliderIndicatorsStyle: "content-slider-indicators",
           sliderIndicatorsShape: "content-slider-indicators-shape--square_number",
           readMoreText: "Read more"
@@ -91,6 +93,8 @@ export const draggableComponents = [
         }, {
           "title": "Tab 3"
         }],
+        tabStyle: "horizontal",
+        currentActiveTab: 0
       }
     },
     {

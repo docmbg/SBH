@@ -46,29 +46,29 @@ class SliderWebPart extends React.Component {
       slides
     });
   }
-  handleMove(dir, index){
+  handleMove(dir, index) {
     let slides = this.state.slides;
-    if(index+dir >= slides.length || index+dir < 0){
+    if (index + dir >= slides.length || index + dir < 0) {
       return false
     }
     let item1 = slides[index];
-    let item2 = slides[index+dir];
+    let item2 = slides[index + dir];
     slides[index] = item2;
-    slides[index+dir] = item1;
+    slides[index + dir] = item1;
     this.setState({
-        slides
+      slides
     })
   }
-  toggleTabContents(i){
-      let slides = this.state.slides;
-      if(slides[i]["active"]){
-          slides[i]["active"] = false
-      } else {
-        slides[i]["active"] = true
-      }
-      this.setState({
-          slides
-      })
+  toggleTabContents(i) {
+    let slides = this.state.slides;
+    if (slides[i]["active"]) {
+      slides[i]["active"] = false
+    } else {
+      slides[i]["active"] = true
+    }
+    this.setState({
+      slides
+    })
   }
   handleGeneralChange(evt, instance) {
     let sliderStyles = this.state.sliderStyles;
@@ -90,7 +90,7 @@ class SliderWebPart extends React.Component {
                   <div
                     className={`content-slider-infobox-wrapper ${that.state
                       .sliderStyles.sliderBackgroundStyle || ""} ${that.state
-                      .sliderStyles.sliderBackgroundColor || ""}`}
+                        .sliderStyles.sliderBackgroundColor || ""}`}
                     style={{
                       opacity: (
                         parseInt(
@@ -105,7 +105,7 @@ class SliderWebPart extends React.Component {
                         <div
                           className={`${that.state.sliderStyles
                             .sliderButtonColor || ""} ${that.state.sliderStyles
-                            .sliderButtonTextColor || ""}`}
+                              .sliderButtonTextColor || ""}`}
                         >
                           {that.state.sliderStyles.readMoreText || ""}
                         </div>
@@ -122,7 +122,7 @@ class SliderWebPart extends React.Component {
                 <ul
                   className={`${
                     that.state.sliderStyles.sliderIndicatorsStyle
-                  } ${that.state.sliderStyles.sliderIndicatorsShape}`}
+                    } ${that.state.sliderStyles.sliderIndicatorsShape}`}
                 >
                   <li className="active">1</li>
                   <li className="">2</li>
@@ -281,96 +281,106 @@ class SliderWebPart extends React.Component {
                 />
                 <span>%</span>
                 <p className="modal-content-edit-header">Slider image opacity</p>
-              <input
-                type={`number`}
-                onChange={e =>
-                  this.handleGeneralChange(e, "sliderImageOpacity")
-                }
-                defaultValue={this.state.sliderStyles.sliderImageOpacity}
-              />
-              <span>%</span>
+                <input
+                  type={`number`}
+                  onChange={e =>
+                    this.handleGeneralChange(e, "sliderImageOpacity")
+                  }
+                  defaultValue={this.state.sliderStyles.sliderImageOpacity}
+                />
+                <span>%</span>
               </div>
 
-              
+
             </div>
           </div>
           <div className="modal-content-edit-seperator" />
           <div className="modal-content-edit-slider-slides-wrapper">
-          <ul>
-            {that.state.slides.map(function(e, i) {
-              return (
-                <li className="modal-content-edit-tabs" key={`sliders-${i}`}>
-                  <button
-                    onClick={() => that.toggleTabContents(i)}
-                    className="modal-content-edit-button--toggle"
-                  >
-                    {e["active"] ? (
-                      <i className="material-icons">&#xE22B;</i>
-                    ) : (
-                      <i className="material-icons">&#xE254;</i>
-                    )}
-                  </button>
-                  <div
-                    className="modal-content-edit-tabs-name"
-                  >{that.state.slides[i]["title"]}</div>
-                  <button onClick={() => that.handleMove(-1, i)}>
-                    <i className="material-icons">&#xE5D8;</i>
-                  </button>
-                  <button onClick={() => that.handleMove(1, i)}>
-                    <i className="material-icons">&#xE5DB;</i>
-                  </button>
-                  <button onClick={() => that.removeSlide(i)}>
-                    <i className="material-icons">&#xE5CD;</i>
-                  </button>
+            <ul>
+              {that.state.slides.map(function (e, i) {
+                return (
 
-                  <div
-                    className={`modal-content-edit-tabs-editor ${
-                      e["active"] ? "transition-down" : "transition-up"
-                    }`}
-                  >
-                  <p className="modal-content-edit-header">Slide Title</p>
-                    <div className="modal-content-edit-slides-title">
-                      <input
-                        type="text"
-                        value={that.state.slides[i]["title"]}
-                        onChange={event => that.updateSlide(event, i, "title")}
-                      />
+                  <li className="modal-content-edit-tabs" key={`sliders-${i}`}>
+                    <div
+                      className="modal-content-edit-tabs-name"
+                    >{that.state.slides[i]["title"]}</div>
+                    <button
+                      onClick={() => that.toggleTabContents(i)}
+                      className="modal-content-edit-button--toggle"
+                    >
+                      {e["active"] ? (
+                        <i className="material-icons">&#xE22B;</i>
+                      ) : (
+                          <i className="material-icons">&#xE254;</i>
+                        )}
+                    </button>
+
+                    <button onClick={() => that.handleMove(-1, i)}>
+                      <i className="material-icons">&#xE5D8;</i>
+                    </button>
+                    <button onClick={() => that.handleMove(1, i)}>
+                      <i className="material-icons">&#xE5DB;</i>
+                    </button>
+                    <button onClick={() => that.removeSlide(i)}>
+                      <i className="material-icons">&#xE5CD;</i>
+                    </button>
+
+                    <div
+                      className={`modal-content-edit-slider-editor ${
+                        e["active"] ? "transition-down" : "transition-up"
+                        }`}
+                    >
+                    <div>
+                      <p className="modal-content-edit-header">Slide Title</p>
+                      <div className="modal-content-edit-slides-title">
+                        <input
+                          type="text"
+                          value={that.state.slides[i]["title"]}
+                          onChange={event => that.updateSlide(event, i, "title")}
+                        />
+                      </div>
+                      </div>
+                      <div>
+                      <p className="modal-content-edit-header">Slide Image</p>
+                      <div className="modal-content-edit-slides-image">
+                        <input
+                          type="text"
+                          value={that.state.slides[i]["src"]}
+                          onChange={event => that.updateSlide(event, i, "src")}
+                        />
+                      </div>
+                      </div>
+                      <div>
+                      <p className="modal-content-edit-header">Slide Description</p>
+                      <div className="modal-content-edit-slides-image">
+                        <textarea
+                          type="text"
+                          value={that.state.slides[i]["description"]}
+                          onChange={event => that.updateSlide(event, i, "description")}
+                        />
+                      </div>
+                      </div>
+                      <div>
+                      <p className="modal-content-edit-header">Slide Link</p>
+                      <div className="modal-content-edit-slides-image">
+                        <input
+                          type="text"
+                          value={that.state.slides[i]["link"]}
+                          onChange={event => that.updateSlide(event, i, "link")}
+                        />
+                      </div>
+                      </div>
                     </div>
-                    <p className="modal-content-edit-header">Slide Image</p>
-                    <div className="modal-content-edit-slides-image">
-                      <input
-                        type="text"
-                        value={that.state.slides[i]["src"]}
-                        onChange={event => that.updateSlide(event, i, "src")}
-                      />
-                    </div>
-                    <p className="modal-content-edit-header">Slide Description</p>
-                    <div className="modal-content-edit-slides-image">
-                      <textarea
-                        type="text"
-                        value={that.state.slides[i]["description"]}
-                        onChange={event => that.updateSlide(event, i, "description")}
-                      />
-                    </div>
-                    <p className="modal-content-edit-header">Slide Link</p>
-                    <div className="modal-content-edit-slides-image">
-                      <input
-                        type="text"
-                        value={that.state.slides[i]["link"]}
-                        onChange={event => that.updateSlide(event, i, "link")}
-                      />
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          
-          <button
-            className="modal-content-edit-button--plus"
-            onClick={() => that.addSlide()}
-          >
-            +
+                  </li>
+                );
+              })}
+            </ul>
+
+            <button
+              className="modal-content-edit-button--plus"
+              onClick={() => that.addSlide()}
+            >
+              +
           </button>
           </div>
           <div>

@@ -98,7 +98,8 @@ class Slider extends React.Component {
                                 >
                                 </div>
                                 <div className={`content-slider-infobox-text`}>
-                                    
+                                <p className={`content-slider-infobox-title ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.title}</p>
+                                <div className={`content-slider-infobox-description ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.description}</div>
                                     <div className={`content-slider-infobox-readMore`}>
                                         <a href={elem.link} target="_blank">
                                             <div className={`${_this.props.sliderStyles.sliderButtonColor || ""} ${_this.props.sliderStyles.sliderButtonTextColor || ""}`}>
@@ -106,7 +107,7 @@ class Slider extends React.Component {
                                             </div>
                                         </a>
                                     </div>
-                                    <p className={`content-slider-infobox-title ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.title}</p>
+                                    
                                 </div>
                             </div>)
                         }

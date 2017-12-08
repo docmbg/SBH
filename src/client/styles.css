@@ -311,13 +311,13 @@ a:hover {
     padding: 1em;
     padding-left: 1em;
     line-height: 1.2em;
-    height: 80%;
+    height: 20%;
 }
 .content-slider-infobox-text{
     width: 100%;
     height: 100%;
     display: flex;
-    flex-flow: column-reverse;
+    flex-flow: column;
     z-index: 2;
     position: absolute;
 }
@@ -343,7 +343,11 @@ a:hover {
     margin: auto;
     display: block;
 }
-
+.content-slider-infobox-description {
+    height: 60%;
+    padding: 1em;
+    vertical-align: top;
+}
 .content-slider-infobox {
     width: 40%;
     height: 60%;
@@ -512,7 +516,12 @@ div.w3{
 }
 .modal-content-edit-slider-general{
     width: 100%;
-    height: 50%;
+    height: 52%;
+}
+.modal-content-edit-slider-editor > div {
+    float: left;
+    display: block;
+    margin-left: 5%;
 }
 .modal-content-edit-preview{
     line-height: 3em;
@@ -640,6 +649,10 @@ button {
 .modal-content-edit-slider-preview-textTitle {
     height: 25%;
 }
+.modal-content-edit-slider-editor{
+    max-height: 50%;
+    position: relative;
+}
 .modal-content-edit-slider-preview-textDescription{
     height: 50%
 }
@@ -647,6 +660,11 @@ button {
         height: 25%;
         width: 40%;
         margin-left: 5%;
+}
+.modal-content-edit-slider-header {
+    font-weight: 800;
+    /* border-bottom: 1px dotted; */
+    border-left: 1px dotted;
 }
 
 .dxc-button {
@@ -665,7 +683,8 @@ button {
     position: absolute;
     right:0;
     cursor:pointer;
-    color:rgb(217,217,217)
+    color:rgb(217,217,217);
+    z-index: 5;
 }
 
 .dxc-close:hover {

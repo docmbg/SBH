@@ -308,10 +308,13 @@ a:hover {
     text-align: left;
     font-size: 1.2em;
     font-weight: 800;
-    padding: 1em;
+    margin: 0em 0em 0em 0em;
+    /* padding: 1em; */
     padding-left: 1em;
     line-height: 1.2em;
     height: 20%;
+    max-height: 20%;
+    min-height: 1.2em;
 }
 .content-slider-infobox-text{
     width: 100%;
@@ -334,7 +337,10 @@ a:hover {
     line-height: 2.4em;
     text-align: center;
     width: 100%;
+    max-height: 20%;
     height: 20%;
+    overflow: hidden;
+    min-height: 2em;
 }
 .content-slider-infobox-readMore > a {
     text-decoration: none;
@@ -345,8 +351,10 @@ a:hover {
 }
 .content-slider-infobox-description {
     height: 60%;
+    /* max-height: 60%; */
     padding: 1em;
     vertical-align: top;
+    overflow: hidden;
 }
 .content-slider-infobox {
     width: 40%;
@@ -389,8 +397,10 @@ a:hover {
 }
 .content-slider-indicators-wrapper > ul > li {
     width: 5%;
+    min-width: 1em;
     display: inline-flex;
     height: 100%;
+    min-height: 1.2em;
     line-height: 1.3em;
     font-size: 1em;
     vertical-align: middle;
@@ -497,7 +507,6 @@ a:hover {
 
 div.w1{
     width: 100%;
-    height: 10%;
 }
 div.w2{
     width: 50%;
@@ -626,6 +635,10 @@ button {
     visibility: visible;
     opacity: 1;
     transition: visibility 0.3s, opacity 0.3s linear;
+}
+.modal-content-edit-links-multiple{
+    height: 50%;
+    max-height: 50%;
 }
 .modal-content-edit-slider-preview{
     width: 100%;

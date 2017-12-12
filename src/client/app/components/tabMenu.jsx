@@ -14,6 +14,7 @@ class TabMenu extends React.Component {
       tabStyle: this.props.componentProperties.tabStyle || ""
     };
   }
+
   onEditorStateChange(editorState, index) {
     let tabs = this.state.tabs;
     tabs[index]["editorState"] = editorState;
@@ -22,6 +23,7 @@ class TabMenu extends React.Component {
       tabs
     })
   };
+
   componentWillReceiveProps(nextProps) {
     console.log(nextProps)
     let tabs = nextProps.componentProperties.tabs || [];
@@ -33,21 +35,24 @@ class TabMenu extends React.Component {
     this.setState({
       tabs,tabStyle
     });
-  }
+  };
+
   saveEdit() {
     let tabs = this.state.tabs;
     let tabStyle = this.state.tabStyle;
     this.props.passProps({
       tabs, tabStyle
     });
-  }
+  };
+
   updateTab(event, index, type) {
     let tabs = this.state.tabs;
     tabs[index][type] = event.target.value;
     this.setState({
       tabs
     });
-  }
+  };
+
   addTab() {
     let tabs = this.state.tabs;
     tabs.push({
@@ -56,14 +61,16 @@ class TabMenu extends React.Component {
     this.setState({
       tabs
     });
-  }
+  };
+
   handleStyleChange(e){
     let tabStyle = this.state.tabStyle || "";
     tabStyle = e.target.value;
     this.setState({
       tabStyle
     })
-  }
+  };
+
   toggleTabContents(i) {
     let tabs = this.state.tabs;
     if (tabs[i]["active"]) {
@@ -74,7 +81,8 @@ class TabMenu extends React.Component {
     this.setState({
       tabs
     })
-  }
+  };
+
   handleMove(dir, index) {
     let tabs = this.state.tabs;
     if (index + dir >= tabs.length || index + dir < 0) {
@@ -87,23 +95,28 @@ class TabMenu extends React.Component {
     this.setState({
       tabs
     })
-  }
+  };
+
   setActiveTab(i) {
     let currentActiveTab = i;
     this.setState({
       currentActiveTab
     });
-  }
+  };
+
   removeTab(index) {
     let tabs = this.state.tabs;
     tabs.splice(index, 1);
     this.setState({
       tabs
     });
-  }
+  };
+
   render() {
+
     let that = this;
     let tabs = this.state.tabs;
+
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
@@ -215,6 +228,7 @@ class TabMenu extends React.Component {
       );
     }
   }
+  
 }
 
 export default TabMenu;

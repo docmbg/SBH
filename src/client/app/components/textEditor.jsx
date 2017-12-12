@@ -17,20 +17,25 @@ class TextEditor extends Component {
             })
         };
     }
+
     componentWillReceiveProps(nextProps){
         
         this.setState({
             editorState: (nextProps.componentProperties.editorState ? EditorState.createWithContent(convertFromRaw(nextProps.componentProperties.editorState)) : EditorState.createEmpty()),
         })
     }
+
     saveEdit() {
         console.log(convertToRaw(this.state.editorState.getCurrentContent()))
         this.props.passProps({
             editorState: convertToRaw(this.state.editorState.getCurrentContent()),
         })
     }
+
     render() {
+
         let editor = <div></div>
+
         if(this.props.componentProperties.editable){
             editor =  <Editor
             editorState={this.state.editorState}
@@ -44,6 +49,7 @@ class TextEditor extends Component {
             readOnly={true}
         />
         }
+
         if (this.props.editable) {
             return (
                 <div>
@@ -76,8 +82,8 @@ class TextEditor extends Component {
                 </div>
             );
         }
-
     }
+
 }
 
 export default TextEditor;

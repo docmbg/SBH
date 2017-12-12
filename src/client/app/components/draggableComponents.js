@@ -121,7 +121,17 @@ export const draggableComponents = [
         h: 9
       },
       innerElementProps: {
-        links: [],
+        links: [{
+          title : "DXC Technology",
+          address : "https://dxc.technology",
+          target : "_blank",
+          visible: false
+        },{
+          title : "ABO ABC SharePoint",
+          address : "https://hpe.sharepoint.com/teams/DOCM222",
+          target : "_blank",
+          visible: false
+        }],
         linkColor: "",
         linkStyle: "",
         linkInvert: false,

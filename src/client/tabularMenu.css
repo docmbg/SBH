@@ -6,6 +6,9 @@
     margin: auto;
     text-align: left;
 }
+li.modal-content-edit-tabs{
+    padding: 2%;
+}
 input.modal-content-edit-tabs-name {
     width: 75%;
     border: none;

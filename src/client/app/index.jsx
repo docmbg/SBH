@@ -423,7 +423,7 @@ class App extends React.Component {
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className="gridLayout-cell"
+                    className="gridLayout-cell editMode"
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >

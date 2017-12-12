@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import SimpleImageComponent from "./simpleImageComponent.jsx";
 
+
 const itemsPerRow = 3;
 const rowsPerPage = 3;
 class ImageGallery extends React.Component {
@@ -17,6 +18,7 @@ class ImageGallery extends React.Component {
       images: nextProps.componentProperties.images
     });
   }
+
   addImage() {
     let images = this.state.images;
     images.push({
@@ -26,6 +28,7 @@ class ImageGallery extends React.Component {
       images
     });
   }
+
   removeImage(index) {
     let images = this.state.images;
     images.splice(index, 1);
@@ -33,6 +36,7 @@ class ImageGallery extends React.Component {
       images
     });
   }
+
   updateSource(value, index) {
     let images = this.state.images;
     images[index]["imgSrc"] = value.target.value;
@@ -40,6 +44,7 @@ class ImageGallery extends React.Component {
       images
     });
   }
+
   handlePageChange(dir) {
     console.log("Changing page ", dir);
     let currentPage = this.state.currentPage;
@@ -48,17 +53,51 @@ class ImageGallery extends React.Component {
       currentPage
     });
   }
+
+  updateImages(srcArray){
+    let images = this.state.images.concat(srcArray);
+    this.setState({
+      images
+    })
+  }
+
+  previewFile() {
+    let that = this;
+    let counter = 0;
+    let srcArray = [];
+    let files = document.querySelector('input[type=file]').files;
+    let reader = new FileReader();
+ 
+    reader.onloadend = function () {
+      
+      counter++;
+      console.log(counter)
+      if(files.length > counter){
+        console.log('next image')
+        srcArray.push({'imgSrc':reader.result})
+        reader.readAsDataURL(files[counter]);
+      }else {
+        console.log('updates')
+        srcArray.push({'imgSrc':reader.result})
+        that.updateImages(srcArray)        
+      }      
+    }
+    if (files) {
+        reader.readAsDataURL(files[counter]);        
+    }
+  }
+
   saveEdit() {
     let images = this.state.images;
     this.props.passProps({
       images
     });
   }
+
   render() {
-    console.log(this.state.currentPage);
     let that = this;
     let currentPage = this.state.currentPage;
-    let filteredImages = this.state.images.filter(function(e, i) {
+    let filteredImages = this.state.images.filter(function (e, i) {
       return (
         i >= currentPage * itemsPerRow * rowsPerPage &&
         i < (currentPage + 1) * itemsPerRow * rowsPerPage
@@ -73,8 +112,9 @@ class ImageGallery extends React.Component {
     if (this.props.editable) {
       return (
         <div>
+          <input name="myFile" type="file" onChange={()=>this.previewFile()} multiple/>
           <div className="w1">
-            {this.state.images.map(function(e, i) {
+            {this.state.images.map(function (e, i) {
               return (
                 <div className="modal-content-edit-navigation--side-container">
                   <div className="w2">
@@ -85,12 +125,13 @@ class ImageGallery extends React.Component {
                       X
                     </button>
                     <p className="modal-content-edit-header">Image Source</p>
-                    <input
+                    {/* <input
                       type="text"
                       value={e["imgSrc"]}
                       onChange={value => that.updateSource(value, i)}
                       className="modal-content-edit-input-text"
-                    />
+                    /> */}
+                    <img src={e['imgSrc']} className="smallImage"/>
                   </div>
                 </div>
               );
@@ -122,12 +163,12 @@ class ImageGallery extends React.Component {
           onClick={() => this.handlePageChange(-1)}
           className={`content-imageGallery-pageIndicator previous ${
             this.state.currentPage == 0 ? "hidden" : ""
-          }`}
+            }`}
         >
           <div className="content-imageGallery-pageIndicator-arrow">&#9668;</div>
         </div>
 
-        {filteredImages.map(function(e, i) {
+        {filteredImages.map(function (e, i) {
           return (
             <div
               className="imageCollection-imageContainer"
@@ -149,7 +190,7 @@ class ImageGallery extends React.Component {
               ) && filteredImages.length < 9
               ? "hidden"
               : ""
-          }`}
+            }`}
         >
           <div className="content-imageGallery-pageIndicator-arrow"> &#9658;</div>
         </div>

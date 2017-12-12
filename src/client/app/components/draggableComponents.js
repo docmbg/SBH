@@ -58,7 +58,7 @@ export const draggableComponents = [
       },
       innerElementProps: {
         iframe: '',
-        selectorValue: '',
+        selectorValue: 'default',
         surveyFilled: '',
       }
     },

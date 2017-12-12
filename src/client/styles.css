@@ -574,6 +574,7 @@ button {
 
 .material-icons {
     font-size:3em!important;
+    cursor: pointer;
 }
 .grid-controls-button {
     cursor: pointer;
@@ -720,4 +721,26 @@ button {
 }
 .image-zoom{
     cursor: zoom-in;
+}
+
+.editMode >div {
+    margin: 1.25%;
+    height: 95%;
+    width: 97.50%
+}
+
+.surveyEdit {
+    width:100%;
+    padding-bottom:2em;
+}
+
+.surveyEdit > * {
+    margin:0.5em;
+}
+
+.smallImage {
+    height: 100%;
+    max-width: 30%;
+    max-height: 20%;
+    
 }

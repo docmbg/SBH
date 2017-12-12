@@ -134,6 +134,7 @@ class Calendar extends React.Component {
                     event['EndDate'] = $(this).attr('ows_EndDate');
                     event['Category'] = $(this).attr('ows_Category')
                     event['Month'] = parseInt($(this).attr('ows_EventDate').split('-')[1]) - 1;
+                    event['visible'] = true;
                     if (locations.indexOf(event['Location']) < 0) {
                         locations.push(event['Location'])
                     }
@@ -175,7 +176,6 @@ class Calendar extends React.Component {
         let filterNames = ['Location', 'Category']
         for (let i = 0; i < filters.length; i++) {
             if (filters[i] != 'No Filter' && filterNames.indexOf(filters[i]) == -1) {
-                console.log('vlizam')
                 events = events.filter(e => e[filterNames[i]] == filters[i]);
             }
         }
@@ -243,9 +243,19 @@ class Calendar extends React.Component {
         this.filterEvents('Location', this.state.locationFilter, filteredEvents)
     }
 
+    setVisibility(i) {
+        let displayedEvents = this.state.displayedEvents;
+        displayedEvents[i]['visible'] = !displayedEvents[i]['visible'];
+        this.setState({
+            displayedEvents
+        })
+    }
+
     render() {
         let currentCalendarURL = this.state.selectorValue.replace(/ /g, '%20');
         let that = this;
+        console.log(this.state.displayedEvents)
+        let displayedEvents = this.state.displayedEvents.filter(e => e['visible'] == true);
         if (this.props.editable) {
             return (
                 <div>
@@ -255,11 +265,13 @@ class Calendar extends React.Component {
                             className="dxc-button"
                         >Save</button>
                     </div>
-
                     {
 
-                        this.state.displayedEvents.map(e =>
+                        this.state.displayedEvents.map((e, i) =>
                             <div className="event preview">
+                                {e['visible'] == true ?  <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F4;</i> :
+                                <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F5;</i>}
+                               
                                 <span className="eventCollection-calendarIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
                                         <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>
@@ -321,7 +333,7 @@ class Calendar extends React.Component {
                 <div>
                     {
 
-                        this.state.displayedEvents.map(e =>
+                        displayedEvents.map(e =>
                             <div className="event">
                                 <span className="eventCollection-calendarIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">

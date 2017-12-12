@@ -27,7 +27,7 @@
 }
 
 .event.preview { 
-    width:10em;
+    width:15em;
     height:0%;
     margin:auto;
     padding: 1em 0em 3em 1em;
@@ -51,4 +51,8 @@
 
 .calendarFunctions > * {
     margin:0.5em
+}
+
+.calendarIcons {
+    line-height: 2!important;
 }

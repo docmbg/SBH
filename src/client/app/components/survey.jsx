@@ -25,27 +25,22 @@ class Survey extends React.Component {
     }
 
     componentWillMount() {
+        let that = this;
         let currentUser = {};
-        currentUser['name'] = $().SPServices.SPGetCurrentUser({
-            fieldName: "Title",
-            debug: false
-        });
-        $().SPServices({
-            operation: "GetUserInfo",
-            userLoginName: $().SPServices.SPGetCurrentUser(),
-            completefunc: function (xData, Status) {
-                currentUser['admin'] = $(xData.responseXML).find("User").attr("IsSiteAdmin")
-            }
-        });
         let mainURL = window.location.href.split('teams')[0] + 'teams/';
         let siteName = window.location.href.split(mainURL)[1].split('/')[0];
         let fullSurveyAddUrl = `${mainURL}${siteName}/Surveys/_layouts/15/new.aspx?FeatureId=%7B00bfea71-eb8a-40b1-80c7-506be7590102%7D&ListTemplate=102&`;
         let existingSurveys = [];
         let surveys = this.state.surveys;
+        currentUser['name'] = $().SPServices.SPGetCurrentUser({
+            fieldName: "Title",
+            debug: false,
+            async: true,
+        });
         if (window.location.href != 'http://localhost:3000/') {
             $().SPServices({
                 operation: "GetListCollection",
-                async: false,
+                async: true,
                 webURL: `${mainURL}${siteName}/Surveys/`,
                 completefunc: function (xData, Status) {
                     $(xData.responseXML).SPFilterNode("List").each(function () {
@@ -54,20 +49,21 @@ class Survey extends React.Component {
                             existingSurveys.push($(this).attr('Title'))
                         }
                     })
+                    
+                    that.setState({
+                        fullSurveyAddUrl,
+                        existingSurveys,
+                        surveys,
+                        siteName,
+                        mainURL,
+                        currentUser,
+                        selectorValue: this.props.componentProperties.selectorValue || 'default'
+                    })
                 }
             })
         }
-        if (existingSurveys.length > 0) {
-
-        }
-        this.setState({
-            fullSurveyAddUrl,
-            existingSurveys,
-            surveys,
-            siteName,
-            mainURL,
-            currentUser
-        })
+ 
+        
     }
 
     onSurveyChange(e) {
@@ -110,6 +106,7 @@ class Survey extends React.Component {
         this.setState({
             existingSurveys
         })
+        this.testOnload();
     }
 
     testOnload() {
@@ -124,7 +121,6 @@ class Survey extends React.Component {
                 completefunc: function (xData, Status) {
                     $(xData.responseXML).SPFilterNode("z:row").each(function () {
                         if ($(this).attr('ows_Author').split('#')[1] == that.state.currentUser['name'] && surveyFilled == false) {
-                            surveyFilled = true;
                             that.setState({
                                 surveyFilled: true,
                             })
@@ -133,18 +129,6 @@ class Survey extends React.Component {
                 }
             });
         }
-        // let loaded = this.state.loaded;
-        // loaded++;
-        // if (loaded == 2) {
-        //     let iframe = `${this.state.fullSurveyAddUrl.split('_layouts')[0]}Lists/${this.state.selectorValue}/summary.aspx?IsDlg=1`;
-        //     this.setState({
-        //         iframe
-        //     })
-        // } else {
-        //     this.setState({
-        //         loaded
-        //     })
-        // }
     }
 
     render() {
@@ -159,17 +143,15 @@ class Survey extends React.Component {
                         >Save</button>
                         
                     </div>
-                    <a href={this.state.fullSurveyAddUrl} target="_blank" > Add a new Survey </a>
-                    <p>or add from existing </p>
+                    <div className="surveyEdit">
+                    <a className="dxc-link"href={this.state.fullSurveyAddUrl} target="_blank" > Add a new Survey </a>
+                    <span>or add from existing </span>
                     <select onChange={(e) => this.onSurveyChange(e)} defaultValue={this.state.selectorValue}>
                         <option disabled value="default"> -- Choose a Survey -- </option>
                         {this.state.existingSurveys.map((e) => <option value={e}>{e}</option>)}
                     </select>
-                    <button
-                        onClick={() => this.refreshList()}
-                    >
-                        <i className="fa fa-refresh" aria-hidden="true"></i>
-                    </button>
+                    <i  onClick={() => this.refreshList()} className="fa fa-refresh" aria-hidden="true"></i>
+                    </div>
                     <iframe onLoad={(e) => this.testOnload()} src={this.state.iframe} width="100%" scrolling="yes" height="100%"></iframe>
                 </div>
             )

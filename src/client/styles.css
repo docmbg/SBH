@@ -3,8 +3,7 @@
 }
 .gridLayout-cell {
     /* background: rgb(217,217,217); */
-    border: 2px dotted;
-
+    border: 3px dashed rgb(102,102,102);
  }
 .page{
     width: 100%;
@@ -743,4 +742,8 @@ button {
     max-width: 30%;
     max-height: 20%;
     
+}
+
+.dragHandle {
+    float: right;
 }

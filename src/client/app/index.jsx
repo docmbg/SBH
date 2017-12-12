@@ -213,7 +213,7 @@ class App extends React.Component {
     currentStateJSONArr.push({
       containerKey: allAdded,
       containerProps: {
-        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1
+        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1,draggableHandle: ".dragHandle",static: false
       },
       innerElement: {
         type: this.state.draggedComponent.split('-')[0],
@@ -287,6 +287,23 @@ class App extends React.Component {
     });
   }
 
+  onLockItem(componentKey){
+    console.log(componentKey)
+    let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+    let componentIndex = 0;
+    currentStateJSONArr.map(function (e, i) {
+      if (e["containerKey"] == componentKey) {
+        console.log(currentStateJSONArr[i]['containerProps']['static'])
+        currentStateJSONArr[i]['containerProps']['static'] = !currentStateJSONArr[i]['containerProps']['static']
+      }
+    })
+    let currentStateJSON = JSON.stringify(currentStateJSONArr);
+    console.log(currentStateJSONArr)
+    this.setState({
+      currentStateJSON
+    })
+  }
+
   onRemoveItem(componentKey) {
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
     let componentIndex = 0;
@@ -344,7 +361,8 @@ class App extends React.Component {
             left: e.clientX - 40,
             lineHeight: height,
             display: 'block',
-            border: '2px dotted grey',
+            border: '2px dashed rgb(102,102,102)',
+            background: 'rgb(217,217,217)',
             height: height,
           }
         }
@@ -365,7 +383,8 @@ class App extends React.Component {
             top: e.clientY,
             left: e.clientX,
             display: 'none',
-            border: '2px dotted grey',
+            border: '2px dashed rgb(102,102,102)',
+            background: 'rgb(217,217,217)',            
             height: '200px',
           }
         }
@@ -397,7 +416,6 @@ class App extends React.Component {
             <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
           </div>
           <div className={`page-edit-banner ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
-
             <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
             <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i><p className="component-text">Rich Text</p></button>
             <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
@@ -423,18 +441,19 @@ class App extends React.Component {
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className="gridLayout-cell editMode"
+                    className={`gridLayout-cell editMode ${e["containerProps"]['static'] == true ? 'react-draggable' : 'static'}`}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
                     <ContentContainer
                       innerElementType={e["innerElement"]["type"]}
                       innerElementProps={e["innerElement"]["innerElementProps"]}
+                      passLock={(evt) => _this.onLockItem(modalKey)}
                       passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
                       passClose={(evt) => _this.onRemoveItem(modalKey)}
                       handleImageModal={(src) => _this.handleImageModal(src)}
                     />
-
+                    <span><i title='Drag me' className="material-icons dragHandle">&#xE25D;</i></span>
 
 
                   </div>

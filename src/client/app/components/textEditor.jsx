@@ -18,8 +18,8 @@ class TextEditor extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps){
-        
+    componentWillReceiveProps(nextProps) {
+
         this.setState({
             editorState: (nextProps.componentProperties.editorState ? EditorState.createWithContent(convertFromRaw(nextProps.componentProperties.editorState)) : EditorState.createEmpty()),
         })
@@ -36,18 +36,18 @@ class TextEditor extends Component {
 
         let editor = <div></div>
 
-        if(this.props.componentProperties.editable){
-            editor =  <Editor
-            editorState={this.state.editorState}
-            onEditorStateChange={this.onEditorStateChange}
-        />
-        } else if(this.state.editorState.getCurrentContent().hasText()){
-            editor =  <Editor
-            editorState={this.state.editorState}
-            toolbarStyle={{ display: "none", visibility: "hidden" }}
-            editorStyle={{ width: "100%", height: "100%" }}
-            readOnly={true}
-        />
+        if (this.props.componentProperties.editable) {
+            editor = <Editor
+                editorState={this.state.editorState}
+                onEditorStateChange={this.onEditorStateChange}
+            />
+        } else if (this.state.editorState.getCurrentContent().hasText()) {
+            editor = <Editor
+                editorState={this.state.editorState}
+                toolbarStyle={{ display: "none", visibility: "hidden" }}
+                editorStyle={{ width: "100%", height: "100%" }}
+                readOnly={true}
+            />
         }
 
         if (this.props.editable) {
@@ -59,6 +59,9 @@ class TextEditor extends Component {
                                 onClick={() => this.saveEdit()}
                                 className="dxc-button"
                             >Save</button>
+                            <button className='dxc-close' onClick={() => this.passClose()}>
+                                <i className="material-icons">&#xE5CD;</i>
+                            </button>
                         </div>
                         <div className="contentEditor-container">
                             <div className="contentEditor">
@@ -76,7 +79,7 @@ class TextEditor extends Component {
                 <div>
                     <div className="contentEditor-container">
                         <div className="contentEditor">
-                           {editor}
+                            {editor}
                         </div>
                     </div>
                 </div>

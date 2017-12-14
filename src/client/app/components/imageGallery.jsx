@@ -10,9 +10,11 @@ class ImageGallery extends React.Component {
     super(props);
     this.state = {
       images: this.props.componentProperties.images || [],
-      currentPage: this.props.componentProperties.currentPage || 0
+      currentPage: this.props.componentProperties.currentPage || 0,
+      imageDirectory: this.props.componentProperties.imageDirectory || ""
     };
   }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       images: nextProps.componentProperties.images
@@ -20,7 +22,7 @@ class ImageGallery extends React.Component {
   }
 
   addImage() {
-    let images = this.state.images;
+    let images = [].concat(this.state.images);
     images.push({
       imgSrc: ""
     });
@@ -30,7 +32,7 @@ class ImageGallery extends React.Component {
   }
 
   removeImage(index) {
-    let images = this.state.images;
+    let images = [].concat(this.state.images);
     images.splice(index, 1);
     this.setState({
       images
@@ -38,7 +40,7 @@ class ImageGallery extends React.Component {
   }
 
   updateSource(value, index) {
-    let images = this.state.images;
+    let images = [].concat(this.state.images);
     images[index]["imgSrc"] = value.target.value;
     this.setState({
       images
@@ -46,7 +48,6 @@ class ImageGallery extends React.Component {
   }
 
   handlePageChange(dir) {
-    console.log("Changing page ", dir);
     let currentPage = this.state.currentPage;
     currentPage += dir;
     this.setState({
@@ -54,7 +55,7 @@ class ImageGallery extends React.Component {
     });
   }
 
-  updateImages(srcArray){
+  updateImages(srcArray) {
     let images = this.state.images.concat(srcArray);
     this.setState({
       images
@@ -67,23 +68,21 @@ class ImageGallery extends React.Component {
     let srcArray = [];
     let files = document.querySelector('input[type=file]').files;
     let reader = new FileReader();
- 
+
     reader.onloadend = function () {
-      
+
       counter++;
       console.log(counter)
-      if(files.length > counter){
-        console.log('next image')
-        srcArray.push({'imgSrc':reader.result})
+      if (files.length > counter) {
+        srcArray.push({ 'imgSrc': reader.result })
         reader.readAsDataURL(files[counter]);
-      }else {
-        console.log('updates')
-        srcArray.push({'imgSrc':reader.result})
-        that.updateImages(srcArray)        
-      }      
+      } else {
+        srcArray.push({ 'imgSrc': reader.result })
+        that.updateImages(srcArray)
+      }
     }
     if (files) {
-        reader.readAsDataURL(files[counter]);        
+      reader.readAsDataURL(files[counter]);
     }
   }
 
@@ -94,6 +93,15 @@ class ImageGallery extends React.Component {
     });
   }
 
+  passClose() {
+    let confirmResult = confirm("Would you like to save your changes before exiting?")
+    if (!confirmResult) {
+      this.props.passClose()
+      return false
+    }
+    this.saveEdit()
+  };
+
   render() {
     let that = this;
     let currentPage = this.state.currentPage;
@@ -103,16 +111,17 @@ class ImageGallery extends React.Component {
         i < (currentPage + 1) * itemsPerRow * rowsPerPage
       );
     });
-    console.log(filteredImages);
     let rowHeight =
       Math.ceil(this.state.images.length / itemsPerRow) > itemsPerRow
         ? "33.333%"
         : 100 / Math.ceil(this.state.images.length / itemsPerRow) + "%";
-    console.log(this.state.currentPage);
     if (this.props.editable) {
       return (
         <div>
-          <input name="myFile" type="file" onChange={()=>this.previewFile()} multiple/>
+          <button className='dxc-close' onClick={() => this.passClose()}>
+            <i className="material-icons">&#xE5CD;</i>
+          </button>
+          <input name="myFile" type="file" onChange={() => this.previewFile()} multiple />
           <div className="w1">
             {this.state.images.map(function (e, i) {
               return (
@@ -131,7 +140,7 @@ class ImageGallery extends React.Component {
                       onChange={value => that.updateSource(value, i)}
                       className="modal-content-edit-input-text"
                     /> */}
-                    <img src={e['imgSrc']} className="smallImage"/>
+                    <img src={e['imgSrc']} className="smallImage" />
                   </div>
                 </div>
               );

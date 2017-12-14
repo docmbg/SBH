@@ -32,7 +32,7 @@ class VerticalNav extends React.Component {
     }
 
     removeLink(index) {
-        let links = this.state.links;
+        let links = [].concat(this.state.links);
         links.splice(index, 1);
         this.setState({
             links
@@ -40,7 +40,7 @@ class VerticalNav extends React.Component {
     }
 
     handleMove(dir, index) {
-        let links = this.state.tabs;
+        let links = [].concat(this.state.links);
         if (index + dir >= links.length || index + dir < 0) {
             return false
         }
@@ -79,7 +79,7 @@ class VerticalNav extends React.Component {
     }
 
     updateLink(event, index, type) {
-        let links = this.state.links;
+        let links = [].concat(this.state.links);
         links[index][type] = event.target.value;
         this.setState({
             links
@@ -87,7 +87,7 @@ class VerticalNav extends React.Component {
     }
 
     addLink() {
-        let links = this.state.links;
+        let links = [].concat(this.state.links);
         links.push({
             title: "",
             address: "",
@@ -99,6 +99,15 @@ class VerticalNav extends React.Component {
         })
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+
     render() {
 
         let that = this;
@@ -106,6 +115,9 @@ class VerticalNav extends React.Component {
         if (this.props.editable) {
             return (
                 <div className="modal-content-edit-navigation--side-wrapper">
+                    <button className='dxc-close' onClick={() => this.passClose()}>
+                        <i className="material-icons">&#xE5CD;</i>
+                    </button>
                     <div className="modal-content-edit-button-wrapper">
                         <button
                             onClick={() => that.saveEdit()}
@@ -239,11 +251,11 @@ class VerticalNav extends React.Component {
                         })} */}
                         </div>
                         <button
-                        className="modal-content-edit-button--plus"
-                        onClick={() => this.addLink()}
-                    >+</button>
+                            className="modal-content-edit-button--plus"
+                            onClick={() => this.addLink()}
+                        >+</button>
                     </div>
-                    
+
                 </div>
             )
         } else {

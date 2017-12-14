@@ -16,7 +16,7 @@ class TabMenu extends React.Component {
   }
 
   onEditorStateChange(editorState, index) {
-    let tabs = this.state.tabs;
+    let tabs = [].concat(this.state.tabs);
     tabs[index]["editorState"] = editorState;
     tabs[index]["editorStateRaw"] = convertToRaw(editorState.getCurrentContent())
     this.setState({
@@ -33,7 +33,7 @@ class TabMenu extends React.Component {
       return e
     })
     this.setState({
-      tabs,tabStyle
+      tabs, tabStyle
     });
   };
 
@@ -54,7 +54,7 @@ class TabMenu extends React.Component {
   };
 
   addTab() {
-    let tabs = this.state.tabs;
+    let tabs = [].concat(this.state.tabs);
     tabs.push({
       title: ""
     });
@@ -63,7 +63,7 @@ class TabMenu extends React.Component {
     });
   };
 
-  handleStyleChange(e){
+  handleStyleChange(e) {
     let tabStyle = this.state.tabStyle || "";
     tabStyle = e.target.value;
     this.setState({
@@ -84,7 +84,7 @@ class TabMenu extends React.Component {
   };
 
   handleMove(dir, index) {
-    let tabs = this.state.tabs;
+    let tabs = [].concat(this.state.tabs);
     if (index + dir >= tabs.length || index + dir < 0) {
       return false
     }
@@ -94,7 +94,7 @@ class TabMenu extends React.Component {
     tabs[index + dir] = item1;
     this.setState({
       tabs
-    })
+    });
   };
 
   setActiveTab(i) {
@@ -105,21 +105,41 @@ class TabMenu extends React.Component {
   };
 
   removeTab(index) {
-    let tabs = this.state.tabs;
+    let tabs = [].concat(this.state.tabs);
     tabs.splice(index, 1);
     this.setState({
       tabs
     });
   };
 
-  render() {
+  passClose() {
+    let confirmResult = confirm("Would you like to save your changes before exiting?")
+    if (!confirmResult) {
+      this.props.passClose()
+      return false
+    }
+    this.saveEdit()
+  };
 
+  passClose() {
+    let confirmResult = confirm("Would you like to save your changes before exiting?")
+    if (!confirmResult) {
+      this.props.passClose()
+      return false
+    }
+    this.saveEdit()
+  };
+
+  render() {
     let that = this;
     let tabs = this.state.tabs;
 
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
+          <button className='dxc-close' onClick={() => this.passClose()}>
+            <i className="material-icons">&#xE5CD;</i>
+          </button>
           <div className="modal-content-edit-count">{`Number of tabs: ${this.state.tabs.length}`}</div>
           <div className="modal-content-edit-general">
             <select
@@ -190,7 +210,7 @@ class TabMenu extends React.Component {
       console.log(this.state, "\n", this.props.componentProperties);
       let tabWidth = this.props.componentProperties.tabs.length || 1;
       tabWidth = Math.floor(100 / tabWidth).toString() + "%";
-      let styleObj = this.state.tabStyle == "horizontal" ? { width : tabWidth} : {height: tabWidth}; 
+      let styleObj = this.state.tabStyle == "horizontal" ? { width: tabWidth } : { height: tabWidth };
       return (
         <div className={`page-content-tabs ${this.state.tabStyle}`}>
           <div className="page-content-tabs-indicators">
@@ -228,7 +248,7 @@ class TabMenu extends React.Component {
       );
     }
   }
-  
+
 }
 
 export default TabMenu;

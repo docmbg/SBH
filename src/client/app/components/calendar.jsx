@@ -251,6 +251,15 @@ class Calendar extends React.Component {
         })
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+
     render() {
         let currentCalendarURL = this.state.selectorValue.replace(/ /g, '%20');
         let that = this;
@@ -260,6 +269,9 @@ class Calendar extends React.Component {
             return (
                 <div>
                     <div>
+                        <button className='dxc-close' onClick={() => this.passClose()}>
+                            <i className="material-icons">&#xE5CD;</i>
+                        </button>
                         <button
                             onClick={() => that.saveEdit()}
                             className="dxc-button"
@@ -269,9 +281,9 @@ class Calendar extends React.Component {
 
                         this.state.displayedEvents.map((e, i) =>
                             <div className="event preview">
-                                {e['visible'] == true ?  <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F4;</i> :
-                                <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F5;</i>}
-                               
+                                {e['visible'] == true ? <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F4;</i> :
+                                    <i onClick={() => this.setVisibility(i)} className='material-icons mini calendarIcons'> &#xE8F5;</i>}
+
                                 <span className="eventCollection-calendarIcon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" focusable="false" role="presentation">
                                         <path d="M32 32H0V4h6.667V0h2.667v4h13.333V0h2.667v4h6.667v28zM2.667 29.333h26.667V14.666H2.667v14.667zm0-17.333h26.667V6.667H2.667V12z"></path>

@@ -17,7 +17,7 @@ class HorizontalNav extends React.Component {
         })
     }
     addChildTab(i) {
-        let tabs = this.state.tabs;
+        let tabs = [].concat(this.state.tabs);
         tabs[i]['children'].push({
             name: 'Link name',
             link: '',
@@ -26,7 +26,7 @@ class HorizontalNav extends React.Component {
         this.setState({ tabs });
     }
     addTab() {
-        let tabs = this.state.tabs;
+        let tabs = [].concat(this.state.tabs);
         tabs.push({
             name: 'Link name',
             link: '',
@@ -39,7 +39,7 @@ class HorizontalNav extends React.Component {
     }
 
     handlePropChange(parentIndex, prop, value, childIndex) {
-        let tabs = this.state.tabs;
+        let tabs = [].concat(this.state.tabs);
         if (childIndex == undefined) {
             tabs[parentIndex][prop] = value;
         }
@@ -62,7 +62,7 @@ class HorizontalNav extends React.Component {
     }
 
     changeTabsStatus(i) {
-        let tabs = this.state.tabs;
+        let tabs = [].concat(this.state.tabs);
         tabs[i]['active'] = !tabs[i]['active'];
         this.setState({
             tabs
@@ -70,7 +70,7 @@ class HorizontalNav extends React.Component {
     }
 
     removeTab(index, childIndex) {
-        let tabs = this.state.tabs;
+        let tabs = [].concat(this.state.tabs);
         let confirmResult = confirm('This is will permanently delete the item. Are you sure you want to proceed?')
         if (confirmResult) {
             if (childIndex == undefined) {
@@ -85,8 +85,8 @@ class HorizontalNav extends React.Component {
     }
 
     handleMove(dir, parentIndex, childIndex) {
-        let tabs = this.state.tabs;
-        if(childIndex == undefined){
+        let tabs = [].concat(this.state.tabs);
+        if (childIndex == undefined) {
             if (parentIndex + dir >= tabs.length || parentIndex + dir < 0) {
                 return false
             }
@@ -94,7 +94,7 @@ class HorizontalNav extends React.Component {
             let item2 = tabs[parentIndex + dir];
             tabs[parentIndex] = item2;
             tabs[parentIndex + dir] = item1;
-        }else {
+        } else {
             if (childIndex + dir >= tabs[parentIndex]['children'].length || childIndex + dir < 0) {
                 return false
             }
@@ -107,6 +107,15 @@ class HorizontalNav extends React.Component {
             tabs
         })
     }
+
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
 
     render() {
         let that = this;
@@ -127,6 +136,9 @@ class HorizontalNav extends React.Component {
 
         return (
             <div>
+                <button className='dxc-close' onClick={() => this.passClose()}>
+                    <i className="material-icons">&#xE5CD;</i>
+                </button>
                 <div className="preview">
                     <div>
                         <button
@@ -161,8 +173,8 @@ class HorizontalNav extends React.Component {
                                         {e['active'] == false ? <i onClick={(e) => that.changeTabsStatus(i)}
                                             className="material-icons mini left">&#xE254;</i> : <i onClick={(e) => that.changeTabsStatus(i)} className="material-icons mini left">&#xE22B;</i>}
                                         <span className='tabTitle'>{e['name'] || 'Link Name'}</span>
-                                        <i onClick={(e) => that.handleMove(1,i)} className="material-icons mini">&#xE5DB;</i>
-                                        <i onClick={(e) => that.handleMove(-1,i)} className="material-icons mini">&#xE5D8;</i>
+                                        <i onClick={(e) => that.handleMove(1, i)} className="material-icons mini">&#xE5DB;</i>
+                                        <i onClick={(e) => that.handleMove(-1, i)} className="material-icons mini">&#xE5D8;</i>
                                         <i onClick={(e) => that.removeTab(i)} className="material-icons mini">&#xE5CD;</i>
 
                                     </div>
@@ -184,8 +196,8 @@ class HorizontalNav extends React.Component {
                                                         <tr>
                                                             <td><input value={e["name"]} onChange={(event) => that.handlePropChange(i, 'name', event.target.value, j)} /></td>
                                                             <td><input value={e["link"]} onChange={(event) => that.handlePropChange(i, 'link', event.target.value, j)} /></td>
-                                                            <td><i onClick={(e) => that.handleMove(1,i,j)} className="material-icons mini">&#xE5DB;</i></td>
-                                                            <td><i onClick={(e) => that.handleMove(-1,i,j)} className="material-icons mini">&#xE5D8;</i></td>
+                                                            <td><i onClick={(e) => that.handleMove(1, i, j)} className="material-icons mini">&#xE5DB;</i></td>
+                                                            <td><i onClick={(e) => that.handleMove(-1, i, j)} className="material-icons mini">&#xE5D8;</i></td>
                                                             <td><i onClick={(e) => that.removeTab(i, j)} className="material-icons mini">&#xE5CD;</i></td>
                                                         </tr>
                                                     )

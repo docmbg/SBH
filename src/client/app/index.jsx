@@ -293,7 +293,7 @@ class App extends React.Component {
     let componentIndex = 0;
     currentStateJSONArr.map(function (e, i) {
       if (e["containerKey"] == componentKey) {
-        console.log(currentStateJSONArr[i]['containerProps']['static'])
+        console.log("Item to be locked: ", currentStateJSONArr[i])
         currentStateJSONArr[i]['containerProps']['static'] = !currentStateJSONArr[i]['containerProps']['static']
       }
     })
@@ -441,7 +441,8 @@ class App extends React.Component {
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className={`gridLayout-cell editMode`}
+                    className={`gridLayout-cell editMode ${e["containerProps"]['static'] == true ? 'react-draggable' : 'static'}`}
+                    static={e["containerProps"]['static'] == true}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >

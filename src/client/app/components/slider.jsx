@@ -11,6 +11,7 @@ class SliderWebPart extends React.Component {
       sliderStyles: this.props.componentProperties.sliderStyles || {}
     };
   }
+
   saveEdit() {
     let slides = this.state.slides;
     let sliderStyles = this.state.sliderStyles;
@@ -19,22 +20,25 @@ class SliderWebPart extends React.Component {
       sliderStyles
     });
   }
+
   removeSlide(index) {
-    let slides = this.state.slides;
+    let slides = [].concat(this.state.slides);
     slides.splice(index, 1);
     this.setState({
       slides
     });
   }
+
   updateSlide(event, index, type) {
-    let slides = this.state.slides;
+    let slides = [].concat(this.state.slides);
     slides[index][type] = event.target.value;
     this.setState({
       slides
     });
   }
+
   addSlide() {
-    let slides = this.state.slides;
+    let slides = [].concat(this.state.slides);
     slides.push({
       src: "",
       title: "",
@@ -46,8 +50,9 @@ class SliderWebPart extends React.Component {
       slides
     });
   }
+
   handleMove(dir, index) {
-    let slides = this.state.slides;
+    let slides = [].concat(this.state.slides);
     if (index + dir >= slides.length || index + dir < 0) {
       return false
     }
@@ -59,6 +64,7 @@ class SliderWebPart extends React.Component {
       slides
     })
   }
+
   toggleTabContents(i) {
     let slides = this.state.slides;
     if (slides[i]["active"]) {
@@ -70,6 +76,7 @@ class SliderWebPart extends React.Component {
       slides
     })
   }
+
   handleGeneralChange(evt, instance) {
     let sliderStyles = this.state.sliderStyles;
     sliderStyles[instance] = evt.target.value;
@@ -77,11 +84,24 @@ class SliderWebPart extends React.Component {
       sliderStyles
     });
   }
+
+  passClose() {
+    let confirmResult = confirm("Would you like to save your changes before exiting?")
+    if (!confirmResult) {
+      this.props.passClose()
+      return false
+    }
+    this.saveEdit()
+  };
+
   render() {
     let that = this;
     if (this.props.editable) {
       return (
         <div>
+          <button className='dxc-close' onClick={() => this.passClose()}>
+            <i className="material-icons">&#xE5CD;</i>
+          </button>
           <div className="modal-content-edit-slider-wrapper">
             <div className="modal-content-edit-slider-preview">
               <div className="modal-content-edit-slider-preview-container">
@@ -330,45 +350,45 @@ class SliderWebPart extends React.Component {
                         e["active"] ? "transition-down" : "transition-up"
                         }`}
                     >
-                    <div>
-                      <p className="modal-content-edit-header">Slide Title</p>
-                      <div className="modal-content-edit-slides-title">
-                        <input
-                          type="text"
-                          value={that.state.slides[i]["title"]}
-                          onChange={event => that.updateSlide(event, i, "title")}
-                        />
-                      </div>
+                      <div>
+                        <p className="modal-content-edit-header">Slide Title</p>
+                        <div className="modal-content-edit-slides-title">
+                          <input
+                            type="text"
+                            value={that.state.slides[i]["title"]}
+                            onChange={event => that.updateSlide(event, i, "title")}
+                          />
+                        </div>
                       </div>
                       <div>
-                      <p className="modal-content-edit-header">Slide Image</p>
-                      <div className="modal-content-edit-slides-image">
-                        <input
-                          type="text"
-                          value={that.state.slides[i]["src"]}
-                          onChange={event => that.updateSlide(event, i, "src")}
-                        />
-                      </div>
-                      </div>
-                      <div>
-                      <p className="modal-content-edit-header">Slide Description</p>
-                      <div className="modal-content-edit-slides-image">
-                        <textarea
-                          type="text"
-                          value={that.state.slides[i]["description"]}
-                          onChange={event => that.updateSlide(event, i, "description")}
-                        />
-                      </div>
+                        <p className="modal-content-edit-header">Slide Image</p>
+                        <div className="modal-content-edit-slides-image">
+                          <input
+                            type="text"
+                            value={that.state.slides[i]["src"]}
+                            onChange={event => that.updateSlide(event, i, "src")}
+                          />
+                        </div>
                       </div>
                       <div>
-                      <p className="modal-content-edit-header">Slide Link</p>
-                      <div className="modal-content-edit-slides-image">
-                        <input
-                          type="text"
-                          value={that.state.slides[i]["link"]}
-                          onChange={event => that.updateSlide(event, i, "link")}
-                        />
+                        <p className="modal-content-edit-header">Slide Description</p>
+                        <div className="modal-content-edit-slides-image">
+                          <textarea
+                            type="text"
+                            value={that.state.slides[i]["description"]}
+                            onChange={event => that.updateSlide(event, i, "description")}
+                          />
+                        </div>
                       </div>
+                      <div>
+                        <p className="modal-content-edit-header">Slide Link</p>
+                        <div className="modal-content-edit-slides-image">
+                          <input
+                            type="text"
+                            value={that.state.slides[i]["link"]}
+                            onChange={event => that.updateSlide(event, i, "link")}
+                          />
+                        </div>
                       </div>
                     </div>
                   </li>

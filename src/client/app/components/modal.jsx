@@ -20,6 +20,26 @@ class Modal extends React.Component {
             currentActiveModal: ""
         }
     }
+    componentWillReceiveProps(nextProps) {
+        console.log("Mounting", nextProps.currentComponent);
+        if(nextProps.isActive )
+        switch (this.props.currentComponent) {
+            case ("ImageGallery"):
+                console.log("Image Gallery Mount");
+                $().SPServices({
+                    operation: "GetListItems",
+                    async: true,
+                    listName: "Images",
+                    CAMLQueryOptions: `<QueryOptions><ViewAttributes Scope="Recursive"/></QueryOptions>`,
+                    completefunc: function (xData, Status) {
+                        console.log("loadImageFromDirectory: ", $(xData.responseXML));
+                    }
+                })           
+                break;
+            default:
+                return false
+        }
+    }
     handleModalChange(e) {
         this.setState({
             currentComponent: e
@@ -30,11 +50,11 @@ class Modal extends React.Component {
         this.setState({
             currentComponentProps: e
         })
-        console.log("Modal recieving props: ", e);
         this.props.passProps(e, this.props.currentActiveModal, this.props.currentComponent);
         this.closeModal();
     }
     closeModal() {
+       
         this.setState({
             isActive: false
         })
@@ -44,31 +64,31 @@ class Modal extends React.Component {
     drawEditComponent() {
         switch (this.props.currentComponent) {
             case ("ImageContainer"):
-                return <SimpleImageComponent componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <SimpleImageComponent componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()}/>
                 break;
             case ("TextArea"):
-                return <TextEditor componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <TextEditor componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("Slider"):
-                return <SliderWebPart componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <SliderWebPart componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("VerticalNav"):
-                return <VerticalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <VerticalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("HorizontalNav"):
-                return <HorizontalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <HorizontalNav componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("TabMenu"):
-                return <TabMenu componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <TabMenu componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()}/>
                 break;
             case ("Survey"):
-                return <Survey componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <Survey componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()}/>
                 break;
             case ("Calendar"):
-                return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} />
+                return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()}/>
                 break;
             case ("ImageGallery"):
-                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} />
+                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)}  passClose={() => this.closeModal()} />
                 break;
             default:
                 return (
@@ -86,9 +106,9 @@ class Modal extends React.Component {
                     </div>
 
                     <div className="modal-content">
-                        <button className='dxc-close' onClick={() => this.closeModal()}>
+                        {/* <button className='dxc-close' onClick={() => this.closeModal()}>
                             <i className="material-icons">&#xE5CD;</i>
-                    </button>
+                        </button> */}
                         {/* <select className="modal-content-select" value={this.props.currentComponent} onChange={(e) => this.handleModalChange(e)}>
                             <option value=""></option>
                             <option value="ImageContainer">Image Container</option>

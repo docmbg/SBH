@@ -49,7 +49,7 @@ class Survey extends React.Component {
                             existingSurveys.push($(this).attr('Title'))
                         }
                     })
-                    
+
                     that.setState({
                         fullSurveyAddUrl,
                         existingSurveys,
@@ -62,8 +62,8 @@ class Survey extends React.Component {
                 }
             })
         }
- 
-        
+
+
     }
 
     onSurveyChange(e) {
@@ -131,26 +131,38 @@ class Survey extends React.Component {
         }
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+
     render() {
         let that = this;
         if (this.props.editable) {
             return (
                 <div>
                     <div>
+                        <button className='dxc-close' onClick={() => this.passClose()}>
+                            <i className="material-icons">&#xE5CD;</i>
+                        </button>
                         <button
                             onClick={() => that.saveEdit()}
                             className="dxc-button"
                         >Save</button>
-                        
+
                     </div>
                     <div className="surveyEdit">
-                    <a className="dxc-link"href={this.state.fullSurveyAddUrl} target="_blank" > Add a new Survey </a>
-                    <span>or add from existing </span>
-                    <select onChange={(e) => this.onSurveyChange(e)} defaultValue={this.state.selectorValue}>
-                        <option disabled value="default"> -- Choose a Survey -- </option>
-                        {this.state.existingSurveys.map((e) => <option value={e}>{e}</option>)}
-                    </select>
-                    <i  onClick={() => this.refreshList()} className="fa fa-refresh" aria-hidden="true"></i>
+                        <a className="dxc-link" href={this.state.fullSurveyAddUrl} target="_blank" > Add a new Survey </a>
+                        <span>or add from existing </span>
+                        <select onChange={(e) => this.onSurveyChange(e)} defaultValue={this.state.selectorValue}>
+                            <option disabled value="default"> -- Choose a Survey -- </option>
+                            {this.state.existingSurveys.map((e) => <option value={e}>{e}</option>)}
+                        </select>
+                        <i onClick={() => this.refreshList()} className="fa fa-refresh" aria-hidden="true"></i>
                     </div>
                     <iframe onLoad={(e) => this.testOnload()} src={this.state.iframe} width="100%" scrolling="yes" height="100%"></iframe>
                 </div>

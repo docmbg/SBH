@@ -1,7 +1,7 @@
 * {
     font-family: Arial;
 }
-.gridLayout-cell {
+.gridLayout-cell.editMode {
     /* background: rgb(217,217,217); */
     border: 3px dashed rgb(102,102,102);
  }

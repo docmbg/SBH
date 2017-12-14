@@ -441,7 +441,7 @@ class App extends React.Component {
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className={`gridLayout-cell editMode ${e["containerProps"]['static'] == true ? 'react-draggable' : 'static'}`}
+                    className={`gridLayout-cell editMode`}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
@@ -449,6 +449,8 @@ class App extends React.Component {
                       innerElementType={e["innerElement"]["type"]}
                       innerElementProps={e["innerElement"]["innerElementProps"]}
                       passLock={(evt) => _this.onLockItem(modalKey)}
+                      json={_this.state.currentStateJSON}
+                      modalKey={modalKey}
                       passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
                       passClose={(evt) => _this.onRemoveItem(modalKey)}
                       handleImageModal={(src) => _this.handleImageModal(src)}

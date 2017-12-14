@@ -12,7 +12,7 @@ class SimpleImageComponent extends React.Component {
         }
     }
     passProps(e, occ) {
-        let newVal = e.target.value;
+        let newVal = e.target != undefined ? e.target.value : e;
         switch (occ) {
             case ("imgSrc"):
                 this.setState({
@@ -34,6 +34,22 @@ class SimpleImageComponent extends React.Component {
         }
 
     }
+
+    previewFile() {
+        let that = this;
+        let counter = 0;
+        let srcArray = [];
+        let file = document.querySelector('input[type=file]').files[0];
+        let reader = new FileReader();
+     
+        reader.onloadend = function () {
+            that.passProps(reader.result, "imgSrc")
+        }
+        if (file) {
+            reader.readAsDataURL(file);        
+        }
+      }
+
     saveEdit() {
         console.log("Image pass props")
         console.log({
@@ -61,18 +77,20 @@ class SimpleImageComponent extends React.Component {
         } else {
             return (
                 <div>
-                    <p className="modal-content-edit-header">Image Source</p>
-                    <input
-                        type="text" value={this.state.imgSrc || ""}
-                        onChange={(e) => this.passProps(e, "imgSrc")}
-                        className="modal-content-edit-input-text"
-                    ></input>
                     <div>
                         <button
                             onClick={() => this.saveEdit()}
                             className="dxc-button"
                         >Save</button>
                     </div>
+                    <p className="modal-content-edit-header">Image Source</p>
+                    <input
+                        type="text" value={`${this.state.imgSrc != undefined? this.state.imgSrc.substring(0,20): ''}...`}
+                        onChange={(e) => this.passProps(e, "imgSrc")}
+                        className="modal-content-edit-input-text"
+                    ></input>
+                     <input name="myFile" type="file" onChange={()=>this.previewFile()}/>
+                    
                 </div>
             )
         }

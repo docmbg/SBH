@@ -32,6 +32,15 @@ class TextEditor extends Component {
         })
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+    
     render() {
 
         let editor = <div></div>

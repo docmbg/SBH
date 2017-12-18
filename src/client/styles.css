@@ -77,10 +77,12 @@ input.modal-content-edit-input-text:focus, input.modal-content-edit-input-text:h
     z-index:9000 
 }
 .page-edit-banner-addButton {
-    height: 4% ;
-    margin: 0.5%  ;
-    font-weight: 600  ; 
-    background-color: #FFAD00;
+    height: 4%;
+    margin: 0.5%;
+    font-weight: 600;
+    background-color: rgb(255,237,000);
+    cursor: pointer;
+    border-radius:3px;
 }
 .transparentDiv {
     background-color: rgba(0,0,0,1);
@@ -745,5 +747,22 @@ button {
 }
 
 .dragHandle {
-    float: right;
+    position: absolute;
+    top: -5;
+}
+
+.exit-previewMode {
+    background: black;
+    color: rgb(255,237,00);
+    position: fixed;
+    bottom: 0;
+    right: 5em;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 0px 8px 0px 0px;
+}
+
+.exit-previewMode:hover {
+    color: white;
 }

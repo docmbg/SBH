@@ -71,7 +71,7 @@ class ContentContainer extends React.Component {
                 // onMouseEnter={() => this.changeButtonsStyle('buttonsShow')} onMouseLeave={() => this.changeButtonsStyle('buttonsHide')}
                 <div>
                     {/* <div className={this.state.display}> */}
-                    <ModalEditButtons passOpen={(e) => this.props.passOpen(e)} modalKey={this.props.modalKey} passClose={(e) => this.props.passClose(e)}  json={this.props.json} passLock={(e) => this.props.passLock(e)}/>
+                    <ModalEditButtons preview={this.props.preview} passOpen={(e) => this.props.passOpen(e)} modalKey={this.props.modalKey} passClose={(e) => this.props.passClose(e)}  json={this.props.json} passLock={(e) => this.props.passLock(e)}/>
                     {/* </div> */}
                     {this.componentsMap(this.props.innerElementType)}
                 </div>

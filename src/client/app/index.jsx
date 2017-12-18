@@ -81,6 +81,7 @@ class App extends React.Component {
     };
     const modalOpened = false;
     this.state = {
+      previewMode: false,
       currentPage,
       dragging,
       shadowComponent,
@@ -213,7 +214,7 @@ class App extends React.Component {
     currentStateJSONArr.push({
       containerKey: allAdded,
       containerProps: {
-        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1,draggableHandle: ".dragHandle",static: false
+        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1, draggableHandle: ".dragHandle", static: false
       },
       innerElement: {
         type: this.state.draggedComponent.split('-')[0],
@@ -287,7 +288,7 @@ class App extends React.Component {
     });
   }
 
-  onLockItem(componentKey){
+  onLockItem(componentKey) {
     console.log(componentKey)
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
     let componentIndex = 0;
@@ -384,7 +385,7 @@ class App extends React.Component {
             left: e.clientX,
             display: 'none',
             border: '2px dashed rgb(102,102,102)',
-            background: 'rgb(217,217,217)',            
+            background: 'rgb(217,217,217)',
             height: '200px',
           }
         }
@@ -392,12 +393,19 @@ class App extends React.Component {
       this.addNewContainer(e, xPosition, yPosition)
     }
   }
-  toggleAddMenu(){
+  toggleAddMenu() {
     let componentMenuVisible = !this.state.componentMenuVisible || false;
     this.setState({
       componentMenuVisible
     })
   }
+
+  previewMode(status) {
+    this.setState({
+      previewMode: status
+    })
+  }
+
   render() {
 
     let _this = this;
@@ -409,22 +417,25 @@ class App extends React.Component {
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}
           </div>
-          <div className="page-edit-banner-main">
-            <button onClick={() => this.toggleAddMenu()} className={`page-edit-banner-addButton ${this.state.componentMenuVisible ? "disabled" : ""}`} >
-            {this.state.componentMenuVisible ? "Hide" : "Show"} Components
+          <div className={this.state.previewMode ? 'hidden' : ''}>
+            <div className="page-edit-banner-main">
+              <button onClick={() => this.toggleAddMenu()} className={`page-edit-banner-addButton ${this.state.componentMenuVisible ? "disabled" : ""}`} >
+                {this.state.componentMenuVisible ? "Hide" : "Show"} Components
             </button>
-            <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
-          </div>
-          <div className={`page-edit-banner ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
-            <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
-            <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i><p className="component-text">Rich Text</p></button>
-            <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
-            <button className="Survey-Component"><i className="material-icons">&#xE801;</i><p className="component-text">Survey</p></button>
-            <button className="Calendar-Component"><i className="material-icons">&#xE916;</i><p className="component-text">Calendar</p></button>
-            <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i><p className="component-text">Tab Menu</p></button>
-            <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i><p className="component-text">Gallery</p></button>
-            <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i><p className="component-text">Vertical Navigation</p></button>
-            <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
+              <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
+              <button onClick={() => this.previewMode(true)} className="page-edit-banner-addButton">Preview Mode</button>
+            </div>
+            <div className={`page-edit-banner ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
+              <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
+              <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i><p className="component-text">Rich Text</p></button>
+              <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
+              <button className="Survey-Component"><i className="material-icons">&#xE801;</i><p className="component-text">Survey</p></button>
+              <button className="Calendar-Component"><i className="material-icons">&#xE916;</i><p className="component-text">Calendar</p></button>
+              <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i><p className="component-text">Tab Menu</p></button>
+              <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i><p className="component-text">Gallery</p></button>
+              <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i><p className="component-text">Vertical Navigation</p></button>
+              <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
+            </div>
           </div>
           <div className="fullGrid" >
             <ResponsiveReactGridLayout className="layout"
@@ -441,23 +452,24 @@ class App extends React.Component {
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className={`gridLayout-cell editMode ${e["containerProps"]['static'] == true ? 'react-draggable' : 'static'}`}
+                    className={_this.state.previewMode ? 'gridLayout-cell' : 'gridLayout-cell editMode'} 
                     static={e["containerProps"]['static'] == true}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
+
                     <ContentContainer
                       innerElementType={e["innerElement"]["type"]}
                       innerElementProps={e["innerElement"]["innerElementProps"]}
                       passLock={(evt) => _this.onLockItem(modalKey)}
                       json={_this.state.currentStateJSON}
                       modalKey={modalKey}
+                      preview={_this.state.previewMode}
                       passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
                       passClose={(evt) => _this.onRemoveItem(modalKey)}
                       handleImageModal={(src) => _this.handleImageModal(src)}
                     />
-                    <span><i title='Drag me' className="material-icons dragHandle">&#xE25D;</i></span>
-
+                    <span><i title='Drag me' className={_this.state.previewMode ? 'hidden': 'material-icons dragHandle'}>&#xE25D;</i></span>
 
                   </div>
                 );
@@ -478,6 +490,8 @@ class App extends React.Component {
             handleImageClick={() => _this.handleImageModal()}
             src={this.state.imageModalSrc}
           />
+          <button onClick={() => this.previewMode(false)}
+            className={this.state.previewMode ? 'exit-previewMode' : 'exit-previewMode hidden'}><i title="Exit preview mode" className="material-icons">&#xE5D1;</i></button>
         </div>
       );
     } else {

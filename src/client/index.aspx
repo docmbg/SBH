@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../horizontalNav.css">
     <link rel="stylesheet" href="../buttonsBar.css">
     <link rel="stylesheet" href="../tabularMenu.css">
+    <link rel="stylesheet" href="../image-gallery-style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
 

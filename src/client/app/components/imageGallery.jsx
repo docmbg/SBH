@@ -11,13 +11,14 @@ class ImageGallery extends React.Component {
     this.state = {
       images: this.props.componentProperties.images || [],
       currentPage: this.props.componentProperties.currentPage || 0,
-      imageDirectory: this.props.componentProperties.imageDirectory || ""
+      imageCollection: this.props.imageCollection || []
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      images: nextProps.componentProperties.images
+      images: nextProps.componentProperties.images,
+      imageCollection: nextProps.imageCollection || []
     });
   }
 
@@ -87,7 +88,9 @@ class ImageGallery extends React.Component {
   }
 
   saveEdit() {
-    let images = this.state.images;
+    let images = this.state.imageCollection.filter(function (e) {
+      return e["selected"]
+    });
     this.props.passProps({
       images
     });
@@ -102,7 +105,15 @@ class ImageGallery extends React.Component {
     this.saveEdit()
   };
 
+  handleImageClick(index) {
+    let imageCollection = [].concat(this.state.imageCollection);
+    imageCollection[index]["selected"] = !imageCollection[index]["selected"];
+    this.setState({
+      imageCollection
+    })
+  }
   render() {
+    console.log("Images:", this.state.imageCollection)
     let that = this;
     let currentPage = this.state.currentPage;
     let filteredImages = this.state.images.filter(function (e, i) {
@@ -122,6 +133,27 @@ class ImageGallery extends React.Component {
             <i className="material-icons">&#xE5CD;</i>
           </button>
           <input name="myFile" type="file" onChange={() => this.previewFile()} multiple />
+          <div className="modal-content-imageCollection">
+
+            {this.state.imageCollection.map(function (e, i) {
+              return (
+                <div
+                  className="modal-content-imageCollection-item"
+                  >
+                  <div className={`modal-content-imageCollection-item-check`}>
+                    <label>
+                      <input type="checkbox" name="" onClick={() => that.handleImageClick(i)} value={e["selected"] == true} />
+                      <i className="helper"></i>
+                    </label>
+                  </div>
+                  <div className={`modal-content-imageCollection-item-image ${e["selected"] ? "" : "transparent"}`}>
+                    <img src={e["imgSrc"]} />
+                  </div>
+                </div>
+              )
+            })}
+
+          </div>
           <div className="w1">
             {this.state.images.map(function (e, i) {
               return (

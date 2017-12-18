@@ -17,28 +17,45 @@ class Modal extends React.Component {
             isActive: false,
             currentComponent: "",
             currentComponentProps: {},
-            currentActiveModal: ""
+            currentActiveModal: "",
+            images: []
         }
     }
+
     componentWillReceiveProps(nextProps) {
-        console.log("Mounting", nextProps.currentComponent);
-        if(nextProps.isActive )
-        switch (this.props.currentComponent) {
-            case ("ImageGallery"):
-                console.log("Image Gallery Mount");
-                $().SPServices({
-                    operation: "GetListItems",
-                    async: true,
-                    listName: "Images",
-                    CAMLQueryOptions: `<QueryOptions><ViewAttributes Scope="Recursive"/></QueryOptions>`,
-                    completefunc: function (xData, Status) {
-                        console.log("loadImageFromDirectory: ", $(xData.responseXML));
-                    }
-                })           
-                break;
-            default:
-                return false
+        let _this = this;
+        if(nextProps.isActive){
+            console.log("Before switch", nextProps.currentComponent)
+            switch (nextProps.currentComponent) {
+                case ("ImageGallery"):
+                    console.log("Image Gallery Mount");
+                    $().SPServices({
+                        operation: "GetListItems",
+                        async: true,
+                        listName: "Images",
+                        CAMLQueryOptions: `<QueryOptions><ViewAttributes Scope="Recursive"/></QueryOptions>`,
+                        completefunc: function (xData, Status) {
+                            let current;
+                            let images = []; 
+                            $(xData.responseXML).SPFilterNode("z:row").each(function(){
+                                current = $(this);
+                                images.push({
+                                    title: current.attr("ows_LinkFileName"),
+                                    imgSrc: (window.location.href.split('teams')[0] || "") +  current.attr("ows_FileRef").split(";#")[1],
+                                    selected : false
+                                })
+                            });
+                            _this.setState({
+                                images
+                            })
+                        }
+                    })           
+                    break;
+                default:
+                    return false
+            }
         }
+        
     }
     handleModalChange(e) {
         this.setState({
@@ -88,7 +105,7 @@ class Modal extends React.Component {
                 return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()}/>
                 break;
             case ("ImageGallery"):
-                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)}  passClose={() => this.closeModal()} />
+                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} imageCollection={this.state.images} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)}  passClose={() => this.closeModal()} />
                 break;
             default:
                 return (

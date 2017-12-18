@@ -72,3 +72,21 @@
     box-sizing: border-box;
     /* line-height: 0em; */
 }
+.modal-content-imageCollection {
+    width: 100%;
+    height: 60%;
+    position: relative;
+    overflow: scroll;
+}
+.modal-content-imageCollection-item {
+    width: 33%;
+    max-height: 33%;
+    float: left;
+}
+.modal-content-imageCollection-item-image > img {
+    height: 100%;
+    width: 100%;
+}
+.modal-content-imageCollection-item-image.transparent{
+    opacity: 0.5
+}

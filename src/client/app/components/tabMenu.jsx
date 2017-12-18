@@ -137,6 +137,14 @@ class TabMenu extends React.Component {
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
+        <div>
+            <button
+              onClick={() => that.saveEdit()}
+              className="dxc-button"
+            >
+              Save
+            </button>
+          </div>
           <button className='dxc-close' onClick={() => this.passClose()}>
             <i className="material-icons">&#xE5CD;</i>
           </button>
@@ -196,14 +204,6 @@ class TabMenu extends React.Component {
           >
             +
           </button>
-          <div>
-            <button
-              onClick={() => that.saveEdit()}
-              className="dxc-button"
-            >
-              Save
-            </button>
-          </div>
         </div>
       );
     } else {

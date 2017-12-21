@@ -60,6 +60,7 @@ class App extends React.Component {
     const imageModalSrc = "";
     const x = 0;
     const y = 0;
+    const vertical = false;
     const browser = '';
     const dragging = false;
     const componentMenuVisible = false;
@@ -87,6 +88,7 @@ class App extends React.Component {
       shadowComponent,
       draggedComponent,
       browser,
+      vertical,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
       currentStateJSON, allAdded, imageModalSrc, componentMenuVisible
@@ -372,7 +374,7 @@ class App extends React.Component {
   }
 
   mouseUp(e) {
-    if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className == 'fullGrid' || e.target.parentElement.className == 'fullGrid')) {
+    if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className.indexOf('fullGrid') > -1 || e.target.parentElement.className.indexOf('fullGrid')>-1) ) {
       let xPosition = Math.floor(e.clientX / windowW * 24);//calculation needed
       let yPosition = Math.floor(e.clientY / windowH * 8);//calculation needed    
       this.setState({
@@ -406,6 +408,12 @@ class App extends React.Component {
     })
   }
 
+  flipToolbar(){
+    this.setState({
+      vertical: !this.state.vertical
+    })
+  }
+
   render() {
 
     let _this = this;
@@ -417,15 +425,19 @@ class App extends React.Component {
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}
           </div>
-          <div className={this.state.previewMode ? 'hidden' : ''}>
+          <div className={`${this.state.vertical? 'page-edit-banner-wrapper-vertical' : 'page-edit-banner-wrapper' } ${this.state.previewMode ? 'hidden' : ''}`}>
             <div className="page-edit-banner-main">
-              <button onClick={() => this.toggleAddMenu()} className={`page-edit-banner-addButton ${this.state.componentMenuVisible ? "disabled" : ""}`} >
+              <button onClick={() => this.toggleAddMenu()} className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}
+                ${this.state.componentMenuVisible ? "disabled" : ""}`} >
                 {this.state.componentMenuVisible ? "Hide" : "Show"} Components
             </button>
-              <button onClick={() => this.savePage()} className="page-edit-banner-addButton">Save the page</button>
-              <button onClick={() => this.previewMode(true)} className="page-edit-banner-addButton">Preview Mode</button>
+            <button onClick={() => this.flipToolbar()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>
+              Flip Toolbar
+            </button>
+              <button onClick={() => this.savePage()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>Save the page</button>
+              <button onClick={() => this.previewMode(true)} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>Preview Mode</button>
             </div>
-            <div className={`page-edit-banner ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
+            <div className={`${this.state.vertical? 'page-edit-banner-vertical': 'page-edit-banner'} ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
               <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
               
               <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
@@ -439,7 +451,7 @@ class App extends React.Component {
               <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
             </div>
           </div>
-          <div className="fullGrid" >
+          <div className={this.state.vertical ? 'fullGrid vertical': 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
               preventCollision={false}

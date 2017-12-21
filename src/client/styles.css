@@ -23,6 +23,18 @@
     z-index: 1000  ;
     
 }
+
+.page-edit-banner-wrapper {
+    width:100%;
+    background-color: #444444;
+}
+
+.page-edit-banner-wrapper-vertical {
+    width:6%;
+    background-color: #444444;
+    float: left;
+}
+
 .modal-background{
     margin: auto  ;
     position: fixed  ;
@@ -83,6 +95,16 @@ input.modal-content-edit-input-text:focus, input.modal-content-edit-input-text:h
     background-color: rgb(255,237,000);
     cursor: pointer;
     border-radius:3px;
+}
+
+.page-edit-banner-addButton-vertical {
+    height: 4%;
+    margin: 2%;
+    font-weight: 600;
+    background-color: rgb(255,237,000);
+    cursor: pointer;
+    border-radius: 3px;
+    width: 95%;
 }
 .transparentDiv {
     background-color: rgba(0,0,0,1);
@@ -558,6 +580,14 @@ div.w3{
 .fullGrid {
     box-sizing:border-box;
     width:100%!important;
+    height:100%!important;
+    position: relative;
+}
+
+.fullGrid.vertical {
+    width: 94%;
+    margin-left:6%;
+    box-sizing:border-box;
     height:100%!important;
     position: relative;
 }

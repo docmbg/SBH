@@ -57,7 +57,7 @@ class Survey extends React.Component {
                         siteName,
                         mainURL,
                         currentUser,
-                        selectorValue: this.props.componentProperties.selectorValue || 'default'
+                        selectorValue: that.props.componentProperties.selectorValue || 'default'
                     })
                 }
             })
@@ -137,7 +137,7 @@ class Survey extends React.Component {
             this.props.passClose()
             return false
         }
-        this.saveEdit()
+        this.saveEdit();
     };
 
     render() {

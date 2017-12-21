@@ -41,6 +41,16 @@ export const draggableComponents = [
       }
     },
     {
+      type: 'VideoComponent-Component',
+      defaultSize: {
+        w: 4,
+        h: 4
+      },
+      innerElementProps: {
+  
+      }
+    },
+    {
       type: 'TextArea-Component',
       defaultSize: {
         w: 14,

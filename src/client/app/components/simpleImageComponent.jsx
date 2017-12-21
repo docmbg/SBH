@@ -41,14 +41,14 @@ class SimpleImageComponent extends React.Component {
         let srcArray = [];
         let file = document.querySelector('input[type=file]').files[0];
         let reader = new FileReader();
-     
+
         reader.onloadend = function () {
             that.passProps(reader.result, "imgSrc")
         }
         if (file) {
-            reader.readAsDataURL(file);        
+            reader.readAsDataURL(file);
         }
-      }
+    }
 
     saveEdit() {
         console.log("Image pass props")
@@ -77,6 +77,9 @@ class SimpleImageComponent extends React.Component {
         } else {
             return (
                 <div>
+                    <button className='dxc-close' onClick={() => this.passClose()}>
+                        <i className="material-icons">&#xE5CD;</i>
+                    </button>
                     <div>
                         <button
                             onClick={() => this.saveEdit()}
@@ -85,12 +88,12 @@ class SimpleImageComponent extends React.Component {
                     </div>
                     <p className="modal-content-edit-header">Image Source</p>
                     <input
-                        type="text" value={`${this.state.imgSrc != undefined? this.state.imgSrc.substring(0,20): ''}...`}
+                        type="text" value={`${this.state.imgSrc != undefined ? this.state.imgSrc.substring(0, 20) : ''}...`}
                         onChange={(e) => this.passProps(e, "imgSrc")}
                         className="modal-content-edit-input-text"
                     ></input>
-                     <input name="myFile" type="file" onChange={()=>this.previewFile()}/>
-                    
+                    <input name="myFile" type="file" onChange={() => this.previewFile()} />
+
                 </div>
             )
         }

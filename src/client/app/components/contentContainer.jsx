@@ -10,6 +10,7 @@ import TabMenu from './tabMenu.jsx';
 import Survey from './survey.jsx';
 import Calendar from './calendar.jsx';
 import ImageGallery from './imageGallery.jsx';
+import VideoComponent from './videoComponent.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -26,6 +27,9 @@ class ContentContainer extends React.Component {
         switch (elem) {
             case ("ImageContainer"):
                 return <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false} handleImageModal={(src) => this.props.handleImageModal(src)} />
+                break;
+            case ("VideoComponent"):
+                return <VideoComponent componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)}/>
                 break;
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
@@ -71,7 +75,7 @@ class ContentContainer extends React.Component {
                 // onMouseEnter={() => this.changeButtonsStyle('buttonsShow')} onMouseLeave={() => this.changeButtonsStyle('buttonsHide')}
                 <div>
                     {/* <div className={this.state.display}> */}
-                    <ModalEditButtons preview={this.props.preview} passOpen={(e) => this.props.passOpen(e)} modalKey={this.props.modalKey} passClose={(e) => this.props.passClose(e)}  json={this.props.json} passLock={(e) => this.props.passLock(e)}/>
+                    <ModalEditButtons preview={this.props.preview} passOpen={(e) => this.props.passOpen(e)} modalKey={this.props.modalKey} passClose={(e) => this.props.passClose(e)} json={this.props.json} passLock={(e) => this.props.passLock(e)} />
                     {/* </div> */}
                     {this.componentsMap(this.props.innerElementType)}
                 </div>

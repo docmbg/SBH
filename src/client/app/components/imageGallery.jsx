@@ -113,7 +113,8 @@ class ImageGallery extends React.Component {
     })
   }
   render() {
-    console.log("Images:", this.state.imageCollection)
+    console.log("Component Props: ", this.props.componentProperties);
+    console.log("Images:", this.state.imageCollection);
     let that = this;
     let currentPage = this.state.currentPage;
     let filteredImages = this.state.images.filter(function (e, i) {
@@ -155,23 +156,10 @@ class ImageGallery extends React.Component {
 
           </div>
           <div className="w1">
-            {this.state.images.map(function (e, i) {
+            {this.state.filteredImages.map(function (e, i) {
               return (
                 <div className="modal-content-edit-navigation--side-container">
                   <div className="w2">
-                    <button
-                      onClick={i => that.removeImage(i)}
-                      className="modal-content-edit-button--remove"
-                    >
-                      X
-                    </button>
-                    <p className="modal-content-edit-header">Image Source</p>
-                    {/* <input
-                      type="text"
-                      value={e["imgSrc"]}
-                      onChange={value => that.updateSource(value, i)}
-                      className="modal-content-edit-input-text"
-                    /> */}
                     <img src={e['imgSrc']} className="smallImage" />
                   </div>
                 </div>

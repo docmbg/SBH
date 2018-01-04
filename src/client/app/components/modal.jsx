@@ -29,7 +29,14 @@ class Modal extends React.Component {
             console.log("Before switch", nextProps.currentComponent)
             switch (nextProps.currentComponent) {
                 case ("ImageGallery"):
+                if(nextProps.currentComponentProps.images != undefined){
+                    _this.setState({
+                        images : nextProps.currentComponentProps.images
+                    })
+                    return false
+                }
                     console.log("Image Gallery Mount");
+                    console.log(nextProps)
                     $().SPServices({
                         operation: "GetListItems",
                         async: true,
@@ -109,7 +116,9 @@ class Modal extends React.Component {
                 return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("ImageGallery"):
-                return <ImageGallery componentProperties={this.props.currentComponentProps} editable={true} imageCollection={this.state.images} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
+                let imageComponentProperties = this.props.currentComponentProps;
+                imageComponentProperties["images"] = this.state.images;
+                return <ImageGallery componentProperties={imageComponentProperties} editable={true} imageCollection={this.state.images} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             default:
                 return (

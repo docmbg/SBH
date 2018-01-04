@@ -173,11 +173,14 @@ class VerticalNav extends React.Component {
                         </div>
                         <div className="w1">
                             <p className="modal-content-edit-header">Invert color on hover?</p>
-                            <input type="checkbox"
+                            <label>
+                                <input type="checkbox" 
+                                name="" 
                                 defaultChecked={this.state.linkInvert}
                                 onChange={(value) => this.updateStyle(value, "linkInvert")}
-                                className="modal-content-edit-input-checkbox"
-                            ></input>
+                                className="modal-content-edit-input-checkbox" />
+                                <i className="helper"></i>
+                            </label>
                         </div>
                     </div>
                     <div className="w1 modal-content-edit-preview">

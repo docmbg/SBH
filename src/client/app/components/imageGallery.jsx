@@ -88,9 +88,8 @@ class ImageGallery extends React.Component {
   }
 
   saveEdit() {
-    let images = this.state.imageCollection.filter(function (e) {
-      return e["selected"]
-    });
+    let images = this.state.imageCollection;
+    console.log("Pass save, IMAGES:", images);
     this.props.passProps({
       images
     });
@@ -108,8 +107,9 @@ class ImageGallery extends React.Component {
   handleImageClick(index) {
     let imageCollection = [].concat(this.state.imageCollection);
     imageCollection[index]["selected"] = !imageCollection[index]["selected"];
+    let images = [].concat(imageCollection);
     this.setState({
-      imageCollection
+      imageCollection, images
     })
   }
   render() {
@@ -117,16 +117,19 @@ class ImageGallery extends React.Component {
     console.log("Images:", this.state.imageCollection);
     let that = this;
     let currentPage = this.state.currentPage;
-    let filteredImages = this.state.images.filter(function (e, i) {
+    let filteredImages = (this.state.images || []).filter(function (e, i) {
       return (
         i >= currentPage * itemsPerRow * rowsPerPage &&
         i < (currentPage + 1) * itemsPerRow * rowsPerPage
       );
     });
+    filteredImages = filteredImages.filter(function(e){
+      return e["selected"]
+    });
     let rowHeight =
-      Math.ceil(this.state.images.length / itemsPerRow) > itemsPerRow
+      Math.ceil((this.state.images || []).length / itemsPerRow) > itemsPerRow
         ? "33.333%"
-        : 100 / Math.ceil(this.state.images.length / itemsPerRow) + "%";
+        : 100 / Math.ceil((this.state.images || []).length / itemsPerRow) + "%";
     if (this.props.editable) {
       return (
         <div>
@@ -135,15 +138,15 @@ class ImageGallery extends React.Component {
           </button>
           <input name="myFile" type="file" onChange={() => this.previewFile()} multiple />
           <div className="modal-content-imageCollection">
-
-            {this.state.imageCollection.map(function (e, i) {
+          {console.log("before map:", this.state.images)}
+            {(this.state.images || []).map(function (e, i) {
               return (
                 <div
                   className="modal-content-imageCollection-item"
                   >
                   <div className={`modal-content-imageCollection-item-check`}>
                     <label>
-                      <input type="checkbox" name="" onClick={() => that.handleImageClick(i)} value={e["selected"] == true} />
+                      <input type="checkbox" name="" defaultChecked={e["selected"] == true} onClick={() => that.handleImageClick(i)} value={e["selected"] == true} />
                       <i className="helper"></i>
                     </label>
                   </div>
@@ -155,23 +158,6 @@ class ImageGallery extends React.Component {
             })}
 
           </div>
-          <div className="w1">
-            {this.state.filteredImages.map(function (e, i) {
-              return (
-                <div className="modal-content-edit-navigation--side-container">
-                  <div className="w2">
-                    <img src={e['imgSrc']} className="smallImage" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <button
-            className="modal-content-edit-button--plus"
-            onClick={() => this.addImage()}
-          >
-            +
-          </button>
           <div>
             <button
               onClick={() => this.saveEdit()}
@@ -184,7 +170,7 @@ class ImageGallery extends React.Component {
       );
     }
     console.log(
-      Math.floor(this.state.images.length / (itemsPerRow * rowsPerPage))
+      Math.floor((this.state.images || []).length / (itemsPerRow * rowsPerPage))
     );
     return (
       <div className="imageCollection-container">
@@ -215,7 +201,7 @@ class ImageGallery extends React.Component {
           className={`content-imageGallery-pageIndicator next ${
             this.state.currentPage ==
               Math.floor(
-                this.state.images.length / (itemsPerRow * rowsPerPage)
+                (this.state.images || []).length / (itemsPerRow * rowsPerPage)
               ) && filteredImages.length < 9
               ? "hidden"
               : ""

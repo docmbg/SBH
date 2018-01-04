@@ -114,14 +114,7 @@ export const draggableComponents = [
         h: 9
       },
       innerElementProps: {
-        images: [
-        {
-          "imgSrc": "https://pbs.twimg.com/profile_images/562466745340817408/_nIu8KHX.jpeg"
-        }, {
-          "imgSrc": "https://fthmb.tqn.com/mJroA0u-j7ROts63xY4oJkosaMs=/3372x2248/filters:no_upscale():fill(transparent,1)/kitten-looking-at-camera-521981437-57d840213df78c583374be3b.jpg"
-        }, {
-          "imgSrc": "https://www.petsworld.in/blog/wp-content/uploads/2015/09/Happy_Cat_Smiling.jpg"
-        }],
+        
       }
     },
     {

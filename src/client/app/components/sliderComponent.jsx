@@ -54,12 +54,9 @@ class Slider extends React.Component {
     }
 
     pickNextPicture(index, slides, timeBetweenSlides) {
-        console.log("Slide index (before):", index, ", Slide length: ", slides.length)
         if (index >= slides.length) {
             index = 0;
         }
-        
-        console.log("Slide index:", index)
         this.setState({
             currentPicture: this.state.slides.length == 0 ? '' : this.state.slides[index]['src'],
             currentPictureIndex: index + 1,

@@ -42,9 +42,17 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-
+const screenSizes = {
+  "1600": "lg",
+  "1200": "md",
+  "768": "sm",
+  "400": "xs"
+}
 class App extends React.Component {
   constructor(props) {
+
+    // cols={{ lg: 28, md: 24, sm: 20, xs: 16 }}
+    // breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
     super(props);
     const layouts = {};
     const currentItems = 0;
@@ -114,7 +122,7 @@ class App extends React.Component {
       operation: "GetListItems",
       async: false,
       listName: "SBH Templates",
-      CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='InnerHTML' /><FieldRef Name='ID' /></ViewFields>",
+      CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='InnerHTML' /><FieldRef Name='Layouts' /><FieldRef Name='ID' /></ViewFields>",
       CAMLQuery: "<Query><Where><Eq><FieldRef Name='Title' /><Value Type='Text'>"
         + currentPage +
         "</Value></Eq></Where></Query>",
@@ -133,22 +141,35 @@ class App extends React.Component {
           $(xData.responseXML).SPFilterNode("z:row").each(function () {
             let id = $(this).attr('ows_ID');
             response = $(this).attr('ows_InnerHTML');
+            let layouts = $(this).attr('ows_Layouts');
+            layouts = JSON.parse(layouts);
+            let currentWidth = window.screen.availWidth;
+
+            let currentLayoutKey = Object.keys(screenSizes).filter(function (e) {
+              return parseInt(e) <= currentWidth
+            })[0]
+            let currentLayout = layouts[screenSizes[currentLayoutKey]];
+            response = (JSON.parse(response) || []).map(function (e, i) {
+              e["containerProps"] = currentLayout[i];
+              return e
+            })
+            response = JSON.stringify(response);
             //console.log($(this).attr('ows_InnerHTML'))
             // console.log(typeof($(this).attr('ows_InnerHTML')))
             if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
 
 
               let allAdded = 0;
-
               allAdded = JSON.parse($(this).attr('ows_InnerHTML')).sort(function (a, b) {
                 return b["containerKey"] - a["containerKey"]
-              })[0]['containerKey']
+              })[0]['containerKey'];
 
               that.setState({
                 currentMode: "edit",
                 currentPage: currentPage || "",
                 currentStateJSON: (response || "[]"),
                 allAdded: allAdded,
+                layouts: layouts,
                 browser: get_browser()['name'],
                 id: id
 
@@ -159,6 +180,7 @@ class App extends React.Component {
                 currentMode: "view",
                 currentPage: currentPage,
                 currentStateJSON: response,
+                layouts: layouts,
                 browser: get_browser()['name'],
                 id: id
               })
@@ -173,10 +195,6 @@ class App extends React.Component {
     })
   }
 
-
-  onLayoutChange(layout, layouts) {
-    this.setState({ layouts });
-  }
   handleImageModal(src) {
     console.log("handling modal", src)
     this.setState({
@@ -216,7 +234,7 @@ class App extends React.Component {
     currentStateJSONArr.push({
       containerKey: allAdded,
       containerProps: {
-        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, minW: 1, minH: 1, draggableHandle: ".dragHandle", static: false
+        w: elementSize.w, h: elementSize.h, x: xPosition, y: yPosition, draggableHandle: ".dragHandle", static: false
       },
       innerElement: {
         type: this.state.draggedComponent.split('-')[0],
@@ -229,6 +247,7 @@ class App extends React.Component {
     });
   }
   savePage() {
+    let _this = this;
     if (this.state.currentPage.length < 1) {
       let prompt = window.prompt("Provide a name for this page");
       if ((prompt.match(/[\!\@\#\$\%\^\&\*\(\) ]/g) || []).length > 0) {
@@ -240,7 +259,7 @@ class App extends React.Component {
           async: false,
           batchCmd: "New",
           listName: "SBH Templates",
-          valuepairs: [["Title", prompt], ["InnerHTML", this.state.currentStateJSON]],
+          valuepairs: [["Title", prompt], ["InnerHTML", _this.state.currentStateJSON], ["Layouts", JSON.stringify(_this.state.layouts)]],
           completefunc: function (xData, Status) {
             alert("Page Saved!");
           }
@@ -253,7 +272,7 @@ class App extends React.Component {
         batchCmd: "Update",
         ID: this.state.id,
         listName: "SBH Templates",
-        valuepairs: [["Title", this.state.currentPage], ["InnerHTML", this.state.currentStateJSON]],
+        valuepairs: [["Title", _this.state.currentPage], ["InnerHTML", _this.state.currentStateJSON], ["Layouts", JSON.stringify(_this.state.layouts)]],
         completefunc: function (xData, Status) {
           alert("Page Saved");
         }
@@ -277,16 +296,18 @@ class App extends React.Component {
       currentComponentProps: modalProps
     })
   }
-  updateCurrentStateJSON(currentLayout) {
+  updateCurrentStateJSON(currentLayout, layouts) {
     let currentStateJSON = [];
+
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+    console.log("CurrentLayout: ", currentLayout)
     currentStateJSONArr = currentStateJSONArr.map(function (e, i) {
-      e["containerProps"] = currentLayout[i]
+      e["containerProps"] = currentLayout[i];
       return e
     });
     currentStateJSON = JSON.stringify(currentStateJSONArr);
     this.setState({
-      currentStateJSON
+      currentStateJSON, layouts
     });
   }
 
@@ -323,7 +344,8 @@ class App extends React.Component {
   }
 
   onLayoutChange(layout, layouts) {
-    this.updateCurrentStateJSON(layout);
+    this.updateCurrentStateJSON(layout, layouts);
+    console.log(layout, layouts)
   }
   updateStatus(modalOpened) {
     this.setState({
@@ -374,7 +396,7 @@ class App extends React.Component {
   }
 
   mouseUp(e) {
-    if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className.indexOf('fullGrid') > -1 || e.target.parentElement.className.indexOf('fullGrid')>-1) ) {
+    if (this.state.draggedComponent.indexOf('Component') > -1 && (e.target.className.indexOf('fullGrid') > -1 || e.target.parentElement.className.indexOf('fullGrid') > -1)) {
       let xPosition = Math.floor(e.clientX / windowW * 24);//calculation needed
       let yPosition = Math.floor(e.clientY / windowH * 8);//calculation needed    
       this.setState({
@@ -408,7 +430,7 @@ class App extends React.Component {
     })
   }
 
-  flipToolbar(){
+  flipToolbar() {
     this.setState({
       vertical: !this.state.vertical
     })
@@ -425,21 +447,21 @@ class App extends React.Component {
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}
           </div>
-          <div className={`${this.state.vertical? 'page-edit-banner-wrapper-vertical' : 'page-edit-banner-wrapper' } ${this.state.previewMode ? 'hidden' : ''}`}>
+          <div className={`${this.state.vertical ? 'page-edit-banner-wrapper-vertical' : 'page-edit-banner-wrapper'} ${this.state.previewMode ? 'hidden' : ''}`}>
             <div className="page-edit-banner-main">
-              <button onClick={() => this.toggleAddMenu()} className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}
+              <button onClick={() => this.toggleAddMenu()} className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}
                 ${this.state.componentMenuVisible ? "disabled" : ""}`} >
                 {this.state.componentMenuVisible ? "Hide" : "Show"} Components
             </button>
-            <button onClick={() => this.flipToolbar()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>
-              Flip Toolbar
+              <button onClick={() => this.flipToolbar()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>
+                Flip Toolbar
             </button>
-              <button onClick={() => this.savePage()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>Save the page</button>
-              <button onClick={() => this.previewMode(true)} className={this.state.vertical ? 'page-edit-banner-addButton-vertical': 'page-edit-banner-addButton'}>Preview Mode</button>
+              <button onClick={() => this.savePage()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Save the page</button>
+              <button onClick={() => this.previewMode(true)} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Preview Mode</button>
             </div>
-            <div className={`${this.state.vertical? 'page-edit-banner-vertical': 'page-edit-banner'} ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
+            <div className={`${this.state.vertical ? 'page-edit-banner-vertical' : 'page-edit-banner'} ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
               <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
-              
+
               <button className="ImageContainer-Component"><i className="material-icons">&#xE439;</i><p className="component-text">Image</p></button>
               <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i><p className="component-text">Gallery</p></button>
               <button className="VideoComponent-Component"><i className="material-icons">&#xE63A;</i><p className="component-text">Video</p></button>
@@ -451,40 +473,44 @@ class App extends React.Component {
               <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
             </div>
           </div>
-          <div className={this.state.vertical ? 'fullGrid vertical': 'fullGrid'} >
+
+          <div  className="dxcLogo"><a  href="https://my.dxc.com/content/intranet.html"  target="_blank"><img  src="../../dxc.png" /></a></div>
+
+          <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
               preventCollision={false}
               layouts={this.state.layouts}
-              cols={{ lg: 24, md: 24, sm: 24, xs: 24 }}
+              cols={{ lg: 28, md: 24, sm: 20, xs: 16 }}
               breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
               width={1600}
               verticalCompact={false}
+              compactType={"horizontal"}
               rowHeight={30} >
               {currentStateComponents.map(function (e, i) {
                 let modalKey = e["containerKey"];
                 let modalType = e["innerElement"] ? (e["innerElement"]["type"] || "") : "";
                 return (
                   <div
-                    className={_this.state.previewMode ? 'gridLayout-cell' : 'gridLayout-cell editMode'} 
-                    static={e["containerProps"]['static'] == true}
+                    className={_this.state.previewMode ? 'gridLayout-cell' : 'gridLayout-cell editMode'}
+                    static={e["containerProps"]["static"] == true}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
-
-                    <ContentContainer
-                      innerElementType={e["innerElement"]["type"]}
-                      innerElementProps={e["innerElement"]["innerElementProps"]}
-                      passLock={(evt) => _this.onLockItem(modalKey)}
-                      json={_this.state.currentStateJSON}
-                      modalKey={modalKey}
-                      preview={_this.state.previewMode}
-                      passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
-                      passClose={(evt) => _this.onRemoveItem(modalKey)}
-                      handleImageModal={(src) => _this.handleImageModal(src)}
-                    />
-                    <span><i title='Drag me' className={_this.state.previewMode ? 'hidden': 'material-icons dragHandle'}>&#xE25D;</i></span>
-
+                    <div>
+                      <ContentContainer
+                        innerElementType={e["innerElement"]["type"]}
+                        innerElementProps={e["innerElement"]["innerElementProps"]}
+                        passLock={(evt) => _this.onLockItem(modalKey)}
+                        json={_this.state.currentStateJSON}
+                        modalKey={modalKey}
+                        preview={_this.state.previewMode}
+                        passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
+                        passClose={(evt) => _this.onRemoveItem(modalKey)}
+                        handleImageModal={(src) => _this.handleImageModal(src)}
+                      />
+                      <span><i title='Drag me' className={_this.state.previewMode ? 'hidden' : 'material-icons dragHandle'}>&#xE25D;</i></span>
+                    </div>
                   </div>
                 );
 
@@ -517,7 +543,7 @@ class App extends React.Component {
             isDraggable={false}
             isResizable={false}
             layouts={this.state.layouts}
-            cols={{ lg: 24, md: 24, sm: 24, xs: 24 }}
+            cols={{ lg: 28, md: 24, sm: 20, xs: 16 }}
             breakpoints={{ lg: 1600, md: 1200, sm: 768, xs: 480 }}
             width={1600}
             rowHeight={30} >

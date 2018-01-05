@@ -90,6 +90,7 @@ button:focus{
     height: 100%;
     width: 15%;
     flex-flow: column;
+    padding-top: 0em;
 }
 .horizontal > .page-content-tabs-body{
     width: 100%;
@@ -98,6 +99,9 @@ button:focus{
 .vertical > .page-content-tabs-body{
     width: 85%;
     height: 100%;
+    border: 0.1em solid #666;
+    border-left: none;
+    box-sizing: border-box;
 }  
 .rdw-editor-main{
     height: 94% !important;
@@ -126,7 +130,12 @@ button:focus{
     font-weight: 600;
   }
   .page-content-tabs.vertical > .page-content-tabs-indicators > .page-content-tabs-indicators-indicator {
-      border-right: none;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 3.5em;
+    border-right: none;
+    box-sizing: border-box;
   }
   
   @media only screen and (max-width: 992px) {

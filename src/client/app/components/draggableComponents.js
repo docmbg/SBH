@@ -5,7 +5,7 @@ export const draggableComponents = [
         w: 14,
         h: 12,
         minW: 3,
-        minH: 3
+        minH: 3,
       },
       innerElementProps: {
         slides: [

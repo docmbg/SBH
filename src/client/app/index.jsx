@@ -296,36 +296,45 @@ class App extends React.Component {
       currentComponentProps: modalProps
     })
   }
+
   updateCurrentStateJSON(currentLayout, layouts) {
     let currentStateJSON = [];
 
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
-    console.log("CurrentLayout: ", currentLayout)
     currentStateJSONArr = currentStateJSONArr.map(function (e, i) {
       e["containerProps"] = currentLayout[i];
       return e
     });
     currentStateJSON = JSON.stringify(currentStateJSONArr);
     this.setState({
-      currentStateJSON, layouts
+      currentStateJSON, layouts, currentLayout
     });
   }
 
   onLockItem(componentKey) {
-    console.log(componentKey)
     let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
     let componentIndex = 0;
     currentStateJSONArr.map(function (e, i) {
       if (e["containerKey"] == componentKey) {
-        console.log("Item to be locked: ", currentStateJSONArr[i])
-        currentStateJSONArr[i]['containerProps']['static'] = !currentStateJSONArr[i]['containerProps']['static']
+        e['containerProps']['static'] = !e['containerProps']['static'];
+        componentIndex = e['containerProps']['i'];
       }
-    })
+    });
+    let currentStateLayout = this.state.layouts;
+    for(let key in currentStateLayout){
+      currentStateLayout[key].map(function (e, i) {
+        if(e['i'] == componentIndex){
+          console.log('match')
+          e['static'] = !e['static']
+        }
+      })
+    }
+    let layouts = currentStateLayout;
     let currentStateJSON = JSON.stringify(currentStateJSONArr);
-    console.log(currentStateJSONArr)
-    this.setState({
-      currentStateJSON
-    })
+    this.updateCurrentStateJSON(this.state.currentLayout, layouts);    
+    // this.setState({
+    //   currentStateJSON, layouts
+    // })
   }
 
   onRemoveItem(componentKey) {
@@ -347,6 +356,7 @@ class App extends React.Component {
     this.updateCurrentStateJSON(layout, layouts);
     console.log(layout, layouts)
   }
+
   updateStatus(modalOpened) {
     this.setState({
       modalOpened: false,
@@ -437,7 +447,6 @@ class App extends React.Component {
   }
 
   render() {
-
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
@@ -474,7 +483,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <div  className="dxcLogo"><a  href="https://my.dxc.com/content/intranet.html"  target="_blank"><img  src="../../dxc.png" /></a></div>
+          <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../../dxc.png" /></a></div>
 
           <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"
@@ -493,24 +502,23 @@ class App extends React.Component {
                 return (
                   <div
                     className={_this.state.previewMode ? 'gridLayout-cell' : 'gridLayout-cell editMode'}
-                    static={e["containerProps"]["static"] == true}
                     key={e["containerKey"]}
                     data-grid={e["containerProps"]}
                   >
-                    <div>
-                      <ContentContainer
-                        innerElementType={e["innerElement"]["type"]}
-                        innerElementProps={e["innerElement"]["innerElementProps"]}
-                        passLock={(evt) => _this.onLockItem(modalKey)}
-                        json={_this.state.currentStateJSON}
-                        modalKey={modalKey}
-                        preview={_this.state.previewMode}
-                        passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
-                        passClose={(evt) => _this.onRemoveItem(modalKey)}
-                        handleImageModal={(src) => _this.handleImageModal(src)}
-                      />
-                      <span><i title='Drag me' className={_this.state.previewMode ? 'hidden' : 'material-icons dragHandle'}>&#xE25D;</i></span>
-                    </div>
+
+                    <ContentContainer
+                      innerElementType={e["innerElement"]["type"]}
+                      innerElementProps={e["innerElement"]["innerElementProps"]}
+                      passLock={(evt) => _this.onLockItem(modalKey)}
+                      json={_this.state.currentStateJSON}
+                      modalKey={modalKey}
+                      preview={_this.state.previewMode}
+                      passOpen={(evt) => _this.openModal(evt, modalKey, modalType)}
+                      passClose={(evt) => _this.onRemoveItem(modalKey)}
+                      handleImageModal={(src) => _this.handleImageModal(src)}
+                    />
+                    <span><i title='Drag me' className={_this.state.previewMode ? 'hidden' : 'material-icons dragHandle'}>&#xE25D;</i></span>
+
                   </div>
                 );
 

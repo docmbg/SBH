@@ -117,7 +117,7 @@ class Slider extends React.Component {
                                 (
                                     <li key={index} value={index + 1} onClick={(e) => _this.goToSlide(e)}
                                         className={index + 1 == _this.state.currentPictureIndex ? 'content-slider-indicators-indicator active' : 'content-slider-indicators-indicator'}>
-                                        {index + 1}
+                                        <span>{index + 1}</span>
                                     </li>
                                 )
                             )

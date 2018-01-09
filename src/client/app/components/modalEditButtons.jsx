@@ -10,7 +10,7 @@ export default class ModalEditButtons extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        let currentStateJSONArr = JSON.parse(this.props.json);
+        let currentStateJSONArr = JSON.parse(nextProps.json);
         let locker;
         let currentElement = currentStateJSONArr.filter(e => e['containerKey'] == this.props.modalKey)[0];
         if(currentElement['containerProps']['static'] == true){

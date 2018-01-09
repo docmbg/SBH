@@ -114,18 +114,15 @@ button:focus{
     background-color: #d9d9d9;
     border: 0.1em solid #666666;
     
-    border-bottom: none;
     text-shadow: 0.01em 0.05em #666666;
   }
   .page-content-tabs-indicators > div:hover {
     text-shadow: 0.01em 0.05em #666666;
-    border-bottom: none;
   }
   .page-content-tabs-indicators > div.active {
     /* border-bottom: 2px solid black; */
     background-color: #FFFF;
     border: 0.1em solid #666666;
-    border-bottom: none;
     text-align: center;
     font-weight: 600;
   }

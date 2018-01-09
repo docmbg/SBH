@@ -152,7 +152,6 @@ a {
 .slider, .slides, .content-slider-image{
     width: 100%;
     height: 100%;
-    margin-bottom: -100%
 }
 
 .slider .indicators .indicator-item {
@@ -168,6 +167,13 @@ a {
     border-radius:0%!important;
     border: 2px solid rgb(255, 237, 000)!important
 }
+
+.content-slider-indicators-indicator > span {
+    margin: auto;
+    display: block;
+}
+
+
 
 .slider .indicators .indicator-item.active {
     background-color: rgb(255, 237, 000)
@@ -427,7 +433,6 @@ a:hover {
     line-height: 1.3em;
     font-size: 1em;
     vertical-align: middle;
-    padding-left: 2.5%;
     font-weight: 600;
     text-align: center;
 }

@@ -148,12 +148,12 @@ class App extends React.Component {
             let currentLayoutKey = Object.keys(screenSizes).filter(function (e) {
               return parseInt(e) <= currentWidth
             })[0]
-            let currentLayout = layouts[screenSizes[currentLayoutKey]];
-            response = (JSON.parse(response) || []).map(function (e, i) {
-              e["containerProps"] = currentLayout[i];
-              return e
-            })
-            response = JSON.stringify(response);
+            // let currentLayout = layouts[screenSizes[currentLayoutKey]];
+            // response = (JSON.parse(response) || []).map(function (e, i) {
+            //   e["containerProps"] = currentLayout[i];
+            //   return e
+            // })
+            // response = JSON.stringify(response);
             //console.log($(this).attr('ows_InnerHTML'))
             // console.log(typeof($(this).attr('ows_InnerHTML')))
             if (getParameterByName("type") == "edit" || window.location.href.indexOf("?") < 0) {
@@ -196,7 +196,6 @@ class App extends React.Component {
   }
 
   handleImageModal(src) {
-    console.log("handling modal", src)
     this.setState({
       imageModalSrc: src
     })
@@ -248,7 +247,7 @@ class App extends React.Component {
   }
   savePage() {
     let _this = this;
-    if (this.state.currentPage.length < 1) {
+    if (this.state.currentPage.length < 1 || this.state.currentPage == "basic-template-site" ) {
       let prompt = window.prompt("Provide a name for this page");
       if ((prompt.match(/[\!\@\#\$\%\^\&\*\(\) ]/g) || []).length > 0) {
         alert("The name cannot contain special symbols or spaces");
@@ -324,17 +323,14 @@ class App extends React.Component {
     for(let key in currentStateLayout){
       currentStateLayout[key].map(function (e, i) {
         if(e['i'] == componentIndex){
-          console.log('match')
           e['static'] = !e['static']
         }
       })
     }
     let layouts = currentStateLayout;
     let currentStateJSON = JSON.stringify(currentStateJSONArr);
-    this.updateCurrentStateJSON(this.state.currentLayout, layouts);    
-    // this.setState({
-    //   currentStateJSON, layouts
-    // })
+    this.onLayoutChange(this.state.currentLayout, layouts);    
+   
   }
 
   onRemoveItem(componentKey) {
@@ -353,8 +349,8 @@ class App extends React.Component {
   }
 
   onLayoutChange(layout, layouts) {
+  
     this.updateCurrentStateJSON(layout, layouts);
-    console.log(layout, layouts)
   }
 
   updateStatus(modalOpened) {
@@ -372,7 +368,6 @@ class App extends React.Component {
 
 
   mouseDown(event) {
-    console.log(event.screenX, event.screenY, "windowSize: ", windowH, ", ", windowW)
     event.preventDefault();
     let draggedComponent = this.state.browser == 'IE' ? event.target.className : event.target.parentElement.className
     this.setState({
@@ -382,7 +377,6 @@ class App extends React.Component {
   }
 
   mouseMove(e) {
-    // console.log(this.state.draggedComponent)
     if (this.state.draggedComponent.indexOf('Component') > -1) {
       let size = draggableComponents.filter(e => e.type == this.state.draggedComponent)[0].defaultSize
       let width = `${windowW / 24 * size.w}px`;
@@ -483,7 +477,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../../dxc.png" /></a></div>
+          <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
 
           <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"

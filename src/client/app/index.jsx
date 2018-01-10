@@ -48,6 +48,9 @@ const screenSizes = {
   "768": "sm",
   "400": "xs"
 }
+
+
+
 class App extends React.Component {
   constructor(props) {
 
@@ -70,6 +73,7 @@ class App extends React.Component {
     const y = 0;
     const vertical = false;
     const browser = '';
+    const gridDivs = [];
     const dragging = false;
     const componentMenuVisible = false;
     const shadowComponent = {
@@ -97,12 +101,14 @@ class App extends React.Component {
       draggedComponent,
       browser,
       vertical,
+      gridDivs,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
       currentStateJSON, allAdded, imageModalSrc, componentMenuVisible
     };
   }
   componentWillMount() {
+    this.calculateGridDivs();
     if (window.location.href == 'localhost:3000') {
       that.setState({
         currentMode: "edit",
@@ -440,6 +446,40 @@ class App extends React.Component {
     })
   }
 
+  calculateGridDivs(){
+    let colsToScreen = {
+      "1600": "28",
+      "1200": "24",
+      "768": "20",
+      "400": "16"
+    };
+    
+    let currentWidth = window.screen.availWidth;
+    let gridDivs = [];
+    let currentRowsCount = window.screen.availHeight/30;    
+    let currentColCount = parseInt(colsToScreen[Object.keys(colsToScreen).sort((a,b)=> parseInt(b)-parseInt(a)).filter(function (e) {
+      return parseInt(e) <= currentWidth
+    })[0]])
+    console.log(currentWidth, currentColCount)
+    let currentColWidth = (currentWidth/currentColCount).toFixed(2) + 'px';
+    let style = {
+      width: currentColWidth,
+      height: '30px'
+    }
+    console.log(style)
+    
+    for(let i = 0; i < currentRowsCount; i++){
+      for(let j = 0; j < currentColCount; j++){
+        gridDivs.push(
+          <div className="gridItemDiv" style={style}></div>
+        )
+      }
+    }
+    this.setState({
+      gridDivs
+    })
+  }
+
   render() {
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
@@ -478,7 +518,11 @@ class App extends React.Component {
           </div>
 
           <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
-
+          <div className="gridHolder">
+              {
+                this.state.gridDivs.map(e => e)
+              }
+          </div>
           <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
@@ -528,6 +572,7 @@ class App extends React.Component {
             updateStatus={(e) => this.updateStatus(e)}
             updateCurrentElement={(e) => this.updateCurrentModalElement(e)}
           />
+         
           <ImageModal
             handleImageClick={() => _this.handleImageModal()}
             src={this.state.imageModalSrc}

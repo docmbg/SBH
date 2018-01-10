@@ -2,7 +2,7 @@ export const draggableComponents = [
     {
       type: 'Slider-Component',
       defaultSize: {
-        w: 14,
+        w: 13,
         h: 12,
         minW: 3,
         minH: 3,

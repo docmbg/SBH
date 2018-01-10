@@ -98,6 +98,7 @@ class TabMenu extends React.Component {
   };
 
   setActiveTab(i) {
+    console.log('asd')
     let currentActiveTab = i;
     this.setState({
       currentActiveTab

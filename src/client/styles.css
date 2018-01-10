@@ -806,3 +806,15 @@ button {
     opacity: 0.7;
     transition: opacity 0.3s ease-in-out;
 } 
+
+.gridItemDiv {
+    border: 1px dotted black;
+    display: inline-block;
+    box-sizing:border-box;
+    
+}
+
+.gridHolder {
+    position: absolute;
+    top:20%;
+}

@@ -1,6 +1,32 @@
 * {
     font-family: Arial;
 }
+
+/* @media screen and (max-width: 1900px) { 
+    .gridItemDiv {
+        width: 67px;
+    }
+}
+
+@media screen and (max-width: 1600px) { 
+    .gridItemDiv {
+        width: 65px;
+    }
+}
+
+@media screen and (max-width: 768px) { 
+    .gridItemDiv {
+        width: 66px;
+    }
+}
+
+@media screen and (max-width: 390px) { 
+    .gridItemDiv {
+        width: 40px;
+    }
+} */
+
+
 .gridLayout-cell.editMode {
     /* background: rgb(217,217,217); */
     border: 3px dashed rgb(102,102,102);
@@ -811,10 +837,18 @@ button {
     border: 1px dotted black;
     display: inline-block;
     box-sizing:border-box;
+    opacity:0.3;
     
 }
 
 .gridHolder {
     position: absolute;
-    top:20%;
+    top:19%;
+    left:1%;
+}
+
+.gridHolder.vertical {
+    left: 7%;
+    top:10%;
+    position:absolute;
 }

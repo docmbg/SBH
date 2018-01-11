@@ -448,10 +448,10 @@ class App extends React.Component {
 
   calculateGridDivs(){
     let colsToScreen = {
-      "1600": "28",
-      "1200": "24",
-      "768": "20",
-      "400": "16"
+      "1600": "67px",
+      "1200": "65px",
+      "768": "66px",
+      "400": "64px"
     };
     
     let currentWidth = window.screen.availWidth;
@@ -460,10 +460,9 @@ class App extends React.Component {
     let currentColCount = parseInt(colsToScreen[Object.keys(colsToScreen).sort((a,b)=> parseInt(b)-parseInt(a)).filter(function (e) {
       return parseInt(e) <= currentWidth
     })[0]])
-    console.log(currentWidth, currentColCount)
-    let currentColWidth = (currentWidth/currentColCount).toFixed(2) + 'px';
+    let currentColWidth = ((currentWidth-50)/currentColCount).toFixed(2) + 'px';
     let style = {
-      width: currentColWidth,
+      width: currentColCount,//currentColWidth,
       height: '30px'
     }
     console.log(style)
@@ -518,7 +517,7 @@ class App extends React.Component {
           </div>
 
           <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
-          <div className="gridHolder">
+          <div className={`gridHolder ${_this.state.previewMode ? 'hidden' :""} ${this.state.vertical ? 'vertical': ''}`}>
               {
                 this.state.gridDivs.map(e => e)
               }

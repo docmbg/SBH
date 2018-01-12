@@ -11,6 +11,15 @@ class VideoComponent extends React.Component {
         }
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+
     saveEdit() {
         console.log({
             vidSrc: this.state.vidSrc,
@@ -21,6 +30,7 @@ class VideoComponent extends React.Component {
             vidAutoPlay: this.state.vidAutoPlay
         })
     }
+
     updateProp(event, property) {
         switch (property) {
             case "vidSrc":
@@ -38,6 +48,7 @@ class VideoComponent extends React.Component {
                 break
         }
     }
+    
     render() {
         if (!this.props.editable) {
             return (

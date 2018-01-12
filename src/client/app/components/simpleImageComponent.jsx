@@ -50,6 +50,15 @@ class SimpleImageComponent extends React.Component {
         }
     }
 
+    passClose() {
+        let confirmResult = confirm("Would you like to save your changes before exiting?")
+        if (!confirmResult) {
+            this.props.passClose()
+            return false
+        }
+        this.saveEdit()
+    };
+
     saveEdit() {
         console.log("Image pass props")
         console.log({

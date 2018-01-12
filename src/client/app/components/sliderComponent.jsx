@@ -97,7 +97,7 @@ class Slider extends React.Component {
                                 <div className={`content-slider-infobox-text`}>
                                 <p className={`content-slider-infobox-title ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.title}</p>
                                 <div className={`content-slider-infobox-description ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.description}</div>
-                                    <div className={`content-slider-infobox-readMore`}>
+                                    <div className={`content-slider-infobox-readMore ${_this.props.sliderStyles.sliderBackgroundStyle == "slider-shape-DXC" ? "dxc-shape": "" }`}>
                                         <a href={elem.link} target="_blank">
                                             <div className={`${_this.props.sliderStyles.sliderButtonColor || ""} ${_this.props.sliderStyles.sliderButtonTextColor || ""}`}>
                                                 {_this.props.sliderStyles.readMoreText || ""}

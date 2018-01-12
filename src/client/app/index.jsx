@@ -75,7 +75,9 @@ class App extends React.Component {
     const browser = '';
     const gridDivs = [];
     const dragging = false;
+    const removedElement = {};
     const componentMenuVisible = false;
+    const gridVisible = true;
     const shadowComponent = {
       style: {
         width: '200px',
@@ -101,7 +103,9 @@ class App extends React.Component {
       draggedComponent,
       browser,
       vertical,
+      gridVisible,
       gridDivs,
+      removedElement,
       layouts, defaultProps, currentItems,
       items, modalOpened, currentModalElement, currentComponentProps,
       currentStateJSON, allAdded, imageModalSrc, componentMenuVisible
@@ -347,11 +351,25 @@ class App extends React.Component {
         componentIndex = i;
       }
     })
-    currentStateJSONArr.splice(componentIndex , 1);
+    let removedElement = currentStateJSONArr.splice(componentIndex , 1)[0];
     let currentStateJSON = JSON.stringify(currentStateJSONArr);
     this.setState({
-      currentStateJSON
+      currentStateJSON,
+      removedElement,
     })
+  }
+
+  restoreLastRemoved(){
+    if(this.state.removedElement.hasOwnProperty('innerElement')){
+      console.log(this.state.removedElement)
+      let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
+      currentStateJSONArr.push(this.state.removedElement);
+      let currentStateJSON = JSON.stringify(currentStateJSONArr);
+      this.setState({
+        currentStateJSON,
+        removedElement: {},
+      })
+   }
   }
 
   onLayoutChange(layout, layouts) {
@@ -446,10 +464,16 @@ class App extends React.Component {
     })
   }
 
+  hideGrid(){
+    this.setState({
+      gridVisible: !this.state.gridVisible
+    })
+  }
+
   calculateGridDivs(){
     let colsToScreen = {
-      "1600": "67px",
-      "1200": "65px",
+      "1900": "67px",
+      "1600": "65px",
       "768": "66px",
       "400": "64px"
     };
@@ -500,6 +524,15 @@ class App extends React.Component {
             </button>
               <button onClick={() => this.savePage()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Save the page</button>
               <button onClick={() => this.previewMode(true)} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Preview Mode</button>
+              <button onClick={() => this.restoreLastRemoved()} 
+              className={`${this.state.removedElement.hasOwnProperty('innerElement') ? '': 'disabled'} 
+              ${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}`}>
+              Restore Deleted 
+              </button>
+              <button onClick={() => this.hideGrid()} 
+              className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}`}>
+              {this.state.gridVisible ? "Hide" : "Show"} Grid
+              </button>
             </div>
             <div className={`${this.state.vertical ? 'page-edit-banner-vertical' : 'page-edit-banner'} ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
               <button className="Slider-Component"><i className="material-icons">&#xE8EB;</i><p className="component-text">Slider</p></button>
@@ -517,7 +550,7 @@ class App extends React.Component {
           </div>
 
           <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
-          <div className={`gridHolder ${_this.state.previewMode ? 'hidden' :""} ${this.state.vertical ? 'vertical': ''}`}>
+          <div className={`gridHolder ${_this.state.previewMode || !_this.state.gridVisible ? 'hidden' :""} ${this.state.vertical ? 'vertical': ''}`}>
               {
                 this.state.gridDivs.map(e => e)
               }

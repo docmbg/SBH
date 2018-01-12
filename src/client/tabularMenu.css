@@ -107,13 +107,14 @@ button:focus{
     height: 94% !important;
 }
 .page-content-tabs-indicators > div {
+    text-align: center;
     box-sizing: border-box;
     line-height: 100%;
     cursor: pointer;
     /* box-shadow: 1px 0px black; */
     background-color: #d9d9d9;
     border: 0.1em solid #666666;
-    
+    border-bottom: none;
     text-shadow: 0.01em 0.05em #666666;
   }
   .page-content-tabs-indicators > div:hover {
@@ -123,6 +124,7 @@ button:focus{
     /* border-bottom: 2px solid black; */
     background-color: #FFFF;
     border: 0.1em solid #666666;
+    border-bottom: none;
     text-align: center;
     font-weight: 600;
   }

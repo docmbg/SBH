@@ -397,6 +397,13 @@ a:hover {
     overflow: hidden;
     min-height: 2em;
 }
+.content-slider-infobox-readMore.dxc-shape{
+    margin-left: -15%;
+}
+.content-navigation--side-container{
+    margin-top: 5%;
+    margin-left: 5%;
+}
 .content-slider-infobox-readMore > a {
     text-decoration: none;
     font-weight: 800;

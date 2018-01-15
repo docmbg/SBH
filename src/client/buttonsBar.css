@@ -75,3 +75,19 @@
 .component-text{
     margin-top: -0.5em;
 }
+
+
+.colorPickerButton {
+    background: #000;
+    color: white;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+.colorPickerButton.confirmP{
+    float: left;
+}
+
+.colorPickerButton:hover {
+    color: rgb(255,237,000);
+    font-weight: 600;
+}

@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import { Slider, Slide } from 'react-materialize';
 import Slider from "./sliderComponent.jsx";
+import ColorPicker from './colorPicker.jsx';
+
 
 class SliderWebPart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       slides: this.props.componentProperties.slides || [],
-      sliderStyles: this.props.componentProperties.sliderStyles || {}
+      sliderStyles: this.props.componentProperties.sliderStyles || {},
     };
   }
 
@@ -20,6 +22,8 @@ class SliderWebPart extends React.Component {
       sliderStyles
     });
   }
+
+
 
   removeSlide(index) {
     let slides = [].concat(this.state.slides);
@@ -78,10 +82,12 @@ class SliderWebPart extends React.Component {
   }
 
   handleGeneralChange(evt, instance) {
+    console.log(evt,instance)
     let sliderStyles = this.state.sliderStyles;
-    sliderStyles[instance] = evt.target.value;
+    sliderStyles[instance] = evt;
     this.setState({
-      sliderStyles
+      sliderStyles,
+      currentEditedColor: ''
     });
   }
 
@@ -93,6 +99,12 @@ class SliderWebPart extends React.Component {
     }
     this.saveEdit()
   };
+
+  currentEditedColor(value) {
+    this.setState({
+      currentEditedColor: value
+    })
+  }
 
   render() {
     let that = this;
@@ -109,14 +121,14 @@ class SliderWebPart extends React.Component {
                 <div className={`content-slider-infobox`}>
                   <div
                     className={`content-slider-infobox-wrapper ${that.state
-                      .sliderStyles.sliderBackgroundStyle || ""} ${that.state
-                        .sliderStyles.sliderBackgroundColor || ""}`}
+                      .sliderStyles.sliderBackgroundStyle || ""}`}
                     style={{
                       opacity: (
                         parseInt(
                           that.state.sliderStyles.sliderBackgroundOpacity
                         ) / 100
-                      ).toFixed(2)
+                      ).toFixed(2),
+                      backgroundColor: that.state.sliderStyles.sliderBackgroundColor
                     }}
                   />
                   <div className={`content-slider-infobox-text`}>
@@ -158,20 +170,16 @@ class SliderWebPart extends React.Component {
                 <p className="modal-content-edit-header">
                   Slider text background color
                 </p>
-                <select
-                  defaultValue={this.state.sliderStyles.sliderBackgroundColor}
-                  onChange={e =>
-                    this.handleGeneralChange(e, "sliderBackgroundColor")
+                <div>
+                  {
+                    this.state.currentEditedColor != 'sliderBackgroundColor' ?
+                        (<div>
+                          <button  className="colorPickerButton" onClick={()=>this.currentEditedColor('sliderBackgroundColor')}> Change </button> 
+                          <div className="colorDisplayBox" style={{backgroundColor: (this.state.sliderStyles.sliderBackgroundColor || "#666666") }}></div>
+                        </div>):
+                      <ColorPicker chosenColor={this.state.sliderStyles.sliderBackgroundColor || "#666666"} passProps={(e) => this.handleGeneralChange(e, "sliderBackgroundColor")} />
                   }
-                >
-                  <option value="dxc-background-black">Black</option>
-                  <option value="dxc-background-gray--dark">Dark gray</option>
-                  <option value="dxc-background-gray--light">Light gray</option>
-                  <option value="dxc-background-white">White</option>
-                  <option value="dxc-background-yellow">Yellow</option>
-                  <option value="dxc-background-blue">Blue</option>
-                  <option value="dxc-background-green">Green</option>
-                </select>
+                </div>
                 <p className="modal-content-edit-header">Slider text color</p>
                 <select
                   onChange={e => this.handleGeneralChange(e, "sliderTextColor")}
@@ -195,7 +203,7 @@ class SliderWebPart extends React.Component {
                 </p>
                 <select
                   onChange={e =>
-                    this.handleGeneralChange(e, "sliderButtonTextColor")
+                    this.handleGeneralChange(e.target.value, "sliderButtonTextColor")
                   }
                   defaultValue={this.state.sliderStyles.sliderButtonTextColor}
                 >
@@ -208,6 +216,7 @@ class SliderWebPart extends React.Component {
                   <option value="dxc-font-green">Green</option>
                 </select>
                 <p className="modal-content-edit-header">Slider button color</p>
+
                 <select
                   onChange={e =>
                     this.handleGeneralChange(e, "sliderButtonColor")
@@ -261,7 +270,7 @@ class SliderWebPart extends React.Component {
                 </p>
                 <select
                   onChange={e =>
-                    this.handleGeneralChange(e, "sliderIndicatorsShape")
+                    this.handleGeneralChange(e.target.value, "sliderIndicatorsShape")
                   }
                   defaultValue={this.state.sliderStyles.sliderIndicatorsShape}
                 >
@@ -281,7 +290,7 @@ class SliderWebPart extends React.Component {
                 </p>
                 <select
                   onChange={e =>
-                    this.handleGeneralChange(e, "sliderBackgroundStyle")
+                    this.handleGeneralChange(e.target.value, "sliderBackgroundStyle")
                   }
                   defaultValue={this.state.sliderStyles.sliderBackgroundStyle}
                 >
@@ -296,7 +305,7 @@ class SliderWebPart extends React.Component {
                   type="number"
                   value={this.state.sliderStyles.sliderBackgroundOpacity}
                   onChange={e =>
-                    this.handleGeneralChange(e, "sliderBackgroundOpacity")
+                    this.handleGeneralChange(e.target.value, "sliderBackgroundOpacity")
                   }
                 />
                 <span>%</span>
@@ -304,7 +313,7 @@ class SliderWebPart extends React.Component {
                 <input
                   type={`number`}
                   onChange={e =>
-                    this.handleGeneralChange(e, "sliderImageOpacity")
+                    this.handleGeneralChange(e.target.value, "sliderImageOpacity")
                   }
                   defaultValue={this.state.sliderStyles.sliderImageOpacity}
                 />

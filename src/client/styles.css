@@ -859,3 +859,16 @@ button {
     top:10%;
     position:absolute;
 }
+
+.colorPickerWrapper {
+    position: absolute;
+    left: 6.5%;
+}
+.colorDisplayBox {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin-left: 4%;
+    line-height: 1em;
+    vertical-align: middle;
+}

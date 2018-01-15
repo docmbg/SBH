@@ -618,7 +618,7 @@ div.w3{
 .fullGrid {
     box-sizing:border-box;
     width:100%!important;
-    height:100%!important;
+    height:90%!important;
     position: relative;
 }
 
@@ -820,15 +820,15 @@ button {
 }
 
 .exit-previewMode {
-    background: black;
-    color: rgb(255,237,00);
+    height: 4%;
+    margin: 0.5%;
+    font-weight: 600;
+    background-color: rgb(255,237,000);
+    cursor: pointer;
+    border-radius: 3px;
+    top: 0;
     position: fixed;
-    bottom: 0;
-    right: 5em;
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    border-radius: 0px 8px 0px 0px;
+    right: 0;
 }
 
 .exit-previewMode:hover {
@@ -871,4 +871,27 @@ button {
     margin-left: 4%;
     line-height: 1em;
     vertical-align: middle;
+}
+
+.footer {
+    bottom: 0;
+    background: black;
+    width: 100%;
+    height: 10%;
+    left: -1%;
+}
+
+.footer >a {
+    color: white;
+    display: inline-block;
+    top: 1em;
+    position: relative;
+    margin: 0.3em;
+    padding-left: 90%;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.footer >a:hover {
+    color:rgb(255,217,000)
 }

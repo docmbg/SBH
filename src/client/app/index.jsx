@@ -489,7 +489,6 @@ class App extends React.Component {
       width: currentColCount,//currentColWidth,
       height: '30px'
     }
-    console.log(style)
 
     for (let i = 0; i < currentRowsCount; i++) {
       for (let j = 0; j < currentColCount; j++) {

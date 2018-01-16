@@ -89,5 +89,5 @@
 
 .colorPickerButton:hover {
     color: rgb(255,237,000);
-    font-weight: 600;
+    text-shadow: 1px 0px #FFED00;
 }

@@ -4,6 +4,7 @@ import { Tabs, Tab } from "react-materialize";
 import TextEditor from "./textEditor.jsx";
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+import ColorPicker from './colorPicker.jsx';
 
 class TabMenu extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class TabMenu extends React.Component {
     this.state = {
       tabs: this.props.componentProperties.tabs || [],
       currentActiveTab: this.props.componentProperties.currentActiveTab || 0,
-      tabStyle: this.props.componentProperties.tabStyle || ""
+      tabStyling: this.props.componentProperties.tabStyling || "",
+      currentEditedColor: ""
     };
   }
 
@@ -27,21 +29,21 @@ class TabMenu extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps)
     let tabs = nextProps.componentProperties.tabs || [];
-    let tabStyle = nextProps.componentProperties.tabStyle || "";
+    let tabStyling = nextProps.componentProperties.tabStyling || "";
     tabs = tabs.map(function (e) {
       e["editorState"] = e.editorStateRaw ? EditorState.createWithContent(convertFromRaw(e.editorStateRaw)) : EditorState.createEmpty()
       return e
     })
     this.setState({
-      tabs, tabStyle
+      tabs, tabStyling
     });
   };
 
   saveEdit() {
     let tabs = this.state.tabs;
-    let tabStyle = this.state.tabStyle;
+    let tabStyling = this.state.tabStyling;
     this.props.passProps({
-      tabs, tabStyle
+      tabs, tabStyling
     });
   };
 
@@ -63,11 +65,12 @@ class TabMenu extends React.Component {
     });
   };
 
-  handleStyleChange(e) {
-    let tabStyle = this.state.tabStyle || "";
-    tabStyle = e.target.value;
+  handleStyleChange(value, occ) {
+    let tabStyling = this.state.tabStyling || "";
+    tabStyling[occ] = value;
     this.setState({
-      tabStyle
+      tabStyling,
+      currentEditedColor: ''
     })
   };
 
@@ -112,16 +115,11 @@ class TabMenu extends React.Component {
       tabs
     });
   };
-
-  passClose() {
-    let confirmResult = confirm("Would you like to save your changes before exiting?")
-    if (!confirmResult) {
-      this.props.passClose()
-      return false
-    }
-    this.saveEdit()
-  };
-
+  currentEditedColor(currentEditedColor) {
+    this.setState({
+      currentEditedColor
+    })
+  }
   passClose() {
     let confirmResult = confirm("Would you like to save your changes before exiting?")
     if (!confirmResult) {
@@ -138,7 +136,7 @@ class TabMenu extends React.Component {
     if (this.props.editable) {
       return (
         <div className="modal-content-edit">
-        <div>
+          <div>
             <button
               onClick={() => that.saveEdit()}
               className="dxc-button"
@@ -153,12 +151,73 @@ class TabMenu extends React.Component {
           <div className="modal-content-edit-general">
             <select
               className="modal-content-edit-select"
-              value={this.state.tabStyle}
-              onChange={(e) => this.handleStyleChange(e)}
+              value={this.state.tabStyling.tabDirection}
+              onChange={(e) => this.handleStyleChange(e.target.value, "tabDirection")}
             >
               <option value={`horizontal`}>Horizontal</option>
               <option value={`vertical`}>Vertical</option>
             </select>
+            <div className="w2">
+              <div>
+                <p>Active Tab Color</p>
+                {
+                  this.state.currentEditedColor != 'tabActiveColor' ?
+                    (<div>
+                      <button className="colorPickerButton" onClick={() => this.currentEditedColor('tabActiveColor')}> Change </button>
+                      <div className="colorDisplayBox" style={{ backgroundColor: (this.state.tabStyling.tabActiveColor || "#FFF") }}></div>
+                    </div>) :
+                    <ColorPicker chosenColor={that.state.tabStyling.tabActiveColor || "#FFF"} passProps={(e) => this.handleStyleChange(e, "tabActiveColor")} />
+                }
+              </div>
+              <div>
+                <p>Active Tab Text Color</p>
+                {
+                  this.state.currentEditedColor != 'tabActiveTextColor' ?
+                    (<div>
+                      <button className="colorPickerButton" onClick={() => this.currentEditedColor('tabActiveTextColor')}> Change </button>
+                      <div className="colorDisplayBox" style={{ backgroundColor: (this.state.tabStyling.tabActiveTextColor || "#FFF") }}></div>
+                    </div>) :
+                    <ColorPicker chosenColor={this.state.tabStyling.tabActiveTextColor || "#FFF"} passProps={(e) => this.handleStyleChange(e, "tabActiveTextColor")} />
+                }
+              </div>
+            </div>
+            <div className="w2">
+              <div>
+                <p>Inactive Tab Color</p>
+                {
+                  this.state.currentEditedColor != 'tabInactiveColor' ?
+                    (<div>
+                      <button className="colorPickerButton" onClick={() => this.currentEditedColor('tabInactiveColor')}> Change </button>
+                      <div className="colorDisplayBox" style={{ backgroundColor: (this.state.tabStyling.tabInactiveColor || "#FFF") }}></div>
+                    </div>) :
+                    <ColorPicker chosenColor={this.state.tabStyling.tabInactiveColor || "#FFF"} passProps={(e) => this.handleStyleChange(e, "tabInactiveColor")} />
+                }
+              </div>
+              <div>
+                <p>Inactive Tab Text Color</p>
+                {
+                  this.state.currentEditedColor != 'tabInactiveTextColor' ?
+                    (<div>
+                      <button className="colorPickerButton" onClick={() => this.currentEditedColor('tabInactiveTextColor')}> Change </button>
+                      <div className="colorDisplayBox" style={{ backgroundColor: (this.state.tabStyling.tabInactiveTextColor || "#FFF") }}></div>
+                    </div>) :
+                    <ColorPicker chosenColor={this.state.tabStyling.tabInactiveTextColor || "#FFF"} passProps={(e) => this.handleStyleChange(e, "tabInactiveTextColor")} />
+                }
+              </div>
+            </div>
+            <div className="w1">
+            <div>
+                <p>Tab Border Color</p>
+                {
+                  this.state.currentEditedColor != 'tabBorder' ?
+                    (<div>
+                      <button className="colorPickerButton" onClick={() => this.currentEditedColor('tabBorder')}> Change </button>
+                      <div className="colorDisplayBox" style={{ backgroundColor: (this.state.tabStyling.tabBorder || "#FFF") }}></div>
+                    </div>) :
+                    <ColorPicker chosenColor={this.state.tabStyling.tabBorder || "#FFF"} passProps={(e) => this.handleStyleChange(e, "tabBorder")} />
+                }
+              </div>
+            </div>
           </div>
           <ul className="modal-content-edit-tabs-container">
             {this.state.tabs.map(function (e, i) {
@@ -208,18 +267,33 @@ class TabMenu extends React.Component {
         </div>
       );
     } else {
-      console.log(this.state, "\n", this.props.componentProperties);
+      // console.log(this.state, "\n", this.props.componentProperties);
       let tabWidth = this.props.componentProperties.tabs.length || 1;
-      tabWidth = Math.floor(100 / tabWidth).toString() + "%";
-      let styleObj = this.state.tabStyle == "horizontal" ? { width: tabWidth } : { height: tabWidth };
+      tabWidth = (100 / tabWidth).toFixed(3) + "%";
+      let activeStyle = this.state.tabStyling.tabBorder ? {borderColor: this.state.tabStyling.tabBorder} : {};
+      let inactiveStyle = this.state.tabStyling.tabBorder ? {borderColor: this.state.tabStyling.tabBorder} : {};
+      if(this.state.tabStyling.tabDirection == "horizontal"){
+        activeStyle.width = tabWidth;
+        inactiveStyle.width = tabWidth
+      } else {
+        activeStyle.height = tabWidth;
+        inactiveStyle.height = tabWidth
+      }
+      activeStyle.color =  this.state.tabStyling.tabActiveTextColor;
+      activeStyle.backgroundColor =  this.state.tabStyling.tabActiveColor;
+      inactiveStyle.color =  this.state.tabStyling.tabInactiveTextColor;
+      inactiveStyle.backgroundColor =  this.state.tabStyling.tabInactiveColor;
+      let currentStyle;
       return (
-        <div className={`page-content-tabs ${this.state.tabStyle}`}>
+        <div className={`page-content-tabs ${this.state.tabStyling.tabDirection}`}>
           <div className="page-content-tabs-indicators">
             {this.props.componentProperties.tabs.map(function (e, i) {
+              currentStyle = (i != that.state.currentActiveTab ? inactiveStyle : activeStyle);
+              console.log(i)
               return (
                 <div
                   className={`page-content-tabs-indicators-indicator ${i != that.state.currentActiveTab ? "" : "active"}`}
-                  style={styleObj}
+                  style={currentStyle}
                   key={`tab-${i}`}
                   onClick={() => that.setActiveTab(i)}
                 >

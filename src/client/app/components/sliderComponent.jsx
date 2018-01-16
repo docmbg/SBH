@@ -49,8 +49,8 @@ class Slider extends React.Component {
         }
 
     }
-    componentWillUnmount(){
-        clearInterval(interval); 
+    componentWillUnmount() {
+        clearInterval(interval);
     }
 
     pickNextPicture(index, slides, timeBetweenSlides) {
@@ -81,30 +81,53 @@ class Slider extends React.Component {
         let slides = (this.state.slides || []);
         return (
             <div className="content-slider">
-                <img 
-                src={this.state.currentPicture} 
-                className={`${this.state.className} content-slider-image`} 
-                style={{opacity: (parseInt(_this.props.sliderStyles.sliderImageOpacity)/100).toFixed(2)}}/>
+                <img
+                    src={this.state.currentPicture}
+                    className={`${this.state.className} content-slider-image`}
+                    style={{ opacity: (parseInt(_this.props.sliderStyles.sliderImageOpacity) / 100).toFixed(2) }} />
                 {
                     slides.map(function (elem, index) {
                         if (index + 1 == _this.state.currentPictureIndex) {
                             return (<div className={`content-slider-infobox`}>
-                                <div 
-                                    className={`content-slider-infobox-wrapper ${_this.props.sliderStyles.sliderBackgroundStyle || ""} ${_this.props.sliderStyles.sliderBackgroundColor || ""}`}
-                                    style={{opacity: (parseInt(_this.props.sliderStyles.sliderBackgroundOpacity)/100).toFixed(2)}}
+                                <div
+                                    className={`content-slider-infobox-wrapper ${_this.props.sliderStyles.sliderBackgroundStyle || ""}`}
+                                    style={
+                                        {
+                                            opacity: (parseInt(_this.props.sliderStyles.sliderBackgroundOpacity) / 100).toFixed(2),
+                                            backgroundColor: _this.props.sliderStyles.sliderBackgroundColor
+                                        }
+                                    }
                                 >
                                 </div>
                                 <div className={`content-slider-infobox-text`}>
-                                <p className={`content-slider-infobox-title ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.title}</p>
-                                <div className={`content-slider-infobox-description ${_this.props.sliderStyles.sliderTextColor || ""}`}>{elem.description}</div>
-                                    <div className={`content-slider-infobox-readMore ${_this.props.sliderStyles.sliderBackgroundStyle == "slider-shape-DXC" ? "dxc-shape": "" }`}>
+                                    <p className={`content-slider-infobox-title`}
+                                        style={
+                                            {
+                                                color: _this.props.sliderStyles.sliderTextColor
+                                            }
+                                        }
+                                    >{elem.title}</p>
+                                    <div className={`content-slider-infobox-description`}
+                                        style={
+                                            {
+                                                color: _this.props.sliderStyles.sliderTextColor
+                                            }
+                                        }
+                                    >{elem.description}</div>
+                                    <div className={`content-slider-infobox-readMore ${_this.props.sliderStyles.sliderBackgroundStyle == "slider-shape-DXC" ? "dxc-shape" : ""}`}>
                                         <a href={elem.link} target="_blank">
-                                            <div className={`${_this.props.sliderStyles.sliderButtonColor || ""} ${_this.props.sliderStyles.sliderButtonTextColor || ""}`}>
+                                            <div style={
+                                                {
+                                                    backgroundColor: _this.props.sliderStyles.sliderButtonColor,
+                                                    color: _this.props.sliderStyles.sliderButtonTextColor
+                                                }
+                                            }
+                                            >
                                                 {_this.props.sliderStyles.readMoreText || ""}
                                             </div>
                                         </a>
                                     </div>
-                                    
+
                                 </div>
                             </div>)
                         }

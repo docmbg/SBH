@@ -82,7 +82,7 @@ class SliderWebPart extends React.Component {
   }
 
   handleGeneralChange(evt, instance) {
-    console.log(evt,instance)
+    console.log(evt, instance)
     let sliderStyles = this.state.sliderStyles;
     sliderStyles[instance] = evt;
     this.setState({
@@ -135,17 +135,24 @@ class SliderWebPart extends React.Component {
                     <div className={`content-slider-infobox-readMore`}>
                       <a href={`#`} target="_blank">
                         <div
-                          className={`${that.state.sliderStyles
-                            .sliderButtonColor || ""} ${that.state.sliderStyles
-                              .sliderButtonTextColor || ""}`}
+                          style={
+                            {
+                              backgroundColor: that.state.sliderStyles.sliderButtonColor,
+                              color: that.state.sliderStyles.sliderButtonTextColor
+                            }
+                          }
                         >
                           {that.state.sliderStyles.readMoreText || ""}
                         </div>
                       </a>
                     </div>
                     <p
-                      className={`content-slider-infobox-title ${that.state
-                        .sliderStyles.sliderTextColor || ""}`}
+                      className={`content-slider-infobox-title`}
+                      style={
+                        {
+                          color: that.state.sliderStyles.sliderTextColor
+                        }
+                      }
                     >{`Slide Title`}</p>
                   </div>
                 </div>
@@ -173,64 +180,54 @@ class SliderWebPart extends React.Component {
                 <div>
                   {
                     this.state.currentEditedColor != 'sliderBackgroundColor' ?
-                        (<div>
-                          <button  className="colorPickerButton" onClick={()=>this.currentEditedColor('sliderBackgroundColor')}> Change </button> 
-                          <div className="colorDisplayBox" style={{backgroundColor: (this.state.sliderStyles.sliderBackgroundColor || "#666666") }}></div>
-                        </div>):
+                      (<div>
+                        <button className="colorPickerButton" onClick={() => this.currentEditedColor('sliderBackgroundColor')}> Change </button>
+                        <div className="colorDisplayBox" style={{ backgroundColor: (this.state.sliderStyles.sliderBackgroundColor || "#666666") }}></div>
+                      </div>) :
                       <ColorPicker chosenColor={this.state.sliderStyles.sliderBackgroundColor || "#666666"} passProps={(e) => this.handleGeneralChange(e, "sliderBackgroundColor")} />
                   }
                 </div>
                 <p className="modal-content-edit-header">Slider text color</p>
-                <select
-                  onChange={e => this.handleGeneralChange(e, "sliderTextColor")}
-                  defaultValue={this.state.sliderStyles.sliderTextColor}
-                >
-                  <option value="dxc-font-black">Black</option>
-                  <option value="dxc-font-gray--dark">Dark gray</option>
-                  <option value="dxc-font-gray--light">Light gray</option>
-                  <option value="dxc-font-white">White</option>
-                  <option value="dxc-font-yellow">Yellow</option>
-                  <option value="dxc-font-blue">Blue</option>
-                  <option value="dxc-font-green">Green</option>
-                </select>
+
+                <div>
+                  {
+                    this.state.currentEditedColor != 'sliderTextColor' ?
+                      (<div>
+                        <button className="colorPickerButton" onClick={() => this.currentEditedColor('sliderTextColor')}> Change </button>
+                        <div className="colorDisplayBox" style={{ backgroundColor: (this.state.sliderStyles.sliderTextColor || "#FFF") }}></div>
+                      </div>) :
+                      <ColorPicker chosenColor={this.state.sliderStyles.sliderTextColor || "#FFF"} passProps={(e) => this.handleGeneralChange(e, "sliderTextColor")} />
+                  }
+                </div>
               </div>
               <div className="w3">
                 <div className="modal-content-edit-slider-header">
                   Button Styling
                 </div>
-                <p className="modal-content-edit-header">
-                  Slider button text color
-                </p>
-                <select
-                  onChange={e =>
-                    this.handleGeneralChange(e.target.value, "sliderButtonTextColor")
+                <p className="modal-content-edit-header">Slider button text color</p>
+
+                <div>
+                  {
+                    this.state.currentEditedColor != 'sliderButtonTextColor' ?
+                      (<div>
+                        <button className="colorPickerButton" onClick={() => this.currentEditedColor('sliderButtonTextColor')}> Change </button>
+                        <div className="colorDisplayBox" style={{ backgroundColor: (this.state.sliderStyles.sliderButtonTextColor || "#FFF") }}></div>
+                      </div>) :
+                      <ColorPicker chosenColor={this.state.sliderStyles.sliderButtonTextColor || "#FFF"} passProps={(e) => this.handleGeneralChange(e, "sliderButtonTextColor")} />
                   }
-                  defaultValue={this.state.sliderStyles.sliderButtonTextColor}
-                >
-                  <option value="dxc-font-black">Black</option>
-                  <option value="dxc-font-gray--dark">Dark gray</option>
-                  <option value="dxc-font-gray--light">Light gray</option>
-                  <option value="dxc-font-white">White</option>
-                  <option value="dxc-font-yellow">Yellow</option>
-                  <option value="dxc-font-blue">Blue</option>
-                  <option value="dxc-font-green">Green</option>
-                </select>
+                </div>
                 <p className="modal-content-edit-header">Slider button color</p>
 
-                <select
-                  onChange={e =>
-                    this.handleGeneralChange(e, "sliderButtonColor")
+                <div>
+                  {
+                    this.state.currentEditedColor != 'sliderButtonColor' ?
+                      (<div>
+                        <button className="colorPickerButton" onClick={() => this.currentEditedColor('sliderButtonColor')}> Change </button>
+                        <div className="colorDisplayBox" style={{ backgroundColor: (this.state.sliderStyles.sliderButtonColor || "#FFF") }}></div>
+                      </div>) :
+                      <ColorPicker chosenColor={this.state.sliderStyles.sliderButtonColor || "#FFF"} passProps={(e) => this.handleGeneralChange(e, "sliderButtonColor")} />
                   }
-                  defaultValue={this.state.sliderStyles.sliderButtonColor}
-                >
-                  <option value="dxc-background-black">Black</option>
-                  <option value="dxc-background-gray--dark">Dark gray</option>
-                  <option value="dxc-background-gray--light">Light gray</option>
-                  <option value="dxc-background-white">White</option>
-                  <option value="dxc-background-yellow">Yellow</option>
-                  <option value="dxc-background-blue">Blue</option>
-                  <option value="dxc-background-green">Green</option>
-                </select>
+                </div>
                 <p className="modal-content-edit-header">Slider button text</p>
                 <input
                   type="text"

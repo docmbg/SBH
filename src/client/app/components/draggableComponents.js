@@ -18,10 +18,10 @@ export const draggableComponents = [
         ],
         sliderStyles: {
           sliderBackgroundStyle: "slider-shape-square",
-          sliderBackgroundColor: "dxc-background-gray--dark",
-          sliderButtonColor: "dxc-background-yellow",
-          sliderTextColor: "dxc-font-white",
-          sliderButtonTextColor: "dxc-font-black",
+          sliderBackgroundColor: "#666666",
+          sliderButtonColor: "#FFED00",
+          sliderTextColor: "#FFFFFF",
+          sliderButtonTextColor: "#000000",
           sliderBackgroundOpacity: 60,
           sliderImageOpacity: 80,
           sliderIndicatorsStyle: "content-slider-indicators",
@@ -103,7 +103,14 @@ export const draggableComponents = [
         }, {
           "title": "Tab 3"
         }],
-        tabStyle: "horizontal",
+        tabStyling: {
+          tabDirection : "horizontal",
+          tabActiveTextColor: "#000000",
+          tabActiveColor: "#FFFFFF",
+          tabInactiveColor: "#d9d9d9",
+          tabInactiveTextColor: "#000000",
+          tabBorder: "#666666"
+        },
         currentActiveTab: 0
       }
     },

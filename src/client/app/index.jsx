@@ -257,7 +257,7 @@ class App extends React.Component {
   }
   savePage() {
     let _this = this;
-    if (this.state.currentPage.length < 1 || this.state.currentPage == "basic-template-site" ) {
+    if (this.state.currentPage.length  <  1  ||  this.state.currentPage  ==  "basic-template-site") {
       let prompt = window.prompt("Provide a name for this page");
       if ((prompt.match(/[\!\@\#\$\%\^\&\*\(\) ]/g) || []).length > 0) {
         alert("The name cannot contain special symbols or spaces");
@@ -330,17 +330,17 @@ class App extends React.Component {
       }
     });
     let currentStateLayout = this.state.layouts;
-    for(let key in currentStateLayout){
+    for (let key in currentStateLayout) {
       currentStateLayout[key].map(function (e, i) {
-        if(e['i'] == componentIndex){
+        if (e['i'] == componentIndex) {
           e['static'] = !e['static']
         }
       })
     }
     let layouts = currentStateLayout;
     let currentStateJSON = JSON.stringify(currentStateJSONArr);
-    this.onLayoutChange(this.state.currentLayout, layouts);    
-   
+    this.onLayoutChange(this.state.currentLayout, layouts);
+
   }
 
   onRemoveItem(componentKey) {
@@ -359,8 +359,8 @@ class App extends React.Component {
     })
   }
 
-  restoreLastRemoved(){
-    if(this.state.removedElement.hasOwnProperty('innerElement')){
+  restoreLastRemoved() {
+    if (this.state.removedElement.hasOwnProperty('innerElement')) {
       console.log(this.state.removedElement)
       let currentStateJSONArr = JSON.parse(this.state.currentStateJSON);
       currentStateJSONArr.push(this.state.removedElement);
@@ -369,11 +369,11 @@ class App extends React.Component {
         currentStateJSON,
         removedElement: {},
       })
-   }
+    }
   }
 
   onLayoutChange(layout, layouts) {
-  
+
     this.updateCurrentStateJSON(layout, layouts);
   }
 
@@ -464,35 +464,35 @@ class App extends React.Component {
     })
   }
 
-  hideGrid(){
+  hideGrid() {
     this.setState({
       gridVisible: !this.state.gridVisible
     })
   }
 
-  calculateGridDivs(){
+  calculateGridDivs() {
     let colsToScreen = {
       "1900": "67px",
       "1600": "65px",
       "768": "66px",
       "400": "64px"
     };
-    
+
     let currentWidth = window.screen.availWidth;
     let gridDivs = [];
-    let currentRowsCount = window.screen.availHeight/30;    
-    let currentColCount = parseInt(colsToScreen[Object.keys(colsToScreen).sort((a,b)=> parseInt(b)-parseInt(a)).filter(function (e) {
+    let currentRowsCount = window.screen.availHeight / 30;
+    let currentColCount = parseInt(colsToScreen[Object.keys(colsToScreen).sort((a, b) => parseInt(b) - parseInt(a)).filter(function (e) {
       return parseInt(e) <= currentWidth
     })[0]])
-    let currentColWidth = ((currentWidth-50)/currentColCount).toFixed(2) + 'px';
+    let currentColWidth = ((currentWidth - 50) / currentColCount).toFixed(2) + 'px';
     let style = {
       width: currentColCount,//currentColWidth,
       height: '30px'
     }
     console.log(style)
-    
-    for(let i = 0; i < currentRowsCount; i++){
-      for(let j = 0; j < currentColCount; j++){
+
+    for (let i = 0; i < currentRowsCount; i++) {
+      for (let j = 0; j < currentColCount; j++) {
         gridDivs.push(
           <div className="gridItemDiv" style={style}></div>
         )
@@ -524,14 +524,14 @@ class App extends React.Component {
             </button>
               <button onClick={() => this.savePage()} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Save the page</button>
               <button onClick={() => this.previewMode(true)} className={this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}>Preview Mode</button>
-              <button onClick={() => this.restoreLastRemoved()} 
-              className={`${this.state.removedElement.hasOwnProperty('innerElement') ? '': 'disabled'} 
+              <button onClick={() => this.restoreLastRemoved()}
+                className={`${this.state.removedElement.hasOwnProperty('innerElement') ? '' : 'disabled'} 
               ${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}`}>
-              Restore Deleted 
+                Restore Deleted
               </button>
-              <button onClick={() => this.hideGrid()} 
-              className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}`}>
-              {this.state.gridVisible ? "Hide" : "Show"} Grid
+              <button onClick={() => this.hideGrid()}
+                className={`${this.state.vertical ? 'page-edit-banner-addButton-vertical' : 'page-edit-banner-addButton'}`}>
+                {this.state.gridVisible ? "Hide" : "Show"} Grid
               </button>
             </div>
             <div className={`${this.state.vertical ? 'page-edit-banner-vertical' : 'page-edit-banner'} ${this.state.componentMenuVisible ? "" : "hidden"}`} onMouseDown={(e) => this.mouseDown(e)} >
@@ -550,10 +550,10 @@ class App extends React.Component {
           </div>
 
           <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
-          <div className={`gridHolder ${_this.state.previewMode || !_this.state.gridVisible ? 'hidden' :""} ${this.state.vertical ? 'vertical': ''}`}>
-              {
-                this.state.gridDivs.map(e => e)
-              }
+          <div className={`gridHolder ${_this.state.previewMode || !_this.state.gridVisible ? 'hidden' : ""} ${this.state.vertical ? 'vertical' : ''}`}>
+            {
+              this.state.gridDivs.map(e => e)
+            }
           </div>
           <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
             <ResponsiveReactGridLayout className="layout"
@@ -594,6 +594,13 @@ class App extends React.Component {
 
               })}
             </ResponsiveReactGridLayout>
+            {this.state.previewMode  ?
+              <div  className="footer">
+                <a  href="mailto:document.management.tech@hpe.com">Contact Us </a>
+                <a  href="https://my.dxc.com/"  target="_blank">© DXC Technology</a>
+              </div>  :
+              <div></div>
+            }
           </div>
           <Modal
             passProps={(modalProps, modalKey, modalElementType) => this.getModalProps(modalProps, modalKey, modalElementType)}
@@ -604,13 +611,16 @@ class App extends React.Component {
             updateStatus={(e) => this.updateStatus(e)}
             updateCurrentElement={(e) => this.updateCurrentModalElement(e)}
           />
-         
+
           <ImageModal
             handleImageClick={() => _this.handleImageModal()}
             src={this.state.imageModalSrc}
           />
-          <button onClick={() => this.previewMode(false)}
-            className={this.state.previewMode ? 'exit-previewMode' : 'exit-previewMode hidden'}><i title="Exit preview mode" className="material-icons">&#xE5D1;</i></button>
+          <button  onClick={()  =>  this.previewMode(false)}
+            className={this.state.previewMode  ?  'exit-previewMode'  :  'exit-previewMode hidden'}
+          >
+            Exit Preview Mode
+          </button>
         </div>
       );
     } else {

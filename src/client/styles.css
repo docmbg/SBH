@@ -2,29 +2,23 @@
     font-family: Arial;
 }
 
-/* @media screen and (max-width: 1900px) { 
-    .gridItemDiv {
-        width: 67px;
+
+
+@media screen and (max-width: 1900px) { 
+    .footer {
+        height: 10%;
     }
 }
 
 @media screen and (max-width: 1600px) { 
-    .gridItemDiv {
-        width: 65px;
+    .footer {
+        height:8.5%;
     }
 }
 
-@media screen and (max-width: 768px) { 
-    .gridItemDiv {
-        width: 66px;
-    }
+body {
+    margin:0!important;
 }
-
-@media screen and (max-width: 390px) { 
-    .gridItemDiv {
-        width: 40px;
-    }
-} */
 
 
 .gridLayout-cell.editMode {
@@ -36,7 +30,6 @@
     height: 100%;
     box-sizing: border-box;
     margin: 0px;
-    padding: 1px
 }
 
  .modal-container{
@@ -618,7 +611,7 @@ div.w3{
 .fullGrid {
     box-sizing:border-box;
     width:100%!important;
-    height:100%!important;
+    height:90%!important;
     position: relative;
 }
 
@@ -820,19 +813,23 @@ button {
 }
 
 .exit-previewMode {
-    background: black;
-    color: rgb(255,237,00);
-    position: fixed;
-    bottom: 0;
-    right: 5em;
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    border-radius: 0px 8px 0px 0px;
+    height: 4%;
+    margin: 0.5%;
+    font-weight: 600;
+    background-color: rgb(255,237,000);
+    cursor: pointer;
+    border-radius: 3px;
+    top: 0;
+    position: absolute;
+    right: 0;
 }
 
 .exit-previewMode:hover {
     color: white;
+}
+
+.dxcLogo {
+    min-height: 10%;
 }
 
 .dxcLogo:hover{
@@ -871,4 +868,31 @@ button {
     margin-left: 4%;
     line-height: 1em;
     vertical-align: middle;
+}
+
+.footer {
+    bottom:0;
+    background:black;
+    width:100%;
+    height:10%;
+    left:0%;
+}
+    
+.footer > a {
+    color:white;
+    display: inline-block;
+    top: 1em;
+    position: relative;
+    margin: 0.3em;
+    padding-left: 90%;
+    font-size:0.8em;
+    font-weight: 600;
+}
+
+.footer > a:hover {
+    color: rgb(255,217,000)
+}
+
+.react-grid-layout {
+    min-height: 90%!important;
 }

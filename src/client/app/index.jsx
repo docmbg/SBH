@@ -549,13 +549,15 @@ class App extends React.Component {
             </div>
           </div>
 
-          <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
+         
           <div className={`gridHolder ${_this.state.previewMode || !_this.state.gridVisible ? 'hidden' : ""} ${this.state.vertical ? 'vertical' : ''}`}>
             {
               this.state.gridDivs.map(e => e)
             }
           </div>
+          
           <div className={this.state.vertical ? 'fullGrid vertical' : 'fullGrid'} >
+          <div className="dxcLogo"><a href="https://my.dxc.com/content/intranet.html" target="_blank"><img src="../dxc.png" /></a></div>
             <ResponsiveReactGridLayout className="layout"
               onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
               preventCollision={false}

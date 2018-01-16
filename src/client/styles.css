@@ -2,30 +2,17 @@
     font-family: Arial;
 }
 
-/* @media screen and (max-width: 1900px) { 
-    .gridItemDiv {
-        width: 67px;
+@media screen and (max-width: 1900px) { 
+    .footer {
+        height: 10%;
     }
 }
 
 @media screen and (max-width: 1600px) { 
-    .gridItemDiv {
-        width: 65px;
+    .footer {
+        height: 8.5%!important
     }
 }
-
-@media screen and (max-width: 768px) { 
-    .gridItemDiv {
-        width: 66px;
-    }
-}
-
-@media screen and (max-width: 390px) { 
-    .gridItemDiv {
-        width: 40px;
-    }
-} */
-
 
 .gridLayout-cell.editMode {
     /* background: rgb(217,217,217); */
@@ -634,6 +621,10 @@ div.w3{
     background:black;
     width:100px;
     height: 200px;
+}
+
+.react-grid-layout {
+    min-height: 95%!important;
 }
 
 button {

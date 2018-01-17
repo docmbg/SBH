@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ChromePicker } from 'react-color';
+import { SketchPicker } from 'react-color';
 
 
 export default class ColorPicker extends React.Component {
@@ -29,7 +29,8 @@ export default class ColorPicker extends React.Component {
     render() {
         return (   
             <div className="colorPickerWrapper">
-            <ChromePicker
+            <SketchPicker
+                presetColors={['#000','#666','#ffed00','#64ff00','#00c9ff','#d9d9d9','#fff']}
                 color={ this.state.chosenColor }
                 onChangeComplete={this.handleChangeComplete}
             />

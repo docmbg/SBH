@@ -75,6 +75,7 @@ class VideoComponent extends React.Component {
                         >Save</button>
                     </div>
                     <p className="modal-content-edit-header">Video Source</p>
+                    <p>(must be a link from SharePoint in .mp4 format)</p>
                     <input
                         className="modal-content-edit-input"
                         onChange={(e) => this.updateProp(e, "vidSrc")}

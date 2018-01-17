@@ -94,6 +94,7 @@ class App extends React.Component {
       items: 20,
       rowHeight: 30
     };
+    this.discardDrag = this.discardDrag.bind(this)
     const modalOpened = false;
     this.state = {
       previewMode: false,
@@ -111,7 +112,29 @@ class App extends React.Component {
       currentStateJSON, allAdded, imageModalSrc, componentMenuVisible
     };
   }
+
+  discardDrag(e){
+    if(e.keyCode == 27){
+      this.setState({
+        draggedComponent: '',
+        shadowComponent: {
+          style: {
+            width: '200px',
+            position: 'absolute',
+            top: e.clientY,
+            left: e.clientX,
+            display: 'none',
+            border: '2px dashed rgb(102,102,102)',
+            background: 'rgb(217,217,217)',
+            height: '200px',
+          }
+        }
+      })
+    }
+  }
+
   componentWillMount() {
+    document.addEventListener("keydown", this.discardDrag, false);
     this.calculateGridDivs();
     if (window.location.href == 'localhost:3000') {
       that.setState({
@@ -502,12 +525,14 @@ class App extends React.Component {
     })
   }
 
+  
+
   render() {
     let _this = this;
     let currentStateComponents = JSON.parse(this.state.currentStateJSON);
     if (this.state.currentMode == "edit") {
       return (
-        <div className="page"
+        <div className="page" 
           onMouseUp={(e) => this.mouseUp(e)} onMouseMove={(e) => this.mouseMove(e)}>
           <div className="shadowComponent shadowComponentText" style={this.state.shadowComponent.style}>
             {this.state.draggedComponent}

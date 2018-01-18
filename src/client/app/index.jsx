@@ -565,7 +565,7 @@ class App extends React.Component {
               <button className="ImageGallery-Component"><i className="material-icons">&#xE413;</i><p className="component-text">Gallery</p></button>
               <button className="VideoComponent-Component"><i className="material-icons">&#xE63A;</i><p className="component-text">Video</p></button>
               <button className="Survey-Component"><i className="material-icons">&#xE801;</i><p className="component-text">Survey</p></button>
-              <button className="Calendar-Component"><i className="material-icons">&#xE916;</i><p className="component-text">Calendar</p></button>
+              <button className="Calendar-Component"><i className="material-icons">&#xE916;</i><p className="component-text">Events</p></button>
               <button className="TextArea-Component"><i className="material-icons">&#xE23C;</i><p className="component-text">Rich Text</p></button>
               <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i><p className="component-text">Tab Menu</p></button>
               <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i><p className="component-text">Vertical Navigation</p></button>

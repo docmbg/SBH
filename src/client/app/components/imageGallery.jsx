@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SimpleImageComponent from "./simpleImageComponent.jsx";
+import Gallery from 'react-photo-gallery';
+import Lightbox from 'react-images';
+
 
 
 const itemsPerRow = 3;
@@ -11,8 +14,13 @@ class ImageGallery extends React.Component {
     this.state = {
       images: this.props.componentProperties.images || [],
       currentPage: this.props.componentProperties.currentPage || 0,
-      imageCollection: this.props.imageCollection || []
+      imageCollection: this.props.imageCollection || [],
+      currentImage: 0
     };
+    this.closeLightbox = this.closeLightbox.bind(this);
+    this.openLightbox = this.openLightbox.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
+    this.gotoPrevious = this.gotoPrevious.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,25 +120,82 @@ class ImageGallery extends React.Component {
       imageCollection, images
     })
   }
+
+  openLightbox(event, obj) {
+    this.setState({
+      currentImage: obj.index,
+      lightboxIsOpen: true,
+    });
+  }
+  closeLightbox() {
+    this.setState({
+      currentImage: 0,
+      lightboxIsOpen: false,
+    });
+  }
+  gotoPrevious() {
+    this.setState({
+      currentImage: this.state.currentImage - 1,
+    });
+  }
+  gotoNext() {
+    this.setState({
+      currentImage: this.state.currentImage + 1,
+    });
+  }
+
   render() {
-    console.log("Component Props: ", this.props.componentProperties);
-    console.log("Images:", this.state.imageCollection);
+    console.log(this.props.editable)
     let that = this;
     let currentPage = this.state.currentPage;
-    let filteredImages = (this.state.images || []).filter(function (e, i) {
-      return (
-        i >= currentPage * itemsPerRow * rowsPerPage &&
-        i < (currentPage + 1) * itemsPerRow * rowsPerPage
-      );
-    });
-    filteredImages = filteredImages.filter(function(e){
+    let filteredImages = this.state.images;
+    // let filteredImages = this.state.images || []).filter(function (e, i) {
+    //   return (
+    //     i >= currentPage * itemsPerRow * rowsPerPage &&
+    //     i < (currentPage + 1) * itemsPerRow * rowsPerPage
+    //   );
+    // });
+    filteredImages = filteredImages.filter(function (e) {
       return e["selected"]
     });
+    let photoSet = [];
+    if (filteredImages) {
+      let counter = 0;
+      let ph = [];
+      for (let i = 0; i < filteredImages.length; i++) {
+        let image = new Image();
+        image.src = filteredImages[i]['imgSrc'];
+        if (counter == 9) {
+          counter = 0;
+          photoset.push(ph);
+        }
+        else {
+          counter++;
+          ph.push({
+            src: image.src,
+            width: image.width,
+            height: image.width
+          })
+        }
+      }
+      // photoSet = filteredImages.map(function (e) {
+      //   let image = new Image();
+      //   image.src = e.imgSrc;
+      //   return {
+      //     src: e.imgSrc,
+      //     width: image.width,
+      //     height: image.height
+      //   }
+      // })
+    }
+    console.log(photoSet)
+
     let rowHeight =
       Math.ceil((this.state.images || []).length / itemsPerRow) > itemsPerRow
         ? "33.333%"
         : 100 / Math.ceil((this.state.images || []).length / itemsPerRow) + "%";
     if (this.props.editable) {
+      console.log('editable')
       return (
         <div>
           <button className='dxc-close' onClick={() => this.passClose()}>
@@ -138,12 +203,12 @@ class ImageGallery extends React.Component {
           </button>
           <input name="myFile" type="file" onChange={() => this.previewFile()} multiple />
           <div className="modal-content-imageCollection">
-          {console.log("before map:", this.state.images)}
+            {console.log("before map:", this.state.images)}
             {(this.state.images || []).map(function (e, i) {
               return (
                 <div
                   className="modal-content-imageCollection-item"
-                  >
+                >
                   <div className={`modal-content-imageCollection-item-check`}>
                     <label>
                       <input type="checkbox" name="" defaultChecked={e["selected"] == true} onClick={() => that.handleImageClick(i)} value={e["selected"] == true} />
@@ -169,12 +234,14 @@ class ImageGallery extends React.Component {
         </div>
       );
     }
-    console.log(
-      Math.floor((this.state.images || []).length / (itemsPerRow * rowsPerPage))
-    );
-    return (
-      <div className="imageCollection-container">
-        <div
+    // console.log(
+    //   Math.floor((this.state.images || []).length / (itemsPerRow * rowsPerPage))
+    // );
+    else {
+      console.log('not editable')
+      return (
+        <div className="imageCollection-container">
+          {/* <div
           onClick={() => this.handlePageChange(-1)}
           className={`content-imageGallery-pageIndicator previous ${
             this.state.currentPage == 0 ? "hidden" : ""
@@ -208,9 +275,45 @@ class ImageGallery extends React.Component {
             }`}
         >
           <div className="content-imageGallery-pageIndicator-arrow"> &#9658;</div>
+        </div> */}
+          <div
+            onClick={() => this.handlePageChange(-1)}
+            className={`content-imageGallery-pageIndicator previous ${
+              this.state.currentPage == 0 ? "hidden" : ""
+              }`}
+          >
+            <div className="content-imageGallery-pageIndicator-arrow">&#9668;</div>
+          </div>
+
+          {
+            <div>
+              <Gallery photos={photoSet[this.state.currentPage]} onClick={this.openLightbox} />
+              <Lightbox images={photoSet[this.state.currentPage]}
+                onClose={this.closeLightbox}
+                onClickPrev={this.gotoPrevious}
+                onClickNext={this.gotoNext}
+                currentImage={this.state.currentImage}
+                isOpen={this.state.lightboxIsOpen}
+              />
+            </div>
+          }
+          <div
+            onClick={() => this.handlePageChange(1)}
+            className={`content-imageGallery-pageIndicator next ${
+              this.state.currentPage ==
+                Math.floor(
+                  (this.state.images || []).length / (itemsPerRow * rowsPerPage)
+                ) && filteredImages.length < 9
+                ? "hidden"
+                : ""
+              }`}
+          >
+            <div className="content-imageGallery-pageIndicator-arrow"> &#9658;</div>
+          </div>
+
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 export default ImageGallery;

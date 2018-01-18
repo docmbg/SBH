@@ -570,6 +570,7 @@ class App extends React.Component {
               <button className="TabMenu-Component"><i className="material-icons">&#xE8D8;</i><p className="component-text">Tab Menu</p></button>
               <button className="VerticalNav-Component"><i className="material-icons">&#xE5D4;</i><p className="component-text">Vertical Navigation</p></button>
               <button className="HorizontalNav-Component"><i className="material-icons">&#xE5D3;</i><p className="component-text">Horizontal Navigation</p></button>
+              <button className="AccountPerson-Component"><i className="material-icons">&#xE0BA;</i><p className="component-text">Account Person</p></button>
             </div>
           </div>
 

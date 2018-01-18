@@ -1,0 +1,42 @@
+.content-accountPerson{
+	padding: 1% 2% 1% 2%;
+}
+.content-accountPerson-title{
+    height: 20%;
+    max-height: 3em;
+	font-weight: 800;
+	text-decoration: underline;
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+
+.content-accountPerson-picture{
+	width: 100%;
+	height: 50%;
+	max-height: 17em;
+}
+.content-accountPerson-picture > img {
+	height: 100%;	
+}
+.content-accountPerson-name{
+	max-height: 10%;
+	font-weight: 700;
+	line-height: 1.7em;
+	font-size: 1.7em;
+}
+.content-accountPerson-contact{
+	width: 100%;
+	display: flex;
+	flex-wrap: row;
+	align-items: flex-start;
+	height: 30%;
+}
+.content-accountPerson-contact-item{
+	height: 2em;
+	max-height: 100%;
+}
+.content-accountPerson-contact-item > a > i{
+    font-size: 2em !important;
+	height: 2em;
+	max-height: 100%;
+}

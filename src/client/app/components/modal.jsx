@@ -10,6 +10,7 @@ import Calendar from './calendar.jsx';
 import ImageGallery from './imageGallery.jsx';
 import HorizontalNav from './horizontalNav.jsx';
 import VideoComponent from './videoComponent.jsx';
+import AccountPerson from './accountPerson.jsx';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -29,12 +30,12 @@ class Modal extends React.Component {
             console.log("Before switch", nextProps.currentComponent)
             switch (nextProps.currentComponent) {
                 case ("ImageGallery"):
-                if(nextProps.currentComponentProps.images != undefined){
-                    _this.setState({
-                        images : nextProps.currentComponentProps.images
-                    })
-                    return false
-                }
+                    if (nextProps.currentComponentProps.images != undefined) {
+                        _this.setState({
+                            images: nextProps.currentComponentProps.images
+                        })
+                        return false
+                    }
                     console.log("Image Gallery Mount");
                     console.log(nextProps)
                     $().SPServices({
@@ -114,6 +115,9 @@ class Modal extends React.Component {
                 break;
             case ("Calendar"):
                 return <Calendar componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
+                break;
+            case ("AccountPerson"):
+                return <AccountPerson componentProperties={this.props.currentComponentProps} editable={true} passProps={(e) => this.getProps(e)} passClose={() => this.closeModal()} />
                 break;
             case ("ImageGallery"):
                 let imageComponentProperties = this.props.currentComponentProps;

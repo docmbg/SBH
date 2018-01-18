@@ -155,26 +155,30 @@ class ImageGallery extends React.Component {
     //     i < (currentPage + 1) * itemsPerRow * rowsPerPage
     //   );
     // });
-    filteredImages = filteredImages.filter(function (e) {
+    filteredImages = (filteredImages || []).filter(function (e) {
       return e["selected"]
     });
+
     let photoSet = [];
+    console.log(filteredImages)
     if (filteredImages) {
       let counter = 0;
+      let limit = (itemsPerRow * rowsPerPage < filteredImages.length) ? itemsPerRow * rowsPerPage : filteredImages.length - 1;
+      console.log(limit);
       let ph = [];
       for (let i = 0; i < filteredImages.length; i++) {
         let image = new Image();
         image.src = filteredImages[i]['imgSrc'];
-        if (counter == 9) {
+        if (counter == limit) {
           counter = 0;
-          photoset.push(ph);
+          photoSet.push(ph);
         }
         else {
           counter++;
           ph.push({
             src: image.src,
             width: image.width,
-            height: image.width
+            height: image.height
           })
         }
       }
@@ -239,6 +243,9 @@ class ImageGallery extends React.Component {
     // );
     else {
       console.log('not editable')
+      if(!photoSet.length){
+        return (<div></div>)
+      }
       return (
         <div className="imageCollection-container">
           {/* <div

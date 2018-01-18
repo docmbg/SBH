@@ -11,6 +11,7 @@ import Survey from './survey.jsx';
 import Calendar from './calendar.jsx';
 import ImageGallery from './imageGallery.jsx';
 import VideoComponent from './videoComponent.jsx';
+import AccountPerson from './accountPerson.jsx';
 
 class ContentContainer extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class ContentContainer extends React.Component {
                 return <SimpleImageComponent componentProperties={this.props.innerElementProps} editable={false} handleImageModal={(src) => this.props.handleImageModal(src)} />
                 break;
             case ("VideoComponent"):
-                return <VideoComponent componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)}/>
+                return <VideoComponent componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             case ("TextArea"):
                 return <TextEditor componentProperties={this.props.innerElementProps} editable={false} passProps={() => null} />
@@ -51,6 +52,9 @@ class ContentContainer extends React.Component {
                 break;
             case ("Calendar"):
                 return <Calendar componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
+                break;
+            case ("AccountPerson"):
+                return <AccountPerson componentProperties={this.props.innerElementProps} editable={false} passProps={(e) => this.getProps(e)} />
                 break;
             case ("ImageGallery"):
                 return <ImageGallery componentProperties={this.props.innerElementProps} editable={false} handleImageModal={(src) => this.props.handleImageModal(src)} passProps={(e) => this.getProps(e)} />

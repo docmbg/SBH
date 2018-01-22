@@ -6,7 +6,7 @@
 }
 .page-edit-banner > button {
     color: #e3e3e3;
-    width: 10%;
+    width: 8.88%;
     cursor: pointer;
 }
 
@@ -71,7 +71,11 @@
     font-size: 1em;
     vertical-align: top;
 }
-
+.AccountPerson-Component > i {
+    line-height: 1.55em;
+    font-size: 1em;
+    vertical-align: top;
+}
 .component-text{
     margin-top: -0.5em;
 }
@@ -91,3 +95,4 @@
     color: rgb(255,237,000);
     text-shadow: 1px 0px #FFED00;
 }
+

@@ -81,7 +81,10 @@ export default class AccountPerson extends React.Component {
                             onChange={e => this.handlePropChange(e.target.value, "picture")}
                         />
                         <p className="modal-content-edit-header">Preview</p>
-                        <img src={this.state.picture} />
+                        <div className="content-accountPerson-imageHolder">
+                            <img src={this.state.picture} />
+                        </div>
+
                         <p className="modal-content-edit-header">Name</p>
                         <input
                             type="text"

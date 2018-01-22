@@ -34,14 +34,14 @@ export default class ModalEditButtons extends React.Component {
         let _this = this;
         return (
             <div className="buttonWrapper">
-                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--settings'} onMouseDown={(evt) => this.props.passLock(evt)}>
+                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--settings'} title={`Lock Container`} onMouseDown={(evt) => this.props.passLock(evt)}>
                     {this.state.locker}
                 </button>
-                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--settings'} onMouseDown={(evt) => _this.props.passOpen(evt)}>
+                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--settings'} title={`Modify content`} onMouseDown={(evt) => _this.props.passOpen(evt)}>
                     <i className="fa fa-cog fa-4x" ></i>
 
                 </button>
-                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--remove'} onMouseDown={(evt) => this.confirmRemove(evt)}>
+                <button className={this.props.preview ? 'hidden': 'grid-controls-button button--remove'} title={`Delete Container`} onMouseDown={(evt) => this.confirmRemove(evt)}>
                     <i className="fa fa-trash fa-4x"></i>
                 </button>
             </div>

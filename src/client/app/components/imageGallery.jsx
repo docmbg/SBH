@@ -57,6 +57,7 @@ class ImageGallery extends React.Component {
   }
 
   handlePageChange(dir) {
+    console.log(dir)
     let currentPage = this.state.currentPage;
     currentPage += dir;
     this.setState({
@@ -155,28 +156,29 @@ class ImageGallery extends React.Component {
     //     i < (currentPage + 1) * itemsPerRow * rowsPerPage
     //   );
     // });
-    filteredImages = filteredImages.filter(function (e) {
+    filteredImages = (filteredImages || []).filter(function (e) {
       return e["selected"]
     });
+
     let photoSet = [];
     if (filteredImages) {
       let counter = 0;
+      let limit = (itemsPerRow * rowsPerPage < filteredImages.length) ? itemsPerRow * rowsPerPage : filteredImages.length - 1;
       let ph = [];
       for (let i = 0; i < filteredImages.length; i++) {
         let image = new Image();
         image.src = filteredImages[i]['imgSrc'];
-        if (counter == 9) {
-          counter = 0;
-          photoSet.push(ph);
+        if(photoSet[Math.floor(i/limit)] == undefined){
+          photoSet[Math.floor(i/limit)] = [];
         }
-        else {
-          counter++;
-          ph.push({
+        photoSet[Math.floor(i/limit)].push(
+          {
             src: image.src,
             width: image.width,
             height: image.height
-          })
-        }
+          }
+        )
+        
       }
       // photoSet = filteredImages.map(function (e) {
       //   let image = new Image();
@@ -239,6 +241,9 @@ class ImageGallery extends React.Component {
     // );
     else {
       console.log('not editable')
+      if(!photoSet.length){
+        return (<div></div>)
+      }
       return (
         <div className="imageCollection-container">
           {/* <div
@@ -249,7 +254,6 @@ class ImageGallery extends React.Component {
         >
           <div className="content-imageGallery-pageIndicator-arrow">&#9668;</div>
         </div>
-
         {filteredImages.map(function (e, i) {
           return (
             <div

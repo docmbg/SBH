@@ -121,7 +121,18 @@ class ImageGallery extends React.Component {
       imageCollection, images
     })
   }
-
+  handleSelect(occ) {
+    let images = [].concat(this.state.images);
+    images = images.map(function (e) {
+      e["selected"] = occ;
+      return e;
+    });
+    
+    this.setState({
+      images
+    })
+    
+  }
   openLightbox(event, obj) {
     this.setState({
       currentImage: obj.index,
@@ -168,17 +179,17 @@ class ImageGallery extends React.Component {
       for (let i = 0; i < filteredImages.length; i++) {
         let image = new Image();
         image.src = filteredImages[i]['imgSrc'];
-        if(photoSet[Math.floor(i/limit)] == undefined){
-          photoSet[Math.floor(i/limit)] = [];
+        if (photoSet[Math.floor(i / limit)] == undefined) {
+          photoSet[Math.floor(i / limit)] = [];
         }
-        photoSet[Math.floor(i/limit)].push(
+        photoSet[Math.floor(i / limit)].push(
           {
             src: image.src,
             width: image.width,
             height: image.height
           }
         )
-        
+
       }
       // photoSet = filteredImages.map(function (e) {
       //   let image = new Image();
@@ -197,12 +208,24 @@ class ImageGallery extends React.Component {
         ? "33.333%"
         : 100 / Math.ceil((this.state.images || []).length / itemsPerRow) + "%";
     if (this.props.editable) {
-      console.log('editable')
       return (
         <div>
+
           <button className='dxc-close' onClick={() => this.passClose()}>
             <i className="material-icons">&#xE5CD;</i>
           </button>
+          <div className="w1">
+            <button className="dxc-button"
+              onClick={() => this.handleSelect(true)}
+            >
+              Select All
+            </button>
+            <button className="dxc-button"
+              onClick={() => this.handleSelect(false)}
+            >
+              Clear All
+            </button>
+          </div>
           <input name="myFile" type="file" onChange={() => this.previewFile()} multiple />
           <div className="modal-content-imageCollection">
             {console.log("before map:", this.state.images)}
@@ -241,7 +264,7 @@ class ImageGallery extends React.Component {
     // );
     else {
       console.log('not editable')
-      if(!photoSet.length){
+      if (!photoSet.length) {
         return (<div></div>)
       }
       return (
@@ -286,7 +309,7 @@ class ImageGallery extends React.Component {
               this.state.currentPage == 0 ? "hidden" : ""
               }`}
           >
-            <div className="content-imageGallery-pageIndicator-arrow">&#9668;</div>
+            <div className="content-imageGallery-pageIndicator-arrow"><span></span></div>
           </div>
 
           {
@@ -307,12 +330,12 @@ class ImageGallery extends React.Component {
               this.state.currentPage ==
                 Math.floor(
                   (this.state.images || []).length / (itemsPerRow * rowsPerPage)
-                ) && filteredImages.length < 9
+                ) || filteredImages.length < 9
                 ? "hidden"
                 : ""
               }`}
           >
-            <div className="content-imageGallery-pageIndicator-arrow"> &#9658;</div>
+            <div className="content-imageGallery-pageIndicator-arrow"><span></span></div>
           </div>
 
         </div>
